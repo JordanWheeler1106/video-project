@@ -22,3 +22,12 @@ angular.module('starter', ['ionic'])
     }
   });
 })
+.config(function($stateProvider, $urlRouterProvider){
+    $stateProvider
+      .state('signUp', {
+        url:'/signUp',
+        templateUrl:'templates/signUp.html'
+      });
+
+    $urlRouterProvider.otherwise('/signUp');
+  });
