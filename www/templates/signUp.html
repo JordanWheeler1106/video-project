@@ -5,48 +5,85 @@
       <div class="tabs-striped tabs-top tabs-color-light signUpTabs">
         <div class="tabs">
           <a class="tab-item active" href="#">
-            <!--<i class="icon ion-home"></i>-->
             Account Info
           </a>
           <a class="tab-item" href="#">
-            <!--<i class="icon ion-star"></i>-->
             Personal Info
           </a>
         </div>
       </div>
-      <h4 class="signUpH1">Well, hello there!</h4>
-      <span>we're so glad you're ready to join THE. Let's start by creating your account login. Been here before? <a href="javascript:">Sign in.</a></span>
-
-
-
-
-      <form>
-        <div class="list">
-          <span class="input-label">Email address</span>
-          <label class="item item-input">
-            <input type="text" placeholder="example@the.com">
-          </label>
+      <!--//////////////// first /////////////////////-->
+      <div class="tabsBox">
+        <h4 class="signUpH1">Now some basic info.</h4>
+        <span>Nothing fancy, just a few things to fill out your profile and help us get to know you better.</span>
+        <form>
+          <div class="list">
+            <span class="input-label">First name</span>
+            <label class="item item-input">
+              <input type="text" placeholder="First Name">
+            </label>
+          </div>
+          <div class="list">
+            <span class="input-label">Last name</span>
+            <label class="item item-input">
+              <input type="text" placeholder="Last Name">
+            </label>
+          </div>
+          <span class="gender">Gender</span>
+          <div class="list">
+            <label class="item item-input item-select">
+              <select>
+                <option>Blue</option>
+                <option selected>Green</option>
+                <option>Red</option>
+              </select>
+            </label>
+          </div>
+        </form>
+        <div class="row buttonsParent">
+          <div class="col col-12 buttons">
+            <button class="button button-block button-positive backBtn">
+              Back
+            </button>
+            <button class="button button-block button-positive">
+              Done
+            </button>
+          </div>
         </div>
-        <div class="list listSignUp">
-          <span class="input-label">Password</span>
-          <label class="item item-input">
-            <input type="password" placeholder="Password">
-          </label>
-        </div>
-        <p class="passwordCharacters">Your password must be at least 6 characters long.</p>
-        <div class="list">
-          <span class="input-label">Confirm Password</span>
-          <label class="item item-input">
-            <input type="password" placeholder="Confirm Password">
-          </label>
-        </div>
-      </form>
-      <!--<a href="javascript:" class="forgot-password">Forgot your password?</a>-->
-      <div class="row">
-        <div class="col col-50 col-offset-25">
-          <button class="button button-block button-positive">
-            Next
-          </button>
+      </div>
+
+
+      <!--//////////////// first /////////////////////-->
+      <div class="tabsBox">
+        <h4 class="signUpH1">Well, hello there!</h4>
+        <span>we're so glad you're ready to join THE. Let's start by creating your account login. Been here before? <a href="javascript:">Sign in.</a></span>
+        <form>
+          <div class="list">
+            <span class="input-label">Email address</span>
+            <label class="item item-input">
+              <input type="text" placeholder="example@the.com">
+            </label>
+          </div>
+          <div class="list listSignUp">
+            <span class="input-label">Password</span>
+            <label class="item item-input">
+              <input type="password" placeholder="Password">
+            </label>
+          </div>
+          <p class="passwordCharacters">Your password must be at least 6 characters long.</p>
+          <div class="list">
+            <span class="input-label">Confirm Password</span>
+            <label class="item item-input">
+              <input type="password" placeholder="Confirm Password">
+            </label>
+          </div>
+        </form>
+        <div class="row">
+          <div class="col col-50 col-offset-25">
+            <button class="button button-block button-positive">
+              Next
+            </button>
+          </div>
         </div>
       </div>
     </div>

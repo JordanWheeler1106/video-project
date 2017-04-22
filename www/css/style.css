@@ -78,6 +78,7 @@ form .list .item{
 .signUpTabs .tabs{
   width: 100%;
   display: inline-block;
+  top: 170px;
 }
 .signUpTabs .tabs .tab-item{
   width: 50%;
@@ -91,6 +92,39 @@ form .list .item{
   color: #000;
   border-bottom: 5px solid #1071B9;
   border-width: 0 0 5px 0 !important;
+}
+.item-select select{
+  max-width: 100%;
+  width: 100%;
+  direction: inherit;
+}
+.item-input{
+  height: 50px;
+}
+.gender{
+  margin: 5px 0 5px 0 !important;
+}
+.tabsBox{
+  margin-top: 50px;
+}
+.buttonsParent{
+  padding: 0;
+}
+.buttonsParent .buttons{
+  padding: 0;
+}
+.buttonsParent .buttons .button.button-block, .button.button-full{
+  width: 49%;
+  float: left;
+  margin-top: 30px;
+  clear: none;
+  background: #1071B9;
+}
+.buttonsParent .buttons .backBtn{
+  margin-right: 9px;
+  background: none !important;
+  border: 1px solid #1071B9;
+  color: #1071B9;
 }
 
 
