@@ -47,6 +47,14 @@ angular.module('starter', ['ionic'])
       .state('newPassword', {
         url:'/newPassword',
         templateUrl:'../templates/newPassword.html'
+      })
+      .state('home', {
+        url:'/home',
+        templateUrl:'../templates/home.html'
+      })
+      .state('appBar', {
+        url:'/appBar',
+        templateUrl:'../templates/appBar.html'
       });
 
     $urlRouterProvider.otherwise('/signUp');
