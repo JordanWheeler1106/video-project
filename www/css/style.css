@@ -147,6 +147,15 @@ form .list .item{
   color: #ed1c24;
   margin: -10px 0 10px 0;
 }
+.inputSuccess{
+  width: 100%;
+  background: #f1f1f2;
+  border-left: 3px solid #4CAF50;
+  padding: 15px 10px 15px 10px;
+  font-size: 16px;
+  color: #4CAF50;
+  margin: -10px 0 10px 0;
+}
 .inputError i{
   margin: 0 5px 0 5px;
 }

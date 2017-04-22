@@ -24,30 +24,69 @@ angular.module('starter', ['ionic'])
 })
 .config(function($stateProvider, $urlRouterProvider){
     $stateProvider
-      .state('login', {
+      .state('signin', {
         url:'/',
-        templateUrl:'../templates/login.html'
+        templateUrl:'../templates/login.html',
+        controller: 'loginCtrl'
       })
-      .state('signUp', {
-        url:'/signUp',
-        templateUrl:'../templates/signUp.html'
+      .state('signup', {
+        url:'/signup',
+        templateUrl:'../templates/signup.html',
+        controller: 'signupCtrl'
       })
       .state('forgotPassword', {
         url:'/forgotpassword',
         templateUrl:'../templates/forgotPassword.html'
       })
-      .state('signUpB', {
-        url:'/signUpB',
-        templateUrl:'../templates/signUpB.html'
+      .state('signupB', {
+        url:'/signupB',
+        templateUrl:'../templates/signupB.html'
       })
-      .state('passwordResent', {
-        url:'/passwordResent',
+      .state('resetPassword', {
+        url:'/resetpassword',
         templateUrl:'../templates/passwordResent.html'
       })
-      .state('newPassword', {
-        url:'/newPassword',
+      .state('changePassword', {
+        url:'/changePassword',
         templateUrl:'../templates/newPassword.html'
       });
 
-    $urlRouterProvider.otherwise('/signUp');
+    $urlRouterProvider.otherwise('/');
+  })
+  //TODO create separate file for each controller.
+  //controllers start here.
+  //login controller
+  .controller('loginCtrl', function($scope){
+
+    $scope.user = {};
+
+    //login function.
+    $scope.login = function(form){
+      if(form.$valid){
+        //hit api with login data.
+      }
+    }
+
+  })
+  //signup controller
+  .controller('signupCtrl', function($scope){
+
+    $scope.tabs = true;
+    $scope.user = {gender: 'Female'};
+
+    //accountInfo function.
+    $scope.accountInfo = function(form){
+      if(form.$valid){
+        //do something.
+        $scope.tabs = false;
+      }
+    };
+
+    //accountInfo function.
+    $scope.personalInfo = function(form){
+      if(form.$valid){
+        //do something.
+      }
+    };
+
   });
