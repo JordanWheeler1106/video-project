@@ -35,6 +35,18 @@ angular.module('starter', ['ionic'])
       .state('forgotPassword', {
         url:'/forgotpassword',
         templateUrl:'../templates/forgotPassword.html'
+      })
+      .state('signUpB', {
+        url:'/signUpB',
+        templateUrl:'../templates/signUpB.html'
+      })
+      .state('passwordResent', {
+        url:'/passwordResent',
+        templateUrl:'../templates/passwordResent.html'
+      })
+      .state('newPassword', {
+        url:'/newPassword',
+        templateUrl:'../templates/newPassword.html'
       });
 
     $urlRouterProvider.otherwise('/signUp');

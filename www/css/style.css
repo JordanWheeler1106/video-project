@@ -31,6 +31,8 @@
   font-family: 'Source Sans Pro', sans-serif;
   color: black;
   line-height: 26px;
+  max-width: 100%;
+  width: 100%;
 }
 .login span a{
   text-decoration: none;
@@ -66,7 +68,10 @@ form .list .item{
 }
 .passwordCharacters{
   margin: 0 0 15px 0;
-  font-size: 12px;
+  font-size: 13px;
+  color: #939597;
+}
+.passwordCharacters a{
   color: #939597;
 }
 .listSignUp{
@@ -130,6 +135,26 @@ form .list .item{
   border: 1px solid #1071B9;
   color: #1071B9;
 }
+.signUpLast{
+  margin-bottom: 3px;
+}
+.inputError{
+  width: 100%;
+  background: #f1f1f2;
+  border-left: 3px solid #ed1c24;
+  padding: 15px 10px 15px 10px;
+  font-size: 16px;
+  color: #ed1c24;
+  margin: -10px 0 10px 0;
+}
+.inputError i{
+  margin: 0 5px 0 5px;
+}
+.savePassword{
+  width: 80% !important;
+  margin: 0 auto;
+  background: #1072ba !important;
+}
 
 
 /*/////////////////////////////////////////////////////////*/
@@ -142,6 +167,25 @@ form .list .item{
   .input-label{
     max-width: 100%;
     width: 100%;
+  }
+  .buttonsParent .buttons .backBtn{
+    margin-right: 6px;
+  }
+  .savePassword{
+    width: 100% !important;
+    font-size: 18px;
+  }
+  .row{
+    padding: 0;
+  }
+  .col{
+    padding: 0;
+  }
+  .col-offset-25 {
+    margin-left: 0;
+    width: 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
   }
 }
 /*/////////////////////////////////////////////////////////*/
