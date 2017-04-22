@@ -3,6 +3,7 @@
   padding: 100px 15px 0 15px;
   width: 500px;
   margin: 0 auto;
+  position: relative;
 }
 .login h1{
   text-transform: uppercase;
@@ -12,6 +13,9 @@
   word-spacing: 5px;
   font-weight: 400;
   text-align: center;
+}
+.signUpH1{
+  margin: 0 0 15px 0 !important;
 }
 .login h4{
   font-size: 24px;
@@ -26,6 +30,7 @@
   display: inline-block;
   font-family: 'Source Sans Pro', sans-serif;
   color: black;
+  line-height: 26px;
 }
 .login span a{
   text-decoration: none;
@@ -59,6 +64,34 @@ form .list .item{
 .button.button-block, .button.button-full{
   margin-top: 20px;
 }
+.passwordCharacters{
+  margin: 0 0 15px 0;
+  font-size: 12px;
+  color: #939597;
+}
+.listSignUp{
+  margin: 0;
+}
+.signUpTabs{
+  display: inline-block;
+}
+.signUpTabs .tabs{
+  width: 100%;
+  display: inline-block;
+}
+.signUpTabs .tabs .tab-item{
+  width: 50%;
+  max-width: 50%;
+  float: left;
+  color: #D1D2D4;
+  border-bottom: 4.8px solid #D1D2D4;
+  font-size: 22px;
+}
+.tabs-striped.tabs-color-light .tab-item.tab-item-active, .tabs-striped.tabs-color-light .tab-item.active, .tabs-striped.tabs-color-light .tab-item.activated{
+  color: #000;
+  border-bottom: 5px solid #1071B9;
+  border-width: 0 0 5px 0 !important;
+}
 
 
 /*/////////////////////////////////////////////////////////*/
@@ -66,6 +99,10 @@ form .list .item{
 /*/////////////////////////////////////////////////////////*/
 @media (min-width: 320px) and (max-width: 500px){
   .login{
+    width: 100%;
+  }
+  .input-label{
+    max-width: 100%;
     width: 100%;
   }
 }
