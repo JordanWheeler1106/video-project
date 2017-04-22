@@ -49,6 +49,14 @@ angular.module('starter', ['ionic'])
       .state('changePassword', {
         url:'/changePassword',
         templateUrl:'../templates/newPassword.html'
+      })
+      .state('home', {
+        url:'/home',
+        templateUrl:'../templates/home.html'
+      })
+      .state('appBar', {
+        url:'/appBar',
+        templateUrl:'../templates/appBar.html'
       });
 
     $urlRouterProvider.otherwise('/');
