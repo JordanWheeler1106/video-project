@@ -8,23 +8,67 @@
   text-transform: uppercase;
   font-size: 40px;
   font-family: 'Arvo', serif;
-  margin: 0 0 40px 0;
+  margin: 0 0 50px 0;
   word-spacing: 5px;
+  font-weight: 400;
   text-align: center;
 }
 .login h4{
   font-size: 24px;
   margin: 0 0 30px 0;
   font-family: 'Merriweather', serif;
-  font-weight: 600;
+  font-weight: 400;
+  color: black;
 }
 .login span{
   font-size: 20px;
   margin: 0 0 30px 0;
   display: inline-block;
+  font-family: 'Source Sans Pro', sans-serif;
+  color: black;
 }
 .login span a{
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 500;
   color: #1072ba;
 }
+form .list span{
+  margin: 0;
+}
+form .list .item{
+  border-color: #333333;
+}
+.forgot-password{
+  color: #1072ba;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: 'Source Sans Pro', sans-serif;
+  margin: 15px 0 0 0;
+  display: inline-block;
+  word-spacing: 3px;
+  letter-spacing: 0.2px;
+  text-decoration: none;
+  border-bottom: 1px solid #1072ba;
+}
+.button{
+  border-radius: 0;
+  font-size: 20px;
+  letter-spacing: 0.2px;
+  min-height: 50px;
+}
+.button.button-block, .button.button-full{
+  margin-top: 20px;
+}
+
+
+/*/////////////////////////////////////////////////////////*/
+/*//////////////////Media Query Start Here ////////////////*/
+/*/////////////////////////////////////////////////////////*/
+@media (min-width: 320px) and (max-width: 500px){
+  .login{
+    width: 100%;
+  }
+}
+/*/////////////////////////////////////////////////////////*/
+/*//////////////////Media Query End Here //////////////////*/
+/*/////////////////////////////////////////////////////////*/
