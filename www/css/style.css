@@ -79,6 +79,9 @@ form .list .item{
   width: 100%;
   display: inline-block;
   top: 170px;
+  left: 0;
+  padding: 0 15px;
+  border: none;
 }
 .signUpTabs .tabs .tab-item{
   width: 50%;
@@ -92,6 +95,7 @@ form .list .item{
   color: #000;
   border-bottom: 5px solid #1071B9;
   border-width: 0 0 5px 0 !important;
+  margin: 0;
 }
 .item-select select{
   max-width: 100%;
