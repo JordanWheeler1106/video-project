@@ -36,7 +36,8 @@ angular.module('starter', ['ionic'])
       })
       .state('forgotPassword', {
         url:'/forgotpassword',
-        templateUrl:'../templates/forgotPassword.html'
+        templateUrl:'../templates/forgotPassword.html',
+        controller: 'forgotCtrl'
       })
       .state('signupB', {
         url:'/signupB',
@@ -44,18 +45,20 @@ angular.module('starter', ['ionic'])
       })
       .state('resetPassword', {
         url:'/resetpassword',
-        templateUrl:'../templates/passwordResent.html'
+        templateUrl:'../templates/passwordResent.html',
+        controller: 'resetPasswordCtrl'
       })
       .state('changePassword', {
         url:'/changePassword',
-        templateUrl:'../templates/newPassword.html'
+        templateUrl:'../templates/newPassword.html',
+        controller: 'newPasswordCtrl'
       })
       .state('home', {
         url:'/home',
         templateUrl:'../templates/home.html'
       })
       .state('appBar', {
-        url:'/appBar',
+        url:'/appbar',
         templateUrl:'../templates/appBar.html'
       });
 
@@ -96,5 +99,29 @@ angular.module('starter', ['ionic'])
         //do something.
       }
     };
+
+  })
+  //forgot controller
+  .controller('forgotCtrl', function($scope){
+
+
+    //forgot function.
+    $scope.forgotPassword = function(form){
+      if(form.$valid){
+        //hit api with login data.
+      }
+    }
+
+  })
+  //reset password controller
+  .controller('newPasswordCtrl', function($scope){
+
+
+    //forgot function.
+    $scope.newPassword = function(form){
+      if(form.$valid){
+        //hit api with login data.
+      }
+    }
 
   });
