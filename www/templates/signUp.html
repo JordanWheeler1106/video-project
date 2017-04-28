@@ -4,16 +4,16 @@
       <h1 class="title">the logo</h1>
       <div class="tabs-striped tabs-top tabs-color-light signUpTabs">
         <div class="tabs">
-          <a class="tab-item active" ng-class="{'active': tabs}" href="Javascript:" ng-click="tabs = true">
+          <a class="tab-item active" ng-class="{'active': tabs.active == 'signup'}" href="Javascript:" ng-click="tabs.active = 'signup'">
             Account Info
           </a>
-          <a class="tab-item" ng-class="{'active': !tabs}" href="Javascript:" ng-click="tabs = false">
+          <a class="tab-item" ng-class="{'active': tabs.active == 'next'}" href="Javascript:" ng-click="tabs.active = 'next'">
             Personal Info
           </a>
         </div>
       </div>
       <!--//////////////// Account Info tab view /////////////////////-->
-      <div class="tabsBox" ng-show="tabs">
+      <div class="tabsBox" ng-show="tabs.active == 'signup'">
         <h4 class="signUpH1">Well, hello there!</h4>
         <span>we're so glad you're ready to join THE. Let's start by creating your account login. Been here before? <a ui-sref="signin">Sign in.</a></span>
         <form name="signupForm" ng-submit="accountInfo(signupForm)" novalidate>
@@ -57,7 +57,7 @@
       </div>
 
       <!--//////////////// Personal Info tab view /////////////////////-->
-      <div class="tabsBox" ng-show="!tabs">
+      <div class="tabsBox" ng-show="tabs.active == 'next'">
         <h4 class="signUpH1">Now some basic info.</h4>
         <span>Nothing fancy, just a few things to fill out your profile and help us get to know you better.</span>
         <form name="personalForm" ng-submit="personalInfo(personalForm)" novalidate>
@@ -91,7 +91,7 @@
 
           <div class="row buttonsParent">
             <div class="col col-12 buttons">
-              <button type="button" class="button button-block button-positive backBtn" ng-click="tabs = true">
+              <button type="button" class="button button-block button-positive backBtn" ng-click="tabs.active = 'signup'">
                 Back
               </button>
               <button class="button button-block button-positive">

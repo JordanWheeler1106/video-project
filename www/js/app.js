@@ -82,14 +82,14 @@ angular.module('starter', ['ionic'])
   //signup controller
   .controller('signupCtrl', function($scope){
 
-    $scope.tabs = true;
+    $scope.tabs = {active: 'signup'};
     $scope.user = {gender: 'Female'};
 
     //accountInfo function.
     $scope.accountInfo = function(form){
       if(form.$valid){
         //do something.
-        $scope.tabs = false;
+        $scope.tabs.active = 'next';
       }
     };
 
