@@ -57,9 +57,9 @@ angular.module('starter', ['ionic'])
         url:'/home',
         templateUrl:'../templates/home.html'
       })
-      .state('appBar', {
-        url:'/appbar',
-        templateUrl:'../templates/appBar.html'
+      .state('home1', {
+        url:'/home1',
+        templateUrl:'../templates/home1.html'
       });
 
     $urlRouterProvider.otherwise('/');
