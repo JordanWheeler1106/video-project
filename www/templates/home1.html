@@ -1,4 +1,4 @@
-<div class="bar bar-header bar-stable headerNav">
+<div class="bar bar-header bar-stable headerNav" style="position: relative;">
   <div class="nav">
     <h1 class="title navHeading">the logo</h1>
     <div class="linksNav">
@@ -18,9 +18,38 @@
   </div>
   <div class="home1-tabs">
     <ul>
-      <li><a href="javascript:">Show All <i class="ion-chevron-down"></i></a></li>
+      <li><a href="javascript:" ng-click="openPopover($event)">Show All <i class="ion-chevron-down"></i></a></li>
       <li><a href="javascript:">View as Sphere</a></li>
       <li><a href="javascript:">View as List</a></li>
     </ul>
   </div>
 </div>
+<div class="row rowPadding">
+  <div class="col col-75 firstRow">
+    <h3>Identity</h3>
+    <span>Select a Purpose to begin</span>
+
+    <ion-content scroll="false">
+      <ion-slides  options="options" slider="data.slider">
+        <ion-slide-page>
+          <div class="box blue"><h1>BLUE</h1></div>
+        </ion-slide-page>
+        <ion-slide-page>
+          <div class="box yellow"><h1>YELLOW</h1></div>
+        </ion-slide-page>
+        <ion-slide-page>
+          <div class="box pink"><h1>PINK</h1></div>
+        </ion-slide-page>
+      </ion-slides>
+    </ion-content>
+
+  </div>
+  <div class="col">
+    <div class="rightContent">
+      <span>Welcome back, [user first name].</span>
+    </div>
+  </div>
+</div>
+
+
+<script></script>
