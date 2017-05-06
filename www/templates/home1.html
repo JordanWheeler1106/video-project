@@ -1,55 +1,98 @@
-<div class="bar bar-header bar-stable headerNav" style="position: relative;">
-  <div class="nav">
-    <h1 class="title navHeading">the logo</h1>
-    <div class="linksNav">
-      <a href="javascript:" class="full-information active">Life-In-Full</a>
-      <a href="javascript:" class="full-information">Vital Information</a>
-      <div class="list list-inset">
-        <label class="item item-input">
-          <i class="icon ion-search placeholder-icon"></i>
-          <input type="text" placeholder="Search">
-        </label>
+<ion-pane>
+  <ion-content>
+    <div class="bar bar-header bar-stable headerNav" style="position: relative;">
+      <div class="nav">
+        <h1 class="title navHeading">the logo</h1>
+        <div class="linksNav">
+          <a href="javascript:" class="full-information active">Life-In-Full</a>
+          <a href="javascript:" class="full-information">Vital Information</a>
+          <div class="list list-inset">
+            <label class="item item-input">
+              <i class="icon ion-search placeholder-icon"></i>
+              <input type="text" placeholder="Search">
+            </label>
+          </div>
+          <a href="javascript:" class="my-account-link">Upgrade Now</a>
+          <a href="javascript:" class="my-account-link">My Account</a>
+          <!--<h6>Share Your Story</h6>-->
+          <!--<h5><a href="javascript:">Sign In or Sign Up</a></h5>-->
+        </div>
       </div>
-      <a href="javascript:" class="my-account-link">Upgrade Now</a>
-      <a href="javascript:" class="my-account-link">My Account</a>
-      <!--<h6>Share Your Story</h6>-->
-      <!--<h5><a href="javascript:">Sign In or Sign Up</a></h5>-->
+      <div class="home1-tabs">
+        <ul>
+          <li><a href="javascript:" ng-click="openPopover($event)">Show All <i class="ion-chevron-down"></i></a></li>
+          <li><a href="javascript:">View as Sphere</a></li>
+          <li><a href="javascript:">View as List</a></li>
+        </ul>
+      </div>
     </div>
-  </div>
-  <div class="home1-tabs">
-    <ul>
-      <li><a href="javascript:" ng-click="openPopover($event)">Show All <i class="ion-chevron-down"></i></a></li>
-      <li><a href="javascript:">View as Sphere</a></li>
-      <li><a href="javascript:">View as List</a></li>
-    </ul>
-  </div>
-</div>
-<div class="row rowPadding">
-  <div class="col col-75 firstRow">
-    <h3>Identity</h3>
-    <span>Select a Purpose to begin</span>
+    <div class="row rowPadding">
+      <div class="col col-75 firstRow">
+        <div class="leftBox">
+          <div class="tableLinks">
+            <span class="active">Reflective</span>
+            <i class="ion-ios-arrow-forward"></i>
+            <span>Identity</span>
+            <i class="ion-ios-arrow-forward"></i>
+            <span>Roles</span>
+            <i class="ion-ios-arrow-forward"></i>
+            <span>Child</span>
+          </div>
+          <table class="table">
+            <tbody>
+            <tr ng-repeat="obj in [1,2,3,4,5,6,7,8] track by $index">
+              <td><i class="ion-document"></i></td>
+              <td>Chronicle</td>
+              <td>(8 purposes)</td>
+              <td>Last worked on 8.20.16</td>
+              <td><i class="ion-ios-gear-outline settingIcon"></i></td>
+            </tr>
+            <tr>
+              <td><i class="ion-ios-plus-outline tableAddIcon"></i></td>
+              <td>Add a New Chapter</td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
 
-    <ion-content scroll="false">
-      <ion-slides  options="options" slider="data.slider">
-        <ion-slide-page>
-          <div class="box blue"><h1>BLUE</h1></div>
-        </ion-slide-page>
-        <ion-slide-page>
-          <div class="box yellow"><h1>YELLOW</h1></div>
-        </ion-slide-page>
-        <ion-slide-page>
-          <div class="box pink"><h1>PINK</h1></div>
-        </ion-slide-page>
-      </ion-slides>
-    </ion-content>
+      </div>
 
-  </div>
-  <div class="col">
-    <div class="rightContent">
-      <span>Welcome back, [user first name].</span>
+      <div class="col">
+        <div class="rightContent">
+          <span class="firstName">Welcome back, [user first name].</span>
+          <div class="list">
+
+            <a class="item item-icon-left listFirst" href="javascript:">
+              <i class="ion-ios-plus-outline"></i>
+              Start a new nugget
+            </a>
+
+          </div>
+          <span class="firstNugget">Or continue with a recent nugget:</span>
+          <div class="list">
+
+            <a class="item item-icon-left" href="javascript:">
+              <i class="ion-document"></i>
+              [Recent nugget 1 title]
+            </a>
+            <a class="item item-icon-left" href="javascript:">
+              <i class="ion-document"></i>
+              [Recent nugget 2 title]
+            </a>
+            <a class="item item-icon-left" href="javascript:">
+              <i class="ion-document"></i>
+              [Recent nugget 3 title]
+            </a>
+
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
+  </ion-content>
+</ion-pane>
 
 
 <script></script>

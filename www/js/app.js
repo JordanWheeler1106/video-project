@@ -130,7 +130,7 @@ angular.module('starter', ['ionic', 'slick'])
   .controller('homeCtrl', function($scope, $ionicPopover){
 
     // .fromTemplate() method
-    var template = '<ion-popover-view><ion-content> <i class="ion-android-done"></i> Show All </ion-content> <ion-content> <i class="ion-android-done"></i> Show Published only </ion-content></ion-popover-view>';
+    var template = '<ion-popover-view><img src="../img/arrowUp_03.png" alt=""/><ion-content class="popoverContent"> <i class="ion-android-done"></i> Show All </ion-content> <ion-content> <i class="ion-android-done"></i> Show Published only </ion-content></ion-popover-view>';
 
     $scope.popover = $ionicPopover.fromTemplate(template, {
       scope: $scope

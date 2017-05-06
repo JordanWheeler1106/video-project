@@ -337,10 +337,10 @@ form .list .item{
 .rowPadding{
   padding: 5px 125px;
 }
-.firstRow{
-  text-align: center;
-  position: relative;
-}
+/*.firstRow{*/
+  /*text-align: center;*/
+  /*position: relative;*/
+/*}*/
 .firstRow h3{
   font-family: 'Merriweather', serif;
   font-weight: 600;
@@ -353,7 +353,7 @@ form .list .item{
   display: inline-block;
   margin: 0 0 40px 0;
 }
-.rightContent span{
+.rightContent .firstName{
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 16px;
   font-weight: 600;
@@ -363,6 +363,121 @@ form .list .item{
 }
 .rightContent{
   margin: 20px 0 0 0;
+}
+.rightContent .list{
+  margin: 0;
+}
+.rightContent .list .listFirst{
+  margin: 20px 0 20px 0 !important;
+}
+.rightContent .list .item-icon-left {
+  padding: 0 15px;
+  margin: 10px 0 10px 0;
+  border: none;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #267abe;
+  background: none;
+}
+.rightContent .list .item-icon-left i:before{
+  font-weight: 600;
+}
+.rightContent .list .item-icon-left i{
+  font-size: 22px;
+  font-family: 'Source Sans Pro', sans-serif;
+  margin: 0 15px 0 0;
+  display: inline-block;
+  float: left;
+}
+.firstNugget{
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 0;
+  display: block;
+}
+.leftBox{
+  box-shadow: 0 0 4px 0 #cccccc;
+  padding: 30px 20px;
+  width: 95%;
+  margin: 25px 0 0 0;
+}
+.tableLinks{
+  width: 100%;
+  display: inline-block;
+  border-bottom: 1px solid #ccc;
+}
+.leftBox .tableLinks span{
+  font-size: 20px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 500;
+  margin: 0;
+  padding: 0 0 20px 0;
+  color: #9b9da0;
+}
+.leftBox .tableLinks .active{
+  color: black;
+}
+.tableLinks i{
+  margin: 0 10px 0 10px;
+  font-size: 18px;
+  color: #9b9da0;
+}
+.table{
+  width: 100%;
+}
+.table td:nth-child(2){
+  width: 300px;
+  padding: 12px 30px 18px;
+}
+.table td:nth-child(4){
+  font-size: 14px;
+  color: #9b9da0;
+}
+.table td{
+  padding: 12px 10px 18px;
+  border-bottom: 1px solid #ccc;
+  font-size: 16px;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+.table td i{
+  font-size: 30px;
+  color: #267abe;
+  position: relative;
+  top: 5px;
+  left: 15px;
+}
+.settingIcon{
+  color: #9d9fa2 !important;
+}
+.tableAddIcon{
+  font-size: 22px !important;
+  font-family: 'Source Sans Pro', sans-serif;
+  margin: 0 15px 0 0;
+  display: inline-block;
+  float: left;
+}
+.popover{
+  width: 200px;
+  left: 23% !important;
+  height: auto;
+  padding: 15px 15px 5px 15px;
+}
+.popover img{
+  position: absolute;
+  top: -12px;
+  left: 45%;
+}
+.popover .scroll-content .scroll{
+  margin: 0 0 10px 0;
+  cursor: pointer;
+}
+.popover .scroll-content .scroll i{
+  color: #267abe;
+}
+.popover .scroll-content{
+  position: static;
 }
 /*/////////////// Home1 styling End Here //////////////////*/
 
