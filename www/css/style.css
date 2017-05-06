@@ -413,6 +413,7 @@ form .list .item{
   margin: 0;
   padding: 0 0 20px 0;
   color: #9b9da0;
+  display: inline-block;
 }
 .leftBox .tableLinks .active{
   color: black;
