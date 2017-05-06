@@ -131,6 +131,7 @@ angular.module('starter', ['ionic', 'slick'])
 
     // .fromTemplate() method
     var template = '<ion-popover-view><img src="../img/arrowUp_03.png" alt=""/><ion-content class="popoverContent"> <i class="ion-android-done"></i> Show All </ion-content> <ion-content> <i class="ion-android-done"></i> Show Published only </ion-content></ion-popover-view>';
+    var settingTemplate = '<ion-popover-view><img src="../img/arrowUp_03.png" alt=""/><ion-content class="popoverContent"> Rename </ion-content> <ion-content> Move</ion-content> <ion-content> Copy</ion-content> <ion-content> Delete</ion-content></ion-popover-view>';
 
     $scope.popover = $ionicPopover.fromTemplate(template, {
       scope: $scope
@@ -142,6 +143,19 @@ angular.module('starter', ['ionic', 'slick'])
 
     $scope.closePopover = function() {
       $scope.popover.hide();
+    };
+
+
+    $scope.settingPopover = $ionicPopover.fromTemplate(settingTemplate, {
+      scope: $scope
+    });
+
+    $scope.openSettingPopover = function($event) {
+      $scope.settingPopover.show($event);
+    };
+
+    $scope.closeSettingPopover = function() {
+      $scope.settingPopover.hide();
     };
 
   });
