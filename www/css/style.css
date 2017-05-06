@@ -16,6 +16,8 @@
 }
 .tabsNav ul{
   padding: 24px 0 0 0;
+  width: 80%;
+  display: inline-block;
 }
 .tabsNav ul li{
   display: inline-block;
@@ -137,9 +139,6 @@ form .list .item{
 .passwordCharacters a{
   color: #939597;
 }
-/*.listSignUp{*/
-  /*margin: 0;*/
-/*}*/
 .signUpTabs{
   display: inline-block;
 }
@@ -255,6 +254,7 @@ form .list .item{
 .startedBtn{
   width: 20%;
   float: right;
+  margin-top: 8px;
 }
 .startedBtn .btnGet{
   margin: 8px 0 0 0;
@@ -264,6 +264,108 @@ form .list .item{
   border-radius: 20px;
   background: #1072ba;
 }
+/*/////////////// Home1 styling Start Here ////////////////*/
+.full-information{
+  float: left;
+  margin: 12px 0 0 30px;
+  text-decoration: none;
+  font-size: 16px;
+  color: rgb(166, 165, 165);
+  font-family: 'Merriweather', serif;
+  font-weight: 500;
+}
+.active{
+  color: #333333;
+  font-weight: 600;
+}
+.list-inset{
+  margin: -4px 0 0 20px;
+  width: 30%;
+  float: left;
+}
+.list-inset .item-input{
+  border: 0;
+}
+.list-inset .item-input i{
+  padding-right: 10px;
+  font-size: 22px;
+}
+.list-inset ::-webkit-input-placeholder {
+  font-size: 18px;
+}
+.my-account-link{
+  font-size: 16px;
+  font-family: 'Merriweather', serif;
+  font-weight: 500;
+  margin: 12px 0 0 0;
+  display: inline-block;
+  text-decoration: none;
+  color: #f15c2d;
+}
+.my-account-link:last-of-type{
+  color: rgb(166, 165, 165);
+  margin-left: 30px;
+}
+.home1-tabs{
+  width: 47%;
+  margin: 16px auto 0;
+}
+.home1-tabs ul li{
+  display: inline-block;
+  padding: 8px 30px 8px 0;
+}
+.home1-tabs ul li a{
+  text-decoration: none;
+  color: #0b73ba;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+}
+.home1-tabs ul li:last-of-type a{
+  color: rgb(166, 165, 165);
+}
+.home1-tabs ul li:first-child{
+  border-right: 1px solid #cccccc;
+}
+.home1-tabs ul li:nth-child(2){
+  padding: 8px 30px 8px 25px;
+}
+.home1-tabs ul li a i{
+  font-size: 14px;
+  margin: 0 0 0 5px;
+}
+.rowPadding{
+  padding: 5px 125px;
+}
+.firstRow{
+  text-align: center;
+  position: relative;
+}
+.firstRow h3{
+  font-family: 'Merriweather', serif;
+  font-weight: 600;
+  font-size: 24px;
+  margin: 30px 0 5px 0;
+}
+.firstRow span{
+  font-family: 'Merriweather', serif;
+  font-size: 16px;
+  display: inline-block;
+  margin: 0 0 40px 0;
+}
+.rightContent span{
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 0 0 15px 0;
+  border-bottom: 1px solid #ccc;
+  display: block;
+}
+.rightContent{
+  margin: 20px 0 0 0;
+}
+/*/////////////// Home1 styling End Here //////////////////*/
+
 
 /*/////////////////////////////////////////////////////////*/
 /*//////////////////Media Query Start Here ////////////////*/
