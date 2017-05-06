@@ -316,13 +316,13 @@ form .list .item{
 }
 .home1-tabs ul li a{
   text-decoration: none;
-  color: #0b73ba;
+  color: rgb(166, 165, 165);
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: 600;
   font-size: 16px;
 }
-.home1-tabs ul li:last-of-type a{
-  color: rgb(166, 165, 165);
+.home1-tabs ul li a.active{
+  color: #0b73ba;
 }
 .home1-tabs ul li:first-child{
   border-right: 1px solid #cccccc;
@@ -459,7 +459,7 @@ form .list .item{
 }
 .popover{
   width: 200px;
-  left: 23% !important;
+  /*left: 23% !important;*/
   height: auto;
   padding: 15px 15px 5px 15px;
 }

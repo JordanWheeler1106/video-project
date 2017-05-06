@@ -1,0 +1,29 @@
+<div class="leftBox">
+  <div class="tableLinks">
+    <span class="active">Reflective</span>
+    <i class="ion-ios-arrow-forward"></i>
+    <span>Identity</span>
+    <i class="ion-ios-arrow-forward"></i>
+    <span>Roles</span>
+    <i class="ion-ios-arrow-forward"></i>
+    <span>Child</span>
+  </div>
+  <table class="table">
+    <tbody>
+    <tr ng-repeat="obj in [1,2,3,4,5,6,7,8] track by $index">
+      <td><i class="ion-document"></i></td>
+      <td>Chronicle</td>
+      <td>(8 purposes)</td>
+      <td>Last worked on 8.20.16</td>
+      <td><i class="ion-ios-gear-outline settingIcon" ng-click="openSettingPopover($event)"></i></td>
+    </tr>
+    <tr>
+      <td><i class="ion-ios-plus-outline tableAddIcon"></i></td>
+      <td>Add a New Chapter</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    </tbody>
+  </table>
+</div>

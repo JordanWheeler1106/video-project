@@ -21,43 +21,19 @@
       <div class="home1-tabs">
         <ul>
           <li><a href="javascript:" ng-click="openPopover($event)">Show All <i class="ion-chevron-down"></i></a></li>
-          <li><a href="javascript:">View as Sphere</a></li>
-          <li><a href="javascript:">View as List</a></li>
+          <li><a href="javascript:" ng-class="{'active': toggleView == 'sphere'}" ng-click="toggleView = 'sphere'">View as Sphere</a></li>
+          <li><a href="javascript:" ng-class="{'active': toggleView == 'list'}" ng-click="toggleView = 'list'">View as List</a></li>
         </ul>
       </div>
     </div>
     <div class="row rowPadding">
       <div class="col col-75 firstRow">
-        <div class="leftBox">
-          <div class="tableLinks">
-            <span class="active">Reflective</span>
-            <i class="ion-ios-arrow-forward"></i>
-            <span>Identity</span>
-            <i class="ion-ios-arrow-forward"></i>
-            <span>Roles</span>
-            <i class="ion-ios-arrow-forward"></i>
-            <span>Child</span>
-          </div>
-          <table class="table">
-            <tbody>
-            <tr ng-repeat="obj in [1,2,3,4,5,6,7,8] track by $index">
-              <td><i class="ion-document"></i></td>
-              <td>Chronicle</td>
-              <td>(8 purposes)</td>
-              <td>Last worked on 8.20.16</td>
-              <td><i class="ion-ios-gear-outline settingIcon"></i></td>
-            </tr>
-            <tr>
-              <td><i class="ion-ios-plus-outline tableAddIcon"></i></td>
-              <td>Add a New Chapter</td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            </tbody>
-          </table>
+        <div ng-show="toggleView == 'sphere'">
+          <div ng-include="'../../templates/sphereView.html'"></div>
         </div>
-        <div ng-include="'../../templates/sphereView.html'"></div>
+        <div ng-show="toggleView == 'list'">
+          <div ng-include="'../../templates/listView.html'"></div>
+        </div>
       </div>
 
       <div class="col">
