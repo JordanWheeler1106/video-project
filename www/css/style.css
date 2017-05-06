@@ -482,43 +482,25 @@ form .list .item{
   width: 60%;
   margin: 0 auto;
 }
-.slickSlider .slick-prev:before {
-  content: "";
+.slickSlider .slick-prev, .slick-next {
+  border-radius: 50%;
+  border: 1px solid #cccccc;
+  height: 50px;
+  width: 50px;
+}
+.slickSlider .slick-prev:before, .slickSlider .slick-next:before {
   font-family: "Ionicons";
-  position: relative;
-  top: 2px;
   color: #267abe;
   font-size: 24px;
   font-weight: 600;
 }
-.slickSlider .slick-prev {
-  left: -20px;
-  color: black;
-  border-radius: 50%;
-  border: 1px solid #cccccc;
-  transform: rotate(90deg);
-  height: 50px;
-  display: inline-block;
-  width: 50px;
-}
-.slick-next{
-  right: -20px;
-  color: black;
-  border-radius: 50%;
-  transform: rotate(270deg);
-  height: 50px;
-  display: inline-block;
-  border: 1px solid #cccccc;
-  width: 50px;
+.slickSlider .slick-prev:before {
+  content: "\f3cf";
+  margin-right: 4px;
 }
 .slickSlider .slick-next:before {
-  content: "";
-  font-family: "Ionicons";
-  position: relative;
-  top: 2px;
-  color: #267abe;
-  font-size: 24px;
-  font-weight: 600;
+  content: "\f3d1";
+  margin-left: 4px;
 }
 /*/////////////// Home1 styling End Here //////////////////*/
 
