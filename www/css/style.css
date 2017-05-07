@@ -617,3 +617,43 @@ form .list .item{
     width: 100%;
   }
 }
+@media (min-width: 768px) and (max-width: 991px){
+  .tabsNav ul li {
+    margin: 0 50px 0 0;
+  }
+  .headerNav .navHeading{
+    width: 25%;
+    font-size: 30px;
+  }
+  .linksNav {
+    width: 75%;
+  }
+  .nav {
+    width: 100%;
+    padding: 30px 15px 20px 15px;
+  }
+  .full-information {
+    margin: 12px 0 0 10px;
+    font-size: 12px;
+  }
+  .my-account-link{
+    font-size: 12px;
+  }
+  .list-inset {
+    margin: -4px 0 0 10px;
+  }
+  .my-account-link:last-of-type {
+    margin-left: 10px;
+  }
+  .item-input input{
+    padding-right: 0 !important;
+  }
+  .home1-tabs {
+    width: 100%;
+    margin: 15px 0 13px 0;
+    padding: 0 20px;
+  }
+  .rowPadding {
+    padding: 5px 15px;
+  }
+}
