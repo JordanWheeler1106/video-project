@@ -131,21 +131,34 @@ angular.module('starter', ['ionic', 'slick'])
 
     $scope.toggleView = 'sphere';
     // .fromTemplate() method
-    var template = '<ion-popover-view><img src="../img/arrowUp_03.png" alt=""/><ion-content class="popoverContent"> <i class="ion-android-done"></i> Show All </ion-content> <ion-content> <i class="ion-android-done"></i> Show Published only </ion-content></ion-popover-view>';
+    var filterTemplate = '<ion-popover-view><img src="../img/arrowUp_03.png" alt=""/><ion-content class="popoverContent"> <i class="ion-android-done"></i> Show All </ion-content> <ion-content> <i class="ion-android-done" style="visibility: hidden"></i> Show Published only </ion-content></ion-popover-view>';
+    var description = '<ion-popover-view><ion-content class="popoverContent">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever </ion-content> </ion-popover-view>';
     var settingTemplate = '<ion-popover-view><img src="../img/arrowUp_03.png" alt=""/><ion-content class="popoverContent"> Rename </ion-content> <ion-content> Move</ion-content> <ion-content> Copy</ion-content> <ion-content> Delete</ion-content></ion-popover-view>';
 
-    $scope.popover = $ionicPopover.fromTemplate(template, {
+    $scope.filterPopover = $ionicPopover.fromTemplate(filterTemplate, {
       scope: $scope
     });
 
-    $scope.openPopover = function($event) {
-      $scope.popover.show($event);
+    $scope.openFilterTemplatePopover = function($event) {
+      $scope.filterPopover.show($event);
     };
 
-    $scope.closePopover = function() {
-      $scope.popover.hide();
+    $scope.closeFilterTemplatePopover = function() {
+      $scope.filterPopover.hide();
     };
 
+
+    $scope.desPopover = $ionicPopover.fromTemplate(description, {
+      scope: $scope
+    });
+
+    $scope.openDesPopover = function($event) {
+      $scope.desPopover.show($event);
+    };
+
+    $scope.closeDesPopover = function() {
+      $scope.desPopover.hide();
+    };
 
     $scope.settingPopover = $ionicPopover.fromTemplate(settingTemplate, {
       scope: $scope
