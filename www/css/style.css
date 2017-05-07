@@ -307,8 +307,8 @@ form .list .item{
   margin-left: 30px;
 }
 .home1-tabs{
-  width: 47%;
-  margin: 16px auto 0;
+  width: 60%;
+  margin: 15px 0 13px 26.5%;
 }
 .home1-tabs ul li{
   display: inline-block;
@@ -343,6 +343,7 @@ form .list .item{
   font-size: 24px;
   margin: 30px 0 5px 0;
   text-align: center;
+  cursor: pointer;
 }
 .firstRow span{
   font-family: 'Merriweather', serif;
@@ -449,6 +450,7 @@ form .list .item{
 }
 .settingIcon{
   color: #9d9fa2 !important;
+  cursor: pointer;
 }
 .tableAddIcon{
   font-size: 22px !important;
@@ -459,7 +461,6 @@ form .list .item{
 }
 .popover{
   width: 200px;
-  /*left: 23% !important;*/
   height: auto;
   padding: 15px 15px 5px 15px;
 }
@@ -478,6 +479,37 @@ form .list .item{
 .popover .scroll-content{
   position: static;
 }
+.upgradeBtn{
+  float: right;
+  padding: 1px 30px 8px 0 !important;
+}
+.upgradeBtn button{
+  background: #f1592a;
+  color: white;
+  border: none;
+  font-family: 'Merriweather', serif;
+  padding: 3px 15px 0;
+  border-radius: 30px;
+}
+/*////////////////// setting popover ////////////////////////*/
+.popoverTable{
+  width: 100px;
+  height: auto;
+  padding: 15px 15px 5px 15px;
+  text-align: center;
+}
+.popoverTable img{
+  left: 42%;
+}
+/*////////////////// setting popover ////////////////////////*/
+/*////////////////// description popover ////////////////////////*/
+.popoverDescription{
+  opacity: 1;
+  width: 300px;
+  /*top: 36%;*/
+  left: 42%;
+}
+/*////////////////// description popover ////////////////////////*/
 .slickSlider{
   width: 60%;
   margin: 0 auto;

@@ -132,8 +132,8 @@ angular.module('starter', ['ionic', 'slick'])
     $scope.toggleView = 'sphere';
     // .fromTemplate() method
     var filterTemplate = '<ion-popover-view><img src="../img/arrowUp_03.png" alt=""/><ion-content class="popoverContent"> <i class="ion-android-done"></i> Show All </ion-content> <ion-content> <i class="ion-android-done" style="visibility: hidden"></i> Show Published only </ion-content></ion-popover-view>';
-    var description = '<ion-popover-view><ion-content class="popoverContent">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever </ion-content> </ion-popover-view>';
-    var settingTemplate = '<ion-popover-view><img src="../img/arrowUp_03.png" alt=""/><ion-content class="popoverContent"> Rename </ion-content> <ion-content> Move</ion-content> <ion-content> Copy</ion-content> <ion-content> Delete</ion-content></ion-popover-view>';
+    var description = '<ion-popover-view class="popoverDescription"><img src="../img/arrowUp_03.png" alt=""/><ion-content class="popoverContent">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever </ion-content> </ion-popover-view>';
+    var settingTemplate = '<ion-popover-view class="popoverTable"><img src="../img/arrowUp_03.png" alt=""/><ion-content class="popoverSettingContent"> Rename </ion-content> <ion-content> Move</ion-content> <ion-content> Copy</ion-content> <ion-content> Delete</ion-content></ion-popover-view>';
 
     $scope.filterPopover = $ionicPopover.fromTemplate(filterTemplate, {
       scope: $scope
