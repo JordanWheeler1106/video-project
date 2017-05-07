@@ -23,8 +23,8 @@
       <div class="linksNavMobile">
         <a href="javascript:" class="full-information active">
           Life-In-Full
-          <a href="javascript:" class="anchorChild">View Life-in-Full as Sphere</a>
-          <a href="javascript:" class="anchorChild lastEle">View Life-in-Full as List</a>
+          <a href="javascript:" class="anchorChild" ng-class="{'active': toggleView == 'sphere'}" ng-click="toggleView = 'sphere'">View Life-in-Full as Sphere</a>
+          <a href="javascript:" class="anchorChild lastEle" ng-class="{'active': toggleView == 'list'}" ng-click="toggleView = 'list'">View Life-in-Full as List</a>
         </a>
         <a href="javascript:" class="full-information vital">Vital Information</a>
         <div class="list list-inset">

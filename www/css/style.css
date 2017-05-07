@@ -727,6 +727,35 @@ form .list .item{
   .home1-tabs ul li{
     display: none;
   }
+  .leftBox {
+    padding: 0 10px;
+    width: 100%;
+    margin: 0 0 0 0;
+  }
+  .leftBox .tableLinks span{
+    font-size: 16px;
+  }
+  .table td:nth-child(3){
+    display: none;
+  }
+  .table td:nth-child(4){
+    display: none;
+  }
+  .table td:first-child {
+    padding: 12px 0 8px;
+  }
+  .table td:nth-child(2) {
+    padding: 12px 20px 18px;
+  }
+  .table td:last-child i {
+    left: 0;
+  }
+  .popover-arrow:after{
+    display: none !important;
+  }
+  .popoverTable img {
+    left: 64%;
+  }
 }
 @media (min-width: 768px) and (max-width: 991px){
   .tabsNav ul li {
