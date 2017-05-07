@@ -127,10 +127,11 @@ angular.module('starter', ['ionic', 'slick'])
 
   })
   //reset password controller
-  .controller('homeCtrl', function($scope, $ionicPopover){
+  .controller('homeCtrl', function($scope, $ionicPopover, $ionicPopup){
 
     $scope.toggleView = 'sphere';
-    // .fromTemplate() method
+
+    // popover start here
     var filterTemplate = '<ion-popover-view><img src="../img/arrowUp_03.png" alt=""/><ion-content class="popoverContent"> <i class="ion-android-done"></i> Show All </ion-content> <ion-content> <i class="ion-android-done" style="visibility: hidden"></i> Show Published only </ion-content></ion-popover-view>';
     var description = '<ion-popover-view class="popoverDescription"><img src="../img/arrowUp_03.png" alt=""/><ion-content class="popoverContent">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever </ion-content> </ion-popover-view>';
     var settingTemplate = '<ion-popover-view class="popoverTable"><img src="../img/arrowUp_03.png" alt=""/><ion-content class="popoverSettingContent"> Rename </ion-content> <ion-content> Move</ion-content> <ion-content> Copy</ion-content> <ion-content> Delete</ion-content></ion-popover-view>';
@@ -172,4 +173,14 @@ angular.module('starter', ['ionic', 'slick'])
       $scope.settingPopover.hide();
     };
 
+    //alert start here.
+    $scope.desPopup = function() {
+      var alertPopup = $ionicPopup.alert({
+        title: '<div><span class="ion-ios-close-empty"></span></div> <div>What\'s Identity?</div>' ,
+        template: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever'
+      });
+      alertPopup.then(function(res) {
+        //put your logic here.
+      });
+    };
   });
