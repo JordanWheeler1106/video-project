@@ -616,6 +616,37 @@ form .list .item{
     margin: 0 0 8px 0;
     width: 100%;
   }
+  .rightContent {
+    padding: 0 20px;
+  }
+  .slickSlider {
+    width: 100%;
+  }
+  .slickSlider .slick-prev, .slick-next{
+    display: none;
+  }
+  .slickSlider .slick-prev:before{
+    font-size: 16px;
+    margin-right: 1px;
+  }
+  .slickSlider .slick-next:before{
+    font-size: 16px;
+    margin-left: 2px;
+  }
+  .firstRow h3{
+    margin: 0 0 15px 0;
+    display: block;
+  }
+  .firstRow span{
+    margin: 0 0 30px 0;
+  }
+  .responsiveSliderBg{
+    background: #f3f3f4;
+    padding: 40px 0 40px 0;
+  }
+  .slick-slider{
+    margin: 0;
+  }
 }
 @media (min-width: 768px) and (max-width: 991px){
   .tabsNav ul li {
