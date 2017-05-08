@@ -543,6 +543,13 @@ form .list .item{
 .linksNavMobile{
   display: none;
 }
+.identityIcon span{
+  margin: 0;
+  display: none;
+}
+.identityIcon{
+  margin: 0 0 10px 0 !important;
+}
 /*/////////////// Home1 menu button styling //////////////////*/
 
 
@@ -755,6 +762,13 @@ form .list .item{
   }
   .popoverTable img {
     left: 64%;
+  }
+  .identityIcon span{
+    display: inline-block;
+    margin: 0 0 0 5px;
+  }
+  .popover{
+    border-radius: 0 !important;
   }
 }
 @media (min-width: 768px) and (max-width: 991px){
