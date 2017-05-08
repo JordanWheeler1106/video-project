@@ -575,6 +575,13 @@ form .list .item{
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 18px;
 }
+.colSetting .list .item span{
+  color: #5e5f61;
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 0 0 10px 0;
+}
 .colSetting .list .item{
   padding: 20px;
   text-overflow: inherit;
@@ -582,6 +589,29 @@ form .list .item{
   font-family: 'Source Sans Pro', sans-serif;
   color: black;
   font-size: 14px;
+}
+.listDropdown{
+  background: #f1f1f2;
+  padding: 5px 20px 4px !important;
+}
+.listDropdown .dropdownAnchor{
+  text-decoration: none;
+  color: black;
+  position: relative;
+}
+.listDropdown .dropdownAnchor i{
+  color: black;
+  font-size: 14px;
+  position: absolute;
+  right: -15px;
+  top: 2px;
+}
+.list .item .showMoreLink{
+  text-decoration: none;
+  font-size: 14px;
+  padding: 5px 0 0 0;
+  float: right;
+  color: #2b7ebf;
 }
 /*/////////////// addNugget page styling //////////////////*/
 
