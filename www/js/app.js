@@ -65,7 +65,7 @@ angular.module('starter', ['ionic', 'slick'])
       .state('addnugget', {
         url:'/addnugget',
         templateUrl:'../templates/addNugget.html',
-        controller: 'homeCtrl'
+        controller: 'nuggetCtrl'
       });
 
     $urlRouterProvider.otherwise('/');
@@ -129,6 +129,24 @@ angular.module('starter', ['ionic', 'slick'])
         //hit api with login data.
       }
     }
+
+  })
+  //add nugget controller
+  .controller('nuggetCtrl', function($scope){
+
+    $scope.lists = [
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar sem vitae turpis semper, eu molestie ex commodo. Fusce accumsan ultricies elementum, eu molestie ex commodo. Fusce accumsan ultricies elementum.',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar sem vitae turpis semper, something here',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar sem vitae turpis semper, eu molestie ex commodo. Fusce accumsan ultricies elementum.',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar sem vitae turpis semper, eu molestie ex commodo.',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Fusce accumsan ultricies elementum.',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar sem vitae turpis semper, eu molestie ex commodo. Fusce accumsan ultricies elementum.',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar sem vitae turpis semper, eu molestie ex commodo. Fusce accumsan ultricies elementum.',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar sem vitae turpis semper, eu molestie ex commodo. Fusce accumsan ultricies elementum.',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar sem vitae turpis semper, eu molestie ex commodo. Fusce accumsan ultricies elementum.',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar sem vitae turpis semper, eu molestie ex commodo. Fusce accumsan ultricies elementum.',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar sem vitae turpis semper,'
+    ];
 
   })
   //reset password controller

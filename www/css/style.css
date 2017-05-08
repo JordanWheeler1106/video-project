@@ -890,3 +890,6 @@ form .list .item{
 .title-popup-heading{
   text-align: left
 }
+.scroll-view.scroll-y{
+  overflow-y: hidden;
+}
