@@ -61,6 +61,11 @@ angular.module('starter', ['ionic', 'slick'])
         url:'/home1',
         templateUrl:'../templates/home1.html',
         controller: 'homeCtrl'
+      })
+      .state('addnugget', {
+        url:'/addnugget',
+        templateUrl:'../templates/addNugget.html',
+        controller: 'homeCtrl'
       });
 
     $urlRouterProvider.otherwise('/');

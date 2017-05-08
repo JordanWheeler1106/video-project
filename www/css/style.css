@@ -552,6 +552,38 @@ form .list .item{
 }
 /*/////////////// Home1 menu button styling //////////////////*/
 
+/*/////////////// addNugget page styling //////////////////*/
+.rowSetting{
+  padding: 0 0 0 125px;
+}
+.colSetting{
+  padding: 0;
+}
+.colSetting .list{
+  border-left: 1px solid #ccc;
+}
+.colSetting .list .headingList i{
+  font-size: 14px;
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  cursor: pointer;
+}
+.colSetting .list .headingList{
+  background: #e6e7e8;
+  padding: 12px 20px !important;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 18px;
+}
+.colSetting .list .item{
+  padding: 20px;
+  text-overflow: inherit;
+  white-space: inherit;
+  font-family: 'Source Sans Pro', sans-serif;
+  color: black;
+}
+/*/////////////// addNugget page styling //////////////////*/
+
 
 /*/////////////////////////////////////////////////////////*/
 /*//////////////////Media Query Start Here ////////////////*/
