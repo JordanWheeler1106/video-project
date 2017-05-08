@@ -17,10 +17,11 @@
           <!--<h6>Share Your Story</h6>-->
           <!--<h5><a href="javascript:">Sign In or Sign Up</a></h5>-->
         </div>
-        <button type="button" class="menuBtn">Menu</button>
+        <button type="button" ng-show="!toggleMenu" class="menuBtn" ng-click="toggleMenu = true">Menu</button>
+        <a href="javascript:" ng-show="toggleMenu" ng-click="toggleMenu = false">Close Menu</a>
       </div>
       <!--///////////////////////// Mobile Version Nav ///////////////////////////////////-->
-      <div class="linksNavMobile">
+      <div class="linksNavMobile" ng-show="toggleMenu">
         <a href="javascript:" class="full-information active">
           Life-In-Full
           <a href="javascript:" class="anchorChild" ng-class="{'active': toggleView == 'sphere'}" ng-click="toggleView = 'sphere'">View Life-in-Full as Sphere</a>
@@ -41,7 +42,7 @@
       <!--///////////////////////// Mobile Version Nav ///////////////////////////////////-->
       <div class="home1-tabs">
         <ul>
-          <li><a href="javascript:" ng-click="openFilterTemplatePopover($event)">Show All <i class="ion-chevron-down"></i></a></li>
+          <li><a href="javascript:" ng-click="openFilterTemplatePopover($event)" style="color: #387ef5">Show All <i class="ion-chevron-down"></i></a></li>
           <li><a href="javascript:" ng-class="{'active': toggleView == 'sphere'}" ng-click="toggleView = 'sphere'">View as Sphere</a></li>
           <li><a href="javascript:" ng-class="{'active': toggleView == 'list'}" ng-click="toggleView = 'list'">View as List</a></li>
           <li class="upgradeBtn"><button type="button">Upgrade Now</button></li>

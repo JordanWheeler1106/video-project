@@ -797,3 +797,12 @@ form .list .item{
     padding: 5px 15px;
   }
 }
+.title-popup span:before{
+  font-size: 30px;
+  position: absolute;
+  right: 9px;
+  top: 0;
+}
+.title-popup-heading{
+  text-align: left
+}

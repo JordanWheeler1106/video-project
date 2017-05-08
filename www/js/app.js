@@ -130,6 +130,7 @@ angular.module('starter', ['ionic', 'slick'])
   .controller('homeCtrl', function($scope, $ionicPopover, $ionicPopup){
 
     $scope.toggleView = 'sphere';
+    $scope.toggleMenu = false;
 
     // popover start here
     var filterTemplate = '<ion-popover-view><img src="../img/arrowUp_03.png" alt=""/><ion-content class="popoverContent"> <i class="ion-android-done"></i> Show All </ion-content> <ion-content> <i class="ion-android-done" style="visibility: hidden"></i> Show Published only </ion-content></ion-popover-view>';
@@ -176,7 +177,7 @@ angular.module('starter', ['ionic', 'slick'])
     //alert start here.
     $scope.desPopup = function() {
       var alertPopup = $ionicPopup.alert({
-        title: '<div><span class="ion-ios-close-empty"></span></div> <div>What\'s Identity?</div>' ,
+        title: '<div class="title-popup"><span class="ion-ios-close-empty"></span></div> <div class="title-popup-heading">What\'s Identity?</div>' ,
         template: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever'
       });
       alertPopup.then(function(res) {
