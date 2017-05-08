@@ -573,12 +573,12 @@ form .list .item{
   background: #e6e7e8;
   padding: 12px 20px !important;
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 18px;
+  font-size: 18px !important;
 }
-.colSetting .list .item span{
+.colSetting .list .item h6{
   color: #5e5f61;
   display: block;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   padding: 0 0 10px 0;
 }
@@ -588,10 +588,13 @@ form .list .item{
   white-space: inherit;
   font-family: 'Source Sans Pro', sans-serif;
   color: black;
+  font-size: 14px;
 }
 .listDropdown{
   background: #f1f1f2;
   padding: 5px 20px 4px !important;
+  font-size: 12px !important;
+  font-weight: 600;
 }
 .listDropdown .dropdownAnchor{
   text-decoration: none;
@@ -603,12 +606,12 @@ form .list .item{
   font-size: 14px;
   position: absolute;
   right: -15px;
-  top: 2px;
+  top: 0;
 }
 .list .item .showMoreLink{
   text-decoration: none;
   font-size: 14px;
-  padding: 5px 0 0 0;
+  padding: 10px 0 0 0;
   float: right;
   color: #2b7ebf;
 }
