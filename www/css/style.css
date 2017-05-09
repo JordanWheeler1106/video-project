@@ -649,6 +649,9 @@ form .list .item{
   padding: 0 0 0 20px;
   display: inline-block;
 }
+.nugget-tabs ul li .linkNugget.active{
+  color: #2b7ebf;
+}
 .searchField{
   float: right;
 }

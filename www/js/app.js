@@ -135,6 +135,7 @@ angular.module('starter', ['ionic', 'slick'])
   //add nugget controller
   .controller('nuggetCtrl', function($scope, $ionicPopover){
 
+    $scope.sidebar = {prompt: false, search: false};
     $scope.lists = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar sem vitae turpis semper, eu molestie ex commodo. Fusce accumsan ultricies elementum, eu molestie ex commodo. Fusce accumsan ultricies elementum.',
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar sem vitae turpis semper, something here',

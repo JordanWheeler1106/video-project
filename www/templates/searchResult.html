@@ -1,0 +1,15 @@
+<div class="col colSetting" ng-show="sidebar.search">
+  <ul class="list">
+    <li class="item headingList">Search Results <i class="ion-close-round" ng-click="sidebar.search = false"></i></li>
+    <li class="item listDropdown">Include: <a href="javascript:" class="dropdownAnchor">everything <i class="ion-ios-arrow-down" ng-click="openSearchFilterPopover($event)"></i></a> </li>
+    <li class="item" ng-repeat="list in lists track by $index" ng-init="showMore = false">
+      <h6>In nugget title</h6>
+      {{list | limitTo: showMore ? 1000 : 100}}
+      <span ng-show="list.length > 100 && !showMore">...</span>
+      <div>
+        <a href="javascript:" class="showMoreLink" ng-show="!showMore" ng-click="showMore = true">Show more</a>
+        <a href="javascript:" class="showMoreLink" ng-show="showMore" ng-click="showMore = false">Show less</a>
+      </div>
+    </li>
+  </ul>
+</div>

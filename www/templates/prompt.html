@@ -1,7 +1,7 @@
-<ion-scroll zooming="true" direction="y" style="height: 100vh">
-  <div class="col colSetting">
-    <ul class="list">
-      <li class="item headingList">Prompts <i class="ion-close-round"></i></li>
+<!--<ion-scroll zooming="true" direction="y" style="height: 100vh">-->
+<div class="col colSetting" ng-show="sidebar.prompt">
+  <ul class="list">
+    <li class="item headingList">Prompts <i class="ion-close-round" ng-click="sidebar.prompt = false"></i></li>
       <li class="item">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit?
       </li>
@@ -40,4 +40,4 @@
       </li>
     </ul>
   </div>
-</ion-scroll>
+<!--</ion-scroll>-->

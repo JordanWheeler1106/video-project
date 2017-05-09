@@ -44,11 +44,11 @@
             <div class="list list-inset">
               <label class="item item-input">
                 <i class="ion-ios-search"></i>
-                <input type="text" placeholder="Search">
+                <input type="text" placeholder="Search" ng-focus="sidebar.search = true; sidebar.prompt = false">
               </label>
             </div>
           </li>
-          <li class="searchField"><a href="javascript:" class="linkNugget">Prompts</a></li>
+          <li class="searchField"><a href="javascript:" class="linkNugget" ng-click="sidebar.prompt = true; sidebar.search = false" ng-class="{'active': sidebar.prompt}">Prompts </a></li>
         </ul>
       </div>
     </div>
@@ -58,56 +58,8 @@
       </div>
 
       <ion-scroll zooming="true" direction="y" style="height: 100vh">
-      <div class="col colSetting">
-          <ul class="list">
-            <li class="item headingList">Search Results <i class="ion-close-round"></i></li>
-            <li class="item listDropdown">Include: <a href="javascript:" class="dropdownAnchor">everything <i class="ion-ios-arrow-down" ng-click="openSearchFilterPopover($event)"></i></a> </li>
-            <li class="item" ng-repeat="list in lists track by $index" ng-init="showMore = false">
-              <h6>In nugget title</h6>
-              {{list | limitTo: showMore ? 1000 : 100}}
-              <span ng-show="list.length > 100 && !showMore">...</span>
-              <div>
-                <a href="javascript:" class="showMoreLink" ng-show="!showMore" ng-click="showMore = true">Show more</a>
-                <a href="javascript:" class="showMoreLink" ng-show="showMore" ng-click="showMore = false">Show less</a>
-              </div>
-           </li>
-            <!--<li class="item">-->
-              <!--<h6>In nugget title</h6>-->
-              <!--Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar sem vitae turpis semper, eu molestie ex commodo.-->
-              <!--<div>-->
-                <!--<a href="javascript:" class="showMoreLink">Show more</a>-->
-              <!--</div>-->
-            <!--</li>-->
-            <!--<li class="item">-->
-              <!--<h6>In nugget title</h6>-->
-              <!--Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar sem vitae turpis semper,-->
-              <!--<div>-->
-                <!--<a href="javascript:" class="showMoreLink">Show more</a>-->
-              <!--</div>-->
-            <!--</li>-->
-            <!--<li class="item">-->
-              <!--<h6>In nugget title</h6>-->
-              <!--Lorem ipsum dolor sit amet, consectetur adipiscing elit.-->
-              <!--<div>-->
-                <!--<a href="javascript:" class="showMoreLink">Show more</a>-->
-              <!--</div>-->
-            <!--</li>-->
-            <!--<li class="item">-->
-              <!--<h6>In nugget title</h6>-->
-              <!--Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar sem vitae turpis semper, eu molestie ex commodo.-->
-              <!--<div>-->
-                <!--<a href="javascript:" class="showMoreLink">Show more</a>-->
-              <!--</div>-->
-            <!--</li>-->
-            <!--<li class="item">-->
-              <!--<h6>In nugget title</h6>-->
-              <!--Lorem ipsum dolor sit amet, consectetur adipiscing elit.-->
-              <!--<div>-->
-                <!--<a href="javascript:" class="showMoreLink">Show more</a>-->
-              <!--</div>-->
-            <!--</li>-->
-          </ul>
-      </div>
+        <div ng-include="'../../templates/prompt.html'"></div>
+        <div ng-include="'../../templates/searchResult.html'"></div>
       </ion-scroll>
 
     </div>
