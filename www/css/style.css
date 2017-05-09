@@ -549,6 +549,7 @@ form .list .item{
 }
 .identityIcon{
   margin: 0 0 10px 0 !important;
+  display: inline-block !important;
 }
 /*/////////////// Home1 menu button styling //////////////////*/
 
@@ -614,6 +615,81 @@ form .list .item{
   padding: 10px 0 0 0;
   float: right;
   color: #2b7ebf;
+}
+.nugget-tabs{
+  width: 85%;
+  margin: 0 0 0 7.5%;
+  float: left;
+}
+.nugget-tabs ul{
+  width: 49%;
+  display: inline-block;
+  float: left;
+  margin: 24px 0 0 0;
+}
+.nugget-tabs ul li{
+  display: inline-block;
+}
+.nugget-tabs ul li a{
+  text-decoration: none;
+}
+.nugget-tabs ul li a i{
+  color: #58595b;
+  font-size: 18px;
+  padding: 2px 20px 2px 0;
+}
+.nugget-tabs ul li a .borderList{
+  border-right: 1px solid #cccccc;
+  padding: 2px 25px 2px 0;
+}
+.nugget-tabs ul li .linkNugget{
+  font-size: 16px;
+  color: #333333;
+  font-weight: 500;
+  padding: 0 0 0 20px;
+  display: inline-block;
+}
+.searchField{
+  float: right;
+}
+.searchField:last-child a{
+  margin: 0 40px 0 0;
+}
+.nugget-tabs .rightUl li .list-inset label{
+  border: 1px solid #666;
+  border-radius: 40px;
+  padding: 5px 20px 5px 20px;
+  height: 38px;
+}
+.nugget-tabs .rightUl li .list-inset label input{
+  padding: 0;
+}
+.nugget-tabs .rightUl li .list-inset label input::-webkit-input-placeholder{
+  font-size: 16px;
+}
+.rightUl{
+  width: 50.7% !important;
+}
+.nugget-tabs .rightUl li .list-inset{
+  width: 100%;
+  margin: -10px 0 0 0;
+}
+.checkBoxPopover{
+  padding: 20px 10px 5px 10px;
+}
+.checkBoxPopover .item .checkbox{
+  top: 16%;
+}
+.checkBoxPopover .item{
+  border: none;
+  padding: 12px;
+}
+.item-checkbox {
+  padding-left: 50px !important;
+}
+.checkBoxPopover .item .disable-pointer-events {
+  float: left;
+  margin-top: -8px;
 }
 /*/////////////// addNugget page styling //////////////////*/
 

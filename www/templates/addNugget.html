@@ -1,5 +1,57 @@
 <ion-pane>
   <ion-content>
+    <div class="bar bar-header bar-stable headerNav" style="position: relative;">
+      <div class="nav">
+        <h1 class="title navHeading">the logo</h1>
+        <div class="linksNav">
+          <!--<a href="javascript:" class="full-information active">Life-In-Full</a>-->
+          <!--<a href="javascript:" class="full-information">Vital Information</a>-->
+          <!--<div class="list list-inset">-->
+            <!--<label class="item item-input">-->
+              <!--<i class="icon ion-search placeholder-icon"></i>-->
+              <!--<input type="text" placeholder="Search">-->
+            <!--</label>-->
+          <!--</div>-->
+          <a href="javascript:" class="my-account-link">Upgrade Now</a>
+          <a href="javascript:" class="my-account-link">My Account</a>
+          <!--<h6>Share Your Story</h6>-->
+          <!--<h5><a href="javascript:">Sign In or Sign Up</a></h5>-->
+        </div>
+        <button type="button" ng-show="!toggleMenu" class="menuBtn" ng-click="toggleMenu = true">Menu</button>
+        <a href="javascript:" class="closeMenuBtn" ng-show="toggleMenu" ng-click="toggleMenu = false">Close Menu</a>
+      </div>
+      <!--///////////////////////// Mobile Version Nav ///////////////////////////////////-->
+      <!--<div class="linksNavMobile" ng-show="toggleMenu">-->
+        <!--<a href="javascript:"></a>-->
+        <!--<a href="javascript:"></a>-->
+        <!--<a href="javascript:"></a>-->
+        <!--<a href="javascript:"></a>-->
+        <!--<a href="javascript:"></a>-->
+        <!--&lt;!&ndash;<h6>Share Your Story</h6>&ndash;&gt;-->
+        <!--&lt;!&ndash;<h5><a href="javascript:">Sign In or Sign Up</a></h5>&ndash;&gt;-->
+      <!--</div>-->
+      <!--///////////////////////// Mobile Version Nav ///////////////////////////////////-->
+      <div class="nugget-tabs">
+        <ul>
+          <li><a href="javascript:"><i class="fa fa-bold" aria-hidden="true"></i></a></li>
+          <li><a href="javascript:"><i class="fa fa-italic" aria-hidden="true"></i></a></li>
+          <li><a href="javascript:"><i class="fa fa-list-ul borderList" aria-hidden="true"></i></a></li>
+          <li><a href="javascript:" class="linkNugget">Insert Media</a></li>
+          <li><a href="javascript:" class="linkNugget">Voice-to-Text</a></li>
+        </ul>
+        <ul class="rightUl">
+          <li class="searchField">
+            <div class="list list-inset">
+              <label class="item item-input">
+                <i class="ion-ios-search"></i>
+                <input type="text" placeholder="Search">
+              </label>
+            </div>
+          </li>
+          <li class="searchField"><a href="javascript:" class="linkNugget">Prompts</a></li>
+        </ul>
+      </div>
+    </div>
     <!--////////////////////////////// col ////////////////////////////////-->
     <div class="row rowSetting responsive-lg">
       <div class="col col-75 firstRow">
