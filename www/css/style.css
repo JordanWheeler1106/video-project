@@ -384,7 +384,7 @@ form .list .item{
 }
 .rightContent .list .item-icon-left i{
   font-size: 22px;
-  font-family: 'Source Sans Pro', sans-serif;
+  /*font-family: 'Source Sans Pro', sans-serif;*/
   margin: 0 15px 0 0;
   display: inline-block;
   float: left;
