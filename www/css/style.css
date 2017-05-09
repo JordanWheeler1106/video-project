@@ -693,6 +693,68 @@ form .list .item{
 }
 /*/////////////// addNugget page styling //////////////////*/
 
+/*/////////////// footer styling //////////////////*/
+.footerBottom{
+  background: #f1f1f2;
+  height: 70px;
+  display: block;
+  padding: 15px 0 0 0;
+}
+.footerBottom .container{
+  width: 85%;
+  margin: 0 auto;
+}
+.footerBottom .container .leftArea{
+  width: 69%;
+  display: inline-block;
+}
+.footerBottom .container .leftArea a{
+  color: #333333;
+  font-size: 16px;
+  text-decoration: none;
+  font-weight: 500;
+}
+.addInput{
+  padding: 0 15px 0 10px;
+}
+.footerBottom .container .leftArea .list{
+  width: 75%;
+  display: inline-block;
+}
+.footerBottom .container .leftArea .list .item-input:focus{
+  box-shadow: 0 0 2px 0 #087ed9;
+}
+.footerBottom .container .leftArea .list .item-input {
+  height: 40px;
+  padding: 4px 0 5px 16px;
+}
+.footerBottom .container .leftArea a i{
+  font-size: 24px;
+  position: relative;
+  top: 5px;
+  margin-right: 3px;
+}
+.footerBottom .container .rightArea{
+  width: 30%;
+  display: inline-block;
+  text-align: right;
+}
+.rightArea button{
+  line-height: 38px;
+  background: none;
+  border: none;
+  font-size: 15px;
+  font-family: 'Merriweather', serif;
+  padding: 2px 20px 0 20px;
+  color: #1b75bb;
+}
+.rightArea .saveBtn{
+  background: #1b75bb;
+  color: white;
+  margin-left: 10px;
+}
+/*/////////////// footer styling //////////////////*/
+
 
 /*/////////////////////////////////////////////////////////*/
 /*//////////////////Media Query Start Here ////////////////*/
