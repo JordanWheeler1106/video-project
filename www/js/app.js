@@ -132,7 +132,7 @@ angular.module('starter', ['ionic', 'slick'])
 
   })
   //add nugget controller
-  .controller('nuggetCtrl', function($scope){
+  .controller('nuggetCtrl', function($scope, $ionicPopover){
 
     $scope.lists = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar sem vitae turpis semper, eu molestie ex commodo. Fusce accumsan ultricies elementum, eu molestie ex commodo. Fusce accumsan ultricies elementum.',
@@ -147,6 +147,21 @@ angular.module('starter', ['ionic', 'slick'])
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar sem vitae turpis semper, eu molestie ex commodo. Fusce accumsan ultricies elementum.',
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar sem vitae turpis semper,'
     ];
+
+    var searchFilterTemplate = '<ion-popover-view><img src="../img/arrowUp_03.png" alt=""/><ion-content class="popoverContent">   <ion-checkbox ng-model="filter.everything">Everything</ion-checkbox><ion-checkbox ng-model="filter.published">Published info</ion-checkbox><ion-checkbox ng-model="filter.vital">Vital information</ion-checkbox><ion-checkbox ng-model="filter.media">Media</ion-checkbox></ion-popover-view>';
+
+
+    $scope.searchFilterTemplate = $ionicPopover.fromTemplate(searchFilterTemplate, {
+      scope: $scope
+    });
+
+    $scope.openSearchFilterPopover = function($event) {
+      $scope.searchFilterTemplate.show($event);
+    };
+
+    $scope.closeSearchFilterPopover = function() {
+      $scope.searchFilterTemplate.hide();
+    };
 
   })
   //reset password controller

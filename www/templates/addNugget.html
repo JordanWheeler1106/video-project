@@ -9,7 +9,7 @@
       <div class="col colSetting">
           <ul class="list">
             <li class="item headingList">Search Results <i class="ion-close-round"></i></li>
-            <li class="item listDropdown">Include: <a href="javascript:" class="dropdownAnchor">everything <i class="ion-ios-arrow-down"></i></a> </li>
+            <li class="item listDropdown">Include: <a href="javascript:" class="dropdownAnchor">everything <i class="ion-ios-arrow-down" ng-click="openSearchFilterPopover($event)"></i></a> </li>
             <li class="item" ng-repeat="list in lists track by $index" ng-init="showMore = false">
               <h6>In nugget title</h6>
               {{list | limitTo: showMore ? 1000 : 100}}

@@ -893,3 +893,14 @@ form .list .item{
 .scroll-view.scroll-y{
   overflow-y: hidden;
 }
+.checkbox-icon{
+  width: 20px !important;
+  height: 20px !important;
+}
+.checkbox-icon:before{
+  border-radius: 0 !important;
+}
+.checkbox-icon:after{
+  top: 26%;
+  left: 17%;
+}
