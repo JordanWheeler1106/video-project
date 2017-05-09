@@ -981,10 +981,20 @@ form .list .item{
     text-decoration: none;
     margin: 12px 0 0 0;
   }
+  .nugget-tabs{
+    display: none;
+  }
+  .headerNav {
+    height: auto;
+    border: none;
+  }
 }
 @media (min-width: 768px) and (max-width: 991px){
   .tabsNav ul li {
     margin: 0 50px 0 0;
+  }
+  .nugget-tabs{
+    display: none;
   }
   .headerNav .navHeading{
     width: 25%;
@@ -1027,6 +1037,10 @@ form .list .item{
   position: absolute;
   right: 9px;
   top: 0;
+}
+.headerNav {
+  height: auto;
+  border: none;
 }
 .title-popup-heading{
   text-align: left
