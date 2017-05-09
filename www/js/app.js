@@ -86,7 +86,7 @@ angular.module('starter', ['ionic', 'slick'])
 
   })
   //signup controller
-  .controller('signupCtrl', function($scope){
+  .controller('signupCtrl', function($scope, $state){
 
     $scope.tabs = {active: 'signup'};
     $scope.user = {gender: 'Female'};
@@ -103,6 +103,7 @@ angular.module('starter', ['ionic', 'slick'])
     $scope.personalInfo = function(form){
       if(form.$valid){
         //do something.
+        $state.go('addnugget')
       }
     };
 
