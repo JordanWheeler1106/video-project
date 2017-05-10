@@ -133,7 +133,7 @@ angular.module('starter', ['ionic', 'slick'])
 
   })
   //add nugget controller
-  .controller('nuggetCtrl', function($scope, $ionicPopover){
+  .controller('nuggetCtrl', function($scope, $ionicPopover, $ionicPopup){
 
     $scope.sidebar = {prompt: false, search: false};
     $scope.lists = [
@@ -150,7 +150,31 @@ angular.module('starter', ['ionic', 'slick'])
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar sem vitae turpis semper,'
     ];
 
+    $scope.showPopup = function() {
+      var myPopup = $ionicPopup.show({
+        templateUrl: '../templates/insertImagePopup.html',
+        title: 'Enter Wi-Fi Password',
+        subTitle: 'Please use normal things',
+        scope: $scope,
+        buttons: [
+          { text: 'Cancel' },
+          {
+            text: '<b>Save</b>',
+            type: 'button-positive'
+          }
+        ]
+      });
+
+      myPopup.then(function(res) {
+        console.log('Tapped!', res);
+      });
+
+      //$timeout(function() {
+      //  myPopup.close(); //close the popup after 3 seconds for some reason
+      //}, 3000);
+  };
     var searchFilterTemplate = '<ion-popover-view class="checkBoxPopover"><img src="../img/arrowUp_03.png" alt=""/><ion-content class="popoverContent">   <ion-checkbox ng-model="filter.everything">Everything</ion-checkbox><ion-checkbox ng-model="filter.published">Published info</ion-checkbox><ion-checkbox ng-model="filter.vital">Vital information</ion-checkbox><ion-checkbox ng-model="filter.media">Media</ion-checkbox></ion-popover-view>';
+    var insertMediaTemplate = '<ion-popover-view class="checkBoxPopover"><img src="../img/arrowUp_03.png" alt=""/><ion-content class="popoverContent">   <ion-checkbox ng-model="filter.everything" ng-click="showPopup()">Insert image</ion-checkbox><ion-checkbox ng-model="filter.published">Insert video</ion-checkbox><ion-checkbox ng-model="filter.vital">Inset link</ion-checkbox><ion-checkbox ng-model="filter.media">Media</ion-checkbox></ion-popover-view>';
 
 
     $scope.searchFilterTemplate = $ionicPopover.fromTemplate(searchFilterTemplate, {
@@ -163,6 +187,18 @@ angular.module('starter', ['ionic', 'slick'])
 
     $scope.closeSearchFilterPopover = function() {
       $scope.searchFilterTemplate.hide();
+    };
+
+    $scope.insertMediaPopover = $ionicPopover.fromTemplate(insertMediaTemplate, {
+      scope: $scope
+    });
+
+    $scope.openInsertMediaPopover = function($event) {
+      $scope.insertMediaPopover.show($event);
+    };
+
+    $scope.closeInsertMediaPopover = function() {
+      $scope.insertMediaPopover.hide();
     };
 
   })
