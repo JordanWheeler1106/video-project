@@ -694,6 +694,25 @@ form .list .item{
   float: left;
   margin-top: -8px;
 }
+.imagesVideosPopover{
+  padding: 20px 25px 5px 25px;
+}
+.imagesVideosPopover .scroll{
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: black;
+  margin: 0 0 15px 0 !important;
+  letter-spacing: 0.3px;
+}
+.imagesVideosPopover .scroll i{
+  color: black !important;
+  float: left;
+  width: 25px;
+  margin: 2px 5px 0 0;
+  font-size: 20px;
+  text-align: center;
+}
 /*/////////////// addNugget page styling //////////////////*/
 
 /*/////////////// footer styling //////////////////*/
@@ -757,6 +776,49 @@ form .list .item{
   margin-left: 10px;
 }
 /*/////////////// footer styling //////////////////*/
+
+/*/////////////// popup styling //////////////////*/
+.imagesPopup .popup{
+  width: 70%;
+}
+.imagesPopup .popup .popup-head{
+  padding: 15px;
+  border-bottom: 2px solid #ccc;
+}
+.imagesPopup .popup .popup-head h3{
+  float: left;
+  width: 100%;
+  text-align: left;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+}
+.imagesPopup .popup .popup-head h3 i{
+  font-size: 26px;
+  position: absolute;
+  right: 20px;
+  top: 16px;
+}
+.imagesPopup .popup .popup-body{
+  text-align: center;
+  padding: 200px 15px;
+}
+.imagesPopup .popup .popup-body h1{
+  color: #bbbdbf;
+  font-size: 24px;
+  font-family: 'Source Sans Pro', sans-serif;
+  margin: 0;
+}
+.imagesPopup .popup .popup-body button{
+  font-family: 'Source Sans Pro', sans-serif;
+  color: white;
+  background: #1b75bb;
+  font-size: 18px;
+  border: none;
+  padding: 10px 15px;
+  margin-top: 25px;
+}
+/*/////////////// popup styling //////////////////*/
 
 
 /*/////////////////////////////////////////////////////////*/
@@ -1038,10 +1100,10 @@ form .list .item{
   right: 9px;
   top: 0;
 }
-.headerNav {
-  height: auto;
-  border: none;
-}
+/*.headerNav {*/
+  /*height: auto;*/
+  /*border: none;*/
+/*}*/
 .title-popup-heading{
   text-align: left
 }

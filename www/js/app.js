@@ -152,17 +152,10 @@ angular.module('starter', ['ionic', 'slick'])
 
     $scope.showPopup = function() {
       var myPopup = $ionicPopup.show({
+        cssClass: 'imagesPopup',
         templateUrl: '../templates/insertImagePopup.html',
-        title: 'Enter Wi-Fi Password',
-        subTitle: 'Please use normal things',
+        title: 'Choose image <span><i class="ion-android-close"></i></span>',
         scope: $scope,
-        buttons: [
-          { text: 'Cancel' },
-          {
-            text: '<b>Save</b>',
-            type: 'button-positive'
-          }
-        ]
       });
 
       myPopup.then(function(res) {
@@ -174,7 +167,7 @@ angular.module('starter', ['ionic', 'slick'])
       //}, 3000);
   };
     var searchFilterTemplate = '<ion-popover-view class="checkBoxPopover"><img src="../img/arrowUp_03.png" alt=""/><ion-content class="popoverContent">   <ion-checkbox ng-model="filter.everything">Everything</ion-checkbox><ion-checkbox ng-model="filter.published">Published info</ion-checkbox><ion-checkbox ng-model="filter.vital">Vital information</ion-checkbox><ion-checkbox ng-model="filter.media">Media</ion-checkbox></ion-popover-view>';
-    var insertMediaTemplate = '<ion-popover-view class="checkBoxPopover"><img src="../img/arrowUp_03.png" alt=""/><ion-content class="popoverContent">   <ion-checkbox ng-model="filter.everything" ng-click="showPopup()">Insert image</ion-checkbox><ion-checkbox ng-model="filter.published">Insert video</ion-checkbox><ion-checkbox ng-model="filter.vital">Inset link</ion-checkbox><ion-checkbox ng-model="filter.media">Media</ion-checkbox></ion-popover-view>';
+    var insertMediaTemplate = '<ion-popover-view class="imagesVideosPopover"><img src="../img/arrowUp_03.png" alt=""/><ion-content class="popoverContent" ng-click="showPopup()"><i class="fa fa-picture-o" aria-hidden="true"></i> Insert image</ion-content><ion-content class="popoverContent"><i class="fa fa-play-circle-o" aria-hidden="true"></i> Insert video</ion-content><ion-content class="popoverContent"><i class="fa fa-link" aria-hidden="true"></i> Insert link</ion-content></ion-popover-view>';
 
 
     $scope.searchFilterTemplate = $ionicPopover.fromTemplate(searchFilterTemplate, {
