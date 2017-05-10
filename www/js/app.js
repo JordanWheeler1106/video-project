@@ -150,24 +150,42 @@ angular.module('starter', ['ionic', 'slick'])
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar sem vitae turpis semper,'
     ];
 
-    $scope.showPopup = function() {
+    $scope.showInitialImageUploadPopup = function() {
       var myPopup = $ionicPopup.show({
         cssClass: 'imagesPopup',
         templateUrl: '../templates/insertImagePopup.html',
         title: 'Choose image <span><i class="ion-android-close"></i></span>',
-        scope: $scope,
+        scope: $scope
       });
 
       myPopup.then(function(res) {
         console.log('Tapped!', res);
       });
 
-      //$timeout(function() {
-      //  myPopup.close(); //close the popup after 3 seconds for some reason
-      //}, 3000);
+      $scope.closeSimpleImageUploadPopup = function() {
+        myPopup.close(); //close the popup after 3 seconds for some reason
+      };
   };
+
+    $scope.showAdvanceImageUploadPopup = function() {
+      var myPopup = $ionicPopup.show({
+        cssClass: 'imagesNewUploadPopup',
+        templateUrl: '../templates/advanceImageUploadPopup.html',
+        title: 'Choose image <span><i class="ion-android-close"></i></span>',
+        scope: $scope
+      });
+
+      myPopup.then(function(res) {
+        console.log('Tapped!', res);
+      });
+
+      //$scope.closeSimpleImageUploadPopup = function() {
+      //  myPopup.close(); //close the popup after 3 seconds for some reason
+      //};
+    };
+
     var searchFilterTemplate = '<ion-popover-view class="checkBoxPopover"><img src="../img/arrowUp_03.png" alt=""/><ion-content class="popoverContent">   <ion-checkbox ng-model="filter.everything">Everything</ion-checkbox><ion-checkbox ng-model="filter.published">Published info</ion-checkbox><ion-checkbox ng-model="filter.vital">Vital information</ion-checkbox><ion-checkbox ng-model="filter.media">Media</ion-checkbox></ion-popover-view>';
-    var insertMediaTemplate = '<ion-popover-view class="imagesVideosPopover"><img src="../img/arrowUp_03.png" alt=""/><ion-content class="popoverContent" ng-click="showPopup()"><i class="fa fa-picture-o" aria-hidden="true"></i> Insert image</ion-content><ion-content class="popoverContent"><i class="fa fa-play-circle-o" aria-hidden="true"></i> Insert video</ion-content><ion-content class="popoverContent"><i class="fa fa-link" aria-hidden="true"></i> Insert link</ion-content></ion-popover-view>';
+    var insertMediaTemplate = '<ion-popover-view class="imagesVideosPopover"><img src="../img/arrowUp_03.png" alt=""/><ion-content class="popoverContent" ng-click="showInitialImageUploadPopup()"><i class="fa fa-picture-o" aria-hidden="true"></i> Insert image</ion-content><ion-content class="popoverContent" ng-click="showAdvanceImageUploadPopup()"><i class="fa fa-play-circle-o" aria-hidden="true"></i> Insert video</ion-content><ion-content class="popoverContent"><i class="fa fa-link" aria-hidden="true"></i> Insert link</ion-content></ion-popover-view>';
 
 
     $scope.searchFilterTemplate = $ionicPopover.fromTemplate(searchFilterTemplate, {

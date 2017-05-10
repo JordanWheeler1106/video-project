@@ -798,6 +798,8 @@ form .list .item{
   position: absolute;
   right: 20px;
   top: 16px;
+  z-index: 999;
+  cursor: pointer;
 }
 .imagesPopup .popup .popup-body{
   text-align: center;
@@ -819,6 +821,74 @@ form .list .item{
   margin-top: 25px;
 }
 /*/////////////// popup styling //////////////////*/
+
+/*/////////////// popup new images upload styling //////////////////*/
+.imagesNewUploadPopup .popup{
+  width: 70%;
+}
+.imagesNewUploadPopup .popup .popup-head{
+  padding: 15px;
+  border-bottom: 2px solid #ccc;
+}
+.imagesNewUploadPopup .popup .popup-head h3{
+  float: left;
+  width: 100%;
+  text-align: left;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+}
+.imagesNewUploadPopup .popup .popup-head h3 i{
+  font-size: 26px;
+  position: absolute;
+  right: 20px;
+  top: 16px;
+  z-index: 999;
+  cursor: pointer;
+}
+.imagesNewUploadPopup .popup .popup-body{
+  text-align: center;
+  overflow: hidden;
+}
+.imagesNewUploadPopup .popup .popup-body .alignLeft{
+  float: left;
+  padding: 10px 20px 10px 13px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 18px;
+  border: none;
+  background: none;
+  margin-bottom: 15px;
+}
+.imagesNewUploadPopup .popup .popup-body .alignRight{
+  float: right;
+  font-family: 'Source Sans Pro', sans-serif;
+  color: white;
+  background: #1b75bb;
+  font-size: 18px;
+  border: none;
+  padding: 10px 20px;
+  margin-bottom: 15px;
+  margin-right: 12px;
+}
+.bodyContent{
+  padding: 10px 60px 0;
+  display: inline-block;
+  width: 100%;
+}
+.bodyContent .buttonBox{
+  display: inline-block;
+  width: 100%;
+}
+.bodyContent .imageBox{
+  width: 25%;
+  float: left;
+  margin-bottom: 18px;
+}
+.bodyContent .imageBox img{
+  width: 220px;
+  height: 220px;
+}
+/*/////////////// popup new images upload styling //////////////////*/
 
 
 /*/////////////////////////////////////////////////////////*/
