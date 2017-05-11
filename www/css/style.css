@@ -890,6 +890,81 @@ form .list .item{
 }
 /*/////////////// popup new images upload styling //////////////////*/
 
+/*/////////////// popup image selected styling //////////////////*/
+.bodyContent h2{
+  font-size: 20px;
+  font-family: 'Source Sans Pro', sans-serif;
+  text-align: left;
+  margin: 15px 0 30px 0;
+}
+.bodyContent .videoContent{
+  width: 30%;
+  float: left;
+  border-right: 3px solid #cccccc;
+}
+.bodyContent .videoContent a{
+  float: left;
+  text-decoration: none;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  color: #2279bc;
+  margin: 0 0 25px 0;
+}
+.bodyContent .videoContent a i{
+  margin: 1px 10px 0 0;
+  float: left;
+}
+.bodyContent .videoContent .selectedVideos{
+  width: 100%;
+  display: inline-block;
+}
+.bodyContent .videoContent .selectedVideos img{
+  width: 250px;
+  height: 250px;
+  float: left;
+  border: 3px solid #1b75bb;
+}
+.bodyContent .ImagesContent{
+  width: 70%;
+  float: left;
+  padding-left: 35px;
+}
+.bodyContent .ImagesContent h2{
+  font-size: 20px;
+  font-family: 'Source Sans Pro', sans-serif;
+  text-align: left;
+  margin: 0 0 20px 0;
+}
+.bodyContent .ImagesContent .imagesBox{
+  width: 100%;
+  display: inline-block;
+}
+.bodyContent .ImagesContent .imagesBox .bomImg{
+  float: left;
+  width: 290px;
+  height: 200px;
+  margin: 0 25px 20px 0;
+  position: relative;
+}
+.bodyContent .ImagesContent .imagesBox .bomImg p{
+  margin: 0;
+  display: inline-block;
+  width: 100%;
+  background: #e4e4e4;
+  color: #257bbd;
+  text-transform: uppercase;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  font-size: 16px;
+  padding: 5px 0;
+}
+.bodyContent .ImagesContent .imagesBox .bomImg img{
+  width: 100%;
+  height: 200px;
+  float: left;
+  border: 2px solid #666;
+}
 
 /*/////////////////////////////////////////////////////////*/
 /*//////////////////Media Query Start Here ////////////////*/
@@ -1120,6 +1195,49 @@ form .list .item{
     height: auto;
     border: none;
   }
+  .imagesPopup .popup {
+    width: 95%;
+  }
+  .imagesPopup .popup .popup-body {
+    padding: 100px 15px;
+  }
+  .imagesNewUploadPopup .popup {
+    width: 95%;
+  }
+  .bodyContent {
+    padding: 10px 0 0;
+  }
+  .bodyContent .videoContent {
+    width: 100%;
+    border-right: none;
+  }
+  .bodyContent .videoContent .selectedVideos{
+    text-align: center;
+  }
+  .bodyContent .videoContent .selectedVideos img{
+    float: none;
+  }
+  .bodyContent .ImagesContent {
+    width: 100%;
+    padding-left: 0;
+  }
+  .bodyContent .ImagesContent h2 {
+    font-size: 18px;
+    margin: 20px 0 20px 0;
+  }
+  .bodyContent .ImagesContent .imagesBox .bomImg {
+    margin: 0 auto 10px;
+    text-align: center;
+    float: none;
+  }
+  .bodyContent .ImagesContent .imagesBox .bomImg img {
+    width: 250px;
+    float: none;
+  }
+  .bodyContent .ImagesContent .imagesBox .bomImg p {
+    width: 250px;
+    left: 20px;
+  }
 }
 @media (min-width: 768px) and (max-width: 991px){
   .tabsNav ul li {
@@ -1163,7 +1281,45 @@ form .list .item{
   .rowPadding {
     padding: 5px 15px;
   }
+  .imagesNewUploadPopup .popup {
+    width: 90%;
+  }
+  .bodyContent {
+    padding: 10px 20px 0;
+  }
+  .bodyContent .videoContent {
+    width: 45%;
+  }
+  .bodyContent .ImagesContent {
+    width: 55%;
+  }
 }
+/*///////////////////////////////////////////////////////////////////////*/
+
+/*///////////////////////////////////////////////////////////////////////*/
+@media (min-width: 992px) and (max-width: 1199px){
+  .imagesNewUploadPopup .popup {
+    width: 90%;
+  }
+  .bodyContent {
+    padding: 10px 40px 0;
+  }
+  .bodyContent .videoContent {
+    width: 35%;
+  }
+  .bodyContent .ImagesContent {
+    width: 65%;
+    padding-left: 30px;
+  }
+  .bodyContent .ImagesContent .imagesBox .bomImg {
+    width: 210px;
+    height: 150px;
+  }
+  .bodyContent .ImagesContent .imagesBox .bomImg img {
+    height: 150px;
+  }
+}
+/*///////////////////////////////////////////////////////////////////////*/
 .title-popup span:before{
   font-size: 30px;
   position: absolute;
