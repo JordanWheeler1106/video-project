@@ -919,15 +919,15 @@ form .list .item{
   display: inline-block;
 }
 .bodyContent .videoContent .selectedVideos img{
-  width: 250px;
-  height: 250px;
+  width: 88%;
+  height: 210px;
   float: left;
   border: 3px solid #1b75bb;
 }
 .bodyContent .ImagesContent{
   width: 70%;
   float: left;
-  padding-left: 35px;
+  padding-left: 30px;
 }
 .bodyContent .ImagesContent h2{
   font-size: 20px;
@@ -941,7 +941,7 @@ form .list .item{
 }
 .bodyContent .ImagesContent .imagesBox .bomImg{
   float: left;
-  width: 290px;
+  width: 45%;
   height: 200px;
   margin: 0 25px 20px 0;
   position: relative;
