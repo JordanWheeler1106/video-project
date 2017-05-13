@@ -145,10 +145,10 @@ angular.module('starter', ['ionic', 'slick', 'ngTagsInput'])
     //auto-complete data.
     $scope.loadTags = function(query) {
       return [
-        { text: 'just' },
-        { text: 'some' },
-        { text: 'cool' },
-        { text: 'tags' }
+        { text: 'family' },
+        { text: 'friends' },
+        { text: 'french' },
+        { text: 'france' }
       ];
     };
 
