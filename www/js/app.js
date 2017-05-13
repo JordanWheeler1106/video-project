@@ -152,7 +152,7 @@ angular.module('starter', ['ionic', 'slick'])
 
     $scope.saveAndPublishPopup = function() {
       var myPopup = $ionicPopup.show({
-        cssClass: 'imagesPopup',
+        cssClass: 'savePublishPopup',
         templateUrl: '../templates/saveAndPublishPopup.html',
         title: 'Save and Publish',
         scope: $scope
