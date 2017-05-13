@@ -1331,10 +1331,6 @@ form .list .item{
   right: 9px;
   top: 0;
 }
-/*.headerNav {*/
-  /*height: auto;*/
-  /*border: none;*/
-/*}*/
 .title-popup-heading{
   text-align: left
 }
@@ -1352,3 +1348,15 @@ form .list .item{
   top: 26%;
   left: 17%;
 }
+.closeIcon{
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  font-size: 24px;
+  cursor: pointer;
+}
+/*///////////////// save publish poup //////////////*/
+.savePublishPopup .popup{
+  width: 40%;
+}
+/*///////////////// save publish poup //////////////*/
