@@ -137,6 +137,7 @@ angular.module('starter', ['ionic', 'slick', 'ngTagsInput'])
 
     //for toggling view.
     $scope.sidebar = {prompt: false, search: false, showTags: false};
+    $scope.filter ={red: false}
 
     //model for tags
     $scope.tags = [];

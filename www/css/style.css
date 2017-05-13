@@ -798,14 +798,6 @@ form .list .item{
   font-size: 22px;
   font-weight: 600;
 }
-.imagesPopup .popup .popup-head h3 i{
-  font-size: 26px;
-  position: absolute;
-  right: 20px;
-  top: 16px;
-  z-index: 999;
-  cursor: pointer;
-}
 .imagesPopup .popup .popup-body{
   text-align: center;
   padding: 200px 15px;
@@ -1358,5 +1350,181 @@ form .list .item{
 /*///////////////// save publish poup //////////////*/
 .savePublishPopup .popup{
   width: 40%;
+}
+.savePublishPopup .popup .popup-head{
+  padding: 15px 40px;
+  border-bottom: 2px solid #ccc;
+}
+.savePublishPopup .popup .popup-head h3{
+  float: left;
+  width: 100%;
+  text-align: left;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+}
+.paddingLeftRight{
+  padding: 5px 40px 15px;
+}
+.savePublishPopup .popup .popup-body{
+  text-align: center;
+  padding: 0;
+  overflow: hidden;
+  background: white;
+}
+.savePublishPopup .popup .popup-body h1{
+  color: #333;
+  font-size: 24px;
+  text-align: left;
+  font-family: 'Source Sans Pro', sans-serif;
+  margin: 30px 0 10px 0;
+  float: left;
+  width: 100%;
+}
+.savePublishPopup .popup .popup-body .listsSelect{
+  width: 100%;
+  display: inline-block;
+}
+.savePublishPopup .popup .popup-body .listsSelect .list{
+  margin-bottom: 10px;
+}
+.savePublishPopup .popup .popup-body .listsSelect .list .item-input {
+  height: 40px;
+}
+.savePublishPopup .popup .popup-body .listsSelect .list .item-select:after{
+  content: "\f105";
+  font-family: 'FontAwesome';
+  border: none;
+  transform: rotate(90deg);
+  top: 55%;
+  right: 6px;
+  font-size: 20px;
+  color: #333;
+}
+.savePublishPopup .popup .popup-body .listsSelect .list .item-select select{
+  font-size: 18px;
+  color: #9c9ea1;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 500;
+}
+.socialLinks{
+  width: 100%;
+  float: left;
+  text-align: left;
+}
+.socialLinks .facebookCircle{
+  width: 50px;
+  height: 50px;
+  float: left;
+  background: #64cbee;
+  border-radius: 50%;
+  text-align: center;
+  padding-top: 16px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+.socialLinks .facebookCircle i{
+  color: white;
+  font-size: 20px;
+}
+.socialLinks .twitterCircle{
+  width: 50px;
+  height: 50px;
+  float: left;
+  background: #507cbd;
+  border-radius: 50%;
+  text-align: center;
+  padding-top: 16px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+.socialLinks .twitterCircle i{
+  color: white;
+  font-size: 20px;
+}
+.socialLinks .skyeCircle{
+  width: 50px;
+  height: 50px;
+  float: left;
+  background: #90c8da;
+  border-radius: 50%;
+  text-align: center;
+  padding-top: 14px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+.socialLinks .skyeCircle i{
+  color: white;
+  font-size: 20px;
+}
+.listItemsArea{
+  width: 100%;
+  display: inline-block;
+  text-align: left;
+}
+.listItemsArea .item-icon-left {
+  padding: 0;
+  float: left;
+  width: 100%;
+  border: none;
+  margin: 0 0 15px 0;
+  font-size: 18px;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+.listItemsArea .item-icon-left span{
+  margin: 22px 0 0 20px;
+  float: left;
+}
+.listItemsArea .item-icon-left p{
+  color: #1376ba;
+  float: right;
+  font-size: 20px;
+  margin: 20px 0 0 0;
+}
+.listItemsArea .item-icon-left img{
+  width: 60px;
+  height: 60px;
+  float: left;
+}
+.listItemsArea .item-icon-left .disable-user-behavior{
+  width: 10%;
+  float: right;
+  margin: 20px 0 0 0;
+}
+.listItemsArea .item-icon-left .disable-user-behavior .list{
+  width: 100%;
+}
+.listItemsArea .item-icon-left .disable-user-behavior .list label{
+  border: none;
+  background: none;
+}
+.popupField{
+  width: 100%;
+  display: inline-block;
+}
+.popupField .list-inset {
+  margin: 0;
+  width: 100%;
+  float: left;
+}
+.popupField .list-inset label{
+  border: 1px solid #cccccc;
+  height: 40px;
+}
+.rightAreaButton{
+  float: right;
+  width: 100%;
+  text-align: right;
+  margin: 30px 0 0 0;
+}
+.rightAreaButton .saveBtn{
+  background: #1b75bb;
+  color: white;
+  margin-left: 10px;
+  line-height: 38px;
+  border: none;
+  font-size: 15px;
+  font-family: 'Merriweather', serif;
+  padding: 2px 20px 0 20px;
 }
 /*///////////////// save publish poup //////////////*/
