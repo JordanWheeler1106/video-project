@@ -829,7 +829,7 @@ form .list .item{
 
 /*/////////////// popup new images upload styling //////////////////*/
 .imagesNewUploadPopup .popup{
-  width: 70%;
+  width: 80%;
 }
 .imagesNewUploadPopup .popup .popup-head{
   padding: 15px;
@@ -890,8 +890,8 @@ form .list .item{
   margin-bottom: 18px;
 }
 .bodyContent .imageBox img{
-  width: 220px;
-  height: 220px;
+  width: 90%;
+  height: 210px;
 }
 /*/////////////// popup new images upload styling //////////////////*/
 
