@@ -54,7 +54,8 @@
     </div>
     <!--////////////////////////////// col ////////////////////////////////-->
     <div class="row rowSetting responsive-lg">
-      <div class="col col-75 firstRow">
+      <div class="col firstRow" ng-class="(sidebar.prompt|| sidebar.search) ? 'col-75' : 'col-90'">
+        <textarea name="nugget" id="add-nugget-textarea" placeholder="Start your nugget"></textarea>
       </div>
 
       <ion-scroll zooming="true" direction="y" style="height: 100vh">
