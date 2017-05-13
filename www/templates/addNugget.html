@@ -69,11 +69,11 @@
 <div class="bar bar-footer footerBottom">
   <div class="container">
     <div class="leftArea" ng-click="sidebar.showTags = true">
-      <a href="javascript:"><i class="fa fa-bookmark-o" aria-hidden="true"></i></a>
+      <a class="sideIcon" href="javascript:"><i class="fa fa-bookmark-o" aria-hidden="true"></i></a>
       <a class="addInput" href="javascript:" ng-hide="sidebar.showTags || tags.length">Click to add tags</a>
       <ul ng-show="!sidebar.showTags && tags.length">
         <li ng-repeat="tag in tags">
-          <a href="javascript:">{{tag.text}}</a>
+          <a class="auto-complete-link" href="javascript:">{{tag.text}}</a>
         </li>
       </ul>
       <div class="list" ng-show="sidebar.showTags">
