@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "angular-slick": "^0.2.1",
-    "components-font-awesome": "^4.7.0"
+    "components-font-awesome": "^4.7.0",
+    "ng-tags-input": "^3.2.0"
   }
 }
