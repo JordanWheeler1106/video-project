@@ -768,9 +768,9 @@ form .list .item{
   top: 12px;
   margin-right: 3px;
 }
-.footerBottom .container .leftArea ul li{
-  display: inline-block;
-}
+/*.footerBottom .container .leftArea ul li{*/
+  /*display: inline-block;*/
+/*}*/
 .footerBottom .container .leftArea ul li .auto-complete-link{
   float: left;
   margin: 12px 0 0 5px;
