@@ -150,6 +150,23 @@ angular.module('starter', ['ionic', 'slick'])
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar sem vitae turpis semper,'
     ];
 
+    $scope.saveAndPublishPopup = function() {
+      var myPopup = $ionicPopup.show({
+        cssClass: 'imagesPopup',
+        templateUrl: '../templates/saveAndPublishPopup.html',
+        title: 'Save and Publish <span><i class="ion-android-close"></i></span>',
+        scope: $scope
+      });
+
+      myPopup.then(function(res) {
+        console.log('Tapped!', res);
+      });
+
+      $scope.closeSaveAndPublishPopupPopup = function() {
+        myPopup.close(); //close the popup after 3 seconds for some reason
+      };
+    };
+
     $scope.showInitialImageUploadPopup = function() {
       var myPopup = $ionicPopup.show({
         cssClass: 'imagesPopup',
@@ -165,7 +182,7 @@ angular.module('starter', ['ionic', 'slick'])
       $scope.closeSimpleImageUploadPopup = function() {
         myPopup.close(); //close the popup after 3 seconds for some reason
       };
-  };
+    };
 
     $scope.showAdvanceImageUploadPopup = function() {
       var myPopup = $ionicPopup.show({
