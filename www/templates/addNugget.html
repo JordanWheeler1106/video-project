@@ -1,5 +1,5 @@
 <ion-pane>
-  <ion-content>
+  <ion-content ng-click="sidebar.showTags = false">
     <div class="bar bar-header bar-stable headerNav" style="position: relative;">
       <div class="nav">
         <h1 class="title navHeading">the logo</h1>
@@ -68,13 +68,18 @@
 </ion-pane>
 <div class="bar bar-footer footerBottom">
   <div class="container">
-    <div class="leftArea">
+    <div class="leftArea" ng-click="sidebar.showTags = true">
       <a href="javascript:"><i class="fa fa-bookmark-o" aria-hidden="true"></i></a>
-      <a class="addInput" href="javascript:">Click to add tags</a>
-      <div class="list">
-        <label class="item item-input">
-          <input type="text" placeholder="Click to add tags">
-        </label>
+      <a class="addInput" href="javascript:" ng-hide="sidebar.showTags || tags.length">Click to add tags</a>
+      <ul ng-show="!sidebar.showTags && tags.length">
+        <li ng-repeat="tag in tags">
+          <a href="javascript:">{{tag.text}}</a>
+        </li>
+      </ul>
+      <div class="list" ng-show="sidebar.showTags">
+        <tags-input ng-model="tags" add-from-autocomplete-only="true">
+          <auto-complete source="loadTags($query)"></auto-complete>
+        </tags-input>
       </div>
     </div>
     <div class="rightArea">

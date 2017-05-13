@@ -133,17 +133,16 @@ angular.module('starter', ['ionic', 'slick', 'ngTagsInput'])
 
   })
   //add nugget controller
-  .controller('nuggetCtrl', function($scope, $ionicPopover, $ionicPopup){
+  .controller('nuggetCtrl', function($scope, $ionicPopover, $ionicPopup, $timeout){
 
-    $scope.sidebar = {prompt: false, search: false};
-    $scope.tags = [
-      { text: 'just' },
-      { text: 'some' },
-      { text: 'cool' },
-      { text: 'tags' }
-    ];
+    //for toggling view.
+    $scope.sidebar = {prompt: false, search: false, showTags: false};
+
+    //model for tags
+    $scope.tags = [];
+
+    //auto-complete data.
     $scope.loadTags = function(query) {
-      console.log('query', query);
       return [
         { text: 'just' },
         { text: 'some' },
@@ -151,6 +150,18 @@ angular.module('starter', ['ionic', 'slick', 'ngTagsInput'])
         { text: 'tags' }
       ];
     };
+
+  //watch on showTags focus on the input if showTags is true.
+    $scope.$watch('sidebar.showTags', function (value) {
+      if (value === true) {
+        $timeout(function () {
+          angular.element('.input')[0].focus();
+        });
+      }
+    });
+
+
+    //list for prompts
     $scope.lists = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar sem vitae turpis semper, eu molestie ex commodo. Fusce accumsan ultricies elementum, eu molestie ex commodo. Fusce accumsan ultricies elementum.',
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar sem vitae turpis semper, something here',
@@ -165,6 +176,7 @@ angular.module('starter', ['ionic', 'slick', 'ngTagsInput'])
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar sem vitae turpis semper,'
     ];
 
+    //popups.
     $scope.saveAndPublishPopup = function() {
       var myPopup = $ionicPopup.show({
         cssClass: 'savePublishPopup',
@@ -216,6 +228,7 @@ angular.module('starter', ['ionic', 'slick', 'ngTagsInput'])
       };
     };
 
+    //popover
     var searchFilterTemplate = '<ion-popover-view class="checkBoxPopover"><img src="../img/arrowUp_03.png" alt=""/><ion-content class="popoverContent">   <ion-checkbox ng-model="filter.everything">Everything</ion-checkbox><ion-checkbox ng-model="filter.published">Published info</ion-checkbox><ion-checkbox ng-model="filter.vital">Vital information</ion-checkbox><ion-checkbox ng-model="filter.media">Media</ion-checkbox></ion-popover-view>';
     var insertMediaTemplate = '<ion-popover-view class="imagesVideosPopover"><img src="../img/arrowUp_03.png" alt=""/><ion-content class="popoverContent" ng-click="showInitialImageUploadPopup()"><i class="fa fa-picture-o" aria-hidden="true"></i> Insert image</ion-content><ion-content class="popoverContent" ng-click="showAdvanceImageUploadPopup()"><i class="fa fa-play-circle-o" aria-hidden="true"></i> Insert video</ion-content><ion-content class="popoverContent"><i class="fa fa-link" aria-hidden="true"></i> Insert link</ion-content></ion-popover-view>';
 
