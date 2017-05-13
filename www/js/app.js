@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic', 'slick'])
+angular.module('starter', ['ionic', 'slick', 'ngTagsInput'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -137,6 +137,21 @@ angular.module('starter', ['ionic', 'slick'])
 
     $scope.filter ={red: false}
     $scope.sidebar = {prompt: false, search: false};
+    $scope.tags = [
+      { text: 'just' },
+      { text: 'some' },
+      { text: 'cool' },
+      { text: 'tags' }
+    ];
+    $scope.loadTags = function(query) {
+      console.log('query', query);
+      return [
+        { text: 'just' },
+        { text: 'some' },
+        { text: 'cool' },
+        { text: 'tags' }
+      ];
+    };
     $scope.lists = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar sem vitae turpis semper, eu molestie ex commodo. Fusce accumsan ultricies elementum, eu molestie ex commodo. Fusce accumsan ultricies elementum.',
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar sem vitae turpis semper, something here',
