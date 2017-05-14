@@ -133,7 +133,7 @@ angular.module('starter', ['ionic', 'slick', 'ngTagsInput'])
 
   })
   //add nugget controller
-  .controller('nuggetCtrl', function($scope, $ionicPopover, $ionicPopup, $timeout){
+  .controller('nuggetCtrl', function($scope, $ionicPopover, $ionicPopup, $timeout, $state){
 
     //for toggling view.
     $scope.sidebar = {prompt: false, search: false, showTags: false};
@@ -191,7 +191,12 @@ angular.module('starter', ['ionic', 'slick', 'ngTagsInput'])
       });
 
       $scope.closeSaveAndPublishPopupPopup = function() {
-        myPopup.close(); //close the popup after 3 seconds for some reason
+        myPopup.close();
+      };
+
+      $scope.closeSaveAndPublishPopupPopupAndRedirect = function() {
+        myPopup.close();
+        $state.go('home1')
       };
     };
 

@@ -1372,11 +1372,13 @@ form .list .item{
 }
 /*///////////////// save publish poup //////////////*/
 .savePublishPopup .popup{
-  width: 40%;
+  width: 35%;
 }
 .savePublishPopup .popup .popup-head{
   padding: 15px 40px;
   border-bottom: 2px solid #ccc;
+  background: #fff !important;
+
 }
 .savePublishPopup .popup .popup-head h3{
   float: left;
@@ -1404,12 +1406,20 @@ form .list .item{
   float: left;
   width: 100%;
 }
+.savePublishPopup .popup .popup-body h4{
+  color: #333 !important;
+  font-size: 18px;
+  text-align: left;
+}
 .savePublishPopup .popup .popup-body .listsSelect{
   width: 100%;
   display: inline-block;
 }
 .savePublishPopup .popup .popup-body .listsSelect .list{
   margin-bottom: 10px;
+}
+.m-b-0{
+  margin-bottom: 0 !important;
 }
 .savePublishPopup .popup .popup-body .listsSelect .list .item-input {
   height: 40px;
@@ -1434,6 +1444,7 @@ form .list .item{
   width: 100%;
   float: left;
   text-align: left;
+  margin-bottom: 10px;
 }
 .socialLinks .facebookCircle{
   width: 50px;
@@ -1491,28 +1502,28 @@ form .list .item{
   width: 100%;
   border: none;
   margin: 0 0 15px 0;
-  font-size: 18px;
+  font-size: 14px;
   font-family: 'Source Sans Pro', sans-serif;
 }
 .listItemsArea .item-icon-left span{
-  margin: 22px 0 0 20px;
+  margin: 15px 0 0 20px;
   float: left;
 }
 .listItemsArea .item-icon-left p{
   color: #1376ba;
   float: right;
-  font-size: 20px;
-  margin: 20px 0 0 0;
+  /*font-size: 20px;*/
+  margin: 15px 0 0 0;
 }
 .listItemsArea .item-icon-left img{
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   float: left;
 }
 .listItemsArea .item-icon-left .disable-user-behavior{
-  width: 10%;
+  width: 15%;
   float: right;
-  margin: 20px 0 0 0;
+  margin: 15px 0 0 0;
 }
 .listItemsArea .item-icon-left .disable-user-behavior .list{
   width: 100%;
@@ -1538,7 +1549,7 @@ form .list .item{
   float: right;
   width: 100%;
   text-align: right;
-  margin: 30px 0 0 0;
+  margin: 10px 0 0 0;
 }
 .rightAreaButton .saveBtn{
   background: #1b75bb;
