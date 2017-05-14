@@ -21,15 +21,24 @@
         <a href="javascript:" class="closeMenuBtn" ng-show="toggleMenu" ng-click="toggleMenu = false">Close Menu</a>
       </div>
       <!--///////////////////////// Mobile Version Nav ///////////////////////////////////-->
-      <!--<div class="linksNavMobile" ng-show="toggleMenu">-->
-        <!--<a href="javascript:"></a>-->
-        <!--<a href="javascript:"></a>-->
-        <!--<a href="javascript:"></a>-->
-        <!--<a href="javascript:"></a>-->
-        <!--<a href="javascript:"></a>-->
-        <!--&lt;!&ndash;<h6>Share Your Story</h6>&ndash;&gt;-->
-        <!--&lt;!&ndash;<h5><a href="javascript:">Sign In or Sign Up</a></h5>&ndash;&gt;-->
-      <!--</div>-->
+      <div class="linksNavMobile" ng-show="toggleMenu">
+        <a href="javascript:" class="full-information active">
+          Life-In-Full
+          <a href="javascript:" class="anchorChild" ng-class="{'active': toggleView == 'sphere'}" ng-click="toggleView = 'sphere'">View Life-in-Full as Sphere</a>
+          <a href="javascript:" class="anchorChild lastEle" ng-class="{'active': toggleView == 'list'}" ng-click="toggleView = 'list'">View Life-in-Full as List</a>
+        </a>
+        <a href="javascript:" class="full-information vital">Vital Information</a>
+        <div class="list list-inset">
+          <label class="item item-input">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input type="text" placeholder="Search">
+          </label>
+        </div>
+        <a href="javascript:" class="my-account-link">Upgrade Now</a>
+
+        <!--<h6>Share Your Story</h6>-->
+        <!--<h5><a href="javascript:">Sign In or Sign Up</a></h5>-->
+      </div>
       <!--///////////////////////// Mobile Version Nav ///////////////////////////////////-->
       <div class="nugget-tabs">
         <ul>
@@ -64,6 +73,17 @@
       </ion-scroll>
 
     </div>
+
+    <!--///////////////////////////// mobile design //////////////////////////////-->
+    <div class="mobile-design">
+      <div class="nugget-tabs-mobile">
+        <a href="javascript:" class="section">purpose <span>/</span></a>
+        <a href="javascript:" class="section">chapter <span>/</span></a>
+        <a href="javascript:" class="section">section</a>
+      </div>
+    </div>
+    <!--///////////////////////////// mobile design //////////////////////////////-->
+
   </ion-content>
 </ion-pane>
 <div class="bar bar-footer footerBottom">
@@ -88,3 +108,4 @@
     </div>
   </div>
 </div>
+

@@ -985,6 +985,30 @@ form .list .item{
   float: left;
   border: 2px solid #666;
 }
+/*/////////////// mobile design nugget //////////////*/
+.mobile-design{
+  display: none;
+  width: 100%;
+}
+.mobile-design .nugget-tabs-mobile{
+  width: 100%;
+  display: inline-block;
+  padding: 15px 15px;
+  margin: 0 0 15px 0;
+}
+.mobile-design .nugget-tabs-mobile .section{
+  color: #1577bb;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+}
+.mobile-design .nugget-tabs-mobile .section span{
+  display: inline-block;
+  margin: 0 5px 0 5px;
+}
+/*/////////////// mobile design nugget //////////////*/
 
 /*/////////////////////////////////////////////////////////*/
 /*//////////////////Media Query Start Here ////////////////*/
@@ -1258,6 +1282,15 @@ form .list .item{
     width: 250px;
     left: 20px;
   }
+  .rowSetting {
+    display: none;
+  }
+  .footerBottom {
+    display: none;
+  }
+  .mobile-design{
+    display: block;
+  }
 }
 @media (min-width: 768px) and (max-width: 991px){
   .tabsNav ul li {
@@ -1312,6 +1345,19 @@ form .list .item{
   }
   .bodyContent .ImagesContent {
     width: 55%;
+  }
+  .headerNav {
+    height: auto;
+    border: none;
+  }
+  .rowSetting {
+    display: none;
+  }
+  .footerBottom {
+    display: none;
+  }
+  .mobile-design{
+    display: block;
   }
 }
 /*///////////////////////////////////////////////////////////////////////*/
