@@ -1008,6 +1008,41 @@ form .list .item{
   display: inline-block;
   margin: 0 5px 0 5px;
 }
+.mobile-design .nugget-tabs-mobile h3{
+  font-family: 'Source Sans Pro', sans-serif;
+  margin: 25px 0 15px 0;
+}
+.mobile-design .nugget-tabs-mobile h6 {
+  color: #909090;
+  font-size: 14px;
+  margin: 0 0 8px 0;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+.mobile-design .nugget-tabs-mobile p{
+  margin: 20px 0 10px;
+  font-size: 16px;
+  font-family: 'Source Sans Pro', sans-serif;
+  line-height: 22px;
+}
+.nugget-footer{
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  z-index: 999;
+  display: none;
+}
+.nugget-footer button{
+  width: 100%;
+  display: inline-block;
+  border-radius: 0;
+  background: #1b75bb;
+  color: white;
+  font-size: 16px;
+  font-family: 'Merriweather', serif;
+  border: none;
+  padding: 15px 0 12px 0;
+  letter-spacing: 0.6px;
+}
 /*/////////////// mobile design nugget //////////////*/
 
 /*/////////////////////////////////////////////////////////*/
@@ -1291,6 +1326,9 @@ form .list .item{
   .mobile-design{
     display: block;
   }
+  .nugget-footer{
+    display: block;
+  }
 }
 @media (min-width: 768px) and (max-width: 991px){
   .tabsNav ul li {
@@ -1357,6 +1395,9 @@ form .list .item{
     display: none;
   }
   .mobile-design{
+    display: block;
+  }
+  .nugget-footer{
     display: block;
   }
 }
