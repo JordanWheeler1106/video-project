@@ -66,6 +66,27 @@ angular.module('starter', ['ionic', 'slick', 'ngTagsInput'])
         url:'/addnugget',
         templateUrl:'../templates/addNugget.html',
         controller: 'nuggetCtrl'
+      })
+      .state('account', {
+        url:'/account',
+        templateUrl:'../templates/account.html',
+        abstract: true
+      })
+      .state('account.profile', {
+        url:'',
+        templateUrl:'../templates/profile.html'
+      })
+      .state('account.passwordandbilling', {
+        url:'/password-and-billing',
+        templateUrl:'../templates/passwordAndBilling.html'
+      })
+      .state('account.sharesetting', {
+        url:'/share-setting',
+        templateUrl:'../templates/shareSetting.html'
+      })
+      .state('account.reffer', {
+        url:'/reffer',
+        templateUrl:'../templates/refferAFriend.html'
       });
 
     $urlRouterProvider.otherwise('/');

@@ -1347,6 +1347,34 @@ form .list .item{
   .logo {
     width: 190px;
   }
+  .account-tabs {
+    width: 100% !important;
+    padding: 0 15px;
+  }
+  .account-tabs ul li {
+    margin: 0 !important;
+    width: 100%;
+  }
+  .account-tabs ul li a {
+    width: 100%;
+    display: inline-block;
+    padding: 15px 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    position: relative;
+  }
+  .account-tabs ul li a .show-hide{
+    display: inline-block !important;
+    position: absolute;
+    right: 10px;
+    top: 17px;
+    color: #1b75bb;
+  }
+  .profile-parent {
+    width: 100% !important;
+    padding: 0 20px;
+  }
 }
 @media (min-width: 768px) and (max-width: 991px){
   .tabsNav ul li {
@@ -1420,6 +1448,37 @@ form .list .item{
   }
   .nugget-footer{
     display: block;
+  }
+  .account-tabs {
+    width: 100% !important;
+    text-align: center;
+  }
+  .account-tabs ul li {
+    margin: 0 10px 0 0 !important;
+    width: 23%;
+  }
+  .account-tabs ul li a {
+    padding: 10px 10px;
+    width: 100%;
+    display: inline-block;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    position: relative;
+    text-align: left;
+  }
+  .account-tabs ul li a .show-hide{
+    display: inline-block !important;
+    position: absolute;
+    right: 10px;
+    top: 11px;
+    color: #1b75bb;
+  }
+  .account-tabs ul {
+    padding: 30px 0 0 10px !important;
+  }
+  .profile-parent {
+    width: 80% !important;
   }
 }
 /*///////////////////////////////////////////////////////////////////////*/
@@ -1674,3 +1733,100 @@ form .list .item{
   max-width: 100px;
 }
 /*///////////////// save publish poup //////////////*/
+/*////////////////////////////////////////////// account page styling start here /////////////////////////////////////*/
+.account-tabs{
+  width: 47%;
+  margin: 0 auto;
+}
+.account-tabs ul{
+  padding: 30px 0 0 0;
+  width: 100%;
+  display: inline-block;
+}
+.account-tabs ul li{
+  display: inline-block;
+  margin: 0 60px 0 0;
+}
+.account-tabs ul li a.active{
+  color: #1b75bb;
+}
+.account-tabs ul li a{
+  text-decoration: none;
+  color: #989898;
+  font-size: 16px;
+}
+/*////////////////////////////////////////////// account page styling end here ///////////////////////////////////////*/
+/*////////////////////////////////////////////// profile page styling start here /////////////////////////////////////*/
+.profile-parent{
+  width: 31%;
+  display: block;
+  margin: 40px auto 0;
+}
+.change-profile{
+  margin: 0 0 20px 0;
+  width: 100%;
+  float: left;
+}
+.change-profile img{
+  width: 60px;
+  height: 60px;
+  float: left;
+}
+.change-profile a{
+  float: left;
+  margin: 20px 0 0 15px;
+  color: #98989b;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 600;
+}
+.profile-fields{
+  width: 100%;
+  display: inline-block;
+}
+.profile-fields .list{
+  margin: 0;
+}
+.profile-fields .list .item-input {
+  height: 40px;
+  padding: 3px 0 5px 16px;
+  margin: 0 0 20px 0;
+}
+.profile-fields .list span{
+  color: #68686a;
+  font-family: 'Source Sans Pro', sans-serif;
+  display: block;
+  margin: 0 0 5px 0;
+}
+.select-date-picker{
+  width: 100%;
+  display: inline-block;
+}
+.select-date-picker .list{
+  width: 48%;
+  float: left;
+}
+.select-date-picker .list:last-of-type{
+  float: right;
+}
+.profile-button{
+  width: 100%;
+  display: inline-block;
+}
+.profile-button button{
+  width: 100%;
+  color: white;
+  background: #1b75bb;
+  border: none;
+  border-radius: 0;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 500;
+  word-spacing: 0.5px;
+  letter-spacing: 0.3px;
+  padding: 12px 0 9px;
+}
+.account-tabs ul li a .show-hide{
+  display: none;
+}
+/*////////////////////////////////////////////// profile page styling end here ///////////////////////////////////////*/

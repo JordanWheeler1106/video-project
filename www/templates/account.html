@@ -1,0 +1,50 @@
+<ion-pane>
+  <ion-content>
+    <div class="bar bar-header bar-stable headerNav" style="position: relative;">
+      <div class="nav">
+        <img src="img/logo.png" class="logo" alt=""/>
+        <div class="linksNav">
+          <a href="javascript:" class="full-information active">Life-In-Full</a>
+          <a href="javascript:" class="full-information">Vital Information</a>
+          <div class="list list-inset">
+            <label class="item item-input">
+              <i class="fa fa-search placeholder-icon"></i>
+              <input type="text" placeholder="Search">
+            </label>
+          </div>
+          <a href="javascript:" class="my-account-link">Upgrade Now</a>
+          <a href="javascript:" class="my-account-link">My Account</a>
+        </div>
+        <button type="button" ng-show="!toggleMenu" class="menuBtn" ng-click="toggleMenu = true">Menu</button>
+        <a href="javascript:" class="closeMenuBtn" ng-show="toggleMenu" ng-click="toggleMenu = false">Close Menu</a>
+      </div>
+      <!--///////////////////////// Mobile Version Nav ///////////////////////////////////-->
+      <div class="linksNavMobile" ng-show="toggleMenu">
+        <a href="javascript:" class="full-information active">
+          Life-In-Full
+          <a href="javascript:" class="anchorChild" ng-class="{'active': toggleView == 'sphere'}" ng-click="toggleView = 'sphere'">View Life-in-Full as Sphere</a>
+          <a href="javascript:" class="anchorChild lastEle" ng-class="{'active': toggleView == 'list'}" ng-click="toggleView = 'list'">View Life-in-Full as List</a>
+        </a>
+        <a href="javascript:" class="full-information vital">Vital Information</a>
+        <div class="list list-inset">
+          <label class="item item-input">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input type="text" placeholder="Search">
+          </label>
+        </div>
+        <a href="javascript:" class="my-account-link">Upgrade Now</a>
+      </div>
+      <!--///////////////////////// Mobile Version Nav ///////////////////////////////////-->
+      <div class="account-tabs">
+        <ul>
+          <li><a href="javascript:" class="active">Profile <i class="ion-chevron-right show-hide"></i></a></li>
+          <li><a href="javascript:">Password & Billing <i class="ion-chevron-right show-hide"></i></a></li>
+          <li><a href="javascript:">Share Settings <i class="ion-chevron-right show-hide"></i></a></li>
+          <li><a href="javascript:">Refer a Friend <i class="ion-chevron-right show-hide"></i></a></li>
+        </ul>
+      </div>
+    </div>
+    <ui-view></ui-view>
+  </ion-content>
+</ion-pane>
+
