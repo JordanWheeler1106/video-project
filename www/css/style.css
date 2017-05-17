@@ -1830,3 +1830,50 @@ form .list .item{
   display: none;
 }
 /*////////////////////////////////////////////// profile page styling end here ///////////////////////////////////////*/
+
+/*/////////////////////////////////////// password billings page styling end here ////////////////////////////////////*/
+.password-content{
+  width: 100%;
+  display: inline-block;
+}
+.your-plan-title{
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 600;
+  color: #626365;
+  display: block;
+  margin: 0 0 10px 0;
+}
+.password-content h2{
+  margin: 0 0 15px 0;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 300;
+}
+.password-content h5{
+  margin: 0 0 15px 0;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 400;
+  color: #626365;
+}
+.password-content p{
+  margin: 0 0 30px;
+  font-size: 16px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 600;
+}
+.password-content .list .item-checkbox {
+  padding: 10px 0 0 0 !important;
+  border: none;
+}
+.password-content .list .item-checkbox .checkbox {
+  left: 0;
+  width: 8%;
+  float: left;
+  margin: -12px 0 0 0;
+}
+.password-content .list .disable-pointer-events {
+  pointer-events: none;
+  width: 91%;
+  float: right;
+  color: #18ac5f;
+}
+/*/////////////////////////////////////// password billings page styling end here ////////////////////////////////////*/
