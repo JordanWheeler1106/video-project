@@ -1387,6 +1387,44 @@ form .list .item{
   .password-content .change-password-btn button{
     width: 70% !important;
   }
+  .refer-friend-content {
+    width: 100% !important;
+    padding: 0 15px;
+  }
+  .refer-friend-content h2 {
+    font-size: 24px;
+  }
+  .refer-friend-content p{
+    padding: 0 !important;
+  }
+  .refer-friend-content .field-area {
+    width: 100% !important;
+    margin: 0 !important;
+  }
+  .refer-friend-content .field-area .list {
+    width: 70% !important;
+  }
+  .refer-friend-content .field-area button {
+    width: 30% !important;
+  }
+  .invite-friends-area {
+    width: 100% !important;
+    margin: 35px 0 0 0 !important;
+    padding: 0 0 20px 0 !important;
+    border-top: 0 !important;
+  }
+  .invite-friends-area .link-btn {
+    width: 75% !important;
+    float: none !important;
+    display: block;
+    margin: 0 auto;
+  }
+  .invite-friends-area .share-btn {
+    width: 75% !important;
+    float: none !important;
+    display: block;
+    margin: 15px auto 0;
+  }
 }
 @media (min-width: 768px) and (max-width: 991px){
   .tabsNav ul li {
@@ -1491,6 +1529,13 @@ form .list .item{
   }
   .profile-parent {
     width: 80% !important;
+  }
+  .refer-friend-content {
+    width: 100% !important;
+  }
+  .invite-friends-area {
+    width: 75% !important;
+    margin: 35px 0 0 12% !important;
   }
 }
 /*///////////////////////////////////////////////////////////////////////*/
@@ -1945,3 +1990,90 @@ form .list .item{
   font-weight: 600;
 }
 /*/////////////////////////////////////// password billings page styling end here ////////////////////////////////////*/
+
+/*/////////////////////////////////////// refer friend page styling start here ///////////////////////////////////////*/
+.refer-friend-content{
+  width: 60%;
+  margin: 50px auto 0;
+  text-align: center;
+}
+.refer-friend-content h2{
+  margin: 0 0 20px 0;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 400;
+}
+.refer-friend-content p{
+  margin: 0 0 30px 0;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 600;
+  padding: 0 150px;
+}
+.refer-friend-content .field-area{
+  width: 55%;
+  margin: 0 0 0 22%;
+  float: left;
+}
+.refer-friend-content .field-area .list{
+  width: 75%;
+  float: left;
+}
+.refer-friend-content .field-area .list label{
+  height: 45px;
+  border-color: #909090;
+}
+::-webkit-input-placeholder {
+  color: #909090;
+}
+.refer-friend-content .field-area button{
+  width: 25%;
+  float: left;
+  color: white;
+  background: #1b75bb;
+  border: none;
+  text-transform: uppercase;
+  font-family: 'Source Sans Pro', sans-serif;
+  height: 45px;
+}
+.invite-friends-area{
+  width: 65%;
+  margin: 35px 0 0 17%;
+  padding: 35px 0 20px 0;
+  border-top: 1px solid #ccc;
+  float: left;
+  text-align: center;
+}
+.invite-friends-area button{
+  background: none;
+  border: 1px solid #cccccc;
+  height: 45px;
+  color: black;
+  text-transform: uppercase;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 700;
+  position: relative;
+  margin-top: 20px;
+}
+.invite-friends-area .link-btn{
+  width: 40%;
+  float: left;
+  padding: 3px 0 0 25px;
+}
+.invite-friends-area .link-btn i{
+  font-size: 28px;
+  position: absolute;
+  top: 4px;
+  left: 60px;
+}
+.invite-friends-area .share-btn{
+  width: 40%;
+  float: right;
+  padding: 3px 0 0 15px;
+}
+.invite-friends-area .share-btn i{
+  font-size: 26px;
+  position: absolute;
+  top: 4px;
+  left: 33px;
+  color: #517cbe;
+}
+/*/////////////////////////////////////// refer friend  page styling end here ////////////////////////////////////////*/
