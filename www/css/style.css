@@ -2080,14 +2080,80 @@ form .list .item{
 
 /*/////////////////////////////////////// share setting page styling start here //////////////////////////////////////*/
 .share-setting-content{
-  width: 60%;
-  margin: 0 auto;
+  width: 52%;
+  margin: 0 0 0 26.5%;
   display: block;
-  padding: 40px 0 0 92px;
+  padding: 50px 0 40px 0;
+  border-bottom: 1px solid #ccc;
 }
 .share-setting-content h4{
   margin: 0 0 25px 0;
   font-family: 'Source Sans Pro', sans-serif;
 }
-.share-setting-content button{}
+.share-setting-content button{
+  border: none;
+  background: #0973ba;
+  color: white;
+  font-family: 'Source Sans Pro', sans-serif;
+  text-transform: uppercase;
+  font-size: 15px;
+  padding: 12px 40px 10px;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+.share-setting-content button i{
+  display: inline-block;
+  margin: 0 2px 0 0;
+  font-size: 11px;
+}
+.users-content{
+  width: 52%;
+  margin: 0 0 0 26.5%;
+  display: block;
+  padding: 40px 0 0 0;
+}
+.users-content h4{
+  margin: 0 0 25px 0;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+.users-content .user-box{
+  width: 25%;
+  float: left;
+  padding-bottom: 50px;
+}
+.users-content .user-box .user{
+  width: 90%;
+  margin: 0 auto;
+  text-align: center;
+  border: 1px solid #ccc;
+  padding: 15px 0 0 0;
+}
+.users-content .user-box .user img{
+  width: 70px;
+  height: 70px;
+}
+.users-content .user-box .user h4{
+  margin: 2px 0 10px 0;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+.users-content .user-box .user a{
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 12px;
+  text-decoration: none;
+  display: inline-block;
+  padding: 0 0 0 2px;
+  line-height: 12px;
+  color: #0973ba;
+}
+.users-content .user-box .user .resend{
+  border-right: 2px solid #cccccc;
+  padding: 0 5px 0 0;
+  line-height: 12px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 12px;
+  text-decoration: none;
+  display: inline-block;
+  color: #0973ba;
+
+}
 /*/////////////////////////////////////// share setting page styling end here ////////////////////////////////////////*/
