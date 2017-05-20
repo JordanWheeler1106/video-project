@@ -69,11 +69,10 @@ angular.module('starter', ['ionic', 'slick', 'ngTagsInput'])
       })
       .state('account', {
         url:'/account',
-        templateUrl:'../templates/account.html',
-        abstract: true
+        templateUrl:'../templates/account.html'
       })
       .state('account.profile', {
-        url:'',
+        url:'/profile',
         templateUrl:'../templates/profile.html'
       })
       .state('account.passwordandbilling', {
