@@ -82,7 +82,8 @@ angular.module('starter', ['ionic', 'slick', 'ngTagsInput'])
       })
       .state('account.sharesetting', {
         url:'/share-setting',
-        templateUrl:'../templates/shareSetting.html'
+        templateUrl:'../templates/shareSetting.html',
+        controller: 'shareSettingCtrl'
       })
       .state('account.shareDetails', {
         url:'/share-details',
@@ -143,6 +144,47 @@ angular.module('starter', ['ionic', 'slick', 'ngTagsInput'])
         //hit api with login data.
       }
     }
+
+  })
+   //forgot controller
+  .controller('shareSettingCtrl', function($scope, $ionicPopup){
+
+    //remove member popup.
+    $scope.removeMemberPopup = function() {
+      var popup = $ionicPopup.show({
+        cssClass: 'remove-member-popup',
+        templateUrl: '../templates/removeMemberPopup.html',
+        scope: $scope
+      });
+
+      popup.then(function(res) {
+        console.log('Tapped!', res);
+      });
+
+      $scope.closeRemoveMemberPopup = function() {
+        popup.close();
+      };
+
+    };
+
+    //invite new member popup.
+    $scope.inviteMemberPopup = function() {
+      var popup = $ionicPopup.show({
+        cssClass: 'invite-new-member-popup',
+        templateUrl: '../templates/inviteMemberPopup.html',
+        title: 'Invite New Member',
+        scope: $scope
+      });
+
+      popup.then(function(res) {
+        console.log('Tapped!', res);
+      });
+
+      $scope.closeInviteMemberPopup = function() {
+        popup.close();
+      };
+
+    };
 
   })
   //reset password controller

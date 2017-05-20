@@ -1,6 +1,6 @@
 <div class="share-setting-content">
   <h4>Add Members</h4>
-  <button type="button"><i class="ion-plus"></i> add new member</button>
+  <button type="button" ng-click="inviteMemberPopup()"><i class="ion-plus"></i> add new member</button>
 </div>
 <div class="users-content">
   <h4>Your Members</h4>
@@ -14,7 +14,7 @@
       <h4>John Doe</h4>
       <span>Follower Type -</span>
       <!--<a href="javascript:" class="resend">Resend Invite</a>-->
-      <a href="javascript:">Remove</a>
+      <a href="javascript:" ng-click="removeMemberPopup()">Remove</a>
     </div>
   </div>
   <div class="user-box">
