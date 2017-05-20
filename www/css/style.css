@@ -2062,7 +2062,7 @@ form .list .item{
   font-size: 28px;
   position: absolute;
   top: 4px;
-  left: 60px;
+  left: 50px;
 }
 .invite-friends-area .share-btn{
   width: 40%;
@@ -2073,7 +2073,21 @@ form .list .item{
   font-size: 26px;
   position: absolute;
   top: 4px;
-  left: 33px;
+  left: 20px;
   color: #517cbe;
 }
 /*/////////////////////////////////////// refer friend  page styling end here ////////////////////////////////////////*/
+
+/*/////////////////////////////////////// share setting page styling start here //////////////////////////////////////*/
+.share-setting-content{
+  width: 60%;
+  margin: 0 auto;
+  display: block;
+  padding: 40px 0 0 92px;
+}
+.share-setting-content h4{
+  margin: 0 0 25px 0;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+.share-setting-content button{}
+/*/////////////////////////////////////// share setting page styling end here ////////////////////////////////////////*/
