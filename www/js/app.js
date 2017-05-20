@@ -84,6 +84,10 @@ angular.module('starter', ['ionic', 'slick', 'ngTagsInput'])
         url:'/share-setting',
         templateUrl:'../templates/shareSetting.html'
       })
+      .state('account.shareDetails', {
+        url:'/share-details',
+        templateUrl:'../templates/shareDetails.html'
+      })
       .state('account.reffer', {
         url:'/reffer',
         templateUrl:'../templates/refferAFriend.html'

@@ -1425,6 +1425,34 @@ form .list .item{
     display: block;
     margin: 15px auto 0;
   }
+  .share-setting-content {
+    width: 100% !important;
+    margin: 0 0 0 0 !important;
+    padding: 50px 20px 40px 20px !important;
+  }
+  .users-content {
+    width: 100% !important;
+    margin: 0 0 0 0 !important;
+    padding: 40px 10px 0 10px !important;
+  }
+  .users-content h4 {
+    margin: 0 0 25px 10px !important;
+  }
+  .users-content .user-box .user h4{
+    margin: 0 0 10px 0 !important;
+  }
+  .users-content .user-box {
+    width: 50% !important;
+  }
+  .users-content .user-box .user{
+    width: 95% !important;
+  }
+  .users-content .user-box .user span{
+    font-size: 11px !important;
+  }
+  .users-content .user-box .user a{
+    font-size: 11px !important;
+  }
 }
 @media (min-width: 768px) and (max-width: 991px){
   .tabsNav ul li {
@@ -1536,6 +1564,19 @@ form .list .item{
   .invite-friends-area {
     width: 75% !important;
     margin: 35px 0 0 12% !important;
+  }
+  .share-setting-content {
+    width: 100% !important;
+    margin: 0 0 0 0 !important;
+    padding: 50px 20px 40px 30px !important;
+  }
+  .users-content {
+    width: 100% !important;
+    margin: 0 0 0 0 !important;
+    padding: 40px 20px 0 20px !important;
+  }
+  .users-content h4 {
+    margin: 0 0 25px 10px !important;
   }
 }
 /*///////////////////////////////////////////////////////////////////////*/
@@ -2119,31 +2160,40 @@ form .list .item{
 .users-content .user-box{
   width: 25%;
   float: left;
-  padding-bottom: 50px;
+  padding-bottom: 16px;
 }
 .users-content .user-box .user{
   width: 90%;
   margin: 0 auto;
   text-align: center;
   border: 1px solid #ccc;
-  padding: 15px 0 0 0;
+  padding: 15px 0 15px 0;
+  position: relative;
 }
 .users-content .user-box .user img{
   width: 70px;
   height: 70px;
 }
 .users-content .user-box .user h4{
-  margin: 2px 0 10px 0;
+  margin: 5px 0 10px 0;
   font-family: 'Source Sans Pro', sans-serif;
+  text-transform: capitalize;
 }
 .users-content .user-box .user a{
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 12px;
   text-decoration: none;
   display: inline-block;
-  padding: 0 0 0 2px;
+  padding: 0 0 0 0;
   line-height: 12px;
   color: #0973ba;
+  font-weight: 600;
+}
+.users-content .user-box .user span{
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 12px;
 }
 .users-content .user-box .user .resend{
   border-right: 2px solid #cccccc;
@@ -2154,6 +2204,38 @@ form .list .item{
   text-decoration: none;
   display: inline-block;
   color: #0973ba;
-
+  font-weight: 600;
+}
+.users-content .user-box .user button{
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  border: none;
+  background: #0973ba;
+  color: white;
+  font-family: 'Source Sans Pro', sans-serif;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+.user-name{
+  width: 60px;
+  height: 60px;
+  text-align: center;
+  border: 1px solid #cccccc;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: #e7e8e9;
+  padding-top: 10px;
+}
+.user-name h2{
+  margin: 0;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 300;
 }
 /*/////////////////////////////////////// share setting page styling end here ////////////////////////////////////////*/
+
+/*/////////////////////////////////////// share detail page styling start here ///////////////////////////////////////*/
+.share-details-content{
+
+}
+/*/////////////////////////////////////// share detail page styling end here /////////////////////////////////////////*/
