@@ -1453,6 +1453,9 @@ form .list .item{
   .users-content .user-box .user a{
     font-size: 11px !important;
   }
+  .user-name {
+    margin: 3px auto 2px !important;
+  }
 }
 @media (min-width: 768px) and (max-width: 991px){
   .tabsNav ul li {
@@ -2218,14 +2221,14 @@ form .list .item{
   font-size: 12px;
 }
 .user-name{
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   text-align: center;
   border: 1px solid #cccccc;
-  margin: 0 auto;
+  margin: 5px auto;
   border-radius: 50%;
   background: #e7e8e9;
-  padding-top: 10px;
+  padding-top: 16px;
 }
 .user-name h2{
   margin: 0;
@@ -2236,6 +2239,17 @@ form .list .item{
 
 /*/////////////////////////////////////// share detail page styling start here ///////////////////////////////////////*/
 .share-details-content{
-
+  width: 50%;
+  margin: 0 0 0 26.5%;
+  display: block;
+  padding: 40px 0 0 0;
+}
+.share-details-content .left-content{
+  width: 25%;
+  float: left;
+}
+.share-details-content .right-content{
+  width: 75%;
+  float: left;
 }
 /*/////////////////////////////////////// share detail page styling end here /////////////////////////////////////////*/
