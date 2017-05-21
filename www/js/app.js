@@ -95,7 +95,7 @@ angular.module('starter', ['ionic', 'slick', 'ngTagsInput'])
     //TODO temporary routes for mobile design, the only way to achieve the mobile design, need to fix it after discuss with client.
       .state('accountOnMobile', {
         url:'/account/mobile',
-        templateUrl:'../templates/account.html'
+        templateUrl:'../templates/accountForMobile.html'
       })
       .state('profileOnMobile', {
         url:'/profile/mobile',
@@ -172,10 +172,11 @@ angular.module('starter', ['ionic', 'slick', 'ngTagsInput'])
 
   })
    //forgot controller
-  .controller('shareSettingCtrl', function($scope, $ionicPopup){
+  .controller('shareSettingCtrl', function($scope, $ionicPopup, $state){
 
     //remove member popup.
-    $scope.removeMemberPopup = function() {
+    $scope.removeMemberPopup = function(e) {
+      e.stopPropagation();
       var popup = $ionicPopup.show({
         cssClass: 'remove-member-popup',
         templateUrl: '../templates/removeMemberPopup.html',
@@ -211,6 +212,9 @@ angular.module('starter', ['ionic', 'slick', 'ngTagsInput'])
 
     };
 
+    $scope.changeSetting = function(){
+      $state.go('account.shareDetails')
+    }
   })
   //reset password controller
   .controller('newPasswordCtrl', function($scope){

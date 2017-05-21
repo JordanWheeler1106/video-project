@@ -1478,10 +1478,29 @@ form .list .item{
   .update-email {
     padding: 14px 40px 12px !important;
   }
+  .invite-new-member-popup .popup {
+    width: 95% !important;
+  }
+  .invite-new-member-popup .popup .popup-body .list-inset{
+    border: 0 !important;
+  }
+  .invite-new-member-popup .popup .popup-body {
+    padding: 30px 20px 0 !important;
+  }
+  .remove-member-popup .popup {
+    width: 95% !important;
+  }
+  .remove-member-popup .popup .popup-body div {
+    padding: 0 0 !important;
+    display: inline-block;
+  }
 }
 @media (min-width: 768px) and (max-width: 991px){
   .tabsNav ul li {
     margin: 0 50px 0 0;
+  }
+  .remove-member-popup .popup {
+    width: 70% !important;
   }
   .nugget-tabs{
     display: none;
@@ -1608,6 +1627,9 @@ form .list .item{
     margin: 0 0 0 0 !important;
     padding: 40px 20px 0 20px !important;
     float: left;
+  }
+  .invite-new-member-popup .popup {
+    width: 80% !important;
   }
 }
 /*///////////////////////////////////////////////////////////////////////*/
@@ -2416,9 +2438,6 @@ form .list .item{
   font-size: 20px;
   font-weight: 300;
 }
-.invite-new-member-popup .popup .popup-body .item-stacked-label{
-
-}
 .invite-new-member-popup .popup .popup-body{
   padding: 30px 60px;
   background: white;
@@ -2427,4 +2446,74 @@ form .list .item{
   font-size: 14px;
   padding: 0 0 5px 0;
 }
+.invite-new-member-popup .popup .popup-body .list .item-select{
+  margin-bottom: 15px;
+}
+.invite-new-member-popup .popup .popup-body .list .item-textarea{
+  height: 150px !important;
+  padding: 30px 15px 0 15px;
+}
+.invite-new-member-popup .popup .popup-body .list button{
+  font-family: 'Source Sans Pro', sans-serif;
+  text-transform: uppercase;
+  font-size: 16px;
+  height: 45px;
+  padding: 4px 0 0 0;
+  background: #2c7ec0;
+}
+.invite-new-member-popup .popup .popup-body .list .item-textarea textarea{
+  height: 150px;
+}
+.invite-new-member-popup .popup .popup-body .list .item-input {
+  height: 45px;
+}
+.invite-new-member-popup .popup .popup-body .list-inset{
+  width: 100%;
+  margin: 0 0 15px 0;
+}
+.invite-new-member-popup .popup .popup-body .list-inset label{
+  border: 1px solid #ccc;
+  height: 45px;
+}
+.invite-new-member-popup .popup .popup-body .list-inset ::-webkit-input-placeholder {
+  font-size: 14px;
+}
 /*/////////////////////////////////////// invite new member popup styling end here ///////////////////////////////////*/
+.remove-member-popup .popup{
+  width: 40%;
+}
+.remove-member-popup .popup .popup-head{
+  padding: 0;
+}
+.remove-member-popup .popup .popup-body{
+  background: white;
+  padding: 60px 15px 20px 15px;
+  text-align: center;
+}
+.remove-member-popup .popup .popup-body h5{
+  font-family: 'Source Sans Pro', sans-serif;
+  margin: 0 0 25px 0;
+  font-size: 18px;
+  font-weight: 500;
+}
+.remove-member-popup .popup .popup-body div{
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+  padding: 0 46px;
+  margin: 0 0 30px 0;
+}
+.remove-member-popup .popup .popup-body button{
+  text-transform: uppercase;
+  border: none;
+  background: #2c7ec0;
+  color: white;
+  padding: 12px 35px 10px;
+  display: block;
+  margin: 0 auto 15px;
+  letter-spacing: 0.5px;
+}
+.remove-member-popup .popup .popup-body a{
+  color: #777;
+  font-family: 'Source Sans Pro', sans-serif;
+}

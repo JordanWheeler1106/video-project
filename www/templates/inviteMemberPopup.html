@@ -1,9 +1,12 @@
 <span class="closeIcon" ng-click="closeInviteMemberPopup()"><i class="ion-android-close"></i></span>
-<div class="list">
+<div class="list list-inset">
   <span class="input-label">Email Address</span>
-  <label class="item item-input item-stacked-label">
-    <input type="text" placeholder="john@suhr.com">
+  <label class="item item-input">
+    <i class="ion-ios-email-outline"></i>
+    <input type="text" placeholder="Invite by email address">
   </label>
+</div>
+<div class="list">
   <span class="input-label">Member Type</span>
   <label class="item item-input item-select">
     <select>
@@ -12,7 +15,7 @@
       <option>Red</option>
     </select>
   </label>
-  <label class="item item-input">
+  <label class="item item-input item-textarea">
     <textarea placeholder="Comments"></textarea>
   </label>
   <button class="button button-block button-positive">
