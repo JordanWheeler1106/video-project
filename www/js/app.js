@@ -91,6 +91,32 @@ angular.module('starter', ['ionic', 'slick', 'ngTagsInput'])
       .state('account.reffer', {
         url:'/reffer',
         templateUrl:'../templates/refferAFriend.html'
+      })
+    //TODO temporary routes for mobile design, the only way to achieve the mobile design, need to fix it after discuss with client.
+      .state('accountOnMobile', {
+        url:'/account/mobile',
+        templateUrl:'../templates/account.html'
+      })
+      .state('profileOnMobile', {
+        url:'/profile/mobile',
+        templateUrl:'../templates/profile.html'
+      })
+      .state('passwordandbillingOnMobile', {
+        url:'/password-and-billing/mobile',
+        templateUrl:'../templates/passwordAndBilling.html'
+      })
+      .state('sharesettingOnMobile', {
+        url:'/share-setting/mobile',
+        templateUrl:'../templates/shareSetting.html',
+        controller: 'shareSettingCtrl'
+      })
+      .state('sharesettingdetailsOnMobile', {
+        url:'/share-setting-details/mobile',
+        templateUrl:'../templates/shareDetails.html'
+      })
+      .state('refferOnMobile', {
+        url:'/reffer/mobile',
+        templateUrl:'../templates/refferAFriend.html'
       });
 
     $urlRouterProvider.otherwise('/');
