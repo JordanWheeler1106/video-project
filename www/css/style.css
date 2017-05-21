@@ -2398,3 +2398,33 @@ form .list .item{
   font-weight: 400 !important;
 }
 /*/////////////////////////////////////// share detail page styling end here /////////////////////////////////////////*/
+
+/*/////////////////////////////////////// invite new member popup styling start here /////////////////////////////////*/
+.invite-new-member-popup .popup{
+  width: 40%;
+}
+.invite-new-member-popup .popup .popup-head{
+  padding: 20px 20px 15px;
+  border-bottom: 2px solid #ccc;
+  background: #fff !important;
+}
+.invite-new-member-popup .popup .popup-head h3{
+  float: left;
+  width: 100%;
+  text-align: left;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 20px;
+  font-weight: 300;
+}
+.invite-new-member-popup .popup .popup-body .item-stacked-label{
+
+}
+.invite-new-member-popup .popup .popup-body{
+  padding: 30px 60px;
+  background: white;
+}
+.invite-new-member-popup .popup .popup-body .list .input-label{
+  font-size: 14px;
+  padding: 0 0 5px 0;
+}
+/*/////////////////////////////////////// invite new member popup styling end here ///////////////////////////////////*/
