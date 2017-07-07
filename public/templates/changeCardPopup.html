@@ -1,0 +1,46 @@
+<span class="closeIcon" ng-click="closeChangeCardPopup()"><i class="ion-android-close"></i></span>
+<ion-scroll zooming="true" direction="y" style="height: 500px">
+  <form name="changeCardForm" ng-submit="saveCard(changeCardForm)">
+    <div class="list list-inset">
+      <!-- <span class="input-label">New Password</span> -->
+      <label class="item item-input">
+        <input type="text" name="name" placeholder="Name" ng-model="card.name" ng-required>
+      </label>
+    </div>
+    <div class="list list-inset">
+      <!-- <span class="input-label">New Password</span> -->
+      <label class="item item-input">
+        <input type="number" name="cardNumber" placeholder="Card Number" ng-model="card.number" ng-required>
+      </label>
+    </div>
+    <p class="passwordCharacters" ng-show="changeCardForm.cardNumber.$error.required">Card Number should be required.</p>
+    <div class="list list-inset">
+      <!-- <span class="input-label">Confirm new Password</span> -->
+      <label class="item item-input">
+        <input type="number" name="cvc" placeholder="CVC" ng-model="card.cvc" ng-required>
+      </label>
+    </div>
+    <p class="passwordCharacters" ng-show="changeCardForm.cvc.$error.required">CVC should be required.</p>
+    <div class="list list-inset">
+      <label class="item item-input item-select">
+        <select ng-model="card.month">
+          <option ng-repeat="i in [1,2,3,4,5,6,7,8,9,10,11,12]" value="{{i}}">{{i}}</option>
+        </select>
+      </label>
+    </div>
+    <div class="list list-inset">
+      <label class="item item-input item-select">
+        <select ng-model="card.year">
+          <option ng-repeat="i in [2017,2018,2019,2020,2021,2022,2023,2024,2025,2026,2027,2028,2029,2030]" value="{{i}}">{{i}}</option>
+        </select>
+      </label>
+    </div>
+    <div class="row">
+      <div class="col col-12">
+        <button class="button button-block button-positive savePassword">
+          Save
+        </button>
+      </div>
+    </div>
+  </form>
+</ion-scroll>

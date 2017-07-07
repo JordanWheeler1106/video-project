@@ -1,0 +1,2602 @@
+/* Empty. Add your own CSS if you like */
+.headerNav{
+  background: white !important;
+  display: block;
+  height: 170px;
+}
+.nav{
+  width: 85%;
+  margin: 0 auto;
+  border-bottom: 1px solid #b2b2b2;
+  padding: 20px 0 15px 0;
+}
+.logo{
+  width: 15%;
+}
+.logo-Parent{
+  text-align: center;
+  margin: 0 0 30px 0;
+}
+.logo-Parent .logo{
+  width: 70%;
+}
+.tag-item{
+  color: #333 !important;
+  background: #c6d8e7 !important;
+}
+.tabsNav{
+  width: 85%;
+  margin: 0 auto;
+}
+.tabsNav ul{
+  padding: 24px 0 0 0;
+  width: 80%;
+  display: inline-block;
+}
+.tabsNav ul li{
+  display: inline-block;
+  margin: 0 60px 0 0;
+}
+.tabsNav ul li a{
+  text-decoration: none;
+  color: #989898;
+  font-size: 16px;
+}
+.headerNav .navHeading{
+  text-transform: uppercase;
+  font-size: 40px;
+  font-family: 'Arvo', serif;
+  margin: 0;
+  position: static;
+  display: inline-block;
+  width: 20%;
+  word-spacing: 5px;
+  font-weight: 400;
+  text-align: left;
+}
+.linksNav{
+  width: 80%;
+  display: inline-block;
+  text-align: right;
+  padding: 7px 0 0 0;
+  float: right;
+}
+.linksNav h5{
+  font-size: 18px;
+  display: inline-block;
+  margin: 0 0 0 60px;
+  font-family: 'Merriweather', serif;
+}
+.linksNav h6{
+  font-size: 18px;
+  color: #989898;
+  font-family: 'Merriweather', serif;
+  display: inline-block;
+}
+.linksNav h5 a{
+  text-decoration: none;
+  color: #1072ba;
+  font-family: 'Merriweather', serif;
+}
+.login{
+  padding: 60px 15px 0 15px;
+  width: 500px;
+  margin: 0 auto;
+  position: relative;
+}
+.login h1{
+  text-transform: uppercase;
+  font-size: 40px;
+  font-family: 'Arvo', serif;
+  margin: 0 0 50px 0;
+  word-spacing: 5px;
+  font-weight: 400;
+  text-align: center;
+}
+.signUpH1{
+  margin: 0 0 15px 0 !important;
+}
+.login h4{
+  font-size: 24px;
+  margin: 0 0 30px 0;
+  font-family: 'Merriweather', serif;
+  font-weight: 400;
+  color: black;
+}
+.login span{
+  font-size: 20px;
+  margin: 0 0 30px 0;
+  display: inline-block;
+  font-family: 'Source Sans Pro', sans-serif;
+  color: black;
+  line-height: 26px;
+  max-width: 100%;
+  width: 100%;
+}
+.login span a{
+  text-decoration: none;
+  font-weight: 500;
+  color: #1072ba;
+}
+form .list span{
+  margin: 0;
+}
+form .list .item{
+  border-color: #333333;
+}
+.forgot-password{
+  color: #1072ba;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: 'Source Sans Pro', sans-serif;
+  margin: 0;
+  display: inline-block;
+  word-spacing: 3px;
+  letter-spacing: 0.2px;
+  text-decoration: none;
+  border-bottom: 1px solid #1072ba;
+}
+.button{
+  border-radius: 0;
+  font-size: 20px;
+  letter-spacing: 0.2px;
+  min-height: 50px;
+}
+.button.button-block, .button.button-full{
+  margin-top: 20px;
+}
+.passwordCharacters{
+  margin: 0 0 15px 0;
+  font-size: 13px;
+  color: #939597;
+}
+.passwordCharactersFirst{
+  margin: -17px 0 15px 0;
+}
+.passwordCharacters a{
+  color: #939597;
+}
+.signUpTabs{
+  display: inline-block;
+}
+.signUpTabs .tabs{
+  width: 100%;
+  display: inline-block;
+  top: 170px;
+  left: 0;
+  padding: 0 15px;
+  border: none;
+}
+.signUpTabs .tabs .tab-item{
+  width: 50%;
+  max-width: 50%;
+  float: left;
+  color: #D1D2D4;
+  border-bottom: 5px solid #D1D2D4;
+  font-size: 22px;
+}
+.tabs-striped.tabs-color-light .tab-item.tab-item-active, .tabs-striped.tabs-color-light .tab-item.active, .tabs-striped.tabs-color-light .tab-item.activated{
+  color: #000;
+  border-bottom: 5px solid #1071B9;
+  border-width: 0 0 5px 0 !important;
+  margin: 0;
+}
+.item-select select{
+  max-width: 100%;
+  width: 100%;
+  direction: inherit;
+}
+.item-input{
+  height: 50px;
+}
+.gender{
+  margin: 5px 0 5px 0 !important;
+}
+.tabsBox{
+  margin-top: 50px;
+}
+.buttonsParent{
+  padding: 0;
+}
+.buttonsParent .buttons{
+  padding: 0;
+}
+.buttonsParent .buttons .button.button-block, .button.button-full{
+  width: 49%;
+  float: left;
+  margin-top: 30px;
+  clear: none;
+  background: #1071B9;
+}
+.buttonsParent .buttons .backBtn{
+  margin-right: 9px;
+  background: none !important;
+  border: 1px solid #1071B9;
+  color: #1071B9;
+}
+.signUpLast{
+  margin-bottom: 3px;
+}
+.inputError{
+  width: 100%;
+  background: #f1f1f2;
+  border-left: 3px solid #ed1c24;
+  padding: 15px 10px 15px 10px;
+  font-size: 16px;
+  color: #ed1c24;
+  margin: -10px 0 10px 0;
+}
+.inputSuccess{
+  width: 100%;
+  background: #f1f1f2;
+  border-left: 3px solid #4CAF50;
+  padding: 15px 10px 15px 10px;
+  font-size: 16px;
+  color: #4CAF50;
+  margin: -10px 0 10px 0;
+}
+.inputError i{
+  margin: 0 5px 0 5px;
+}
+.savePassword{
+  width: 80% !important;
+  margin: 0 auto;
+  background: #1072ba !important;
+}
+.headerApp{
+  height: 60px;
+  background: white !important;
+  display: block;
+}
+.headerApp .appUl{
+  padding: 17px 0 0 0;
+  width: 80%;
+  display: inline-flex;
+  height: 54px;
+}
+.tabsApp{
+  width: 85%;
+  margin: 0 auto;
+  height: 54px;
+}
+.tabsApp ul li{
+  display: inline-block;
+  margin: 0 60px 0 0;
+}
+.tabsApp ul li a{
+  text-decoration: none;
+  color: #989898;
+  font-size: 16px;
+}
+.startedBtn{
+  width: 20%;
+  float: right;
+  margin-top: 8px;
+}
+.startedBtn .btnGet{
+  margin: 8px 0 0 0;
+  width: 130px;
+  font-size: 16px;
+  float: right;
+  border-radius: 20px;
+  background: #1072ba;
+}
+/*/////////////// Home1 styling Start Here ////////////////*/
+.full-information{
+  float: left;
+  margin: 12px 0 0 30px;
+  text-decoration: none;
+  font-size: 16px;
+  color: rgb(166, 165, 165);
+  font-family: 'Merriweather', serif;
+  font-weight: 500;
+}
+.active{
+  color: #333333;
+  font-weight: 600;
+}
+.list-inset{
+  margin: -4px 0 0 20px;
+  width: 30%;
+  float: left;
+}
+.list-inset .item-input{
+  border: 0;
+}
+.list-inset .item-input i{
+  padding-right: 10px;
+  font-size: 22px;
+}
+.list-inset ::-webkit-input-placeholder {
+  font-size: 18px;
+}
+.my-account-link{
+  font-size: 16px;
+  font-family: 'Merriweather', serif;
+  font-weight: 500;
+  margin: 12px 0 0 0;
+  display: inline-block;
+  text-decoration: none;
+  color: #f15c2d;
+}
+.my-account-link.logout{
+  color: rgb(166, 165, 165);
+  margin-left: 15px;
+  cursor: pointer;
+}
+
+.my-account-link.myaccount{
+  color: rgb(166, 165, 165);
+  margin-left: 15px;
+}
+
+.home1-tabs{
+  width: 60%;
+  margin: 15px 0 13px 26.5%;
+}
+.home1-tabs ul li{
+  display: inline-block;
+  padding: 8px 30px 8px 0;
+}
+.home1-tabs ul li a{
+  text-decoration: none;
+  color: rgb(166, 165, 165);
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+}
+.home1-tabs ul li a.active{
+  color: #0b73ba;
+}
+.home1-tabs ul li:first-child{
+  border-right: 1px solid #cccccc;
+}
+.home1-tabs ul li:nth-child(2){
+  padding: 8px 30px 8px 25px;
+}
+.home1-tabs ul li a i{
+  font-size: 14px;
+  margin: 0 0 0 5px;
+}
+.rowPadding{
+  padding: 5px 125px;
+}
+.firstRow h3{
+  font-family: 'Merriweather', serif;
+  font-weight: 600;
+  font-size: 24px;
+  margin: 30px 0 5px 0;
+  text-align: center;
+  cursor: pointer;
+}
+.firstRow span{
+  font-family: 'Merriweather', serif;
+  font-size: 16px;
+  margin: 0 0 40px 0;
+  text-align: center;
+  display: block;
+}
+.rightContent .firstName{
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 0 0 15px 0;
+  border-bottom: 1px solid #ccc;
+  display: block;
+}
+.rightContent{
+  margin: 20px 0 0 0;
+}
+.rightContent .list{
+  margin: 0;
+}
+.rightContent .list .listFirst{
+  margin: 20px 0 20px 0 !important;
+}
+.rightContent .list .item-icon-left {
+  padding: 0 15px;
+  margin: 10px 0 10px 0;
+  border: none;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #267abe;
+  background: none;
+}
+.rightContent .list .item-icon-left i:before{
+  font-weight: 600;
+}
+.rightContent .list .item-icon-left i{
+  font-size: 22px;
+  /*font-family: 'Source Sans Pro', sans-serif;*/
+  margin: 0 15px 0 0;
+  display: inline-block;
+  float: left;
+}
+.firstNugget{
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 0;
+  display: block;
+}
+#add-nugget-textarea{
+  width: 100%;
+  height: 100vh;
+  resize: none;
+}
+.leftBox{
+  box-shadow: 0 0 4px 0 #cccccc;
+  padding: 30px 20px;
+  width: 95%;
+  margin: 25px 0 0 0;
+}
+.tableLinks{
+  width: 100%;
+  display: inline-block;
+  border-bottom: 1px solid #ccc;
+}
+.leftBox .tableLinks span,
+.quoteleftBox .tableLinks span{
+  font-size: 20px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 500;
+  margin: 0;
+  padding: 0 0 20px 0;
+  color: #9b9da0;
+  display: inline-block;
+}
+.leftBox .tableLinks .active{
+  color: black;
+}
+.tableLinks i{
+  margin: 0 10px 0 10px;
+  font-size: 18px;
+  color: #9b9da0;
+}
+.table{
+  width: 100%;
+}
+.table td:nth-child(2){
+  width: 300px;
+  padding: 12px 30px 18px;
+}
+.table td:nth-child(4){
+  font-size: 14px;
+  color: #9b9da0;
+}
+.table td{
+  padding: 12px 10px 18px;
+  border-bottom: 1px solid #ccc;
+  font-size: 16px;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+.table td i{
+  font-size: 30px;
+  color: #267abe;
+  position: relative;
+  top: 5px;
+  left: 15px;
+}
+.settingIcon{
+  color: #9d9fa2 !important;
+  cursor: pointer;
+}
+.tableAddIcon{
+  font-size: 22px !important;
+  font-family: 'Source Sans Pro', sans-serif;
+  margin: 0 15px 0 0;
+  display: inline-block;
+  float: left;
+}
+.popover{
+  width: 200px;
+  height: auto;
+  padding: 15px 15px 5px 15px;
+}
+.popover img{
+  position: absolute;
+  top: -12px;
+  left: 45%;
+}
+.popover .scroll-content .scroll{
+  margin: 0 0 10px 0;
+  cursor: pointer;
+}
+.popover .scroll-content .scroll i{
+  color: #267abe;
+}
+.popover .scroll-content{
+  position: static;
+}
+.upgradeBtn{
+  float: right;
+  padding: 1px 30px 8px 0 !important;
+}
+.upgradeBtn button{
+  background: #f1592a;
+  color: white;
+  border: none;
+  font-family: 'Merriweather', serif;
+  padding: 3px 15px 0;
+  border-radius: 30px;
+}
+/*////////////////// setting popover ////////////////////////*/
+.popoverTable{
+  width: 115px;
+  height: auto;
+  padding: 15px 15px 5px 15px;
+  text-align: center;
+}
+.popoverTable img{
+  left: 42%;
+}
+/*////////////////// setting popover ////////////////////////*/
+/*////////////////// description popover ////////////////////////*/
+.popoverDescription{
+  opacity: 1;
+  width: 300px;
+  /*top: 36%;*/
+  left: 42%;
+}
+/*////////////////// description popover ////////////////////////*/
+.slickSlider{
+  width: 60%;
+  margin: 0 auto;
+}
+.slickSlider .slick-prev, .slick-next {
+  border-radius: 50%;
+  border: 1px solid #cccccc;
+  height: 50px;
+  width: 50px;
+}
+.slickSlider .slick-prev:before, .slickSlider .slick-next:before {
+  font-family: "Ionicons";
+  color: #267abe;
+  font-size: 24px;
+  font-weight: 600;
+}
+.slickSlider .slick-prev:before {
+  content: "\f3cf";
+  margin-right: 4px;
+}
+.slickSlider .slick-next:before {
+  content: "\f3d1";
+  margin-left: 4px;
+}
+/*/////////////// Home1 styling End Here //////////////////*/
+
+/*/////////////// Home1 menu button styling //////////////////*/
+.menuBtn{
+  display: none;
+}
+.linksNavMobile{
+  display: none;
+}
+.identityIcon span{
+  margin: 0;
+  display: none;
+}
+.identityIcon{
+  margin: 0 0 10px 0 !important;
+  display: inline-block !important;
+}
+/*/////////////// Home1 menu button styling //////////////////*/
+
+/*/////////////// addNugget page styling //////////////////*/
+.rowSetting{
+  padding: 0 0 0 125px;
+}
+.colSetting{
+  padding: 0;
+}
+.colSetting .list{
+  border-left: 1px solid #ccc;
+}
+.colSetting .list .headingList i{
+  font-size: 14px;
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  cursor: pointer;
+}
+.colSetting .list .headingList{
+  background: #e6e7e8;
+  padding: 12px 20px !important;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 18px !important;
+}
+.colSetting .list .item h6{
+  color: #5e5f61;
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 0 0 10px 0;
+}
+.colSetting .list .item{
+  padding: 20px;
+  text-overflow: inherit;
+  white-space: inherit;
+  font-family: 'Source Sans Pro', sans-serif;
+  color: black;
+  font-size: 14px;
+}
+.listDropdown{
+  background: #f1f1f2;
+  padding: 5px 20px 4px !important;
+  font-size: 12px !important;
+  font-weight: 600;
+}
+.listDropdown .dropdownAnchor{
+  text-decoration: none;
+  color: black;
+  position: relative;
+}
+.listDropdown .dropdownAnchor i{
+  color: black;
+  font-size: 14px;
+  position: absolute;
+  right: -15px;
+  top: 0;
+}
+.list .item .showMoreLink{
+  text-decoration: none;
+  font-size: 14px;
+  padding: 10px 0 0 0;
+  float: right;
+  color: #2b7ebf;
+}
+.nugget-tabs{
+  width: 85%;
+  margin: 4px 0 0 7.5%;
+  float: left;
+}
+.nugget-tabs ul{
+  width: 49%;
+  display: inline-block;
+  float: left;
+  margin: 24px 0 0 0;
+}
+.nugget-tabs ul li{
+  display: inline-block;
+}
+.nugget-tabs ul li a{
+  text-decoration: none;
+}
+.nugget-tabs ul li a i{
+  color: #58595b;
+  font-size: 18px;
+  padding: 2px 20px 2px 0;
+}
+.nugget-tabs ul li a .borderList{
+  border-right: 1px solid #cccccc;
+  padding: 2px 25px 2px 0;
+}
+.nugget-tabs ul li .linkNugget{
+  font-size: 16px;
+  color: #333333;
+  font-weight: 500;
+  padding: 0 0 0 20px;
+  display: inline-block;
+}
+.nugget-tabs ul li .linkNugget.active{
+  color: #2b7ebf;
+}
+.searchField{
+  float: right;
+  /*display:none !important;*/
+}
+.searchField:last-child a{
+  margin: 0 40px 0 0;
+}
+.nugget-tabs .leftUl {
+  margin: 10px 0 0 0;
+  padding: 0px 20px;
+}
+.nugget-tabs .rightUl li .list-inset label{
+  border: 1px solid #666;
+  border-radius: 40px;
+  padding: 5px 20px 5px 20px;
+  height: 38px;
+}
+.nugget-tabs .rightUl li .list-inset label input{
+  padding: 0;
+}
+.nugget-tabs .rightUl li .list-inset label input::-webkit-input-placeholder{
+  font-size: 16px;
+}
+.rightUl{
+  width: 50.7% !important;
+}
+.nugget-tabs .rightUl li .list-inset{
+  width: 100%;
+  margin: -10px 0 0 0;
+}
+.checkBoxPopover{
+  padding: 20px 10px 5px 10px;
+}
+.checkBoxPopover .item .checkbox{
+  top: 16%;
+}
+.checkBoxPopover .item{
+  border: none;
+  padding: 12px;
+}
+.item-checkbox {
+  padding-left: 50px !important;
+}
+.checkBoxPopover .item .disable-pointer-events {
+  float: left;
+  margin-top: -8px;
+}
+.imagesVideosPopover{
+  padding: 20px 25px 5px 25px;
+}
+.imagesVideosPopover .scroll{
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: black;
+  margin: 0 0 15px 0 !important;
+  letter-spacing: 0.3px;
+}
+.imagesVideosPopover .scroll i{
+  color: black !important;
+  float: left;
+  width: 25px;
+  margin: 2px 5px 0 0;
+  font-size: 20px;
+  text-align: center;
+}
+/*/////////////// addNugget page styling //////////////////*/
+
+/*/////////////// footer styling //////////////////*/
+.footerBottom{
+  background: #f1f1f2;
+  height: 70px;
+  display: block;
+  padding: 15px 0 0 0;
+}
+.footerBottom .container{
+  width: 85%;
+  margin: 0 auto;
+}
+.footerBottom .container .leftArea{
+  width: 69%;
+  display: inline-block;
+  float: left;
+}
+.footerBottom .container .leftArea .sideIcon{
+  color: #333333;
+  font-size: 16px;
+  text-decoration: none;
+  font-weight: 500;
+  float: left;
+}
+.addInput{
+  padding: 0 15px 0 10px;
+  margin-top: 15px;
+  display: inline-block;
+  text-decoration: none;
+  color: #333333;
+  font-size: 16px;
+}
+.footerBottom .container .leftArea .list{
+  width: 75%;
+  display: inline-block;
+}
+.footerBottom .container .leftArea .list .item-input:focus{
+  box-shadow: 0 0 2px 0 #087ed9;
+}
+.footerBottom .container .leftArea .list .item-input {
+  height: 40px;
+  padding: 4px 0 5px 16px;
+}
+.footerBottom .container .leftArea a i{
+  font-size: 24px;
+  position: relative;
+  top: 12px;
+  margin-right: 3px;
+}
+/*.footerBottom .container .leftArea ul li{*/
+  /*display: inline-block;*/
+/*}*/
+.footerBottom .container .leftArea ul li .auto-complete-link{
+  float: left;
+  margin: 12px 0 0 5px;
+  text-decoration: none;
+  font-size: 15px;
+  padding: 1px 6px 3px 6px;
+  color: #333;
+  background: #c6d8e7;
+}
+.footerBottom .container .rightArea{
+  width: 30%;
+  display: inline-block;
+  text-align: right;
+}
+.rightArea button{
+  line-height: 38px;
+  background: none;
+  border: none;
+  font-size: 15px;
+  font-family: 'Merriweather', serif;
+  padding: 2px 20px 0 20px;
+  color: #1b75bb;
+}
+.rightArea .saveBtn{
+  background: #1b75bb;
+  color: white;
+  margin-left: 10px;
+}
+/*/////////////// footer styling //////////////////*/
+
+/*/////////////// popup styling //////////////////*/
+.imagesPopup .popup{
+  width: 70%;
+}
+.imagesPopup .popup .popup-head{
+  padding: 15px;
+  border-bottom: 2px solid #ccc;
+}
+.imagesPopup .popup .popup-head h3{
+  float: left;
+  width: 100%;
+  text-align: left;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+}
+.imagesPopup .popup .popup-body{
+  text-align: center;
+  padding: 200px 15px;
+}
+.imagesPopup .popup .popup-body h1{
+  color: #bbbdbf;
+  font-size: 24px;
+  font-family: 'Source Sans Pro', sans-serif;
+  margin: 0;
+}
+.imagesPopup .popup .popup-body button{
+  font-family: 'Source Sans Pro', sans-serif;
+  color: white;
+  background: #1b75bb;
+  font-size: 18px;
+  border: none;
+  padding: 10px 15px;
+  margin-top: 25px;
+}
+/*/////////////// popup styling //////////////////*/
+
+/*/////////////// popup new images upload styling //////////////////*/
+.imagesNewUploadPopup .popup{
+  width: 80%;
+}
+.imagesNewUploadPopup .popup .popup-head{
+  padding: 15px;
+  border-bottom: 2px solid #ccc;
+}
+.imagesNewUploadPopup .popup .popup-head h3{
+  float: left;
+  width: 100%;
+  text-align: left;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+}
+.imagesNewUploadPopup .popup .popup-head h3 i{
+  font-size: 26px;
+  position: absolute;
+  right: 20px;
+  top: 16px;
+  z-index: 999;
+  cursor: pointer;
+}
+.imagesNewUploadPopup .popup .popup-body{
+  text-align: center;
+  overflow: hidden;
+}
+.imagesNewUploadPopup .popup .popup-body .alignLeft{
+  float: left;
+  padding: 10px 20px 10px 13px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 18px;
+  border: none;
+  background: none;
+  margin-bottom: 15px;
+}
+.imagesNewUploadPopup .popup .popup-body .alignRight{
+  float: right;
+  font-family: 'Source Sans Pro', sans-serif;
+  color: white;
+  background: #1b75bb;
+  font-size: 18px;
+  border: none;
+  padding: 10px 20px;
+  margin-bottom: 15px;
+  margin-right: 12px;
+}
+.bodyContent{
+  padding: 10px 60px 0;
+  display: inline-block;
+  width: 100%;
+}
+.bodyContent .buttonBox{
+  display: inline-block;
+  width: 100%;
+}
+.bodyContent .imageBox{
+  width: 25%;
+  float: left;
+  margin-bottom: 18px;
+}
+.bodyContent .imageBox img{
+  width: 90%;
+  height: 210px;
+}
+/*/////////////// popup new images upload styling //////////////////*/
+
+/*/////////////// popup image selected styling //////////////////*/
+.bodyContent h2{
+  font-size: 20px;
+  font-family: 'Source Sans Pro', sans-serif;
+  text-align: left;
+  margin: 15px 0 30px 0;
+}
+.bodyContent .videoContent{
+  width: 30%;
+  float: left;
+  border-right: 3px solid #cccccc;
+}
+.bodyContent .videoContent a{
+  float: left;
+  text-decoration: none;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  color: #2279bc;
+  margin: 0 0 25px 0;
+}
+.bodyContent .videoContent a i{
+  margin: 1px 10px 0 0;
+  float: left;
+}
+.bodyContent .videoContent .selectedVideos{
+  width: 100%;
+  display: inline-block;
+}
+.bodyContent .videoContent .selectedVideos img{
+  width: 88%;
+  height: 210px;
+  float: left;
+  border: 3px solid #1b75bb;
+}
+.bodyContent .ImagesContent{
+  width: 70%;
+  float: left;
+  padding-left: 30px;
+}
+.bodyContent .ImagesContent h2{
+  font-size: 20px;
+  font-family: 'Source Sans Pro', sans-serif;
+  text-align: left;
+  margin: 0 0 20px 0;
+}
+.bodyContent .ImagesContent .imagesBox{
+  width: 100%;
+  display: inline-block;
+}
+.bodyContent .ImagesContent .imagesBox .bomImg{
+  float: left;
+  width: 45%;
+  height: 200px;
+  margin: 0 25px 20px 0;
+  position: relative;
+}
+.bodyContent .ImagesContent .imagesBox .bomImg p{
+  margin: 0;
+  display: inline-block;
+  width: 100%;
+  background: #e4e4e4;
+  color: #257bbd;
+  text-transform: uppercase;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  font-size: 16px;
+  padding: 5px 0;
+}
+.bodyContent .ImagesContent .imagesBox .bomImg img{
+  width: 100%;
+  height: 200px;
+  float: left;
+  border: 2px solid #666;
+}
+/*/////////////// mobile design nugget //////////////*/
+.mobile-design{
+  display: none;
+  width: 100%;
+}
+.mobile-design .nugget-tabs-mobile{
+  width: 100%;
+  display: inline-block;
+  padding: 15px 15px;
+  margin: 0 0 15px 0;
+}
+.mobile-design .nugget-tabs-mobile .section{
+  color: #1577bb;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+}
+.mobile-design .nugget-tabs-mobile .section span{
+  display: inline-block;
+  margin: 0 5px 0 5px;
+}
+.mobile-design .nugget-tabs-mobile h3{
+  font-family: 'Source Sans Pro', sans-serif;
+  margin: 25px 0 15px 0;
+}
+.mobile-design .nugget-tabs-mobile h6 {
+  color: #909090;
+  font-size: 14px;
+  margin: 0 0 8px 0;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+.mobile-design .nugget-tabs-mobile p{
+  margin: 20px 0 10px;
+  font-size: 16px;
+  font-family: 'Source Sans Pro', sans-serif;
+  line-height: 22px;
+}
+.nugget-footer{
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  z-index: 999;
+  display: none;
+}
+.nugget-footer button{
+  width: 100%;
+  display: inline-block;
+  border-radius: 0;
+  background: #1b75bb;
+  color: white;
+  font-size: 16px;
+  font-family: 'Merriweather', serif;
+  border: none;
+  padding: 15px 0 12px 0;
+  letter-spacing: 0.6px;
+}
+/*/////////////// mobile design nugget //////////////*/
+
+/*/////////////////////////////////////////////////////////*/
+/*//////////////////Media Query Start Here ////////////////*/
+/*/////////////////////////////////////////////////////////*/
+@media (min-width: 320px) and (max-width: 500px){
+  .login{
+    width: 100%;
+  }
+  .input-label{
+    max-width: 100%;
+    width: 100%;
+  }
+  .buttonsParent .buttons .backBtn{
+    margin-right: 6px;
+  }
+  .savePassword{
+    width: 100% !important;
+    font-size: 18px;
+  }
+  .row{
+    padding: 0;
+  }
+  .col{
+    padding: 0;
+  }
+  .col-offset-25 {
+    margin-left: 0;
+    width: 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+/*/////////////////////////////////////////////////////////*/
+/*//////////////////Media Query End Here //////////////////*/
+/*/////////////////////////////////////////////////////////*/
+@media (min-width: 320px) and (max-width: 767px){
+  .headerNav{
+    height: auto;
+  }
+  .nav {
+    width: 100%;
+    padding: 10px 10px 6px 10px;
+    height: auto;
+  }
+  .linksNav {
+    display: none;
+  }
+  .linksNav h5{
+    margin: 0;
+  }
+  .tabsNav {
+    display:none;
+    width: 90%;
+    margin: 5px auto 0;
+    margin: 5px auto 0;
+  }
+  .tabsNav ul li {
+    display: block;
+    margin: 0 0 8px 0;
+  }
+  .headerNav .navHeading{
+    width: 70%;
+    text-align: left;
+    font-size: 24px;
+  }
+  .tabsApp {
+    width: 100%;
+    padding: 0 15px;
+    height: 160px;
+  }
+  .headerApp .appUl {
+    width: 100%;
+  }
+  .headerApp{
+    height: auto;
+  }
+  .tabsApp ul li {
+    display: block;
+    margin: 0 0 8px 0;
+    width: 100%;
+  }
+  .rightContent {
+    padding: 0 20px;
+  }
+  .slickSlider {
+    width: 100%;
+  }
+  .slickSlider .slick-prev, .slick-next{
+    display: none !important;
+  }
+  .slickSlider .slick-prev:before{
+    font-size: 16px;
+    margin-right: 1px;
+  }
+  .slickSlider .slick-next:before{
+    font-size: 16px;
+    margin-left: 2px;
+  }
+  .firstRow h3{
+    margin: 0 0 15px 0;
+    display: block;
+  }
+  .firstRow span{
+    margin: 0 0 30px 0;
+  }
+  .responsiveSliderBg{
+    background: #f3f3f4;
+    padding: 40px 0 40px 0;
+  }
+  .slick-slider{
+    margin: 0;
+  }
+  .menuBtn{
+    display: block;
+    float: right;
+    background: #0973ba;
+    color: white;
+    padding: 3px 15px !important;
+    border: none;
+    font-size: 16px !important;
+    margin-top: 10px;
+  }
+  .linksNavMobile{
+    display: block;
+    padding: 20px 30px 0;
+  }
+  .full-information {
+    margin: 0;
+    width: 100%;
+    text-align: center;
+    color: black;
+  }
+  .vital{
+    padding: 20px 0;
+  }
+  .list-inset {
+    margin: -4px 0 0 0;
+    width: 100%;
+    padding: 5px 0;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+  }
+  .my-account-link {
+    width: 100%;
+    color: #f15c2d !important;
+    margin: 0;
+    padding: 20px 0;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+  }
+  .my-account-link:last-of-type{
+    margin-left: 0;
+  }
+  .anchorChild{
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+    color: #333333;
+    text-decoration: none;
+    font-size: 18px;
+    font-family: 'Source Sans Pro', sans-serif;
+    padding: 20px 0 0 0;
+  }
+  .lastEle{
+    padding: 20px 0 20px 0;
+    border-bottom: 1px solid #ccc;
+  }
+  .home1-tabs {
+    width: 100%;
+    margin: 19px 0 5px 0;
+  }
+  .home1-tabs ul li {
+    padding: 8px 0 8px 0;
+    width: 100%;
+    text-align: center;
+    color: rgb(35, 129, 193);
+  }
+  .home1-tabs ul li:first-child{
+    border-right: 0;
+    display: inline-block;
+    color: rgb(9, 115, 186);
+  }
+  .home1-tabs ul li{
+    display: none;
+  }
+  .leftBox {
+    padding: 0 10px;
+    width: 100%;
+    margin: 0 0 0 0;
+  }
+  .leftBox .tableLinks span{
+    font-size: 16px;
+  }
+  .table td:nth-child(3){
+    display: none;
+  }
+  .table td:nth-child(4){
+    display: none;
+  }
+  .table td:first-child {
+    padding: 12px 0 8px;
+  }
+  .table td:nth-child(2) {
+    padding: 12px 20px 18px;
+  }
+  .table td:last-child i {
+    left: 0;
+  }
+  .popover-arrow:after{
+    display: none !important;
+  }
+  .popoverTable img {
+    left: 64%;
+  }
+  .identityIcon span{
+    display: inline-block;
+    margin: 0 0 0 5px;
+  }
+  .popover{
+    border-radius: 0 !important;
+  }
+  .closeMenuBtn{
+    float: right;
+    text-decoration: none;
+    margin: 12px 0 0 0;
+  }
+  .nugget-tabs{
+    display: none;
+  }
+  .headerNav {
+    height: auto;
+    border: none;
+  }
+  .imagesPopup .popup {
+    width: 95%;
+  }
+  .imagesPopup .popup .popup-body {
+    padding: 100px 15px;
+  }
+  .imagesNewUploadPopup .popup {
+    width: 95%;
+  }
+  .bodyContent {
+    padding: 10px 0 0;
+  }
+  .bodyContent .videoContent {
+    width: 100%;
+    border-right: none;
+  }
+  .bodyContent .videoContent .selectedVideos{
+    text-align: center;
+  }
+  .bodyContent .videoContent .selectedVideos img{
+    float: none;
+  }
+  .bodyContent .ImagesContent {
+    width: 100%;
+    padding-left: 0;
+  }
+  .bodyContent .ImagesContent h2 {
+    font-size: 18px;
+    margin: 20px 0 20px 0;
+  }
+  .bodyContent .ImagesContent .imagesBox .bomImg {
+    margin: 0 auto 10px;
+    text-align: center;
+    float: none;
+  }
+  .bodyContent .ImagesContent .imagesBox .bomImg img {
+    width: 250px;
+    float: none;
+  }
+  .bodyContent .ImagesContent .imagesBox .bomImg p {
+    width: 250px;
+    left: 20px;
+  }
+  .rowSetting {
+    display: none;
+  }
+  .footerBottom {
+    display: none;
+  }
+  .mobile-design{
+    display: block;
+  }
+  .nugget-footer{
+    display: block;
+  }
+  .logo {
+    width: 190px;
+  }
+  .account-tabs {
+    width: 100% !important;
+    padding: 0 15px;
+  }
+  .account-tabs ul li {
+    margin: 0 !important;
+    width: 100%;
+  }
+  .account-tabs ul li a {
+    width: 100%;
+    display: inline-block;
+    padding: 15px 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    position: relative;
+  }
+  .account-tabs ul li a .show-hide{
+    display: inline-block !important;
+    position: absolute;
+    right: 10px;
+    top: 17px;
+    color: #1b75bb;
+  }
+  .profile-parent {
+    width: 100% !important;
+    padding: 0 20px;
+  }
+  .password-content .billing-password-btn .change-btn {
+    width: 60% !important;
+  }
+  .password-content .billing-password-btn .cancel-btn {
+    width: 38% !important;
+  }
+  .password-content .list .disable-pointer-events {
+    width: 85% !important;
+  }
+  .password-content .change-password-btn button{
+    width: 70% !important;
+  }
+  .refer-friend-content {
+    width: 100% !important;
+    padding: 0 15px;
+  }
+  .refer-friend-content h2 {
+    font-size: 24px;
+  }
+  .refer-friend-content p{
+    padding: 0 !important;
+  }
+  .refer-friend-content .field-area {
+    width: 100% !important;
+    margin: 0 !important;
+  }
+  .refer-friend-content .field-area .list {
+    width: 70% !important;
+  }
+  .refer-friend-content .field-area button {
+    width: 30% !important;
+  }
+  .invite-friends-area {
+    width: 100% !important;
+    margin: 35px 0 0 0 !important;
+    padding: 0 0 20px 0 !important;
+    border-top: 0 !important;
+  }
+  .invite-friends-area .link-btn {
+    width: 75% !important;
+    float: none !important;
+    display: block;
+    margin: 0 auto;
+  }
+  .invite-friends-area .share-btn {
+    width: 75% !important;
+    float: none !important;
+    display: block;
+    margin: 15px auto 0;
+  }
+  .share-setting-content {
+    width: 100% !important;
+    margin: 0 0 0 0 !important;
+    padding: 50px 20px 40px 20px !important;
+  }
+  .users-content {
+    width: 100% !important;
+    margin: 0 0 0 0 !important;
+    padding: 40px 10px 0 10px !important;
+  }
+  .users-content h4 {
+    margin: 0 0 25px 10px !important;
+  }
+  .users-content .user-box .user h4{
+    margin: 0 0 10px 0 !important;
+  }
+  .users-content .user-box {
+    width: 50% !important;
+  }
+  .users-content .user-box .user{
+    width: 95% !important;
+  }
+  .users-content .user-box .user span{
+    font-size: 11px !important;
+  }
+  .users-content .user-box .user a{
+    font-size: 11px !important;
+  }
+  .user-name {
+    margin: 3px auto 2px !important;
+  }
+  .share-details-content {
+    width: 100% !important;
+    margin: 0 0 0 0 !important;
+    padding: 40px 20px 0 20px !important;
+    float: left;
+  }
+  .share-details-content .left-content {
+    width: 100% !important;
+  }
+  .share-details-content .right-content {
+    width: 100% !important;
+    padding: 20px 0 0 0 !important;
+  }
+  .share-details-content .right-content .content-info a{
+    font-size: 15px !important;
+  }
+  .share-details-content .right-content .content-info span{
+    font-size: 15px !important;
+  }
+  .update-email {
+    padding: 14px 40px 12px !important;
+  }
+  .invite-new-member-popup .popup {
+    width: 95% !important;
+  }
+  .invite-new-member-popup .popup .popup-body .list-inset{
+    border: 0 !important;
+  }
+  .invite-new-member-popup .popup .popup-body {
+    padding: 30px 20px 0 !important;
+  }
+  .remove-member-popup .popup {
+    width: 95% !important;
+  }
+  .remove-member-popup .popup .popup-body div {
+    padding: 0 0 !important;
+    display: inline-block;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px){
+  .tabsNav ul li {
+    margin: 0 50px 0 0;
+  }
+  .remove-member-popup .popup {
+    width: 70% !important;
+  }
+  .nugget-tabs{
+    display: none;
+  }
+  .headerNav .navHeading{
+    width: 25%;
+    font-size: 30px;
+  }
+  .linksNav {
+    width: 65%;
+  }
+  .logo{
+    width: 200px;
+  }
+  .nav {
+    width: 100%;
+    padding: 30px 15px 20px 15px;
+  }
+  .full-information {
+    margin: 12px 0 0 10px;
+    font-size: 12px;
+  }
+  .my-account-link{
+    font-size: 12px;
+  }
+  .list-inset {
+    margin: -4px 0 0 10px;
+  }
+  .my-account-link:last-of-type {
+    margin-left: 10px;
+  }
+  .item-input input{
+    padding-right: 0 !important;
+  }
+  .home1-tabs {
+    width: 100%;
+    margin: 15px 0 13px 0;
+    padding: 0 20px;
+  }
+  .rowPadding {
+    padding: 5px 15px;
+  }
+  .imagesNewUploadPopup .popup {
+    width: 90%;
+  }
+  .bodyContent {
+    padding: 10px 20px 0;
+  }
+  .bodyContent .videoContent {
+    width: 45%;
+  }
+  .bodyContent .ImagesContent {
+    width: 55%;
+  }
+  .headerNav {
+    height: auto;
+    border: none;
+  }
+  .rowSetting {
+    display: none;
+  }
+  .footerBottom {
+    display: none;
+  }
+  .mobile-design{
+    display: block;
+  }
+  .nugget-footer{
+    display: block;
+  }
+  .account-tabs {
+    width: 100% !important;
+    text-align: center;
+  }
+  .account-tabs ul li {
+    margin: 0 10px 0 0 !important;
+    width: 23%;
+  }
+  .account-tabs ul li a {
+    padding: 10px 10px;
+    width: 100%;
+    display: inline-block;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    position: relative;
+    text-align: left;
+  }
+  .account-tabs ul li a .show-hide{
+    display: inline-block !important;
+    position: absolute;
+    right: 10px;
+    top: 11px;
+    color: #1b75bb;
+  }
+  .account-tabs ul {
+    padding: 30px 0 0 10px !important;
+  }
+  .profile-parent {
+    width: 80% !important;
+  }
+  .refer-friend-content {
+    width: 100% !important;
+  }
+  .invite-friends-area {
+    width: 75% !important;
+    margin: 35px 0 0 12% !important;
+  }
+  .share-setting-content {
+    width: 100% !important;
+    margin: 0 0 0 0 !important;
+    padding: 50px 20px 40px 30px !important;
+  }
+  .users-content {
+    width: 100% !important;
+    margin: 0 0 0 0 !important;
+    padding: 40px 20px 0 20px !important;
+  }
+  .users-content h4 {
+    margin: 0 0 25px 10px !important;
+  }
+  .share-details-content {
+    width: 100% !important;
+    margin: 0 0 0 0 !important;
+    padding: 40px 20px 0 20px !important;
+    float: left;
+  }
+  .invite-new-member-popup .popup {
+    width: 80% !important;
+  }
+}
+/*///////////////////////////////////////////////////////////////////////*/
+
+/*///////////////////////////////////////////////////////////////////////*/
+@media (min-width: 992px) and (max-width: 1199px){
+  .imagesNewUploadPopup .popup {
+    width: 90%;
+  }
+  .bodyContent {
+    padding: 10px 40px 0;
+  }
+  .bodyContent .videoContent {
+    width: 35%;
+  }
+  .bodyContent .ImagesContent {
+    width: 65%;
+    padding-left: 30px;
+  }
+  .bodyContent .ImagesContent .imagesBox .bomImg {
+    width: 215px;
+    height: 150px;
+  }
+  .bodyContent .ImagesContent .imagesBox .bomImg img {
+    height: 150px;
+  }
+}
+/*///////////////////////////////////////////////////////////////////////*/
+.title-popup span:before{
+  font-size: 30px;
+  position: absolute;
+  right: 9px;
+  top: 0;
+}
+.title-popup-heading{
+  text-align: left
+}
+.scroll-view.scroll-y{
+  overflow-y: hidden;
+}
+.checkbox-icon{
+  width: 20px !important;
+  height: 20px !important;
+}
+.checkbox-icon:before{
+  border-radius: 0 !important;
+}
+.checkbox-icon:after{
+  top: 26%;
+  left: 17%;
+}
+.closeIcon{
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  font-size: 24px;
+  cursor: pointer;
+}
+/*///////////////// save publish poup //////////////*/
+.savePublishPopup .popup{
+  width: 35%;
+}
+.savePublishPopup .popup .popup-head{
+  padding: 15px 40px;
+  border-bottom: 2px solid #ccc;
+  background: #fff !important;
+
+}
+.savePublishPopup .popup .popup-head h3{
+  float: left;
+  width: 100%;
+  text-align: left;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+}
+.paddingLeftRight{
+  padding: 5px 40px 15px;
+}
+.savePublishPopup .popup .popup-body{
+  text-align: center;
+  padding: 0;
+  overflow: hidden;
+  background: white;
+}
+.savePublishPopup .popup .popup-body h1{
+  color: #333;
+  font-size: 24px;
+  text-align: left;
+  font-family: 'Source Sans Pro', sans-serif;
+  margin: 30px 0 10px 0;
+  float: left;
+  width: 100%;
+}
+.savePublishPopup .popup .popup-body h4{
+  color: #333 !important;
+  font-size: 18px;
+  text-align: left;
+}
+.savePublishPopup .popup .popup-body .listsSelect{
+  width: 100%;
+  display: inline-block;
+}
+.savePublishPopup .popup .popup-body .listsSelect .list{
+  margin-bottom: 10px;
+}
+.m-b-0{
+  margin-bottom: 0 !important;
+}
+.savePublishPopup .popup .popup-body .listsSelect .list .item-input {
+  height: 40px;
+}
+.savePublishPopup .popup .popup-body .listsSelect .list .item-select:after{
+  content: "\f105";
+  font-family: 'FontAwesome';
+  border: none;
+  transform: rotate(90deg);
+  top: 55%;
+  right: 6px;
+  font-size: 20px;
+  color: #333;
+}
+.savePublishPopup .popup .popup-body .listsSelect .list .item-select select{
+  font-size: 18px;
+  color: #9c9ea1;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 500;
+}
+.socialLinks{
+  width: 100%;
+  float: left;
+  text-align: left;
+  margin-bottom: 10px;
+}
+.socialLinks .facebookCircle{
+  width: 50px;
+  height: 50px;
+  float: left;
+  background: #64cbee;
+  border-radius: 50%;
+  text-align: center;
+  padding-top: 16px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+.socialLinks .facebookCircle i{
+  color: white;
+  font-size: 20px;
+}
+.socialLinks .twitterCircle{
+  width: 50px;
+  height: 50px;
+  float: left;
+  background: #507cbd;
+  border-radius: 50%;
+  text-align: center;
+  padding-top: 16px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+.socialLinks .twitterCircle i{
+  color: white;
+  font-size: 20px;
+}
+.socialLinks .skyeCircle{
+  width: 50px;
+  height: 50px;
+  float: left;
+  background: #90c8da;
+  border-radius: 50%;
+  text-align: center;
+  padding-top: 14px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+.socialLinks .skyeCircle i{
+  color: white;
+  font-size: 20px;
+}
+.listItemsArea{
+  width: 100%;
+  display: inline-block;
+  text-align: left;
+}
+.listItemsArea .item-icon-left {
+  padding: 0;
+  float: left;
+  width: 100%;
+  border: none;
+  margin: 0 0 15px 0;
+  font-size: 14px;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+.listItemsArea .item-icon-left span{
+  margin: 15px 0 0 20px;
+  float: left;
+}
+.listItemsArea .item-icon-left p{
+  color: #1376ba;
+  float: right;
+  /*font-size: 20px;*/
+  margin: 15px 0 0 0;
+}
+.listItemsArea .item-icon-left img{
+  width: 50px;
+  height: 50px;
+  float: left;
+}
+.listItemsArea .item-icon-left .disable-user-behavior{
+  width: 15%;
+  float: right;
+  margin: 15px 0 0 0;
+}
+.listItemsArea .item-icon-left .disable-user-behavior .list{
+  width: 100%;
+}
+.listItemsArea .item-icon-left .disable-user-behavior .list label{
+  border: none;
+  background: none;
+}
+.popupField{
+  width: 100%;
+  display: inline-block;
+}
+.popupField .list-inset {
+  margin: 0;
+  width: 100%;
+  float: left;
+}
+.popupField .list-inset label{
+  border: 1px solid #cccccc;
+  height: 40px;
+}
+.rightAreaButton{
+  float: right;
+  width: 100%;
+  text-align: right;
+  margin: 10px 0 0 0;
+}
+.rightAreaButton .saveBtn{
+  background: #1b75bb;
+  color: white;
+  margin-left: 10px;
+  line-height: 38px;
+  border: none;
+  font-size: 15px;
+  font-family: 'Merriweather', serif;
+  padding: 2px 20px 0 20px;
+}
+.autocomplete{
+  bottom: 40px;
+  max-width: 100px;
+}
+/*///////////////// save publish poup //////////////*/
+/*////////////////////////////////////////////// account page styling start here /////////////////////////////////////*/
+.account-tabs{
+  width: 47%;
+  margin: 0 auto;
+}
+.account-tabs ul{
+  padding: 30px 0 0 0;
+  width: 100%;
+  display: inline-block;
+}
+.account-tabs ul li{
+  display: inline-block;
+  margin: 0 60px 0 0;
+}
+.account-tabs ul li a.active{
+  color: #1b75bb;
+}
+.account-tabs ul li a{
+  text-decoration: none;
+  color: #989898;
+  font-size: 16px;
+}
+/*////////////////////////////////////////////// account page styling end here ///////////////////////////////////////*/
+/*////////////////////////////////////////////// profile page styling start here /////////////////////////////////////*/
+.profile-parent{
+  width: 31%;
+  display: block;
+  margin: 40px auto 0;
+}
+.change-profile{
+  margin: 0 0 20px 0;
+  width: 100%;
+  float: left;
+  position: relative;
+}
+.change-profile .photoUpload {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  opacity: 0;
+}
+.change-profile img{
+  width: 60px;
+  height: 60px;
+  float: left;
+}
+.change-profile a{
+  float: left;
+  margin: 20px 0 0 15px;
+  color: #98989b;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 600;
+}
+.profile-fields{
+  width: 100%;
+  display: inline-block;
+}
+.profile-fields .list{
+  margin: 0;
+}
+.profile-fields .list .item-input {
+  height: 40px;
+  padding: 3px 0 5px 16px;
+  margin: 0 0 20px 0;
+}
+.profile-fields .list span{
+  color: #68686a;
+  font-family: 'Source Sans Pro', sans-serif;
+  display: block;
+  margin: 0 0 5px 0;
+}
+.select-date-picker{
+  width: 100%;
+  display: inline-block;
+}
+.select-date-picker .list{
+  width: 48%;
+  float: left;
+}
+.select-date-picker .list:last-of-type{
+  float: right;
+}
+.profile-button{
+  width: 100%;
+  display: inline-block;
+}
+.profile-button button{
+  width: 100%;
+  color: white;
+  background: #1b75bb;
+  border: none;
+  border-radius: 0;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 500;
+  word-spacing: 0.5px;
+  letter-spacing: 0.3px;
+  padding: 12px 0 9px;
+}
+.account-tabs ul li a .show-hide{
+  display: none;
+}
+/*////////////////////////////////////////////// profile page styling end here ///////////////////////////////////////*/
+
+/*/////////////////////////////////////// password billings page styling end here ////////////////////////////////////*/
+.password-content{
+  width: 100%;
+  display: inline-block;
+}
+.your-plan-title{
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 600;
+  color: #626365;
+  display: block;
+  margin: 0 0 10px 0;
+}
+.password-content h2{
+  margin: 0 0 15px 0;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 300;
+}
+.password-content h5{
+  margin: 0 0 15px 0;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 400;
+  color: #626365;
+}
+.password-content p{
+  margin: 0 0 30px;
+  font-size: 16px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 600;
+}
+.password-content .list .item-checkbox {
+  padding: 10px 0 0 0 !important;
+  border: none;
+}
+.password-content .list .item-checkbox .checkbox {
+  left: 0;
+  width: 8%;
+  float: left;
+  margin: -12px 0 0 0;
+}
+.password-content .list {
+  margin-bottom: 20px;
+}
+.password-content .list .disable-pointer-events {
+  pointer-events: none;
+  width: 91%;
+  float: right;
+  color: #18ac5f;
+}
+.password-content .billing-password-btn{
+  width: 100%;
+  display: inline-block;
+  padding: 0 0 35px 0;
+  border-bottom: 1px solid #ccc;
+}
+.password-content .billing-password-btn .change-btn{
+  color: white;
+  background: #1b75bb;
+  border: none;
+  text-transform: uppercase;
+  font-family: 'Source Sans Pro', sans-serif;
+  padding: 14px 0 10px;
+  width: 50%;
+  font-size: 15px;
+  letter-spacing: 0.3px;
+}
+.password-content .billing-password-btn .cancel-btn{
+  color: #a1a3a5;
+  background: none;
+  border: none;
+  text-transform: uppercase;
+  font-family: 'Source Sans Pro', sans-serif;
+  padding: 14px 0 10px;
+  width: 30%;
+  text-decoration: underline;
+  font-size: 15px;
+  letter-spacing: 0.3px;
+}
+.password-content .change-password-btn{
+  width: 100%;
+  display: inline-block;
+  padding: 30px 0 35px 0;
+  border-bottom: 1px solid #ccc;
+}
+.password-content .change-password-btn button{
+  color: #1b75bb;
+  background: none;
+  border: 1px solid #1b75bb;
+  text-transform: uppercase;
+  font-family: 'Source Sans Pro', sans-serif;
+  padding: 14px 0 10px;
+  width: 50%;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.3px;
+}
+.password-content .change-password-btn p{
+  margin: 0 0 15px;
+  font-size: 16px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 600;
+}
+/*/////////////////////////////////////// password billings page styling end here ////////////////////////////////////*/
+
+/*/////////////////////////////////////// refer friend page styling start here ///////////////////////////////////////*/
+.refer-friend-content{
+  width: 60%;
+  margin: 50px auto 0;
+  text-align: center;
+}
+.refer-friend-content h2{
+  margin: 0 0 20px 0;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 400;
+}
+.refer-friend-content p{
+  margin: 0 0 30px 0;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 600;
+  padding: 0 150px;
+}
+.refer-friend-content .field-area{
+  width: 55%;
+  margin: 0 0 0 22%;
+  float: left;
+}
+.refer-friend-content .field-area .list{
+  width: 75%;
+  float: left;
+}
+.refer-friend-content .field-area .list label{
+  height: 45px;
+  border-color: #909090;
+}
+::-webkit-input-placeholder {
+  color: #909090;
+}
+.refer-friend-content .field-area button{
+  width: 25%;
+  float: left;
+  color: white;
+  background: #1b75bb;
+  border: none;
+  text-transform: uppercase;
+  font-family: 'Source Sans Pro', sans-serif;
+  height: 45px;
+}
+.invite-friends-area{
+  width: 65%;
+  margin: 35px 0 0 17%;
+  padding: 35px 0 20px 0;
+  border-top: 1px solid #ccc;
+  float: left;
+  text-align: center;
+}
+.invite-friends-area button{
+  background: none;
+  border: 1px solid #cccccc;
+  height: 45px;
+  color: black;
+  text-transform: uppercase;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 700;
+  position: relative;
+  margin-top: 20px;
+}
+.invite-friends-area .link-btn{
+  width: 40%;
+  float: left;
+  padding: 3px 0 0 25px;
+}
+.invite-friends-area .link-btn i{
+  font-size: 28px;
+  position: absolute;
+  top: 4px;
+  left: 50px;
+}
+.invite-friends-area .share-btn{
+  width: 40%;
+  float: right;
+  padding: 3px 0 0 15px;
+}
+.invite-friends-area .share-btn i{
+  font-size: 26px;
+  position: absolute;
+  top: 4px;
+  left: 20px;
+  color: #517cbe;
+}
+/*/////////////////////////////////////// refer friend  page styling end here ////////////////////////////////////////*/
+
+/*/////////////////////////////////////// share setting page styling start here //////////////////////////////////////*/
+.share-setting-content{
+  width: 52%;
+  margin: 0 0 0 26.5%;
+  display: block;
+  padding: 50px 0 40px 0;
+  border-bottom: 1px solid #ccc;
+}
+.share-setting-content h4{
+  margin: 0 0 25px 0;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+.share-setting-content button{
+  border: none;
+  background: #0973ba;
+  color: white;
+  font-family: 'Source Sans Pro', sans-serif;
+  text-transform: uppercase;
+  font-size: 15px;
+  padding: 12px 40px 10px;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+.share-setting-content button i{
+  display: inline-block;
+  margin: 0 2px 0 0;
+  font-size: 11px;
+}
+.users-content{
+  width: 52%;
+  margin: 0 0 0 26.5%;
+  display: block;
+  padding: 40px 0 0 0;
+}
+.users-content h4{
+  margin: 0 0 25px 0;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+.users-content .user-box{
+  width: 25%;
+  float: left;
+  padding-bottom: 16px;
+}
+.users-content .user-box .user{
+  width: 90%;
+  margin: 0 auto;
+  text-align: center;
+  border: 1px solid #ccc;
+  padding: 15px 0 15px 0;
+  position: relative;
+}
+.users-content .user-box .user img{
+  width: 70px;
+  height: 70px;
+}
+.users-content .user-box .user h4{
+  margin: 5px 0 10px 0;
+  font-family: 'Source Sans Pro', sans-serif;
+  /*text-transform: capitalize;*/
+}
+.users-content .user-box .user a{
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 12px;
+  text-decoration: none;
+  display: inline-block;
+  padding: 0 0 0 0;
+  line-height: 12px;
+  color: #0973ba;
+  font-weight: 600;
+}
+.users-content .user-box .user span{
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 12px;
+}
+.users-content .user-box .user .resend{
+  border-right: 2px solid #cccccc;
+  padding: 0 5px 0 0;
+  line-height: 12px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 12px;
+  text-decoration: none;
+  display: inline-block;
+  color: #0973ba;
+  font-weight: 600;
+}
+.users-content .user-box .user button{
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  border: none;
+  background: #0973ba;
+  color: white;
+  font-family: 'Source Sans Pro', sans-serif;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+.user-name{
+  width: 70px;
+  height: 70px;
+  text-align: center;
+  /*border: 1px solid #cccccc;*/
+  margin: 5px auto;
+  border-radius: 50%;
+  background: #e7e8e9;
+  /*padding-top: 16px;*/
+}
+.user-name > img {
+  border-radius: 50%;
+}
+.user-name h2{
+  margin: 0;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 300;
+}
+/*/////////////////////////////////////// share setting page styling end here ////////////////////////////////////////*/
+
+/*/////////////////////////////////////// share detail page styling start here ///////////////////////////////////////*/
+.share-details-content{
+  width: 50%;
+  margin: 0 0 0 26.5%;
+  display: block;
+  padding: 40px 0 0 0;
+}
+.share-details-content .left-content{
+  width: 25%;
+  float: left;
+  border: 1px solid #ccc;
+  text-align: center;
+  padding: 20px 0;
+}
+.share-details-content .left-content .circle{
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  margin: 0 auto;
+  /*padding: 32px 0;*/
+  background: #e7e8e9;
+}
+.share-details-content .left-content .circle > img {
+  width:100%;
+  height:100%;
+  border-radius:50%;
+}
+.share-details-content .left-content .circle h1{
+  margin: 0;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+.share-details-content .right-content{
+  width: 75%;
+  float: left;
+  padding: 0 0 0 50px;
+  border-bottom: 1px solid #cccccc;
+}
+.share-details-content .right-content h1{
+  font-family: 'Source Sans Pro', sans-serif;
+  margin: 0 0 20px 0;
+  line-height: 27px;
+  font-weight: 300;
+}
+.share-details-content .right-content .content-info{
+  display: block;
+  margin: 0 0 15px 0;
+}
+.share-details-content .right-content .content-info span{
+  color: #67686a;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 500;
+  line-height: 12px;
+  display: inline-block;
+  font-size: 16px;
+  padding: 0 10px 0 0;
+  border-right: 2px solid #67686a;
+}
+.share-details-content .right-content .content-info a{
+  color: #2c7ec0;
+  text-decoration: none;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 500;
+  line-height: 12px;
+  display: inline-block;
+  font-size: 16px;
+  padding: 0 0 0 10px;
+}
+.share-details-content .right-content button{
+  background: none;
+  color: #2c7ec0;
+  text-transform: uppercase;
+  border: 1px solid #2c7ec0;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 14px 60px 12px;
+  display: block;
+  margin-bottom: 35px;
+}
+.permissions{
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  color: #67686a;
+  display: block;
+  margin: 0 0 15px 0;
+}
+.permission-area{
+  display: inline-block;
+  margin: 0 0 20px 0;
+}
+.last-box{
+  border-bottom: 1px solid #cccccc;
+  padding-bottom: 50px;
+  margin: 0 0 30px 0;
+}
+.permission-area input{
+  width: 20px;
+  height: 20px;
+  float: left;
+  margin: 5px 10px 0 0;
+}
+.permission-area h3{
+  margin: 0 0 5px 0;
+  float: left;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 600;
+}
+.permission-area p{
+  margin: 0;
+  float: left;
+  padding: 0 0 0 30px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+}
+.email-text{
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  color: #67686a;
+  display: block;
+  margin: 0 0 5px 0;
+}
+.share-details-content .right-content .list .item-input {
+  height: 45px;
+  margin-bottom: 20px;
+  border-color: #67686a;
+}
+.update-email{
+  width: 100%;
+  border: none;
+  font-size: 16px;
+  text-transform: uppercase;
+  font-family: 'Source Sans Pro', sans-serif;
+  background: #2c7ec0 !important;
+  color: white !important;
+  letter-spacing: 0.5px;
+  font-weight: 400 !important;
+}
+/*/////////////////////////////////////// share detail page styling end here /////////////////////////////////////////*/
+
+/*/////////////////////////////////////// invite new member popup styling start here /////////////////////////////////*/
+.invite-new-member-popup .popup{
+  width: 40%;
+}
+.invite-new-member-popup .popup .popup-head{
+  padding: 20px 20px 15px;
+  border-bottom: 2px solid #ccc;
+  background: #fff !important;
+}
+.invite-new-member-popup .popup .popup-head h3{
+  float: left;
+  width: 100%;
+  text-align: left;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 20px;
+  font-weight: 300;
+}
+.invite-new-member-popup .popup .popup-body{
+  padding: 30px 60px;
+  background: white;
+}
+.invite-new-member-popup .popup .popup-body .list .input-label{
+  font-size: 14px;
+  padding: 0 0 5px 0;
+}
+.invite-new-member-popup .popup .popup-body .list .item-select{
+  margin-bottom: 15px;
+}
+.invite-new-member-popup .popup .popup-body .list .item-textarea{
+  height: 150px !important;
+  padding: 30px 15px 0 15px;
+}
+.invite-new-member-popup .popup .popup-body .list button{
+  font-family: 'Source Sans Pro', sans-serif;
+  text-transform: uppercase;
+  font-size: 16px;
+  height: 45px;
+  padding: 4px 0 0 0;
+  background: #2c7ec0;
+}
+.invite-new-member-popup .popup .popup-body .list .item-textarea textarea{
+  height: 150px;
+}
+.invite-new-member-popup .popup .popup-body .list .item-input {
+  height: 45px;
+}
+.invite-new-member-popup .popup .popup-body .list-inset{
+  width: 100%;
+  margin: 0 0 15px 0;
+}
+.invite-new-member-popup .popup .popup-body .list-inset label{
+  border: 1px solid #ccc;
+  height: 45px;
+}
+.invite-new-member-popup .popup .popup-body .list-inset ::-webkit-input-placeholder {
+  font-size: 14px;
+}
+/*/////////////////////////////////////// invite new member popup styling end here ///////////////////////////////////*/
+.remove-member-popup .popup{
+  width: 40%;
+}
+.remove-member-popup .popup .popup-head{
+  padding: 0;
+}
+.remove-member-popup .popup .popup-body{
+  background: white;
+  padding: 60px 15px 20px 15px;
+  text-align: center;
+}
+.remove-member-popup .popup .popup-body h5{
+  font-family: 'Source Sans Pro', sans-serif;
+  margin: 0 0 25px 0;
+  font-size: 18px;
+  font-weight: 500;
+}
+.remove-member-popup .popup .popup-body div{
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+  padding: 0 46px;
+  margin: 0 0 30px 0;
+}
+.remove-member-popup .popup .popup-body button{
+  text-transform: uppercase;
+  border: none;
+  background: #2c7ec0;
+  color: white;
+  padding: 12px 35px 10px;
+  display: block;
+  margin: 0 auto 15px;
+  letter-spacing: 0.5px;
+}
+.remove-member-popup .popup .popup-body a{
+  color: #777;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.fr-box.fr-basic.fr-top .fr-wrapper {
+  border:none !important;
+  box-shadow:none !important;
+}
+
+.fr-quick-insert {
+  display:none !important;
+}
+
+.fr-counter {
+  display:none !important;
+}
+
+#editor > div::nth-last-child(2) {
+  display:none !important;
+}
+
+.quotes-list {
+  margin:20px;
+}
+
+.quotes-list .item {
+  padding:10px;
+  margin:10px;
+  float:left;
+}
+
+.quotes-list .item i {
+  font-size: 20px;
+  padding-left: 10px;
+}
+
+.quoteleftBox {
+  padding: 30px 20px;
+  width: 95%;
+  margin: 25px 0 0 0;
+}
+
+.tag-search-wrapper {
+  width: 300px;
+}
+
+.tag-search-wrapper i {
+  padding-right: 10px;
+  font-size: 20px;
+}
+
+.login-quote-text {
+  font-size:18px;
+}
+.user-table td{
+  vertical-align: middle !important;
+}

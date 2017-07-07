@@ -1,0 +1,42 @@
+<div class="share-details-content">
+  <!--<h4>Add Members</h4>-->
+  <!--<button type="button"><i class="ion-plus"></i> add new member</button>-->
+  <div class="left-content">
+    <div class="circle">
+      <img ng-src="{{sharedInfo.shareTo.photo}}" alt=""/>
+    </div>
+  </div>
+  <div class="right-content">
+    <h1>{{sharedInfo.shareTo.firstName}} {{shareUser.shareTo.lastName}}</h1>
+    <div class="content-info">
+      <span ng-show="sharedInfo.status=='accepted'">Joined {{sharedInfo.updatedAt | date: 'MMMM dd, yyyy'}}</span>
+      <span ng-show="sharedInfo.status=='invited'">Not Accepted Yet</span>
+      <a href="javascript:">View Contact Info</a>
+    </div>
+    <button type="button" ng-click="clickRemoveMember(sharedInfo);">remove member</button>
+    <span class="permissions">User Permissions</span>
+    <div class="permission-area">
+      <input type="radio" value="r" name="permission"/>
+      <h3>Read Only</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas congue erat a magna tempus condimentum eget ut purus.</p>
+    </div>
+    <div class="permission-area">
+      <input type="radio" value="rw" name="permission"/>
+      <h3>Read and Write</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas congue erat a magna tempus condimentum eget ut purus.</p>
+    </div>
+    <!-- <div class="permission-area last-box">
+      <input type="radio" value="4"/>
+      <h3>Permission set 3 name</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas congue erat a magna tempus condimentum eget ut purus.</p>
+    </div> -->
+    <div class="list">
+      <span class="email-text">Email Address</span>
+      <label class="item item-input">
+        <input type="email" placeholder="Email Address" name="email" ng-model="email">
+      </label>
+      <span class="email-text">When you publish a new post and choose to notify this user, and email will be sent to this address.</span>
+    </div>
+    <button type="button" class="update-email" ng-click="clickUpdateEmail();">update email address</button>
+  </div>
+</div>

@@ -1,0 +1,148 @@
+<ion-pane>
+  <ion-content ng-click="sidebar.showTags = false">
+    <div class="bar bar-header bar-stable headerNav" style="position: relative;">
+      <div class="nav">
+        <a ui-sref="home"><img src="img/logo.png" class="logo" alt=""/></a>
+        <div class="linksNav">
+          <!--<a href="javascript:" class="full-information active">Life-In-Full</a>-->
+          <!--<a href="javascript:" class="full-information">Vital Information</a>-->
+          <!--<div class="list list-inset">-->
+            <!--<label class="item item-input">-->
+              <!--<i class="icon ion-search placeholder-icon"></i>-->
+              <!--<input type="text" placeholder="Search">-->
+            <!--</label>-->
+          <!--</div>-->
+          <!-- <a href="javascript:" class="my-account-link">Upgrade Now</a> -->
+          <a href="https://the-human-experience.helpshift.com/a/the/" target="_blank" class="my-account-link myaccount">Help</a>
+          <a ui-sref="account.profile" class="my-account-link myaccount">My Account</a>
+          <a ng-click="logout()" class="my-account-link logout">Logout</a>
+          <!--<h6>Share Your Story</h6>-->
+          <!--<h5><a href="javascript:">Sign In or Sign Up</a></h5>-->
+        </div>
+        <button type="button" ng-show="!toggleMenu" class="menuBtn" ng-click="toggleMenu = true">Menu</button>
+        <a href="javascript:" class="closeMenuBtn" ng-show="toggleMenu" ng-click="toggleMenu = false">Close Menu</a>
+      </div>
+      <!--///////////////////////// Mobile Version Nav ///////////////////////////////////-->
+      <div class="linksNavMobile" ng-show="toggleMenu">
+        <a href="javascript:" class="full-information active">
+          Life-In-Full
+          <a href="javascript:" class="anchorChild" ng-class="{'active': toggleView == 'sphere'}" ng-click="toggleView = 'sphere'">View Life-in-Full as Sphere</a>
+          <a href="javascript:" class="anchorChild lastEle" ng-class="{'active': toggleView == 'list'}" ng-click="toggleView = 'list'">View Life-in-Full as List</a>
+        </a>
+        <a href="javascript:" class="full-information vital">Vital Information</a>
+        <a href="https://the-human-experience.helpshift.com/a/the/" target="_blank" class="full-information vital">Help</a>
+        <a ui-sref="account.profile" class="full-information vital">My Account</a>
+        <div class="list list-inset">
+          <label class="item item-input">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input type="text" placeholder="Search">
+          </label>
+        </div>
+        <!-- <a href="javascript:" class="my-account-link">Upgrade Now</a> -->
+        <a ng-click="logout()" class="full-information vital logout">Logout</a>
+
+        <!--<h6>Share Your Story</h6>-->
+        <!--<h5><a href="javascript:">Sign In or Sign Up</a></h5>-->
+      </div>
+      <!--///////////////////////// Mobile Version Nav ///////////////////////////////////-->
+      <div class="nugget-tabs">
+        <ul class="leftUl">
+          <label class="item item-input item-floating-label" style="border: none; padding-left: 0">
+            <input type="text" ng-model="nugget.name" placeholder="Nugget name" style="font-size: 20px" required>
+          </label>
+          <!-- <li><a href="javascript:"><i class="fa fa-bold" aria-hidden="true"></i></a></li>
+          <li><a href="javascript:"><i class="fa fa-italic" aria-hidden="true"></i></a></li>
+          <li><a href="javascript:"><i class="fa fa-list-ul borderList" aria-hidden="true"></i></a></li>
+          <li><a href="javascript:" class="linkNugget" ng-click="openInsertMediaPopover($event)">Insert Media</a></li>
+          <li><a href="javascript:" class="linkNugget">Voice-to-Text</a></li> -->
+        </ul>
+        <ul class="rightUl">
+          <!-- <li class="searchField">
+            <div class="list list-inset">
+              <label class="item item-input">
+                <i class="ion-ios-search"></i>
+                <input type="text" placeholder="Search" ng-focus="sidebar.search = true; sidebar.prompt = false">
+              </label>
+            </div>
+          </li> -->
+          <li class="searchField"><a href="javascript:" class="linkNugget" ng-click="sidebar.prompt = true; sidebar.search = false" ng-class="{'active': sidebar.prompt}">Prompts </a></li>
+        </ul>
+      </div>
+    </div>
+    <!--////////////////////////////// col ////////////////////////////////-->
+    <div class="row rowSetting responsive-lg">
+      <div class="col firstRow" ng-class="(sidebar.prompt|| sidebar.search) ? 'col-75' : 'col-90'">
+        <form name="nuggetForm">          
+          <!-- <textarea ng-model="nugget.content" id="add-nugget-textarea" placeholder="Start your nugget!" required></textarea> -->
+          <!-- <div froala="froalaOptions" ng-model="nugget.content"></div> -->
+          <div id="editor" compile="nugget.content"></div>
+        </form>
+      </div>
+
+      <ion-scroll zooming="true" direction="y" style="height: 100vh; width: 100%">
+        <div ng-include="'../../templates/prompt.html'"></div>
+        <div ng-include="'../../templates/searchResult.html'"></div>
+      </ion-scroll>
+
+    </div>
+
+    <!--///////////////////////////// mobile design //////////////////////////////-->
+    <div class="mobile-design">
+      <div class="nugget-tabs-mobile">
+        <a href="javascript:" class="section">purpose <span>/</span></a>
+        <a href="javascript:" class="section">chapter <span>/</span></a>
+        <a href="javascript:" class="section">section</a>
+        <h3>Nugget name</h3>
+        <h6>Last worked on 8.20.16</h6>
+        <h6><i>Shared with John, Doug + 6 others...</i></h6>
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+      </div>
+    </div>
+
+    <!--///////////////////////////// mobile design //////////////////////////////-->
+
+  </ion-content>
+</ion-pane>
+
+<!--////////////////////////// nugget footer ///////////////////////////-->
+<div class="nugget-footer">
+  <button type="button">Start Interview</button>
+</div>
+<!--////////////////////////// nugget footer ///////////////////////////-->
+<div class="bar bar-footer footerBottom">
+  <div class="container">
+    <div class="leftArea" ng-click="sidebar.showTags = true">
+      <a class="sideIcon" href="javascript:"><i class="fa fa-bookmark-o" aria-hidden="true"></i></a>
+      <a class="addInput" href="javascript:" ng-hide="sidebar.showTags || tags.length">Click to add tags</a>
+      <ul ng-show="!sidebar.showTags && tags.length">
+        <li ng-repeat="tag in tags">
+          <a class="auto-complete-link" href="javascript:">{{tag.text}}</a>
+        </li>
+      </ul>
+      <div class="list" ng-show="sidebar.showTags">
+        <tags-input ng-model="nugget.tags" add-from-autocomplete-only="true" use-strings="true">
+          <auto-complete source="loadTags($query)"></auto-complete>
+        </tags-input>
+      </div>
+    </div>
+    <div class="rightArea">
+      <button type="button" ui-sref="home">Cancel</button>
+      <button type="button" class="saveBtn" ng-click="saveAndPublishPopup()">Save & Publish</button>
+    </div>
+  </div>
+  <script>
+    $(function(){
+      $('#editor').froalaEditor({
+        placeholderText: 'Start you nugget!',
+        toolbarButtonsXS: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo'],
+        toolbarButtonsSM: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo'],
+        toolbarButtonsMD: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo'],
+        toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo'],
+        videoDefaultAlign: 'left',
+        imageDefaultAlign: 'left'
+      })
+    });
+  </script>
+</div>
+

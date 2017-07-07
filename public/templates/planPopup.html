@@ -1,0 +1,31 @@
+<span class="closeIcon" ng-click="closePlanPopup()"><i class="ion-android-close"></i></span>
+<ion-scroll zooming="true" direction="y" style="height: 300px">
+  <div class="listItemsArea">
+    <div class="list">
+      <ion-radio ng-repeat="plan in plans" ng-value="plan.id" ng-model="user.stripePlanId">
+        <span>{{plan.name}}</span>
+        <span>${{plan.amount / 100}}/{{plan.interval}}</span>
+      </ion-radio>
+
+      <!-- <a class="item item-icon-left item-icon-right" href="javascript:">
+        <img src="img/userImage_03.png" alt=""/>
+        <span>Name or group</span>
+        <ion-list>
+          <ion-checkbox ng-model="user.stripePlanId"></ion-checkbox>
+        </ion-list>
+      </a>
+
+      <a class="item item-icon-left" href="javascript:">
+        <img src="img/userImage_03.png" alt=""/>
+        <span>Name or group</span>
+        <ion-list>
+          <ion-checkbox ng-model="user.stripePlanId"></ion-checkbox>
+        </ion-list>
+      </a> -->
+
+    </div>
+    <div class="rightAreaButton">
+      <button type="button" class="saveBtn" ng-click="savePlan()">Save</button>
+    </div>
+  </div>
+</ion-scroll>

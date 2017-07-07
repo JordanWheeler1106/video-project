@@ -1,0 +1,31 @@
+<div class="row rowPadding responsive-lg">
+  <div class="col col-75 firstRow">
+    <div class="quoteleftBox">
+      <div class="tableLinks">
+        <span class="active">Quotes</span>            
+      </div>
+      <div class="quotes-list">
+        <div class="item" ng-repeat="quote in quotes">
+          {{quote.name}}
+          <i class="ion-ios-close-outline" ng-click="removeQuote(quote);"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="rightContent">
+      <div class="list">
+        
+        <a class="item item-icon-left listFirst" ng-click="addQuote($event)">
+          <i class="ion-ios-plus-outline"></i>
+          Add New Quote
+        </a>
+        
+        <label class="item item-input">
+          <input type="text" placeholder="New Quote" name="name" ng-model="quote.name">
+        </label>
+      </div>
+    </div>
+  </div>
+</div>

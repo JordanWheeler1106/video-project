@@ -1,0 +1,56 @@
+<div class="row rowPadding responsive-lg">
+  <div class="col col-75 firstRow">
+    <div class="leftBox">
+      <table class="table">
+        <thead>
+          <tr>
+            <td>Plan Name</td>
+            <td>Plan Price</td>
+            <td>Registered Users</td>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="plan in plans track by $index">
+            <td>{{plan.name}}</td>
+            <td>${{plan.amount / 100}}</td>
+            <td>({{plan.users}})</td>
+            <td><i class="ion-ios-gear-outline settingIcon" ng-click="openSettingPopover($event, $index)"></i></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="col">    
+    <div class="rightContent">
+      <div class="list">
+        
+        <a class="item item-icon-left listFirst" ng-click="addPlan($event)">
+          <i class="ion-ios-plus-outline"></i>
+          Add Plan
+        </a>
+        
+        <div class="row">
+          <div class="col col-60">
+            <label class="item item-input">
+              <input type="text" placeholder="Plan Name" name="name" ng-model="plan.name">
+            </label>
+          </div>
+          <div class="col col-40">
+            <label class="item item-input">
+              <input type="number" placeholder="Price" name="price" ng-model="plan.price">
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label class="item item-input">
+              <input type="text" placeholder="Plan Description" name="description" ng-model="plan.description">
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

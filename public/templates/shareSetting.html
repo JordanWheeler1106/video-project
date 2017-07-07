@@ -1,0 +1,22 @@
+<div class="share-setting-content">
+  <h4>Add Members</h4>
+  <button type="button" ng-click="shareMemberPopup()"><i class="ion-plus"></i> add new member</button>
+</div>
+<div class="users-content">
+  <h4>Your Members</h4>
+  <div class="user-box" ng-repeat="share in shares">
+    <div class="user">
+      <button type="button">invited</button>
+      <div class="user-name" ng-click="changeSetting(share)">
+        <img ng-src="{{share.shareTo.photo}}" alt=""/>
+        <!-- <h2>{{share.shareTo.photo}}</h2> -->
+      </div>
+      <!--<img src="img/profile-image_03.png" alt=""/>-->
+      <h4>{{share.shareTo.firstName}} {{share.shareTo.lastName}}</h4>
+      <a href="javascript:" class="resend" ng-click="resendShare(share, $event)" ng-show="share.status=='invited'">Resend Invite</a>
+      <a href="javascript:" ng-click="cancelShare(share, $event)" ng-show="share.status=='invited'">Cancel Invite</a>
+      <span ng-show="share.status=='accepted'">{{share.type=='r'?'Read':'Read/Write'}} Type -</span>
+      <a href="javascript:" ng-click="removeMemberPopup(share, $event)" ng-show="share.status=='accepted'">Remove</a>
+    </div>
+  </div>  
+</div>

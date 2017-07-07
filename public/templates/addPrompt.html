@@ -1,0 +1,131 @@
+<ion-pane>
+  <ion-content>
+    <div class="bar bar-header bar-stable headerNav" style="position: relative;">
+      <div class="nav">
+        <!--<h1 class="title navHeading">the logo</h1>-->
+        <a ui-sref="home"><img src="img/logo.png" class="logo" alt=""/></a>
+        <div class="linksNav">
+          <a href="javascript:" class="full-information active">Life-In-Full</a>
+          <a href="javascript:" class="full-information">Vital Information</a>
+          <div class="list list-inset">
+            <label class="item item-input">
+              <i class="fa fa-search placeholder-icon"></i>
+              <input type="text" placeholder="Search">
+            </label>
+          </div>
+          <!-- <a href="javascript:" class="my-account-link">Upgrade Now</a> -->
+          <a href="https://the-human-experience.helpshift.com/a/the/" target="_blank" class="my-account-link myaccount">Help</a>
+          <a ui-sref="account.profile" class="my-account-link myaccount">My Account</a>
+          <a ng-click="logout()" class="my-account-link logout">Logout</a>
+          <!-- <button class="button button-positive" ng-click="logout()">Logout</button> -->
+          <!--<h6>Share Your Story</h6>-->
+          <!--<h5><a href="javascript:">Sign In or Sign Up</a></h5>-->
+        </div>
+        <button type="button" ng-show="!toggleMenu" class="menuBtn" ng-click="toggleMenu = true">Menu</button>
+        <a href="javascript:" class="closeMenuBtn" ng-show="toggleMenu" ng-click="toggleMenu = false">Close Menu</a>
+      </div>
+      <!--///////////////////////// Mobile Version Nav ///////////////////////////////////-->
+      <div class="linksNavMobile" ng-show="toggleMenu">
+        <a href="javascript:" class="full-information active">
+          Life-In-Full
+          <a href="javascript:" class="anchorChild" ng-class="{'active': toggleView == 'sphere'}" ng-click="toggleView = 'sphere'">View Life-in-Full as Sphere</a>
+        <a href="javascript:" class="anchorChild lastEle" ng-class="{'active': toggleView == 'list'}" ng-click="toggleView = 'list'">View Life-in-Full as List</a>
+        </a>
+        <a href="javascript:" class="full-information vital">Vital Information</a>
+        <a href="https://the-human-experience.helpshift.com/a/the/" target="_blank" class="full-information vital">Help</a>
+        <a ui-sref="account.profile" class="full-information vital">My Account</a>
+        <div class="list list-inset">
+          <label class="item item-input">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input type="text" placeholder="Search">
+          </label>
+        </div>
+        <!-- <a href="javascript:" class="my-account-link">Upgrade Now</a> -->
+        <a ng-click="logout()" class="full-information vital logout">Logout</a>
+        <!-- <button class="button button-positive" ng-click="logout()">Logout</button> -->
+
+        <!--<h6>Share Your Story</h6>-->
+        <!--<h5><a href="javascript:">Sign In or Sign Up</a></h5>-->
+      </div>
+      <!--///////////////////////// Mobile Version Nav ///////////////////////////////////-->
+      <div class="home1-tabs">
+        <ul>
+          <li><a href="javascript:" ng-click="openFilterTemplatePopover($event)" style="color: #387ef5">Show All <i class="ion-chevron-down"></i></a></li>
+          <li><a href="javascript:" ng-class="{'active': toggleView == 'sphere'}" ng-click="toggleView = 'sphere'">View as Sphere</a></li>
+          <li><a href="javascript:" ng-class="{'active': toggleView == 'list'}" ng-click="toggleView = 'list'">View as List</a></li>
+          <!-- <li class="upgradeBtn"><button type="button">Upgrade Now</button></li> -->
+        </ul>
+      </div>
+    </div>
+    <div class="row rowPadding responsive-lg">
+      <label class="item item-icon-right item-input">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="search" placeholder="Search">
+      </label>
+    </div>
+    <div class="row rowPadding responsive-lg">
+      <div class="col col-75 firstRow">
+        <div class="quoteleftBox">
+          <div class="tableLinks">
+            <span class="active">Prompts</span>
+          </div>
+          <div class="quotes-list">
+            <div class="item" ng-repeat="prompt in prompts">
+              {{prompt.text}}
+              <i class="ion-ios-close-outline" ng-click="removePrompt(prompt._id);"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="rightContent">
+          <div class="list">
+
+            <a class="item item-icon-left listFirst" ng-click="addprompt($event)">
+          <i class="ion-ios-plus-outline"></i>
+          Add New Prompt
+        </a>
+
+            <label class="item item-input">
+          <input type="text" placeholder="New Prompt" name="name" ng-model="prompt.name">
+        </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-pane>
+
+
+<!--<div class="row rowPadding responsive-lg">
+  <div class="col col-75 firstRow">
+    <div class="quoteleftBox">
+      <div class="tableLinks">
+        <span class="active">Prompts</span>
+      </div>
+      <div class="quotes-list">
+        <div class="item" ng-repeat="prompt in prompts">
+          {{prompt.text}}
+          <i class="ion-ios-close-outline" ng-click="removePrompt(prompt._id);"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="rightContent">
+      <div class="list">
+
+        <a class="item item-icon-left listFirst" ng-click="addprompt($event)">
+          <i class="ion-ios-plus-outline"></i>
+          Add New Prompt
+        </a>
+
+        <label class="item item-input">
+          <input type="text" placeholder="New Prompt" name="name" ng-model="prompt.name">
+        </label>
+      </div>
+    </div>
+  </div>
+</div>-->

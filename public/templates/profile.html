@@ -1,0 +1,82 @@
+<div class="profile-parent">
+  <div class="change-profile">
+    <input type="file" name="file" file="file" class="photoUpload" onchange="angular.element(this).scope().uploadFile(this)">
+    <img id="preview" ng-src="{{user.photo}}" alt=""/>
+    <a href="javascript:">Change Photo</a>
+  </div>
+  <div class="profile-fields">
+    <div class="list">
+      <span>First Name</span>
+      <label class="item item-input">
+        <input type="text" placeholder="First Name" ng-model="user.firstName">
+      </label>
+      <span>Last Name</span>
+      <label class="item item-input">
+        <input type="text" placeholder="Last Name" ng-model="user.lastName">
+      </label>
+      <span>Email Address</span>
+      <label class="item item-input">
+        <input type="email" placeholder="Email Address" ng-model="user.email">
+      </label>
+    </div>
+    <div class="select-date-picker">
+      <div class="list">
+        <span>Gender</span>
+        <label class="item item-input item-select">
+          <select ng-model="user.gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </label>
+      </div>
+      <div class="list">
+        <span>Date of Birth</span>
+        <label class="item item-input">
+          <input type="date" placeholder="yyyy-MM-dd" ng-model="user.birth">
+        </label>
+      </div>
+    </div>
+    <div class="list">
+      <span>Address</span>
+      <label class="item item-input">
+        <input type="text" placeholder="Address" ng-model="user.address">
+      </label>
+      <span>Address Line 2</span>
+      <label class="item item-input">
+        <input type="text" placeholder="Address Line 2" ng-model="user.address1">
+      </label>
+      <span>City</span>
+      <label class="item item-input">
+        <input type="text" placeholder="City" ng-model="user.city">
+      </label>
+    </div>
+    <div class="select-date-picker">
+      <div class="list">
+        <span>State</span>
+        <label class="item item-input">
+          <input type="text" placeholder="State" ng-model="user.state">
+        </label>
+      </div>
+      <div class="list">
+        <span>ZIP</span>
+        <label class="item item-input">
+          <input type="text" placeholder="53546" ng-model="user.zipcode">
+        </label>
+      </div>
+    </div>
+    <div class="list">
+      <span>Primary Phone Number</span>
+      <label class="item item-input">
+        <input type="text" placeholder="Phone Number" ng-model="user.phone">
+      </label>
+      <span>Cell Phone Number</span>
+      <label class="item item-input">
+        <input type="text" placeholder="Cell Phone Number" ng-model="user.cellphone">
+      </label>
+    </div>
+    <div class="profile-button">
+      <button type="button" class="" ng-click="updateProfile()">update profile</button>
+    </div>
+  </div>
+</div>
+

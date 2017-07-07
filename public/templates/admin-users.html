@@ -1,0 +1,28 @@
+<div class="row rowPadding responsive-lg">
+  <div class="col firstRow">
+    <div class="leftBox">
+      <table class="table">
+        <thead>
+          <tr>
+            <td></td>
+            <td>Name</td>
+            <td>Stutus</td>
+            <td style="font-size: 16px; color:black">Last Login</td>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-hide = "user.email == 'admin@humanexp.com'" class="user-table" ng-repeat="user in users track by $index">
+            <td style="padding: 0px;"><img style = "width:50px; border-radius: 50%;" ng-src="{{user.photo}}" alt="profile"></td>
+            <td>{{user.firstName + ' ' + user.lastName}}</td>
+            <td>{{user.status}}</td>
+            <td style="font-size: 16px; color:black">{{user.lastLogin}}</td>
+            <td><i class="ion-ios-gear-outline settingIcon" ng-click="openSettingPopover($event, user._id)"></i></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  
+</div>

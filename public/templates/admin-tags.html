@@ -1,0 +1,37 @@
+<div class="row rowPadding responsive-lg">
+  <div class="col col-75 firstRow">
+    <div class="quoteleftBox">
+      <div class="list tag-search-wrapper">
+        <label class="item item-input">        
+          <input type="text" placeholder="Search" ng-model="search">
+          <i class="fa fa-search placeholder-icon"></i>
+        </label>
+      </div>
+      <div class="tableLinks">
+        <span class="active">Tags/Topics</span>            
+      </div>
+      <div class="quotes-list">
+        <div class="item" ng-repeat="tag in tags | filter: search">
+          {{tag.name}}
+          <i class="ion-ios-close-outline" ng-click="removeTag(tag);"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="rightContent">      
+      <div class="list">
+        
+        <a class="item item-icon-left listFirst" ng-click="addTag($event)">
+          <i class="ion-ios-plus-outline"></i>
+          Add New Tag(Topic)
+        </a>
+        
+        <label class="item item-input">
+          <input type="text" placeholder="Tag" name="name" ng-model="tag.name">
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
