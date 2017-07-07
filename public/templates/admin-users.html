@@ -1,5 +1,11 @@
 <div class="row rowPadding responsive-lg">
   <div class="col firstRow">
+    <div class="list tag-search-wrapper">
+      <label class="item item-input">        
+        <input type="text" placeholder="Search" ng-model="search">
+        <i class="fa fa-search placeholder-icon"></i>
+      </label>
+    </div>
     <div class="leftBox">
       <table class="table">
         <thead>
@@ -12,7 +18,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-hide = "user.email == 'admin@humanexp.com'" class="user-table" ng-repeat="user in users track by $index">
+          <tr ng-hide = "user.email == 'admin@humanexp.com'" class="user-table" ng-repeat="user in users | filter: search">
             <td style="padding: 0px;"><img style = "width:50px; border-radius: 50%;" ng-src="{{user.photo}}" alt="profile"></td>
             <td>{{user.firstName + ' ' + user.lastName}}</td>
             <td>{{user.status}}</td>
