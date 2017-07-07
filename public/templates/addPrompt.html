@@ -28,8 +28,8 @@
       <div class="linksNavMobile" ng-show="toggleMenu">
         <a href="javascript:" class="full-information active">
           Life-In-Full
-          <a href="javascript:" class="anchorChild" ng-class="{'active': toggleView == 'sphere'}" ng-click="toggleView = 'sphere'">View Life-in-Full as Sphere</a>
-        <a href="javascript:" class="anchorChild lastEle" ng-class="{'active': toggleView == 'list'}" ng-click="toggleView = 'list'">View Life-in-Full as List</a>
+          <a ui-sref = "home({view: 'sphere'})" class="anchorChild" ng-class="{'active': toggleView == 'sphere'}" ng-click="toggleView = 'sphere'">View Life-in-Full as Sphere</a>
+        <a ui-sref = "home({view: 'list'})" class="anchorChild lastEle" ng-class="{'active': toggleView == 'list'}" ng-click="toggleView = 'list'">View Life-in-Full as List</a>
         </a>
         <a href="javascript:" class="full-information vital">Vital Information</a>
         <a href="https://the-human-experience.helpshift.com/a/the/" target="_blank" class="full-information vital">Help</a>
@@ -51,8 +51,8 @@
       <div class="home1-tabs">
         <ul>
           <li><a href="javascript:" ng-click="openFilterTemplatePopover($event)" style="color: #387ef5">Show All <i class="ion-chevron-down"></i></a></li>
-          <li><a href="javascript:" ng-class="{'active': toggleView == 'sphere'}" ng-click="toggleView = 'sphere'">View as Sphere</a></li>
-          <li><a href="javascript:" ng-class="{'active': toggleView == 'list'}" ng-click="toggleView = 'list'">View as List</a></li>
+          <li><a ui-sref = "home({view: 'sphere'})" ng-class="{'active': toggleView == 'sphere'}" ng-click="toggleView = 'sphere'">View as Sphere</a></li>
+          <li><a ui-sref = "home({view: 'list'})" ng-class="{'active': toggleView == 'list'}" ng-click="toggleView = 'list'">View as List</a></li>
           <!-- <li class="upgradeBtn"><button type="button">Upgrade Now</button></li> -->
         </ul>
       </div>

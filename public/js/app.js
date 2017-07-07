@@ -67,7 +67,7 @@
       //   cache: false
       // })
       .state('home', {
-        url:'/home',
+        url:'/home?view',
         templateUrl:'../templates/home.html',
         controller: 'homeCtrl',
         cache: false
@@ -945,6 +945,7 @@
         alert("something went wrong please try again, or reload the page")
       })
     }
+    
   })
   //add nugget controller
   .controller('nuggetCtrl', function($scope, $ionicPopover, $ionicPopup, $timeout, $state, $http, $ionicLoading){
@@ -1168,9 +1169,12 @@
 
   })
   //reset password controller
-  .controller('homeCtrl', function($scope, $ionicPopover, $ionicPopup, $state, $http, $ionicLoading){
+  .controller('homeCtrl', function($scope, $ionicPopover, $ionicPopup, $state, $http, $ionicLoading, $stateParams){
 
     $scope.toggleView = 'sphere';
+    if($stateParams.view){
+      $scope.toggleView = $stateParams.view;
+    }
     $scope.toggleMenu = false;
     $scope.userFolders = [];
     $scope.strPath = `<span class="active" ng-click="clickFolder($event, 'root')">Home</span>`;
