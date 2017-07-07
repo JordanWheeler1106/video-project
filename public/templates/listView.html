@@ -10,14 +10,14 @@
   </div>
   <table class="table">
     <tbody>
-    <tr ng-repeat="folder in currentFolders track by $index">
+    <tr ng-repeat="folder in currentFolders | filter: search track by $index">
       <td ng-click="clickFolder($event, folder)" style="cursor:pointer;"><i class="fa fa-folder-o" style="font-size: 20px"></i></td>
       <td ng-click="clickFolder($event, folder)" style="cursor:pointer;">{{folder.name}}</td>
       <td>({{folder.purpose}} purposes)</td>
       <td>Last worked on {{folder.updatedAt.split("T")[0]}}</td>
       <td><i class="ion-ios-gear-outline settingIcon" ng-click="openSettingPopover($event, $index, 'folder')"></i></td>
     </tr>
-    <tr ng-repeat="nugget in currentNuggets track by $index">
+    <tr ng-repeat="nugget in currentNuggets | filter: search track by $index">
       <td ng-click="clickNugget($event, nugget)" style="cursor:pointer;"><i class="fa fa-file-text-o" style="font-size: 20px"></i></td>
       <td ng-click="clickNugget($event, nugget)" style="cursor:pointer;">{{nugget.name}}</td>
       <td></td>

@@ -1176,6 +1176,7 @@
     $scope.strPath = `<span class="active" ng-click="clickFolder($event, 'root')">Home</span>`;
     $scope.folderPath = ["Root"];
     $scope.currentFolder = "root";
+    $scope.filter = {};
     localStorage.setItem('currentFolderId', "root");
     $scope.currentFolders = [];
     $scope.userNuggets = [];
@@ -1554,6 +1555,12 @@
         //put your logic here.
       });
     };
+
+    $scope.search = function(item) {
+      if(!$scope.filter.search || (item.name.indexOf($scope.filter.search) != -1) || (item.tags && item.tags.indexOf($scope.filter.search) != -1))
+        return true;
+      return false;
+    }
   })
   
   .controller('adminPlansCtrl', function($scope, $ionicPopover, $ionicPopup, $state, $http, $ionicLoading){
