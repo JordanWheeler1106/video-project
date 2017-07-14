@@ -1,16 +1,14 @@
 <div class="leftBox">
   <div class="tableLinks" compile="strPath">    
-    <!-- <span class="active">Reflective</span>
-    <i class="ion-ios-arrow-forward"></i>
-    <span>Identity</span>
-    <i class="ion-ios-arrow-forward"></i>
-    <span>Roles</span>
-    <i class="ion-ios-arrow-forward"></i>
-    <span>Child</span> -->
   </div>
   <table class="table">
     <tbody>
     <tr ng-repeat="folder in currentFolders | filter: search track by $index">
+      <td>
+        <label class="checkbox">
+         <input type="checkbox" ng-click="toggleSelection(folder, 'folder')" ng-checked="template.folders.indexOf(folder)>-1">
+        </label>        
+      </td>
       <td ng-click="clickFolder($event, folder)" style="cursor:pointer;"><i class="fa fa-folder-o" style="font-size: 20px"></i></td>
       <td ng-click="clickFolder($event, folder)" style="cursor:pointer;">{{folder.name}}</td>
       <td>({{folder.purpose}} purposes)</td>
@@ -18,19 +16,17 @@
       <td><i class="ion-ios-gear-outline settingIcon" ng-click="openSettingPopover($event, $index, 'folder')"></i></td>
     </tr>
     <tr ng-repeat="nugget in currentNuggets | filter: search track by $index">
+      <td>
+        <label class="checkbox">
+         <input type="checkbox" ng-click="toggleSelection(nugget, 'nugget')" ng-checked="template.nuggets.indexOf(nugget)>-1">
+        </label>
+      </td>
       <td ng-click="clickNugget($event, nugget)" style="cursor:pointer;"><i class="fa fa-file-text-o" style="font-size: 20px"></i></td>
       <td ng-click="clickNugget($event, nugget)" style="cursor:pointer;">{{nugget.name}}</td>
       <td></td>
       <td>Last worked on {{nugget.updatedAt.split("T")[0]}}</td>
       <td><i class="ion-ios-gear-outline settingIcon" ng-click="openSettingPopover($event, $index, 'nugget')"></i></td>
     </tr>
-    <!-- <tr ng-click="openCreateFolder($event)" style="cursor:pointer;">
-      <td><i class="ion-ios-plus-outline tableAddIcon"></i></td>
-      <td>Add a New Folder</td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr> -->
     </tbody>
   </table>
 </div>

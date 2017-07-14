@@ -1,0 +1,59 @@
+<div class="leftBox" ng-show="template.folders.length > 0 || template.nuggets.length > 0">
+  <div class="row">    
+    <div class="col col-40">
+      <label class="item item-input">
+        <input type="text" placeholder="Template Name" ng-model="template.name">
+      </label>
+    </div>
+    <div class="col col-40">
+      <label class="item item-input template-tag" ng-click="clickChangeTag()">
+        <ion-select class="template-tag-selection">
+          <ion-option ng-show="template.tags.length == 0">Tags</ion-option>
+          <ion-option ng-repeat="tag in template.tags"> {{tag.name}} </ion-option>
+        </ion-select>
+        <!-- <select ng-model="template.topic">
+          <option value="" disabled selected>
+          <option ng-repeat="tag in tags" value="{{tag.text}}">{{tag.text}}</option>
+        </select> -->
+      </label>
+    </div>
+    <div class="col col-20">
+      <label class="item item-input">
+        <input type="number" placeholder="Price" ng-model="template.price">
+      </label>
+    </div>    
+  </div>
+  <div class="row">
+    <div class="col col-100">
+      <label class="item item-input">
+        <input type="text" placeholder="Descripotion" ng-model="template.description">
+      </label>
+    </div>
+  </div><br>
+  
+  <div class="row">
+    <div class="col col-10" ng-repeat="folder in template.folders">
+      <div class="template-item">
+        <i class="fa fa-folder-o" style="font-size: 32px"></i><br>
+        <p>{{folder.name}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col-10" ng-repeat="nugget in template.nuggets">
+      <div class="template-item">
+        <i class="fa fa-file-text-o" style="font-size: 32px"></i><br>
+        <p>{{nugget.name}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="template-button-wrapper">
+      <button type="button" class="cancel-btn" ng-click="clickHomeView('list')">Cancel</button>
+      <button type="button" class="save-btn" ng-click="saveTemplate()">Save</button>
+    </div>
+  </div>  
+</div>
+<div class="leftBox" ng-show="template.folders.length == 0 && template.nuggets.length == 0">
+  <h4><center>There is no selected Folder or Nugget.</center></h4>
+</div>

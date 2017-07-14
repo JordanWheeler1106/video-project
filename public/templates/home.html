@@ -51,8 +51,8 @@
       <div class="home1-tabs">
         <ul>
           <li><a href="javascript:" ng-click="openFilterTemplatePopover($event)" style="color: #387ef5">Show All <i class="ion-chevron-down"></i></a></li>
-          <li><a href="javascript:" ng-class="{'active': toggleView == 'sphere'}" ng-click="toggleView = 'sphere'">View as Sphere</a></li>
-          <li><a href="javascript:" ng-class="{'active': toggleView == 'list'}" ng-click="toggleView = 'list'">View as List</a></li>
+          <li><a href="javascript:" class="toggleSphereView" ng-class="{'active': toggleView == 'sphere'}" ng-click="clickHomeView('sphere')">View as Sphere</a></li>
+          <li><a href="javascript:" class="toggleListView" ng-class="{'active': toggleView == 'list'}" ng-click="clickHomeView('list')">View as List</a></li>
           <!-- <li class="upgradeBtn"><button type="button">Upgrade Now</button></li> -->
         </ul>
       </div>
@@ -60,10 +60,13 @@
     <div class="row rowPadding responsive-lg">
       <div class="col col-75 firstRow">
         <div ng-show="toggleView == 'sphere'">
-          <div ng-include="'../../templates/sphereView.html'"></div>
+          <div ng-include="'../../templates/sphereView.html'"></div>          
         </div>
         <div ng-show="toggleView == 'list'">
-          <div ng-include="'../../templates/listView.html'"></div>
+          <div ng-include="'../../templates/listView.html'"></div>          
+        </div>
+        <div ng-show="toggleView == 'template'">
+          <div ng-include="'../../templates/template.html'"></div>          
         </div>
       </div>
 
@@ -81,6 +84,11 @@
               <i class="ion-ios-plus-outline"></i>
               Add a Folder
             </a>
+            
+            <a class="item item-icon-left listFirst toggleTemplateView" ng-click="clickHomeView('template')">
+              <i class="ion-ios-plus-outline"></i>
+              Create a Template
+            </a>
 
             <a class="item item-icon-left listFirst" ng-click="">
               <i class="ion-ios-plus-outline"></i>
@@ -96,6 +104,24 @@
               [{{nugget.name}}]
             </a>
 
+          </div><br>
+          
+          <span class="firstName">My Template</span>
+          <div class="list">
+            <a class="item item-icon-right" ng-repeat="tmp in myTemplates" style="cursor:pointer;">
+              <span ng-click="clickTemplate(tmp)">{{tmp.name}}</span>
+              <i ng-show="tmp.status=='pending'" title="Template is pending" class="fa fa-pencil-square-o" style="font-size: 20px" ng-click="clickSubmitTemplate(tmp)"></i>
+              <i ng-show="tmp.status=='submit'" title="Waiting for approval" class="fa fa-clock-o" style="font-size: 20px"></i>
+              <i ng-show="tmp.status=='approved'" class="fa fa-thumbs-o-up" style="font-size: 20px"></i>
+            </a>
+          </div><br>
+          
+          <span class="firstName">Template Store</span>
+          <div class="list">
+            <a class="item item-icon-right" ng-repeat="tmp in storeTemplates" style="cursor:pointer;">
+              <span ng-click="clickTemplate(tmp)">{{tmp.name}}</span>
+              <i class="fa fa-plus-square-o" style="font-size: 20px"></i>
+            </a>
           </div>
         </div>
       </div>

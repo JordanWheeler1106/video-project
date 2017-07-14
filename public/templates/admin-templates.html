@@ -1,0 +1,38 @@
+<div class="row rowPadding responsive-lg">
+  <div class="col firstRow">
+    <div class="list tag-search-wrapper">
+      <label class="item item-input">        
+        <input type="text" placeholder="Search" ng-model="search">
+        <i class="fa fa-search placeholder-icon"></i>
+      </label>
+    </div>
+    <div class="leftBox">
+      <table class="table report">
+        <thead>
+          <tr>            
+            <td>Template Name</td>
+            <td>Template Price</td>
+            <td>Topic</td>            
+            <td>Template Owner</td>
+            <td>Status</td>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="user-table" ng-repeat="template in templates | filter: search">            
+            <td>{{template.name}}</td>
+            <td>${{template.price}}</td>
+            <td>
+              <ion-select class="template-tag-selection">
+                <ion-option ng-repeat="tag in template.tags"> {{tag.name}} </ion-option>
+              </ion-select>
+            </td>
+            <td>{{template.userId.firstName + ' ' + template.userId.lastName}}</td>
+            <td>{{template.status}}</td>
+            <td><i ng-show="template.status=='submit'" class="fa fa-thumbs-o-up" ng-click="clickApproveTemplate(template)" style="cursor:pointer; font-size:20px;"></i></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

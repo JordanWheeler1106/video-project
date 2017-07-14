@@ -1177,6 +1177,17 @@
     }
     $scope.toggleMenu = false;
     $scope.userFolders = [];
+    $scope.myTemplates = [];
+    $scope.storeTemplates = [];
+    $scope.template = {
+      tags: [],
+      name: '',
+      price: 0,
+      description: '',
+      folders: [],
+      nuggets: []
+    };
+    $scope.tags = [];
     $scope.strPath = `<span class="active" ng-click="clickFolder($event, 'root')">Home</span>`;
     $scope.folderPath = ["Root"];
     $scope.currentFolder = "root";
@@ -1191,9 +1202,39 @@
       localStorage.removeItem('user');
       $state.go('signin')
     };
+    
+    $scope.getTemplates = function() {
+      var user = JSON.parse(localStorage.getItem('user'));
+      $http.get('/api/templates/all/'+user._id)
+          .then( function(res){
+            $scope.myTemplates = res.data;
+          })
+          .catch( function(err){
+            alert("something went wrong please try again, or reload the page")
+          })
+      $http.get('/api/templates/store')
+          .then( function(res){
+            $scope.storeTemplates = res.data;
+          })
+          .catch( function(err){
+            alert("something went wrong please try again, or reload the page")
+          })
+    }
+    
+    $scope.getTags = function() {
+      $http.get('/api/tags/all')
+          .then( function(res){
+            $scope.tags = res.data;
+            $scope.getTemplates();
+          })
+          .catch( function(err){
+            alert("something went wrong please try again, or reload the page")
+          })
+    }
 
     $scope.getFolders = function() {
       var user = JSON.parse(localStorage.getItem('user'));
+      $scope.getTags();
       if($scope.currentFolder == "root") {
         $ionicLoading.show();
         $http.get('/api/folders/all/'+ user._id + '/root')
@@ -1337,10 +1378,9 @@
                                     <ion-content>Print</ion-content>
                                   </ion-popover-view>`;
       }
-      else if(type == 'nugget'){
+      else if(type == 'nugget'){//<ion-content >Add Prompts</ion-content>
         $scope.settingTemplate = `<ion-popover-view class="popoverTable">
-                                    <img src="../img/arrowUp_03.png" alt=""/>
-                                    <ion-content >Add Prompts</ion-content>
+                                    <img src="../img/arrowUp_03.png" alt=""/>                                    
                                     <ion-content ng-click="renameFolderNugget(`+index+`,'`+type+`')">Rename</ion-content>                              
                                     <ion-content ng-click="copyFolderNugget(`+index+`,'`+type+`')">Copy</ion-content>
                                     <ion-content ng-click="deleteFolderNugget(`+index+`,'`+type+`')">Delete</ion-content>
@@ -1565,6 +1605,133 @@
         return true;
       return false;
     }
+    
+    $scope.toggleSelection = function(item, type) {
+      if(type == 'folder') {
+        var idx = $scope.template.folders.indexOf(item);
+        if(idx > -1) {
+            $scope.template.folders.splice(idx, 1);
+        } else {
+            $scope.template.folders.push(item);
+        }
+      } else if(type == 'nugget') {
+        var idx = $scope.template.nuggets.indexOf(item);
+        if(idx > -1) {
+            $scope.template.nuggets.splice(idx, 1);
+        } else {
+            $scope.template.nuggets.push(item);
+        }
+      }    
+    }
+    
+    $scope.chooseTag = function(tag) {
+      var idx = $scope.template.tags.indexOf(tag);
+      if(idx > -1) {
+          $scope.template.tags.splice(idx, 1);
+      } else {
+          $scope.template.tags.push(tag);
+      }
+    }
+    
+    $scope.clickChangeTag = function() {
+      // $scope.user.cancelPlan = false;
+      var popup = $ionicPopup.show({
+        cssClass: 'invite-new-member-popup',
+        templateUrl: '../templates/tagPopup.html',
+        title: 'Select Tag',
+        scope: $scope
+      });
+      
+      popup.then(function(res) {
+        console.log('Tapped!', res);
+      });
+      
+      $scope.closeTagPopup = function() {
+        popup.close();
+      };   
+    }
+    
+    $scope.saveTemplate = function() {
+      if(!$scope.template.name || !$scope.template.tags.length > 0 || !$scope.template.price || !$scope.template.description) {
+        $ionicLoading.show({ template: 'Template information is not enough. Please fill the blank field!', noBackdrop: true, duration: 1500 });
+        return;
+      }
+      $ionicLoading.show();
+      if($scope.template._id) {
+        var user = JSON.parse(localStorage.getItem('user'));
+        $scope.template.userId = user._id;
+        $http.put('/api/templates/'+$scope.template._id, $scope.template)
+            .then( function(res){
+              $ionicLoading.hide();
+              $scope.template = {
+                tags: [],
+                name: '',
+                price: 0,
+                description: '',
+                folders: [],
+                nuggets: []
+              };
+              $scope.getTemplates();
+              $scope.clickHomeView('list');
+            })
+            .catch( function(err){
+              console.log("err", err);
+            })
+      } else {
+        var user = JSON.parse(localStorage.getItem('user'));
+        $scope.template.userId = user._id;
+        $http.post('/api/templates/', $scope.template)
+            .then(function(res){            
+              $ionicLoading.hide();
+              $scope.template = {
+                tags: [],
+                name: '',
+                price: 0,
+                description: '',
+                folders: [],
+                nuggets: []
+              };
+              $scope.getTemplates();
+              $scope.clickHomeView('list');
+            })
+            .catch( function(err){
+              alert("something went wrong please try again.")
+            })
+      }      
+    }
+       
+    $scope.clickTemplate = function(template) {
+        $scope.template = template;
+        $scope.clickHomeView('template');
+    }
+    
+    $scope.clickHomeView = function(view) {      
+      if(view != 'template') {
+        $scope.template = {
+          tags: [],
+          name: '',
+          price: 0,
+          description: '',
+          folders: [],
+          nuggets: []
+        };
+      }
+      $scope.toggleView = view;
+    }
+    
+    $scope.clickSubmitTemplate = function(template) {
+      $ionicLoading.show();
+      template.status = "submit";
+      $http.put('/api/templates/'+template._id, template)
+          .then( function(res){
+            $ionicLoading.hide();
+            $scope.getTemplates();
+          })
+          .catch( function(err){
+            console.log("err", err);
+          })
+    }
+    
   })
   
   .controller('adminPlansCtrl', function($scope, $ionicPopover, $ionicPopup, $state, $http, $ionicLoading){
@@ -1572,7 +1739,7 @@
     $scope.users = [];
     $scope.plan = {};
     
-    $scope.getAllUsers = function() {      
+    $scope.getAllUsers = function() {
       $http.get('/api/users')
           .then( function(users){
             $scope.users = users.data;
@@ -1703,6 +1870,31 @@
   })
   
   .controller('adminTemplatesCtrl', function($scope, $ionicPopover, $ionicPopup, $state, $http, $ionicLoading){
+    $scope.getTempaltes = function(){
+      $ionicLoading.show();
+      $http.get('/api/templates/all').then(function(data){
+        $ionicLoading.hide();
+        $scope.templates = data.data;
+      }, function(err){
+        $ionicLoading.hide();
+        alert('something went wrong please try again');
+      });
+    }
+    
+    $scope.clickApproveTemplate = function(template) {
+      $ionicLoading.show();
+      template.status = "approved";
+      $http.put('/api/templates/'+template._id, template)
+          .then( function(res){
+            $ionicLoading.hide();
+            $scope.getTemplates();
+          })
+          .catch( function(err){
+            console.log("err", err);
+          })
+    }
+    
+    $scope.getTempaltes();
   })
   
   .controller('adminTagsCtrl', function($scope, $ionicPopover, $ionicPopup, $state, $http, $ionicLoading){
@@ -1850,4 +2042,98 @@
   })
   
   .controller('adminStatsCtrl', function($scope, $ionicPopover, $ionicPopup, $state, $http, $ionicLoading){
+    $scope.plans = [];
+    $scope.users = [];
+    $scope.reports = [];
+    
+    $scope.getAllUsers = function() {      
+      $http.get('/api/users')
+          .then( function(users){
+            $scope.users = users.data;
+            $scope.getAllPlan();
+          })
+          .catch( function(err){
+            console.log("err", err);
+          })
+    }
+    
+    $scope.getAllPlan = function() {      
+      $http.post('/api/users/getAllPlans', {})
+          .then( function(plans){
+            $scope.plans = plans.data.data;
+            $scope.generateReport();
+            $ionicLoading.hide();
+          })
+          .catch( function(err){
+            console.log("err", err);
+            $ionicLoading.hide();
+          })
+    }
+    
+    $scope.generateReport = function() {
+      var date = new Date();
+      var activeCount = 0, cancelCount = 0;
+      var totalStorage = 0; totalRevenue = 0;
+      var planCounts = [];
+      var month = date.getMonth();
+      do {
+        activeCount = 0; cancelCount = 0, totalRevenue = 0;
+        planCounts = [];
+        for(var i = 0; i < $scope.plans.length; i++)
+          planCounts.push(0);
+        var reportDate = new Date(date.getFullYear(), month, 30, 0,0,0,0);        
+        for(var i = 0; i < $scope.users.length; i++) {
+          var createdAt = new Date($scope.users[i].createdAt.toString());
+          if(reportDate > createdAt && $scope.users[i].email !='admin@humanexp.com' ) {
+            if($scope.users[i].cancelPlan)
+              cancelCount++;
+            else {
+              activeCount++;
+              for(var j = 0; j < $scope.plans.length; j++)
+                if($scope.plans[j].id == $scope.users[i].stripePlanId) {
+                  planCounts[j]++; totalRevenue+=$scope.plans[j].amount/100;
+                }
+            }
+          }            
+        }
+        $scope.reports.push({
+          date: reportDate,
+          activeCount: activeCount,
+          cancelCount: cancelCount,
+          planCounts: planCounts,
+          totalStorage: (activeCount+cancelCount) * 2,
+          totalRevenue: totalRevenue
+        });
+        month--;        
+      } while(activeCount+cancelCount > 0 && month >= 0);
+      
+    }
+    
+    $scope.csvDownload = function() {
+      var header = ["Date", "ACtive Users", "Canceled Users"];
+      for(var i = 0; i < $scope.plans.length; i++)
+        header.push($scope.plans[i].id);
+      header.push("Total Storage", "Total Revenue");
+      var data = [];
+      data.push(header);
+      for(var i = 0; i < $scope.reports.length; i++) {
+        var temp = [];
+        temp.push($scope.reports[i].date.toISOString(), $scope.reports[i].activeCount, $scope.reports[i].cancelCount);
+        for(var j = 0; j < $scope.reports[i].planCounts.length; j++)
+          temp.push($scope.reports[i].planCounts[j]);
+        temp.push($scope.reports[i].totalStorage, $scope.reports[i].totalRevenue);
+        data.push(temp);
+      }
+      var csvContent = "data:text/csv;charset=utf-8,";
+      data.forEach(function(infoArray, index){
+         var dataString = infoArray.join(",");
+         csvContent += index < data.length ? dataString+ "\n" : dataString;
+      })
+
+      var encodedUri = encodeURI(csvContent);
+      window.open(encodedUri);
+    }
+    
+    $ionicLoading.show();
+    $scope.getAllUsers();
   })

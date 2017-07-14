@@ -1,0 +1,30 @@
+<div class="row rowPadding responsive-lg">
+  <div class="col firstRow">
+      <div class="csv-download" ng-click="csvDownload();">        
+          <img src="img/csv-download.png" width="30px" alt=""/><br>
+          <label>Download</label>
+      </div>
+      <table class="table report">
+        <thead>
+          <tr>
+            <td>Date</td>
+            <td>Active Users</td>
+            <td>Canceled Users</td>
+            <td ng-repeat="plan in plans">{{plan.id}}</td>
+            <td>Total Storage</td>
+            <td>Total Revenue</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="report in reports">
+            <td>{{report.date | date: 'MM/dd/yyyy'}}</td>
+            <td>{{report.activeCount}}</td>
+            <td>{{report.cancelCount}}</td>
+            <td ng-repeat="planCount in report.planCounts track by $index">{{planCount}}</td>
+            <td>{{report.totalStorage}}GB</td>
+            <td>${{report.totalRevenue}}</td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+</div>
