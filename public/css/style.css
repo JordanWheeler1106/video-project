@@ -1568,6 +1568,11 @@ form .list .item{
   }
 }
 @media (min-width: 768px) and (max-width: 991px){
+  .add-contact-modal-content{
+    padding-right: 50px;
+    padding-left: 50px;
+
+  }
   .vital-info-tabs{
     width: 442px;
   }
@@ -1714,6 +1719,13 @@ form .list .item{
 /*///////////////////////////////////////////////////////////////////////*/
 
 /*///////////////////////////////////////////////////////////////////////*/
+@media(min-width: 992px){
+  .add-contact-modal-content{
+    padding-left: 70px;
+    padding-right: 70px;
+    
+  }
+}
 @media (min-width: 992px) and (max-width: 1199px){
   .imagesNewUploadPopup .popup {
     width: 90%;
@@ -2828,3 +2840,16 @@ form .list .item{
   cursor: pointer;
 }
 
+.vital-info-address{
+  padding: 5px 20px 5px 20px;
+  font-weight: 600;
+  background-color: #e8e9ea;
+  width: 100%;
+}
+
+.vital-info-address .first{
+  color: black;
+}
+.vital-info-address .other{
+  color: grey;
+}

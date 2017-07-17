@@ -5,7 +5,7 @@
 				<!--<h1 class="title navHeading">the logo</h1>-->
 				<a ui-sref="home"><img src="img/logo.png" class="logo" alt=""/></a>
 				<div class="linksNav">
-					<a href="javascript:" class="full-information">Life-In-Full</a>
+					<a ui-sref="home" class="full-information">Life-In-Full</a>
 					<a href="javascript:" class="full-information blue-text">Vital Information</a>
 					<div class="list list-inset">
 						<label class="item item-input">
@@ -58,7 +58,7 @@
 				</div>
 			</div>
 			<!--////////////////tabs for large screen -->
-			<div class="margin-10 hide-on-md row">
+			<div class="margin-10 hide-on-md row " ng-if="location == 'add-contact'">
 				<b>Vital Information</b>
 			</div>
 			<!--////////////////tabs for small screen -->

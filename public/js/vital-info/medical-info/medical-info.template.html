@@ -37,10 +37,71 @@
 		</a>
 	</div>
 </div>
-<div class="vital-forms">
+<div class="vital-info-address hide-on-md">
+    <span class="first">Vital Info / </span>
+    <span class="other">Medical Info</span>
+</div>
+<div class="hide-on-md">
+	<div class="list">
+		<a ng-click="modal.show()" class="item center-text">
+			{{heading}} 
+			<i class="icon ion-ios-arrow-down vertical-middle"></i>
+		</a>
+	</div>
+</div>
+<div class="vital-forms hide-on-sm">
 	<div>
 		<div class="tableLinks">
 			<span class="active">{{heading}}</span>
 		</div>
 	</div>
 </div>
+
+
+<script id="templates/modal.html" type="text/ng-template">
+	<ion-modal-view>
+		<ion-header-bar class="bar bar-header bar-stable modal-header">
+			<h1 class="title center-text">Choose a Form</h1>
+			<button class="button button-clear button-primary" ng-click="modal.hide()"><i class="icon ion-ios-close-empty"></i></button>
+		</ion-header-bar>
+		<ion-content>
+			<div class="list">
+				<div class="item item-divider">
+					Title
+				</div>
+				<a class="item" ng-class="{'side-nav-clicked': heading == 'Form1'}" ng-click="modalLinkClicked('Form1')">
+					<h2>Form1</h2>
+					<p>12.12.17</p>
+				</a>
+				<a class="item" ng-class="{'side-nav-clicked': heading == 'Form2'}" ng-click="modalLinkClicked('Form2')">
+					<h2>Form2</h2>
+					<p>12.12.17</p>
+				</a>
+				<a class="item" ng-class="{'side-nav-clicked': heading == 'Form3'}" ng-click="modalLinkClicked('Form3')">
+					<h2>Form3</h2>
+					<p>12.12.17</p>
+				</a>
+				<a class="item" ng-class="{'side-nav-clicked': heading == 'Form4'}" ng-click="modalLinkClicked('Form4')">
+					<h2>Form4</h2>
+					<p>12.12.17</p>
+				</a>
+				<a class="item" ng-class="{'side-nav-clicked': heading == 'Form5'}" ng-click="modalLinkClicked('Form5')">
+					<h2>Form5</h2>
+					<p>12.12.17</p>
+				</a>
+				<a class="item" ng-class="{'side-nav-clicked': heading == 'Form6'}" ng-click="modalLinkClicked('Form6')">
+					<h2>Form6</h2>
+					<p>12.12.17</p>
+				</a>
+				<a class="item" ng-class="{'side-nav-clicked': heading == 'Form7'}" ng-click="modalLinkClicked('Form7')">
+					<h2>Form7</h2>
+					<p>12.12.17</p>
+				</a>
+				<a class="item" ng-class="{'side-nav-clicked': heading == 'Form8'}" ng-click="modalLinkClicked('Form8')">
+					<h2>Form8</h2>
+					<p>12.12.17</p>
+				</a>
+			</div>
+		</ion-content>
+	</ion-modal-view>
+</script>

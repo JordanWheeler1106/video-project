@@ -42,7 +42,10 @@
         </div>
     </div>
 </div>
-
+<div class="vital-info-address hide-on-md">
+    <span class="first">Vital Info / </span>
+    <span class="other">Contacts</span>
+</div>
 <div class = "hide-on-md">
     <ion-list>
         <div>
@@ -86,18 +89,18 @@
             <h1 class="title center-text">Add New Contact</h1>
             <button class="button button-clear button-primary" ng-click="modal.hide()"><i class="icon ion-ios-close-empty"></i></button>
         </ion-header-bar>
-        <ion-content class="padding">
-            <button ui-sref = "VitalInfo.AddContact" style="width:100%; float: none" class="button button-full button-positive">CREATE CONTACT</button>
-            <div style="text-align: center">or</div>
-            <button style="width:100%; float: none" class="button button-full add-contact-social-button">
-                <i class = "icon ion-social-linkedin calm"></i> 
+        <ion-content class="add-contact-modal-content padding">
+            <button ui-sref = "VitalInfo.AddContact" style="width:100%; float: none;font-size: 16px; font-weight: 700" class="button button-full button-positive">CREATE CONTACT</button>
+            <div style="text-align: center; margin-top: 30px;">or</div>
+            <button style="width:100%; float: none;font-size: 16px; font-weight: 700" class="button button-full add-contact-social-button">
+                <i class="fa fa-linkedin calm" aria-hidden="true"></i> 
                 <span class="padding"></span>
                 IMPORT FROM LINKEDIN
             </button>
-            <button style="width:100%; float: none" class="button button-full add-contact-social-button">
-                <i class = "icon ion-paper-airplane flip-180 calm"></i> 
+            <button style="width:100%; float: none;font-size: 16px; font-weight: 700" class="button button-full add-contact-social-button">
+                <i class="fa fa-paper-plane calm" aria-hidden="true"></i> 
                 <span class="padding"></span>
-                IMPORT FROM LINKEDIN
+                IMPORT FROM OUTLOOK
             </button>
         </ion-content>
     </ion-modal-view>
