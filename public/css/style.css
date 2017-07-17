@@ -358,6 +358,31 @@ form .list .item{
   font-size: 14px;
   margin: 0 0 0 5px;
 }
+
+.vital-info-tabs{
+  padding-top: 20px;
+  width: 642px;
+  margin: 0px auto;
+}
+.vital-info-tabs ul li{
+  display: inline-block;
+  padding: 8px 40px 8px 40px;
+}
+.vital-info-tabs ul li a{
+  text-decoration: none;
+  color: rgb(166, 165, 165);
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+}
+.vital-info-tabs ul li a.active{
+  color: #0b73ba;
+}
+
+.vital-info-tabs ul li a i{
+  font-size: 14px;
+  margin: 0 0 0 5px;
+}
 .rowPadding{
   padding: 5px 125px;
 }
@@ -1133,6 +1158,12 @@ form .list .item{
 /*//////////////////Media Query End Here //////////////////*/
 /*/////////////////////////////////////////////////////////*/
 @media (min-width: 320px) and (max-width: 767px){
+  .hide-on-sm{
+    display:none !important;
+  }
+  .add-contact-form{
+    padding: 10px
+  }
   .headerNav{
     height: auto;
   }
@@ -1537,6 +1568,13 @@ form .list .item{
   }
 }
 @media (min-width: 768px) and (max-width: 991px){
+  .vital-info-tabs{
+    width: 442px;
+  }
+  .vital-info-tabs ul li{
+    display: inline-block;
+    padding: 8px 15px 8px 15px;
+  }
   .tabsNav ul li {
     margin: 0 50px 0 0;
   }
@@ -2681,3 +2719,112 @@ form .list .item{
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.margin-10{
+  margin: 10px;
+}
+
+.vital-nav-list .ion-chevron-right{
+  font-size: 14px;
+  color: rgb(38, 123, 191);
+}
+@media (min-width: 768px){
+  .hide-on-md{
+    display: none;
+  }
+  .add-contact-form .row{
+    padding: 0px;
+  }
+  .add-contact-form .col{
+    padding: 0px;
+  }
+}
+
+.side-nav{
+  float: left;
+  min-width: 280px;
+  width: 30%;
+}
+.contact-nav{
+  float: left;
+  width: 30%;
+}
+.contact-nav .button-block{
+  width: 80%;
+  margin: 0px auto;
+  margin-top: 20px;
+}
+.side-nav-clicked{
+  color: rgb(57, 133, 196) !important;
+  background-color: rgb(243, 243, 244);
+}
+.vital-forms{
+  display: inline-block;
+  width: 60%;
+  padding: 25px 0px 25px 25px;
+}
+.flip-180{
+  display: inline-block;   
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH";
+}
+.vital-contacts{
+  display: inline-block;
+  width: 70%;
+}
+.vital-contacts .search{
+  float: right;
+  margin: 10px 10px 0px 0px;
+}
+.vital-contacts .search label{
+  height: 35px;
+  border-radius: 25px;
+}
+
+.vital-forms span{
+  font-size: 24px;
+}
+.center-text{
+  text-align: center !important;
+}
+.vertical-middle{
+  vertical-align: middle;
+}
+.modal-header{
+  background-color:#e8e9ea !important;
+}
+
+.list .item.item-accordion {
+  line-height: 38px;
+  padding-top: 0;
+  padding-bottom: 0;
+  transition: 0.09s all linear;
+}
+.list .item.item-accordion.ng-hide {
+  line-height: 0px;
+}
+.list .item.item-accordion.ng-hide-add,
+.list .item.item-accordion.ng-hide-remove {
+  display: block !important;
+}
+.add-contact-form .input-label{
+  width: auto;
+  padding: 0px;
+}
+.add-contact-social-button{
+  background-color: #fcfcfc !important;
+  color: black !important;
+  border: 1px solid #cacaca;
+}
+
+.blue-text{
+  color: rgb(57, 133, 196) !important;
+}
+
+.hand{
+  cursor: pointer;
+}
+

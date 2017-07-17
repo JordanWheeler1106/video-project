@@ -1,0 +1,104 @@
+<div class="contact-nav hide-on-sm">
+    <ion-list>
+        <div>
+            <ion-item class="" >
+                All Contacts(34)
+            </ion-item>
+            <ion-item class="" ng-click="toggleGroup()">
+                Recently Used
+            </ion-item>
+            <ion-item ng-class="{active: isGroupShown}" ng-click="toggleGroup()">
+                <i class="icon" ng-class="isGroupShown ? 'ion-ios-arrow-up' : 'ion-ios-arrow-down'"></i> &nbsp; Groups
+            </ion-item>
+            <ion-item class="item-accordion" ng-repeat="item in groups" ng-show="isGroupShown">
+                {{item}}
+            </ion-item>
+        </div>
+    </ion-list>
+    <button class="button button-block button-positive" ng-click="openModal($event)">
+        <i class="icon ion-android-add"></i> Add New Contact
+    </button>
+
+</div>
+<div class="vital-contacts row responsive-lg hide-on-sm" style="margin:0px auto;">
+    <div>
+        <div class="list search tag-search-wrapper">
+            <label class="item item-input">        
+                <input type="text" placeholder="Search" ng-model="search">
+                <i class="fa fa-search placeholder-icon"></i>
+            </label>
+        </div>
+        <div style="width: 100%;" class="leftBox">
+            <table class="table report">
+                <tbody>
+                    <tr class="user-table" ng-repeat="contact in contacts | filter: search">
+                        <td>{{contact.name}}</td>
+                        <td>{{contact.group}}</td>
+                        <td>{{contact.email}}</td>
+                        <td>{{contact.phone}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class = "hide-on-md">
+    <ion-list>
+        <div>
+            <ion-item class="center-text item-icon-left item-icon-right" ng-click="toggleList()" ng-class="{active: isListVisible}" >
+                <i  ng-click="openModal($event)" class = "icon ion-ios-plus-empty"></i>
+                <i class = "icon ion-ios-search-strong"></i>
+                All Contacts(34)&nbsp; 
+                <!-- <i class="icon" ng-class="isListVisible ? 'ion-ios-arrow-up' : 'ion-ios-arrow-down'"></i> -->
+            </ion-item>
+            <ion-item ng-show="isListVisible" class="item-accordion" ng-click="toggleGroup()">
+                Recently Used
+            </ion-item>
+            <ion-item ng-show="isListVisible" class="item-accordion" ng-click="toggleGroup()">
+                <i class="icon" ng-class="isGroupShown ? 'ion-ios-arrow-up' : 'ion-ios-arrow-down'"></i> &nbsp; Groups
+            </ion-item>
+            <ion-item class="item-accordion" ng-repeat="item in groups" ng-show="isGroupShown && isListVisible">
+                {{item}}
+            </ion-item>
+            <ion-item class="item-accordion" ng-show="isListVisible">
+                <i class="icon ion-android-add"></i> &nbsp; Add New Group
+            </ion-item>
+            <ion-item class="item-accordion" ng-show="isListVisible">
+                <i class="icon ion-android-add"></i> &nbsp; Add New Contact
+            </ion-item>
+        </div>
+    </ion-list>
+    <div class="list">
+        <a ng-repeat="contact in contacts" class="item item-icon-left" >
+            {{contact.name}}
+            <span class="item-note">
+            {{contact.group}}
+            </span>
+        </a>
+
+    </div>
+</div>
+
+<script id="add-contact-modal.html" type="text/ng-template">
+    <ion-modal-view>
+        <ion-header-bar class="bar bar-header bar-stable modal-header">
+            <h1 class="title center-text">Add New Contact</h1>
+            <button class="button button-clear button-primary" ng-click="modal.hide()"><i class="icon ion-ios-close-empty"></i></button>
+        </ion-header-bar>
+        <ion-content class="padding">
+            <button ui-sref = "VitalInfo.AddContact" style="width:100%; float: none" class="button button-full button-positive">CREATE CONTACT</button>
+            <div style="text-align: center">or</div>
+            <button style="width:100%; float: none" class="button button-full add-contact-social-button">
+                <i class = "icon ion-social-linkedin calm"></i> 
+                <span class="padding"></span>
+                IMPORT FROM LINKEDIN
+            </button>
+            <button style="width:100%; float: none" class="button button-full add-contact-social-button">
+                <i class = "icon ion-paper-airplane flip-180 calm"></i> 
+                <span class="padding"></span>
+                IMPORT FROM LINKEDIN
+            </button>
+        </ion-content>
+    </ion-modal-view>
+</script>

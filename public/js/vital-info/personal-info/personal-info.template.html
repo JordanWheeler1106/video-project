@@ -1,0 +1,101 @@
+<div class="side-nav hide-on-sm">
+	<div class="list">
+		<div class="item item-divider">
+			Title
+		</div>
+		<a class="item" ng-class="{'side-nav-clicked': heading == 'Personal Information'}" ng-click="headingChanged('Personal Information')">
+			Personal Information
+			<span class="item-note">12.12.17</span>
+		</a>
+		<a class="item" ng-class="{'side-nav-clicked': heading == 'Places Lived'}" ng-click="headingChanged('Places Lived')">
+			Places Lived
+			<span class="item-note">12.12.17</span>
+		</a>
+		<a class="item" ng-class="{'side-nav-clicked': heading == 'Education'}" ng-click="headingChanged('Education')">
+			Education
+			<span class="item-note">12.12.17</span>
+		</a>
+		<a class="item" ng-class="{'side-nav-clicked': heading == 'Employement'}" ng-click="headingChanged('Employement')">
+			Employement
+			<span class="item-note">12.12.17</span>
+		</a>
+		<a class="item" ng-class="{'side-nav-clicked': heading == 'Military'}" ng-click="headingChanged('Military')">
+			Military
+			<span class="item-note">12.12.17</span>
+		</a>
+		<a class="item" ng-class="{'side-nav-clicked': heading == 'Associations/Memberships'}" ng-click="headingChanged('Associations/Memberships')">
+			Associations/Memberships
+			<span class="item-note">12.12.17</span>
+		</a>
+		<a class="item" ng-class="{'side-nav-clicked': heading == 'Licences/Certifications'}" ng-click="headingChanged('Licences/Certifications')">
+			Licences/Certifications
+			<span class="item-note">12.12.17</span>
+		</a>
+		<a class="item" ng-class="{'side-nav-clicked': heading == 'Awards/Honours'}" ng-click="headingChanged('Awards/Honours')">
+			Awards/Honours
+			<span class="item-note">12.12.17</span>
+		</a>
+	</div>
+</div>
+<div class="hide-on-md">
+	<div class="list">
+		<a ng-click="modal.show()" class="item center-text">
+			{{heading}} 
+			<i class="icon ion-ios-arrow-down vertical-middle"></i>
+		</a>
+	</div>
+</div>
+<div class="vital-forms hide-on-sm">
+	<div>
+		<div class="tableLinks">
+			<span class="active">{{heading}}</span>
+		</div>
+	</div>
+</div>
+<!--
+	Modal for small screen
+-->
+<script id="templates/modal.html" type="text/ng-template">
+	<ion-modal-view>
+		<ion-header-bar class="bar bar-header bar-stable modal-header">
+			<h1 class="title center-text">Choose a Form</h1>
+			<button class="button button-clear button-primary" ng-click="modal.hide()"><i class="icon ion-ios-close-empty"></i></button>
+		</ion-header-bar>
+		<ion-content>
+			<div class="list">
+				<a class="item" ng-class="{'side-nav-clicked': heading == 'Personal Information'}" ng-click="modalLinkClicked('Personal Information')">
+					<h2>Personal Information</h2>
+					<p>12.12.17</p>
+				</a>
+				<a class="item" ng-class="{'side-nav-clicked': heading == 'Places Lived'}" ng-click="modalLinkClicked('Places Lived')">
+					<h2>Places Lived</h2>
+					<p>12.12.17</p>
+				</a>
+				<a class="item" ng-class="{'side-nav-clicked': heading == 'Education'}" ng-click="modalLinkClicked('Education')">
+					<h2>Education</h2>
+					<p>12.12.17</p>
+				</a>
+				<a class="item" ng-class="{'side-nav-clicked': heading == 'Employement'}" ng-click="modalLinkClicked('Employement')">
+					<h2>Employement</h2>
+					<p>12.12.17</p>
+				</a>
+				<a class="item" ng-class="{'side-nav-clicked': heading == 'Military'}" ng-click="modalLinkClicked('Military')">
+					<h2>Military</h2>
+					<p>12.12.17</p>
+				</a>
+				<a class="item" ng-class="{'side-nav-clicked': heading == 'Associations/Memberships'}" ng-click="modalLinkClicked('Associations/Memberships')">
+					<h2>Associations/Memberships</h2>
+					<p>12.12.17</p>
+				</a>
+				<a class="item" ng-class="{'side-nav-clicked': heading == 'Licences/Certifications'}" ng-click="modalLinkClicked('Licences/Certifications')">
+					<h2>Licences/Certifications</h2>
+					<p>12.12.17</p>
+				</a>
+				<a class="item" ng-class="{'side-nav-clicked': heading == 'Awards/Honours'}" ng-click="modalLinkClicked('Awards/Honours')">
+					<h2>Awards/Honours</h2>
+					<p>12.12.17</p>
+				</a>
+			</div>
+		</ion-content>
+	</ion-modal-view>
+</script>

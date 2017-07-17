@@ -1,0 +1,96 @@
+<ion-pane>
+	<ion-content overflow-scroll="true">
+		<div class="bar bar-header bar-stable headerNav" style="position: relative;">
+			<div class="nav">
+				<!--<h1 class="title navHeading">the logo</h1>-->
+				<a ui-sref="home"><img src="img/logo.png" class="logo" alt=""/></a>
+				<div class="linksNav">
+					<a href="javascript:" class="full-information">Life-In-Full</a>
+					<a href="javascript:" class="full-information blue-text">Vital Information</a>
+					<div class="list list-inset">
+						<label class="item item-input">
+              <i class="fa fa-search placeholder-icon"></i>
+              <input type="text" placeholder="Search" ng-model="filter.search">
+            </label>
+					</div>
+					<!-- <a href="javascript:" class="my-account-link">Upgrade Now</a> -->
+					<a href="https://the-human-experience.helpshift.com/a/the/" target="_blank" class="my-account-link myaccount">Help</a>
+					<a ui-sref="account.profile" class="my-account-link myaccount">My Account</a>
+					<a ng-click="logout()" class="my-account-link logout">Logout</a>
+					<!-- <button class="button button-positive" ng-click="logout()">Logout</button> -->
+					<!--<h6>Share Your Story</h6>-->
+					<!--<h5><a href="javascript:">Sign In or Sign Up</a></h5>-->
+				</div>
+				<button type="button" ng-show="!toggleMenu" class="menuBtn" ng-click="toggleMenu = true">Menu</button>
+				<a href="javascript:" class="closeMenuBtn" ng-show="toggleMenu" ng-click="toggleMenu = false">Close Menu</a>
+			</div>
+			<!--///////////////////////// Mobile Version Nav ///////////////////////////////////-->
+			<div class="linksNavMobile" ng-show="toggleMenu">
+				<a ui-sref="VitalInfo" class="full-information vital">Vital Information</a>
+				<a href="https://the-human-experience.helpshift.com/a/the/" target="_blank" class="full-information vital">Help</a>
+				<a ui-sref="account.profile" class="full-information vital">My Account</a>
+				<div class="list list-inset">
+					<label class="item item-input">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input type="text" placeholder="Search">
+          </label>
+				</div>
+				<!-- <a href="javascript:" class="my-account-link">Upgrade Now</a> -->
+				<a ng-click="logout()" class="full-information vital logout">Logout</a>
+				<!-- <button class="button button-positive" ng-click="logout()">Logout</button> -->
+
+				<!--<h6>Share Your Story</h6>-->
+				<!--<h5><a href="javascript:">Sign In or Sign Up</a></h5>-->
+			</div>
+			<!--///////////////////////// Mobile Version Nav ///////////////////////////////////-->
+
+			<!--///////////////////////// Tabs for large screens   -->
+			<div>
+
+				<div class="vital-info-tabs hide-on-sm">
+					<ul>
+						<li><a ng-click="linkClicked('personal-info')" ui-sref="VitalInfo.PersonalInfo" class="toggleSphereView" ng-class="{'active': location == 'personal-info'}">Personal Info</a></li>
+						<li><a ng-click="linkClicked('medical-info')" ui-sref="VitalInfo.MedicalInfo" class="toggleListView" ng-class="{'active': location == 'medical-info'}">Medical Info</a></li>
+						<li><a ng-click="linkClicked('contacts')" ui-sref="VitalInfo.Contacts" class="toggleListView" ng-class="{'active': location == 'contacts'}">Contacts</a></li>
+						<li><a ng-click="linkClicked('digital-lib')" ui-sref="VitalInfo.DigitalLib" class="toggleListView" ng-class="{'active': location == 'digital-lib'}">Digital Info</a></li>
+						<!-- <li class="upgradeBtn"><button type="button">Upgrade Now</button></li> -->
+					</ul>
+				</div>
+			</div>
+			<!--////////////////tabs for large screen -->
+			<div class="margin-10 hide-on-md row">
+				<b>Vital Information</b>
+			</div>
+			<!--////////////////tabs for small screen -->
+			<ul ng-if="location == 'vital-info'" class="list vital-nav-list hide-on-md">
+				<li ui-sref="VitalInfo.PersonalInfo" class="item margin-10 item-icon-right">
+					<i class="icon ion-chevron-right"></i> Personal Info
+				</li>
+				<li ui-sref="VitalInfo.MedicalInfo" class="item margin-10 item-icon-right">
+					<i class="icon ion-chevron-right"></i> Medical Info
+				</li>
+				<li ui-sref="VitalInfo.Contacts" class="item margin-10 item-icon-right">
+					<i class="icon ion-chevron-right"></i> Contacts
+				</li>
+				<li ui-sref="VitalInfo.DigitalLib" class="item margin-10 item-icon-right">
+					<i class="icon ion-chevron-right"></i> Digital Info
+				</li>
+			</ul>
+			<!--////////////////tabs for small screen -->
+		</div>
+		<ui-view></ui-view>
+	</ion-content>
+
+</ion-pane>
+
+<div ng-if="location == 'add-contact'" class="bar bar-footer footerBottom">
+	<div class="container">
+		<div class="leftArea" ng-click="sidebar.showTags = true">
+			<span class="addInput"></span>
+		</div>
+		<div class="rightArea">
+			<button type="button" ui-sref="VitalInfo.Contacts">Cancel</button>
+			<button type="button" ui-sref="VitalInfo.Contacts" class="saveBtn">Save Contact</button>
+		</div>
+	</div>
+</div>
