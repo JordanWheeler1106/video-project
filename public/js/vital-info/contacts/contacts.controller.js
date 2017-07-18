@@ -1,6 +1,6 @@
 app.controller('contactsController', personalInfoController);
 
-function personalInfoController($scope, $ionicModal) {
+function personalInfoController($scope, $ionicModal, $ionicPopup) {
     $scope.contacts = [];
     $scope.groups = ['Personal', 'Doctors', 'Professional'];
     $scope.isGroupShown = false;
@@ -71,6 +71,23 @@ function personalInfoController($scope, $ionicModal) {
         event.stopPropagation();
         $scope.modal.show();
     };
+    $scope.openPopup = function(event){
+        event.stopPropagation();
+        // $scope.modal.show();
+        var popup = $ionicPopup.show({
+            cssClass: 'invite-new-member-popup',
+            templateUrl: '/js/vital-info/contacts/addContactPopup.html',
+            title: 'Add New Contact',
+            scope: $scope
+        });
+
+        popup.then(function (res) {
+            console.log('Tapped!', res);
+        });
+        $scope.closePopup = function () {
+            popup.close();
+        };
+    }
     $scope.closeModal = function () {
         $scope.modal.hide();
     };

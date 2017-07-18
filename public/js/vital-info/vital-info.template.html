@@ -3,7 +3,7 @@
 		<div class="bar bar-header bar-stable headerNav" style="position: relative;">
 			<div class="nav">
 				<!--<h1 class="title navHeading">the logo</h1>-->
-				<a ui-sref="home"><img src="img/logo.png" class="logo" alt=""/></a>
+				<a ui-sref="home"><img src="img/logo.png" class="logo" alt="" /></a>
 				<div class="linksNav">
 					<a ui-sref="home" class="full-information">Life-In-Full</a>
 					<a href="javascript:" class="full-information blue-text">Vital Information</a>
@@ -93,4 +93,10 @@
 			<button type="button" ui-sref="VitalInfo.Contacts" class="saveBtn">Save Contact</button>
 		</div>
 	</div>
+</div>
+
+<div ng-if="location == 'add-contact'" class="bar bar-footer hide-on-lg" style="padding: 0px">
+	<button style="width: 100%;font-weight: 600;" class="button button-positive">
+	  	 SAVE CONTACT INFO
+	</button>
 </div>

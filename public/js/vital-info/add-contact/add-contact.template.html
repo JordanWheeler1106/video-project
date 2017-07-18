@@ -61,8 +61,8 @@
 	<span class="col"></span>
 </div> -->
 <div class="vital-info-address hide-on-md">
-    <span class="first">Vital Info / Contacts / </span>
-    <span class="other">New Contact</span>
+	<span class="first">Vital Info / Contacts / </span>
+	<span class="other">New Contact</span>
 </div>
 <div>
 	<div class="profile-parent">
@@ -86,8 +86,16 @@
 					<input type="email" placeholder="Email Address" ng-model="user.email">
 				</label>
 				<span>Group</span>
-				<label class="item item-input item-select">
-					<select ng-change="groupSelected()" ng-model="user.group">
+				<label class="item item-input item-select hide-on-md">
+					<select ng-change="groupSelected('sm')" ng-model="user.group">
+						<option value="male">family</option>
+						<option value="female">doctors</option>
+						<option value="others">other</option>
+						<option class = "blue-text hand" value="createGroup">+Create Group</option>
+					</select>
+            	</label>
+				<label class="item item-input item-select hide-on-sm">
+					<select ng-change="groupSelected('lg')" ng-model="user.group">
 						<option value="male">family</option>
 						<option value="female">doctors</option>
 						<option value="others">other</option>
@@ -108,30 +116,30 @@
 				<div class="list">
 					<span>Date of Birth</span>
 					<label class="item item-input">
-          <input type="date" placeholder="yyyy-MM-dd" ng-model="user.birth">
-        </label>
+                      <input type="date" placeholder="yyyy-MM-dd" ng-model="user.birth">
+                    </label>
 				</div>
 			</div>
 			<div class="list">
 				<span>Address</span>
 				<label class="item item-input">
-        <input type="text" placeholder="Address" ng-model="user.address">
-      </label>
+					<input type="text" placeholder="Address" ng-model="user.address">
+			  	</label>
 				<span>Address Line 2</span>
 				<label class="item item-input">
-        <input type="text" placeholder="Address Line 2" ng-model="user.address1">
-      </label>
+					<input type="text" placeholder="Address Line 2" ng-model="user.address1">
+				 </label>
 				<span>City</span>
 				<label class="item item-input">
-        <input type="text" placeholder="City" ng-model="user.city">
-      </label>
+        			<input type="text" placeholder="City" ng-model="user.city">
+      			</label>
 			</div>
 			<div class="select-date-picker">
 				<div class="list">
 					<span>State</span>
 					<label class="item item-input">
-          <input type="text" placeholder="State" ng-model="user.state">
-        </label>
+          				<input type="text" placeholder="State" ng-model="user.state">
+        			</label>
 				</div>
 				<div class="list">
 					<span>ZIP</span>
@@ -143,12 +151,12 @@
 			<div class="list" style="margin-bottom: 70px">
 				<span>Primary Phone Number</span>
 				<label class="item item-input">
-				<input type="text" placeholder="Phone Number" ng-model="user.phone">
-			</label>
+					<input type="text" placeholder="Phone Number" ng-model="user.phone">
+				</label>
 				<span>Cell Phone Number</span>
 				<label class="item item-input">
-				<input type="text" placeholder="Cell Phone Number" ng-model="user.cellphone">
-			</label>
+					<input type="text" placeholder="Cell Phone Number" ng-model="user.cellphone">
+				</label>
 			</div>
 		</div>
 
@@ -163,7 +171,7 @@
 			<h1 class="title center-text">Add New Group</h1>
 			<button class="button button-clear button-primary" ng-click="modal.hide()"><i class="icon ion-ios-close-empty"></i></button>
 		</ion-header-bar>
-		<ion-content class="add-contact-modal-content padding">
+		<ion-content class="add-contact-modal-content padding add-group-popup">
 			<p>
 				Short description about what Groups are, the goals and how you can use them. May be give an example of one you might add.
 			</p>
@@ -173,7 +181,7 @@
                     <input type="text" name="groupName" ng-model="groupName" placeholder="Name" required>
 				</label>
 			</div>
-			<ion-checkbox style="border: none;" ng-model="filter.red">
+			<ion-checkbox class="add-group-checkbox" style="border: none; margin-top: 5px;" ng-model="filter.red">
 				Add <b>{{user.firstName + ' ' + user.lastName}}</b> to this group
 			</ion-checkbox>
 

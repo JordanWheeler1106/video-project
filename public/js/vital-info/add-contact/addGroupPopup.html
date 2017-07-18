@@ -1,0 +1,16 @@
+<span class="closeIcon" ng-click="closePopup()"><i class="ion-android-close"></i></span>
+<p>
+	Short description about what Groups are, the goals and how you can use them. May be give an example of one you might add.
+</p>
+<div class="list add-group-popup">
+	<span class="input-label">Group Name</span>
+	<label class="item item-input">
+		<input type="text" name="groupName" ng-model="groupName" placeholder="Name" required>
+	</label>
+	<ion-checkbox class = "add-group-checkbox" style="border: none; margin-top: 5px;" ng-model="filter.red">
+		Add <b>{{user.firstName + ' ' + user.lastName}}</b> to this group
+	</ion-checkbox>
+
+
+	<button ui-sref="VitalInfo.AddContact" class="button button-block button-positive" ng-click="clickSendShare()"> CREATE NEW GROUP </button>
+</div>
