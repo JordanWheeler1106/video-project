@@ -1,6 +1,6 @@
 app.controller('addContactController', addContactController);
 
-function addContactController($scope, $ionicModal, $ionicLoading, $ionicPopup) {
+function addContactController($scope, $ionicModal, $ionicLoading, $ionicPopup, $state) {
 	$scope.user = {};
 	$scope.groupSelected = function (size) {
 		if ($scope.user.group == 'createGroup') {
@@ -52,4 +52,8 @@ function addContactController($scope, $ionicModal, $ionicLoading, $ionicPopup) {
 			reader.readAsDataURL(element.files[0]);
 		}
 	}
+	$scope.changeState = function(state){
+        $scope.closePopup();
+        $state.go(state);
+    }
 }

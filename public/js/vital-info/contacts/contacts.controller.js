@@ -1,6 +1,6 @@
 app.controller('contactsController', personalInfoController);
 
-function personalInfoController($scope, $ionicModal, $ionicPopup) {
+function personalInfoController($scope, $ionicModal, $ionicPopup, $state) {
     $scope.contacts = [];
     $scope.groups = ['Personal', 'Doctors', 'Professional'];
     $scope.isGroupShown = false;
@@ -103,5 +103,10 @@ function personalInfoController($scope, $ionicModal, $ionicPopup) {
     $scope.$on('modal.removed', function () {
         // Execute action
     });
+
+    $scope.changeState = function(state){
+        $scope.closePopup();
+        $state.go(state);
+    }
 
 }
