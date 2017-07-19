@@ -6,7 +6,7 @@
       <div class="list">
         <label class="item item-input item-select">
           <select ng-model="nugget.parentId">
-            <option value="root" selected>Root</option>
+            <option value="root" selected>Home</option>
             <option ng-repeat="folder in folders track by $index" value="{{folder._id}}">{{folder.strPath}}/{{folder.name}}</option>
           </select>
         </label>

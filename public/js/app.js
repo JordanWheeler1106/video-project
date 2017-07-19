@@ -808,7 +808,7 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
     $scope.sidebar = {prompt: false, search: false, showTags: false};
     $scope.filter ={red: false};
     $scope.nuggetForm ={};
-    $scope.nugget ={name: '', content: '', tags: [], parentId: 'root'};
+    $scope.nugget ={name: '', content: '', tags: [], parentId: $scope.currentFolderId};
     if(localStorage.getItem('selectedNugget')) {
       $scope.nugget = JSON.parse(localStorage.getItem('selectedNugget'));
     }
@@ -891,7 +891,7 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
     ];
 
     //popups.
-    $scope.saveAndPublishPopup = function() {
+    $scope.saveAndPublishPopup = function() {      
       var myPopup = $ionicPopup.show({
         cssClass: 'savePublishPopup',
         templateUrl: '../templates/saveAndPublishPopup.html',
@@ -1252,25 +1252,27 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
     
     $scope.deleteFolderNugget = function(index, type) {
       $scope.settingPopover.hide();
-      if(type=='folder') {
-        $ionicLoading.show();
-        $http.delete('/api/folders/'+ $scope.currentFolders[index]._id)
-            .then( function(res){
-              $scope.getFolders();
-            })
-            .catch( function(err){
-              alert("something went wrong please try again, or reload the page")
-            })
-      } else {
-        $ionicLoading.show();
-        $http.delete('/api/nuggets/'+ $scope.currentNuggets[index]._id)
-            .then( function(res){
-              $scope.getFolders();
-            })
-            .catch( function(err){
-              alert("something went wrong please try again, or reload the page")
-            })        
-      }
+      if(confirm("Are you sure to delete this item?")) {
+        if(type=='folder') {
+          $ionicLoading.show();
+          $http.delete('/api/folders/'+ $scope.currentFolders[index]._id)
+              .then( function(res){
+                $scope.getFolders();
+              })
+              .catch( function(err){
+                alert("something went wrong please try again, or reload the page")
+              })
+        } else {
+          $ionicLoading.show();
+          $http.delete('/api/nuggets/'+ $scope.currentNuggets[index]._id)
+              .then( function(res){
+                $scope.getFolders();
+              })
+              .catch( function(err){
+                alert("something went wrong please try again, or reload the page")
+              })        
+        }
+      }      
     }
     $scope.copyFolderNugget = function(index, type) {
       $scope.settingPopover.hide();
@@ -1391,7 +1393,7 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
       $scope.folder = { name: '', purpose: 0 }
       
       var createFolder = $ionicPopup.show({
-       template: '<input type="text" ng-model="folder.name">',
+       template: '<input type="text" ng-model="folder.name" autofocus>',
        title: 'Enter Folder Name',
        scope: $scope,
        buttons: [
