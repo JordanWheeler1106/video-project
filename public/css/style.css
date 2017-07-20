@@ -3064,20 +3064,20 @@ form .list .item {
 }
 
 .fr-box.fr-basic.fr-top .fr-wrapper {
-	border: none !important;
-	box-shadow: none !important;
+	/*border: none !important;
+	box-shadow: none !important;*/
 }
 
 .fr-quick-insert {
-	display: none !important;
+	/*display: none !important;*/
 }
 
 .fr-counter {
-	display: none !important;
+	/*display: none !important;*/
 }
 
 #editor>div::nth-last-child(2) {
-	display: none !important;
+	/*display: none !important;*/
 }
 
 .quotes-list {
