@@ -72,8 +72,13 @@
 
       <div class="col">
         <div class="rightContent">
-          <span class="firstName">Welcome back, {{user.firstName}}.</span>
           <div class="list">
+            <a class="item item-icon-right header">
+              <i ng-class="showButtons?'ion-minus':'ion-plus'" ng-click="showButtons=!showButtons" ng-init="showButtons=false"></i>
+              <span class="firstName">Welcome back, {{user.firstName}}.</span>
+            </a>            
+          </div>
+          <div class="list" ng-show="showButtons">
 
             <a class="item item-icon-left listFirst" ng-click="clickNugget($event)">
               <i class="ion-ios-plus-outline"></i>
@@ -96,28 +101,47 @@
             </a>
 
           </div>
-          <span class="firstNugget">Or continue with a recent nugget:</span>
+          
           <div class="list">
+            <a class="item item-icon-right header">
+              <i ng-class="showRecent?'ion-minus':'ion-plus'" ng-click="showRecent=!showRecent" ng-init="showRecent=false"></i>
+              <span class="firstName">Or continue with a recent nugget:</span>
+            </a>
+          </div>          
+          
+          <div class="list" ng-show="showRecent">
 
             <a class="item item-icon-left" ng-repeat="nugget in userNuggets" ng-click="clickNugget($event, nugget)" style="cursor:pointer;">
               <i class="fa fa-file-text-o" style="font-size: 20px"></i>
               [{{nugget.name}}]
             </a>
 
-          </div><br>
+          </div>
           
-          <span class="firstName">My Template</span>
           <div class="list">
+            <a class="item item-icon-right header">
+              <i ng-class="showMyTemplate?'ion-minus':'ion-plus'" ng-click="showMyTemplate=!showMyTemplate" ng-init="showMyTemplate=false"></i>
+              <span class="firstName">My Template</span>
+            </a>
+          </div>
+          
+          <div class="list" ng-show="showMyTemplate">
             <a class="item item-icon-right" ng-repeat="tmp in myTemplates" style="cursor:pointer;">
               <span ng-click="clickTemplate(tmp)">{{tmp.name}}</span>
               <i ng-show="tmp.status=='pending'" title="Template is pending" class="fa fa-pencil-square-o" style="font-size: 20px" ng-click="clickSubmitTemplate(tmp)"></i>
               <i ng-show="tmp.status=='submit'" title="Waiting for approval" class="fa fa-clock-o" style="font-size: 20px"></i>
               <i ng-show="tmp.status=='approved'" class="fa fa-thumbs-o-up" style="font-size: 20px"></i>
             </a>
-          </div><br>
+          </div>
           
-          <span class="firstName">Template Store</span>
           <div class="list">
+            <a class="item item-icon-right header">
+              <i ng-class="showTemplateStore?'ion-minus':'ion-plus'" ng-click="showTemplateStore=!showTemplateStore" ng-init="showTemplateStore=false"></i>
+              <span class="firstName">Template Store</span>
+            </a>
+          </div>         
+          
+          <div class="list" ng-show="showTemplateStore">
             <a class="item item-icon-right" ng-repeat="tmp in storeTemplates" style="cursor:pointer;">
               <span ng-click="clickTemplate(tmp)">{{tmp.name}}</span>
               <i class="fa fa-plus-square-o" style="font-size: 20px"></i>

@@ -19,7 +19,7 @@
         </thead>
         <tbody>
           <tr ng-hide = "user.email == 'admin@humanexp.com'" class="user-table" ng-repeat="user in users | filter: search | orderBy: 'firstName'">
-            <td style="padding: 0px;"><img style = "width:50px; border-radius: 50%;" ng-src="{{user.photo}}" alt="profile"></td>
+            <td style="padding: 0px;"><img style = "width:50px; border-radius: 50%; height:50px;" ng-src="{{user.photo}}" alt="profile"></td>
             <td><a ui-sref="admin.stats">{{user.firstName + ' ' + user.lastName}}</a></td>
             <td>{{user.status}}</td>
             <td style="font-size: 16px; color:black">{{user.lastLogin | date: 'MMMM d, yyyy'}}</td>

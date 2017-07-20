@@ -514,6 +514,10 @@ form .list .item {
 	background: none;
 }
 
+.rightContent .list .item-icon-right.header {
+	color:#000;
+}
+
 .rightContent .list .item-icon-left i:before {
 	font-weight: 600;
 }
@@ -527,7 +531,7 @@ form .list .item {
 }
 
 .rightContent .list .item-icon-right i {
-	font-size: 22px;
+	font-size: 14px;
 	/*font-family: 'Source Sans Pro', sans-serif;*/
 	margin: 2px 15px 0 0;
 	display: inline-block;

@@ -795,7 +795,8 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
   })
   //add nugget controller
   .controller('nuggetCtrl', function($scope, $ionicPopover, $ionicPopup, $timeout, $state, $http, $ionicLoading){
-    $scope.currentFolderId = localStorage.getItem("currentFolderId");
+    $scope.listPosition = JSON.parse(localStorage.getItem("listPosition"));
+    $scope.currentFolderId = $scope.listPosition.currentFolderId;
     $http.get('/api/prompts/all/' + $scope.currentFolderId).then(function(data){
       $scope.prompts = data.data;
     },function(err){
@@ -830,6 +831,7 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
     $scope.logout = function(){
       localStorage.removeItem('token');
       localStorage.removeItem('user');
+      localStorage.removeItem('listPosition');
       $state.go('signin')
     }
     
@@ -1016,7 +1018,6 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
   })
   //reset password controller
   .controller('homeCtrl', function($scope, $ionicPopover, $ionicPopup, $state, $http, $ionicLoading, $stateParams){
-
     $scope.toggleView = 'sphere';
     if($stateParams.view){
       $scope.toggleView = $stateParams.view;
@@ -1034,11 +1035,18 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
       nuggets: []
     };
     $scope.tags = [];
-    $scope.strPath = `<span class="active" ng-click="clickFolder($event, 'root')">Home</span>`;
-    $scope.folderPath = ["Root"];
-    $scope.currentFolder = "root";
     $scope.filter = {};
-    localStorage.setItem('currentFolderId', "root");
+    $scope.listPosition = {
+      strPath: `<span class="active" ng-click="clickFolder($event, 'root')">Home</span>`,
+      folderPath: ["Root"],
+      currentFolder: "root",
+      currentFolderId: "root"
+    }
+    if(localStorage.getItem('listPosition')) {
+        $scope.listPosition = JSON.parse(localStorage.getItem('listPosition'));
+    } else {
+      localStorage.setItem('listPosition', JSON.stringify($scope.listPosition));
+    }
     $scope.currentFolders = [];
     $scope.userNuggets = [];
     $scope.currentNuggets = [];
@@ -1081,7 +1089,7 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
     $scope.getFolders = function() {
       var user = JSON.parse(localStorage.getItem('user'));
       $scope.getTags();
-      if($scope.currentFolder == "root") {
+      if($scope.listPosition.currentFolder == "root") {
         $ionicLoading.show();
         $http.get('/api/folders/all/'+ user._id + '/root')
             .then( function(res){
@@ -1101,7 +1109,7 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
             })
       } else {
         $ionicLoading.show();
-        $http.get('/api/folders/all/'+ user._id + '/' + $scope.currentFolder._id)
+        $http.get('/api/folders/all/'+ user._id + '/' + $scope.listPosition.currentFolder._id)
             .then( function(res){
               $scope.currentFolders = res.data;
               $ionicLoading.hide();
@@ -1109,7 +1117,7 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
             .catch( function(err){
               alert("something went wrong please try again, or reload the page")
             })
-        $http.get('/api/nuggets/all/'+ user._id + '/' + $scope.currentFolder._id)
+        $http.get('/api/nuggets/all/'+ user._id + '/' + $scope.listPosition.currentFolder._id)
             .then( function(res){
               $scope.currentNuggets = res.data;
             })
@@ -1175,7 +1183,7 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
     };    
     
     $scope.clickFolderPath = function($event, index) {
-      $scope.clickFolder('', $scope.folderPath[index])
+      $scope.clickFolder('', $scope.listPosition.folderPath[index])
     }
     
     $scope.clickNugget = function($event, nugget) {
@@ -1186,31 +1194,28 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
         $state.go('addnugget');
     }
     
-    $scope.clickFolder = function($event, folder) {
-      
-      $scope.strPath = `<span class="active" ng-click="clickFolder($event, 'root')" style="cursor:pointer;">Home</span>`;
-      $scope.currentFolder = folder;
-      localStorage.setItem('currentFolderId', folder._id);
+    $scope.clickFolder = function($event, folder) {      
+      $scope.listPosition.strPath = `<span class="active" ng-click="clickFolder($event, 'root')" style="cursor:pointer;">Home</span>`;
+      $scope.listPosition.currentFolder = folder;
+      $scope.listPosition.currentFolderId = folder._id;      
       $scope.getFolders();
       if(folder == "root") {        
-        $scope.folderPath = ["Root"];        
+        $scope.listPosition.folderPath = ["Root"];        
       }
       else {
         var flag = false;
-        if($scope.folderPath.indexOf(folder) !== -1) {
-          for(var i = 0; i < $scope.folderPath.length - $scope.folderPath.indexOf(folder); i++)
-            $scope.folderPath.splice($scope.folderPath.indexOf(folder)+1, 1);
+        if($scope.listPosition.folderPath.indexOf(folder) !== -1) {
+          for(var i = 0; i < $scope.listPosition.folderPath.length - $scope.listPosition.folderPath.indexOf(folder); i++)
+            $scope.listPosition.folderPath.splice($scope.listPosition.folderPath.indexOf(folder)+1, 1);
         } else {
-          $scope.folderPath.push(folder);
+          $scope.listPosition.folderPath.push(folder);
         }
         
-        for(var i = 1; i < $scope.folderPath.length; i++) {
-          $scope.strPath += `<i class="ion-ios-arrow-forward"></i><span class="active" ng-click="clickFolderPath($event, `+ i +`)" style="cursor:pointer;">`+$scope.folderPath[i].name+`</span>`
+        for(var i = 1; i < $scope.listPosition.folderPath.length; i++) {
+          $scope.listPosition.strPath += `<i class="ion-ios-arrow-forward"></i><span class="active" ng-click="clickFolderPath($event, `+ i +`)" style="cursor:pointer;">`+$scope.listPosition.folderPath[i].name+`</span>`
         }
-        
       }
-      
-      
+      localStorage.setItem('listPosition', JSON.stringify($scope.listPosition));
     }
     
     $scope.openSettingPopover = function($event, index, type) {
@@ -1407,11 +1412,11 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
                e.preventDefault();
              } else {
                $scope.folder.userId = JSON.parse(localStorage.getItem('user'))._id;
-               $scope.folder.parentId = $scope.currentFolder=='root'?$scope.currentFolder:$scope.currentFolder._id;
+               $scope.folder.parentId = $scope.listPosition.currentFolder=='root'?$scope.listPosition.currentFolder:$scope.listPosition.currentFolder._id;
                $scope.folder.strPath = "Home";
-               if($scope.currentFolder != 'root') {
-                 for(var i = 1; i < $scope.folderPath.length; i++)
-                  $scope.folder.strPath += '/' + $scope.folderPath[i].name;
+               if($scope.listPosition.currentFolder != 'root') {
+                 for(var i = 1; i < $scope.listPosition.folderPath.length; i++)
+                  $scope.folder.strPath += '/' + $scope.listPosition.folderPath[i].name;
                }
                $ionicLoading.show();
                $http.post('/api/folders/', $scope.folder)
