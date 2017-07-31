@@ -1,0 +1,111 @@
+<div class="hide-on-md">
+	<div class="list">
+		<a ng-click="modal.show()" class="item center-text">
+			Employement
+			<i class="icon ion-ios-arrow-down vertical-middle"></i>
+		</a>
+	</div>
+</div>
+<div class="hide-on-sm">
+	<div>
+		<div class="tableLinks">
+			<span class="active">Employement</span>
+		</div>
+	</div>
+</div>
+<div class="md-margin-10">
+    <div class="row responsive-md">
+        <div class="col col-33">
+            <label class="item item-input">
+                <input type="text" placeholder="Company">
+            </label>
+        </div>
+        <div class="col col-33">
+            <label class="item item-input">
+                <input type="text" placeholder="Title">
+            </label>
+        </div>
+        <div class="col col-33">
+            <label class="item item-input">
+                <input type="text" placeholder="Honors/Awards">
+            </label>
+        </div>
+    </div>
+
+    <div class="row responsive-md">
+        <div class="col col-33">
+            <label class="item item-input">
+                <input type="text" placeholder="Street">
+            </label>
+        </div>
+        <div class="col col-33">
+            <label class="item item-input">
+                <input type="text" placeholder="City">
+            </label>
+        </div>
+        <div class="col col-33">
+            <label class="item item-input">
+                <input type="text" placeholder="State">
+            </label>
+        </div>
+    </div>
+
+    <div class="row responsive-md">
+        <div class="col col-33">
+            <label class="item item-input">
+                <input type="text" placeholder="Zip Code">
+            </label>
+        </div>
+        <div class="col col-33">
+            <label class="item item-input">
+                <input type="text" placeholder="Country">
+            </label>
+        </div>
+        <div class="col col-33">
+            <label class="item item-input">
+                <input type="text" placeholder="Business Type">
+            </label>
+        </div>
+    </div>
+
+    <div class="row responsive-md">
+        <div class="col col-33">
+            <label class="item item-input">
+                <input  type="text" onblur="this.value ? (this.type='date'):(this.type='text')" onfocus="(this.type='date')" placeholder="Start Date">
+            </label>
+        </div>
+        <div class="col col-33">
+            <label class="item item-input">
+                <input  type="text" onblur="this.value ? (this.type='date'):(this.type='text')" onfocus="(this.type='date')" placeholder="End Date">
+            </label>
+        </div>
+    </div>
+
+    
+
+    <div class="row">
+        <div class="col col-100">
+            <label class="item item-input">
+                <textarea placeholder="Notes"></textarea>
+            </label>
+        </div>
+    </div>
+</div>
+<div style="width: 100%;" class="leftBox margin-bottom-25">
+    <table class="table report">
+        <tbody>
+            <tr class="user-table">
+                <th>Company</th>                
+                <th>Street</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Zipcode</th>
+                <th>Country</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Title</th>                
+                <th>Actions</th>                
+            </tr>
+        </tbody>
+    </table>
+</div>

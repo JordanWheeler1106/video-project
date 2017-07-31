@@ -3182,6 +3182,12 @@ form .list .item {
 	margin: 10px;
 }
 
+@media(max-width: 767px){
+	.md-margin-10{
+		margin: 10px;
+	}
+}
+
 .vital-nav-list .ion-chevron-right {
 	font-size: 14px;
 	color: rgb(38, 123, 191);
@@ -3201,8 +3207,8 @@ form .list .item {
 
 .side-nav {
 	float: left;
-	min-width: 280px;
-	width: 30%;
+	/* min-width: 280px; */
+	width: 24%;
 }
 
 .contact-nav {
@@ -3223,8 +3229,16 @@ form .list .item {
 
 .vital-forms {
 	display: inline-block;
-	width: 60%;
-	padding: 25px 0px 25px 25px;
+	width: 76%;
+	padding: 25px 0px 25px 0px;
+}
+
+.vital-forms label{
+	height: 41px;
+	border-radius: 10px;
+}
+.vital-forms textarea{
+	height: auto !important;
 }
 
 .flip-180 {
@@ -3254,6 +3268,14 @@ form .list .item {
 
 .vital-forms span {
 	font-size: 24px;
+}
+
+.vital-forms .tableLinks{
+	margin-left: 10px;
+}
+
+.margin-bottom-25{
+	margin-bottom: 50px;
 }
 
 .center-text {

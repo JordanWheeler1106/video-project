@@ -1,12 +1,13 @@
 app.controller('personalInfoController', personalInfoController);
 
-function personalInfoController($scope, $location, $ionicModal) {
-    $scope.heading = 'Personal Information';
-    $scope.headingChanged = function (heading) {
-        $scope.heading = heading;
-    }
+function personalInfoController($scope, $location, $ionicModal, $rootScope) {
+    $scope.location = $location.path().split('/');
+    $scope.location = $scope.location[$scope.location.length - 1];
+    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+        $scope.location = toState.url.replace('/', '');
+    });
+    
     $scope.modalLinkClicked = function (heading) {
-        $scope.heading = heading;
         $scope.modal.hide();
     }
     $ionicModal.fromTemplateUrl('templates/modal.html', {

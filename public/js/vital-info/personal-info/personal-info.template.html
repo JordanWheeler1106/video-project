@@ -3,35 +3,35 @@
 		<div class="item item-divider">
 			Title
 		</div>
-		<a class="item" ng-class="{'side-nav-clicked': heading == 'Personal Information'}" ng-click="headingChanged('Personal Information')">
+		<a class="item" ng-class="{'side-nav-clicked': location == 'personal-info'}" ui-sref = 'VitalInfo.PersonalInfo.PersonalInfo'>
 			Personal Information
 			<span class="item-note">12.12.17</span>
 		</a>
-		<a class="item" ng-class="{'side-nav-clicked': heading == 'Places Lived'}" ng-click="headingChanged('Places Lived')">
+		<a class="item" ng-class="{'side-nav-clicked': location == 'places-lived'}" ui-sref = 'VitalInfo.PersonalInfo.PlacesLived'>
 			Places Lived
 			<span class="item-note">12.12.17</span>
 		</a>
-		<a class="item" ng-class="{'side-nav-clicked': heading == 'Education'}" ng-click="headingChanged('Education')">
+		<a class="item" ng-class="{'side-nav-clicked': location == 'education'}" ui-sref = 'VitalInfo.PersonalInfo.Education'>
 			Education
 			<span class="item-note">12.12.17</span>
 		</a>
-		<a class="item" ng-class="{'side-nav-clicked': heading == 'Employement'}" ng-click="headingChanged('Employement')">
+		<a class="item" ng-class="{'side-nav-clicked': location == 'employement'}" ui-sref = 'VitalInfo.PersonalInfo.Employement'>
 			Employement
 			<span class="item-note">12.12.17</span>
 		</a>
-		<a class="item" ng-class="{'side-nav-clicked': heading == 'Military'}" ng-click="headingChanged('Military')">
+		<a class="item" ng-class="{'side-nav-clicked': location == 'military'}" ui-sref = 'VitalInfo.PersonalInfo.Military'>
 			Military
 			<span class="item-note">12.12.17</span>
 		</a>
-		<a class="item" ng-class="{'side-nav-clicked': heading == 'Associations/Memberships'}" ng-click="headingChanged('Associations/Memberships')">
+		<a class="item" ng-class="{'side-nav-clicked': location == 'associations'}" ui-sref = 'VitalInfo.PersonalInfo.Associations'>
 			Associations/Memberships
 			<span class="item-note">12.12.17</span>
 		</a>
-		<a class="item" ng-class="{'side-nav-clicked': heading == 'Licences/Certifications'}" ng-click="headingChanged('Licences/Certifications')">
+		<a class="item" ng-class="{'side-nav-clicked': location == 'licences'}" ui-sref = 'VitalInfo.PersonalInfo.Awards'>
 			Licences/Certifications
 			<span class="item-note">12.12.17</span>
 		</a>
-		<a class="item" ng-class="{'side-nav-clicked': heading == 'Awards/Honours'}" ng-click="headingChanged('Awards/Honours')">
+		<a class="item" ng-class="{'side-nav-clicked': location == 'awards'}" ui-sref = 'VitalInfo.PersonalInfo.Awards'>
 			Awards/Honours
 			<span class="item-note">12.12.17</span>
 		</a>
@@ -42,19 +42,10 @@
     <span class="other">Personal Info</span>
 </div>
 <div class="hide-on-md">
-	<div class="list">
-		<a ng-click="modal.show()" class="item center-text">
-			{{heading}} 
-			<i class="icon ion-ios-arrow-down vertical-middle"></i>
-		</a>
-	</div>
+	<ui-view></ui-view>
 </div>
 <div class="vital-forms hide-on-sm">
-	<div>
-		<div class="tableLinks">
-			<span class="active">{{heading}}</span>
-		</div>
-	</div>
+	<ui-view></ui-view>
 </div>
 <!--
 	Modal for small screen
@@ -67,35 +58,35 @@
 		</ion-header-bar>
 		<ion-content>
 			<div class="list">
-				<a class="item" ng-class="{'side-nav-clicked': heading == 'Personal Information'}" ng-click="modalLinkClicked('Personal Information')">
+				<a class="item" ng-class="{'side-nav-clicked': location == 'personal-info'}" ui-sref = 'VitalInfo.PersonalInfo.PersonalInfo' ng-click="modalLinkClicked('Personal Information')">
 					<h2>Personal Information</h2>
 					<p>12.12.17</p>
 				</a>
-				<a class="item" ng-class="{'side-nav-clicked': heading == 'Places Lived'}" ng-click="modalLinkClicked('Places Lived')">
+				<a class="item" ng-class="{'side-nav-clicked': location == 'places-lived'}" ui-sref = 'VitalInfo.PersonalInfo.PlacesLived' ng-click="modalLinkClicked('Places Lived')">
 					<h2>Places Lived</h2>
 					<p>12.12.17</p>
 				</a>
-				<a class="item" ng-class="{'side-nav-clicked': heading == 'Education'}" ng-click="modalLinkClicked('Education')">
+				<a class="item" ng-class="{'side-nav-clicked': location == 'education'}" ui-sref = 'VitalInfo.PersonalInfo.Education' ng-click="modalLinkClicked('Education')">
 					<h2>Education</h2>
 					<p>12.12.17</p>
 				</a>
-				<a class="item" ng-class="{'side-nav-clicked': heading == 'Employement'}" ng-click="modalLinkClicked('Employement')">
+				<a class="item" ng-class="{'side-nav-clicked': location == 'employement'}" ui-sref = 'VitalInfo.PersonalInfo.Employement' ng-click="modalLinkClicked('Employement')">
 					<h2>Employement</h2>
 					<p>12.12.17</p>
 				</a>
-				<a class="item" ng-class="{'side-nav-clicked': heading == 'Military'}" ng-click="modalLinkClicked('Military')">
+				<a class="item" ng-class="{'side-nav-clicked': location == 'military'}" ui-sref = 'VitalInfo.PersonalInfo.Military' ng-click="modalLinkClicked('Military')">
 					<h2>Military</h2>
 					<p>12.12.17</p>
 				</a>
-				<a class="item" ng-class="{'side-nav-clicked': heading == 'Associations/Memberships'}" ng-click="modalLinkClicked('Associations/Memberships')">
+				<a class="item" ng-class="{'side-nav-clicked': location == 'associations'}" ui-sref = 'VitalInfo.PersonalInfo.Associations' ng-click="modalLinkClicked('Associations/Memberships')">
 					<h2>Associations/Memberships</h2>
 					<p>12.12.17</p>
 				</a>
-				<a class="item" ng-class="{'side-nav-clicked': heading == 'Licences/Certifications'}" ng-click="modalLinkClicked('Licences/Certifications')">
+				<a class="item" ng-class="{'side-nav-clicked': location == 'licences'}" ui-sref = 'VitalInfo.PersonalInfo.Awards' ng-click="modalLinkClicked('Licences/Certifications')">
 					<h2>Licences/Certifications</h2>
 					<p>12.12.17</p>
 				</a>
-				<a class="item" ng-class="{'side-nav-clicked': heading == 'Awards/Honours'}" ng-click="modalLinkClicked('Awards/Honours')">
+				<a class="item" ng-class="{'side-nav-clicked': location == 'awards'}" ui-sref = 'VitalInfo.PersonalInfo.Awards' ng-click="modalLinkClicked('Awards/Honours')">
 					<h2>Awards/Honours</h2>
 					<p>12.12.17</p>
 				</a>

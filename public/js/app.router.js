@@ -185,5 +185,47 @@ app.config(function ($stateProvider) {
             templateUrl: '../js/vital-info/add-contact/add-contact.template.html',
             controller: 'addContactController',
             cache: false
+        })
+        .state('VitalInfo.PersonalInfo.PersonalInfo', {
+            url: '/personal-info',
+            templateUrl: '../js/vital-info/personal-info/personal-info/personal-info.template.html',
+            controller: 'personalInfoController',
+            cache: false
+        })
+        .state('VitalInfo.PersonalInfo.PlacesLived', {
+            url: '/places-lived',
+            templateUrl: '../js/vital-info/personal-info/places-lived/places-lived.template.html',
+            controller: 'personalInfoController',
+            cache: false
+        })
+        .state('VitalInfo.PersonalInfo.Education', {
+            url: '/education',
+            templateUrl: '../js/vital-info/personal-info/education/education.template.html',
+            controller: 'personalInfoController',
+            cache: false
+        })
+        .state('VitalInfo.PersonalInfo.Employement', {
+            url: '/employement',
+            templateUrl: '../js/vital-info/personal-info/employement/employement.template.html',
+            controller: 'personalInfoController',
+            cache: false
+        })
+        .state('VitalInfo.PersonalInfo.Military', {
+            url: '/military',
+            templateUrl: '../js/vital-info/personal-info/military/military.template.html',
+            controller: 'personalInfoController',
+            cache: false
+        })
+        .state('VitalInfo.PersonalInfo.Associations', {
+            url: '/associations',
+            templateUrl: '../js/vital-info/personal-info/associations/associations.template.html',
+            controller: 'personalInfoController',
+            cache: false
+        })
+        .state('VitalInfo.PersonalInfo.Awards', {
+            url: '/awards',
+            templateUrl: '../js/vital-info/personal-info/awards/awards.template.html',
+            controller: 'personalInfoController',
+            cache: false
         });
 })
