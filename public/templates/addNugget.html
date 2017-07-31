@@ -121,8 +121,8 @@
         </li>
       </ul>
       <div class="list" ng-show="sidebar.showTags">
-        <tags-input ng-model="nugget.tags" add-from-autocomplete-only="true" use-strings="true">
-          <auto-complete source="loadTags($query)"></auto-complete>
+        <tags-input ng-model="nugget.tags">
+          <!-- <auto-complete source="loadTags($query)"></auto-complete> -->
         </tags-input>
       </div>
     </div>

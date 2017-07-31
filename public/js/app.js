@@ -847,16 +847,16 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
             console.log("err", err);
             alert("something went wrong please try again, or reload the page")
           });
-      $http.get('/api/tags/all')
-          .then( function(res){
-            $scope.allTags = [];
-            for(var i = 0; i < res.data.length; i++) {
-              $scope.allTags.push({text: res.data[i].name});
-            }
-          })
-          .catch( function(err){
-            alert("something went wrong please try again, or reload the page")
-          })
+      // $http.get('/api/tags/all')
+      //     .then( function(res){
+      //       $scope.allTags = [];
+      //       for(var i = 0; i < res.data.length; i++) {
+      //         $scope.allTags.push({text: res.data[i].name});
+      //       }
+      //     })
+      //     .catch( function(err){
+      //       alert("something went wrong please try again, or reload the page")
+      //     })
     }
     else{
       $state.go('signin')
@@ -1075,16 +1075,16 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
           })
     }
     
-    $scope.getTags = function() {
-      $http.get('/api/tags/all')
-          .then( function(res){
-            $scope.tags = res.data;
-            $scope.getTemplates();
-          })
-          .catch( function(err){
-            alert("something went wrong please try again, or reload the page")
-          })
-    }
+    // $scope.getTags = function() {
+    //   $http.get('/api/tags/all')
+    //       .then( function(res){
+    //         $scope.tags = res.data;
+    //         $scope.getTemplates();
+    //       })
+    //       .catch( function(err){
+    //         alert("something went wrong please try again, or reload the page")
+    //       })
+    // }
 
     $scope.getFolders = function() {
       var user = JSON.parse(localStorage.getItem('user'));
