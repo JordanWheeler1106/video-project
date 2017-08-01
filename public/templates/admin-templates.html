@@ -78,7 +78,6 @@
         <div class="row listItemsArea">
           <div class="list">
             <ion-checkbox ng-repeat="folder in template.folders" ng-click="chooseFolder(folder);" ng-checked="selectedFolder==folder">
-              <span>
               <span>{{folder.strPath.replace("Home","")}}/{{folder.name}}</span>              
             </ion-checkbox>
 

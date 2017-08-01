@@ -1827,7 +1827,6 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
       var user = JSON.parse(localStorage.getItem('user'));
       $scope.template.userId = user._id;
       $scope.template.status = "approved";
-      console.log($scope.template);
       $http.post('/api/templates/', $scope.template)
           .then(function(res){            
             $ionicLoading.hide();
