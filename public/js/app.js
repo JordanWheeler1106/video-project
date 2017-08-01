@@ -1761,9 +1761,10 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
     $scope.getAllUsers();
   })
   
-  .controller('adminTemplatesCtrl', function($scope, $ionicPopover, $ionicPopup, $state, $http, $ionicLoading){
+  .controller('adminTemplatesCtrl', function($scope, $ionicPopover, $ionicPopup, $state, $timeout, $http, $ionicLoading){
     $scope.templateView = "list";
     $scope.tags = [];
+    $scope.selectedFolder = null;
     $scope.template = {
       tags: [],
       name: '',
@@ -1812,8 +1813,11 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
       };   
     }
     
-    $scope.saveTemplate = function() {
-      console.log($scope.template);
+    $scope.chooseFolder = function(folder) {
+      $scope.selectedFolder = folder;
+    }
+    
+    $scope.saveTemplate = function() {      
       if(!$scope.template.name || !$scope.template.tags.length > 0 || !$scope.template.price || !$scope.template.description) {
         $ionicLoading.show({ template: 'Template information is not enough. Please fill the blank field!', noBackdrop: true, duration: 1500 });
         return;
@@ -1822,6 +1826,8 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
 
       var user = JSON.parse(localStorage.getItem('user'));
       $scope.template.userId = user._id;
+      $scope.template.status = "approved";
+      console.log($scope.template);
       $http.post('/api/templates/', $scope.template)
           .then(function(res){            
             $ionicLoading.hide();
@@ -1834,7 +1840,6 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
               nuggets: []
             };
             $scope.getTemplates();
-            $scope.clickHomeView('list');
           })
           .catch( function(err){
             alert("something went wrong please try again.")
@@ -1842,6 +1847,14 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
     }
     
     $scope.createFolder = function(type) {
+      if(type > 0 && !$scope.selectedFolder) {
+        $ionicLoading.show({ template: 'Please select parent folder!', noBackdrop: true, duration: 1500 });
+        return;
+      }
+      if(type > 0 && type != $scope.selectedFolder.strPath.split("/").length) {
+        $ionicLoading.show({ template: 'Please select correct parent folder!', noBackdrop: true, duration: 1500 });
+        return;
+      }
       $scope.folder = { name: '', purpose: 0 }
       
       var createFolder = $ionicPopup.show({
@@ -1862,16 +1875,19 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
                $scope.folder.parentId = type==0?'root':$scope.selectedFolder._id;
                $scope.folder.strPath = "Home";
                if(type > 0) {
-                //  for(var i = 1; i < $scope.listPosition.folderPath.length; i++)
-                //   $scope.folder.strPath += '/' + $scope.listPosition.folderPath[i].name;
+                 for(var i = 0; i < type; i++)
+                  $scope.folder.strPath += '/' + $scope.template.folders[$scope.template.folders.indexOf($scope.selectedFolder)-(type-i-1)].name;
                }
               //  console.log($scope.folder);
               //  return $scope.folder.name;
                $ionicLoading.show();
                $http.post('/api/folders/', $scope.folder)
                    .then( function(res){
-                     $scope.template.folders.push(res);
-                     console.log(res);
+                     $scope.template.folders.push(res.data);
+                     $scope.template.folders.sort(function(a, b) {
+                       return (a.strPath + '/' + a.name > b.strPath + '/' + b.name) ? 1: ((b.strPath + '/' + b.name > a.strPath + '/' + a.name) ? -1 : 0);
+                     });
+                     $ionicLoading.hide();
                    })
                    .catch( function(err){
                      console.log("err", err);

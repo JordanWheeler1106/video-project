@@ -75,16 +75,14 @@
             </label>
           </div>
         </div><br>
-        <div class="listItemsArea">
+        <div class="row listItemsArea">
           <div class="list">
-            <label class="item item-radio" ng-repeat="folder in template.folders" ng-checked="selectedFolder = folder">
-              <input type="radio" name="folder" />
-              <div class="item-content">
-                <span>{{folder.name}}</span>
-              </div>
-              <i class="radio-icon ion-checkmark"></i>
-              <i class="ion-ios-close-outline" ng-click="removeFolder(folder);">
-            </label>
+            <ion-checkbox ng-repeat="folder in template.folders" ng-click="chooseFolder(folder);" ng-checked="selectedFolder==folder">
+              <span>
+              <span>{{folder.strPath.replace("Home","")}}/{{folder.name}}</span>              
+            </ion-checkbox>
+
+              <!-- <i class="ion-ios-close-outline" ng-click="removeFolder(folder);"> -->
           </div>
         </div>
         <div class="row">

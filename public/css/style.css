@@ -3358,3 +3358,8 @@ form .list .item {
 .float-right{
 	float: right;
 }
+
+.listItemsArea span {
+	margin: 0px;
+	text-align:left;
+}
