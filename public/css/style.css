@@ -3233,12 +3233,12 @@ form .list .item {
 	padding: 25px 0px 25px 0px;
 }
 
-.vital-forms label{
+.vital-ui-view label{
 	height: 41px;
 	border-radius: 10px;
 }
-.vital-forms textarea{
-	height: auto !important;
+.vital-textarea textarea{
+	height: 90px !important;
 }
 
 .flip-180 {
@@ -3330,6 +3330,7 @@ form .list .item {
 	font-weight: 600;
 	background-color: #e8e9ea;
 	width: 100%;
+	overflow: auto;
 }
 
 .vital-info-address .first {
@@ -3348,4 +3349,8 @@ form .list .item {
 	top: 0px;
 	width: 25px !important;
 	height: 25px !important;
+}
+
+.vital-textarea {
+	height:100px !important;
 }
