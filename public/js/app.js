@@ -1088,7 +1088,7 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
 
     $scope.getFolders = function() {
       var user = JSON.parse(localStorage.getItem('user'));
-      $scope.getTags();
+      // $scope.getTags();
       if($scope.listPosition.currentFolder == "root") {
         $ionicLoading.show();
         $http.get('/api/folders/all/'+ user._id + '/root')

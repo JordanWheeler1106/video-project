@@ -10,7 +10,7 @@ var Schema = mongoose.Schema;
 var nuggetSchema = new Schema({
     name: String,
     content: String,
-    tags: [String],
+    tags: [{text: String}],
     author: {
         type: Schema.Types.ObjectId,
         ref: 'User'
