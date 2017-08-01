@@ -222,6 +222,12 @@ app.config(function ($stateProvider) {
             controller: 'personalInfoController',
             cache: false
         })
+        .state('VitalInfo.PersonalInfo.Licences', {
+            url: '/licences',
+            templateUrl: '../js/vital-info/personal-info/licences/licences.template.html',
+            controller: 'personalInfoController',
+            cache: false
+        })
         .state('VitalInfo.PersonalInfo.Awards', {
             url: '/awards',
             templateUrl: '../js/vital-info/personal-info/awards/awards.template.html',

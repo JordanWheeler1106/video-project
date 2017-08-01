@@ -3354,3 +3354,7 @@ form .list .item {
 .vital-textarea {
 	height:100px !important;
 }
+
+.float-right{
+	float: right;
+}

@@ -1,7 +1,7 @@
 <div class="hide-on-md">
 	<div class="list">
 		<a ng-click="modal.show()" class="item center-text">
-			Military
+			Licences/Certificates
             <i class="icon ion-ios-arrow-down vertical-middle"></i>
             <i class="icon ion-ios-plus-outline blue-text float-right hand"><span style="font-size: 16px;padding-left:5px;">Save</span></i>
 		</a>
@@ -10,28 +10,21 @@
 <div class="hide-on-sm">
 	<div>
 		<div class="tableLinks">
-            <span class="active">Military</span>
+            <span class="active">Licences/Certificates</span>
             <i class="icon ion-ios-plus-outline blue-text float-right hand"><span class="padding-horizontal" style="font-size: 18px;">Save</span></i>
 		</div>
 	</div>
 </div>
 <div class="md-margin-10">
     <div class="row responsive-md">
-        <div class="col col-33" >
-            <label class="item item-input item-select">
-                <select>
-                    <option value="" selected disabled>Branch</option>
-                    <option value="Army">Army</option>
-                    <option value="Navy">Navy</option>
-                    <option value="Marines">Marines</option>
-                    <option value="Coast Guard">Coast Guard</option>
-                    <option value="Air Force">Air Force</option>                        
-                </select>
+        <div class="col col-33">
+            <label class="item item-input">
+                <input type="text" placeholder="Association">
             </label>
         </div>
         <div class="col col-33">
             <label class="item item-input">
-                <input type="number" placeholder="Rank">
+                <input type="text" placeholder="Licences/Certificates">
             </label>
         </div>
         <div class="col col-33">
@@ -70,11 +63,6 @@
                 <input type="text" placeholder="Country">
             </label>
         </div>
-        <div class="col col-33">
-            <label class="item item-input">
-                <input type="text" placeholder="Division">
-            </label>
-        </div>
     </div>
 
     <div class="row responsive-md">
@@ -104,7 +92,7 @@
     <table class="table report">
         <tbody>
             <tr class="user-table">
-                <th>Branch</th>                
+                <th>Association</th>                
                 <th>Street</th>
                 <th>City</th>
                 <th>State</th>
@@ -112,7 +100,7 @@
                 <th>Country</th>
                 <th>Start Date</th>
                 <th>End Date</th>
-                <th>Title</th>                
+                <th>Certification</th>                
                 <th>Actions</th>                
             </tr>
         </tbody>
