@@ -1,5 +1,5 @@
 <div class="row rowPadding responsive-lg">
-  <div class="col firstRow">
+  <div class="col firstRow" ng-show="templateView=='list'">
     <div class="list tag-search-wrapper">
       <label class="item item-input">        
         <input type="text" placeholder="Search" ng-model="search">
@@ -7,6 +7,13 @@
       </label>
     </div>
     <div class="leftBox">
+      <div class="csv-download" ng-click="templateView='create'">
+        <a>
+          <i class="ion-ios-plus-outline"></i>
+          Add Template
+        </a>
+      </div>
+      
       <table class="table report">
         <thead>
           <tr>            
@@ -29,10 +36,83 @@
             </td>
             <td>{{template.userId.firstName + ' ' + template.userId.lastName}}</td>
             <td>{{template.status}}</td>
-            <td><i ng-show="template.status=='submit'" class="fa fa-thumbs-o-up" ng-click="clickApproveTemplate(template)" style="cursor:pointer; font-size:20px;"></i></td>
+            <td style="cursor:pointer; font-size:20px; color: black;">
+              <i ng-show="template.status=='submit'" class="fa fa-thumbs-o-up" ng-click="clickApproveTemplate(template)"></i>&nbsp;
+              <i class="ion-ios-close-outline" ng-click="removeTemplate(template);"></i>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
+  </div>
+  <div class="leftBox" ng-show="templateView=='create'">
+    <div class="row">
+      <div class="col col-75 firstRow">
+        <div class="row">    
+          <div class="col col-40">
+            <label class="item item-input">
+              <input type="text" placeholder="Template Name" ng-model="template.name">
+            </label>
+          </div>
+          <div class="col col-40">
+            <label class="item item-input template-tag" ng-click="clickChangeTag()">
+              <ion-select class="template-tag-selection">
+                <ion-option ng-show="template.tags.length == 0">Tags</ion-option>
+                <ion-option ng-repeat="tag in template.tags"> {{tag.name}} </ion-option>
+              </ion-select>
+            </label>
+          </div>
+          <div class="col col-20">
+            <label class="item item-input">
+              <input type="number" placeholder="Price" ng-model="template.price">
+            </label>
+          </div>    
+        </div>
+        <div class="row">
+          <div class="col col-100">
+            <label class="item item-input">
+              <input type="text" placeholder="Descripotion" ng-model="template.description">
+            </label>
+          </div>
+        </div><br>    
+        <div class="row">
+          <div class="template-button-wrapper">
+            <button type="button" class="cancel-btn" ng-click="templateView='list'">Cancel</button>
+            <button type="button" class="save-btn" ng-click="saveTemplate()">Save</button>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col">
+        <div class="rightContent" style="margin: 0px 50px;">
+          <div class="list">          
+            <a class="item item-icon-left listFirst" ng-click="addWindow($event)">
+              <i class="ion-ios-plus-outline"></i>
+              Add Window
+            </a>
+            
+            <a class="item item-icon-left listFirst" ng-click="addPurpose($event)">
+              <i class="ion-ios-plus-outline"></i>
+              Add Purpose
+            </a>
+            
+            <a class="item item-icon-left listFirst" ng-click="addChapter($event)">
+              <i class="ion-ios-plus-outline"></i>
+              Add Chapter
+            </a>
+            
+            <a class="item item-icon-left listFirst" ng-click="addSection($event)">
+              <i class="ion-ios-plus-outline"></i>
+              Add Section
+            </a>
+            
+            <a class="item item-icon-left listFirst" ng-click="addPrompt($event)">
+              <i class="ion-ios-plus-outline"></i>
+              Add Prompt
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>    
   </div>
 </div>

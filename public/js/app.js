@@ -1762,7 +1762,88 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
   })
   
   .controller('adminTemplatesCtrl', function($scope, $ionicPopover, $ionicPopup, $state, $http, $ionicLoading){
-    $scope.getTempaltes = function(){
+    $scope.templateView = "list";
+    $scope.tags = [];
+    $scope.template = {
+      tags: [],
+      name: '',
+      price: 0,
+      description: '',
+      folders: [],
+      nuggets: []
+    };
+
+    $scope.getTags = function() {
+      $http.get('/api/tags/all')
+          .then( function(res){
+            $scope.tags = [];
+            $scope.tags = res.data;
+            $ionicLoading.hide();
+          })
+          .catch( function(err){
+            alert("something went wrong please try again, or reload the page")
+          })
+    }
+    
+    $scope.chooseTag = function(tag) {
+      var idx = $scope.template.tags.indexOf(tag);
+      if(idx > -1) {
+          $scope.template.tags.splice(idx, 1);
+      } else {
+          $scope.template.tags.push(tag);
+      }
+    }
+    
+    $scope.clickChangeTag = function() {
+      // $scope.user.cancelPlan = false;
+      var popup = $ionicPopup.show({
+        cssClass: 'invite-new-member-popup',
+        templateUrl: '../templates/tagPopup.html',
+        title: 'Select Tag',
+        scope: $scope
+      });
+      
+      popup.then(function(res) {
+        console.log('Tapped!', res);
+      });
+      
+      $scope.closeTagPopup = function() {
+        popup.close();
+      };   
+    }
+    
+    $scope.saveTemplate = function() {
+      if(!$scope.template.name || !$scope.template.tags.length > 0 || !$scope.template.price || !$scope.template.description) {
+        $ionicLoading.show({ template: 'Template information is not enough. Please fill the blank field!', noBackdrop: true, duration: 1500 });
+        return;
+      }
+      $ionicLoading.show();
+
+      var user = JSON.parse(localStorage.getItem('user'));
+      $scope.template.userId = user._id;
+      $http.post('/api/templates/', $scope.template)
+          .then(function(res){            
+            $ionicLoading.hide();
+            $scope.template = {
+              tags: [],
+              name: '',
+              price: 0,
+              description: '',
+              folders: [],
+              nuggets: []
+            };
+            $scope.getTemplates();
+            $scope.clickHomeView('list');
+          })
+          .catch( function(err){
+            alert("something went wrong please try again.")
+          })   
+    }
+    
+    $scope.saveTemplate = function() {
+      
+    }
+    $scope.getTempaltes = function() {
       $ionicLoading.show();
       $http.get('/api/templates/all').then(function(data){
         $ionicLoading.hide();
@@ -1771,6 +1852,19 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
         $ionicLoading.hide();
         alert('something went wrong please try again');
       });
+    }
+    
+    $scope.removeTemplate = function(template) {
+      $ionicLoading.show();
+      template.status = "approved";
+      $http.delete('/api/templates/'+template._id)
+          .then( function(res){
+            $ionicLoading.hide();
+            $scope.getTemplates();
+          })
+          .catch( function(err){
+            console.log("err", err);
+          })
     }
     
     $scope.clickApproveTemplate = function(template) {
@@ -1787,6 +1881,7 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
     }
     
     $scope.getTempaltes();
+    $scope.getTags();
   })
   
   .controller('adminTagsCtrl', function($scope, $ionicPopover, $ionicPopup, $state, $http, $ionicLoading){
