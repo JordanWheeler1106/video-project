@@ -1813,6 +1813,7 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
     }
     
     $scope.saveTemplate = function() {
+      console.log($scope.template);
       if(!$scope.template.name || !$scope.template.tags.length > 0 || !$scope.template.price || !$scope.template.description) {
         $ionicLoading.show({ template: 'Template information is not enough. Please fill the blank field!', noBackdrop: true, duration: 1500 });
         return;
@@ -1837,13 +1838,56 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
           })
           .catch( function(err){
             alert("something went wrong please try again.")
-          })   
+          })
     }
     
-    $scope.saveTemplate = function() {
+    $scope.createFolder = function(type) {
+      $scope.folder = { name: '', purpose: 0 }
       
+      var createFolder = $ionicPopup.show({
+       template: '<input type="text" ng-model="folder.name" autofocus>',
+       title: 'Enter Folder Name',
+       scope: $scope,
+       buttons: [
+         { text: 'Cancel' },
+         {
+           text: '<b>Save</b>',
+           type: 'button-positive',
+           onTap: function(e) {
+             if (!$scope.folder.name) {
+               //don't allow the user to close unless he enters wifi password
+               e.preventDefault();
+             } else {
+               $scope.folder.userId = JSON.parse(localStorage.getItem('user'))._id;
+               $scope.folder.parentId = type==0?'root':$scope.selectedFolder._id;
+               $scope.folder.strPath = "Home";
+               if(type > 0) {
+                //  for(var i = 1; i < $scope.listPosition.folderPath.length; i++)
+                //   $scope.folder.strPath += '/' + $scope.listPosition.folderPath[i].name;
+               }
+              //  console.log($scope.folder);
+              //  return $scope.folder.name;
+               $ionicLoading.show();
+               $http.post('/api/folders/', $scope.folder)
+                   .then( function(res){
+                     $scope.template.folders.push(res);
+                     console.log(res);
+                   })
+                   .catch( function(err){
+                     console.log("err", err);
+                     alert("something went wrong please try again.")
+                   })
+               return $scope.folder.name;
+             }
+           }
+         },
+       ]
+     });
+     createFolder.then(function(res) {
+       console.log('Tapped!', res);
+     });
     }
-    $scope.getTempaltes = function() {
+    $scope.getTemplates = function() {
       $ionicLoading.show();
       $http.get('/api/templates/all').then(function(data){
         $ionicLoading.hide();
@@ -1867,6 +1911,18 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
           })
     }
     
+    $scope.removeFolder = function(folder) {
+      $ionicLoading.show();
+      $http.delete('/api/folders/'+folder._id)
+          .then( function(res){
+            $ionicLoading.hide();
+            $scope.template.folders.splice($scope.template.folders.indexOf(folder), 1);
+          })
+          .catch( function(err){
+            console.log("err", err);
+          })
+    }
+    
     $scope.clickApproveTemplate = function(template) {
       $ionicLoading.show();
       template.status = "approved";
@@ -1880,7 +1936,7 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
           })
     }
     
-    $scope.getTempaltes();
+    $scope.getTemplates();
     $scope.getTags();
   })
   

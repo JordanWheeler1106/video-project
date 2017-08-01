@@ -74,7 +74,19 @@
               <input type="text" placeholder="Descripotion" ng-model="template.description">
             </label>
           </div>
-        </div><br>    
+        </div><br>
+        <div class="listItemsArea">
+          <div class="list">
+            <label class="item item-radio" ng-repeat="folder in template.folders" ng-checked="selectedFolder = folder">
+              <input type="radio" name="folder" />
+              <div class="item-content">
+                <span>{{folder.name}}</span>
+              </div>
+              <i class="radio-icon ion-checkmark"></i>
+              <i class="ion-ios-close-outline" ng-click="removeFolder(folder);">
+            </label>
+          </div>
+        </div>
         <div class="row">
           <div class="template-button-wrapper">
             <button type="button" class="cancel-btn" ng-click="templateView='list'">Cancel</button>
@@ -86,22 +98,22 @@
       <div class="col">
         <div class="rightContent" style="margin: 0px 50px;">
           <div class="list">          
-            <a class="item item-icon-left listFirst" ng-click="addWindow($event)">
+            <a class="item item-icon-left listFirst" ng-click="createFolder(0)">
               <i class="ion-ios-plus-outline"></i>
               Add Window
             </a>
             
-            <a class="item item-icon-left listFirst" ng-click="addPurpose($event)">
+            <a class="item item-icon-left listFirst" ng-click="createFolder(1)">
               <i class="ion-ios-plus-outline"></i>
               Add Purpose
             </a>
             
-            <a class="item item-icon-left listFirst" ng-click="addChapter($event)">
+            <a class="item item-icon-left listFirst" ng-click="createFolder(2)">
               <i class="ion-ios-plus-outline"></i>
               Add Chapter
             </a>
             
-            <a class="item item-icon-left listFirst" ng-click="addSection($event)">
+            <a class="item item-icon-left listFirst" ng-click="createFolder(3)">
               <i class="ion-ios-plus-outline"></i>
               Add Section
             </a>
