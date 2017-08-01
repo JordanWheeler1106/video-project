@@ -794,9 +794,9 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
     
   })
   //add nugget controller
-  .controller('nuggetCtrl', function($scope, $ionicPopover, $ionicPopup, $timeout, $state, $http, $ionicLoading){
+  .controller('nuggetCtrl', function($scope, $ionicPopover, $ionicPopup, $timeout, $state, $http, $ionicLoading){    
     $scope.listPosition = JSON.parse(localStorage.getItem("listPosition"));
-    $scope.currentFolderId = $scope.listPosition.currentFolderId;
+    $scope.currentFolderId = $scope.listPosition.currentFolderId?$scope.listPosition.currentFolderId:$scope.listPosition.currentFolder;
     $http.get('/api/prompts/all/' + $scope.currentFolderId).then(function(data){
       $scope.prompts = data.data;
     },function(err){
@@ -1050,12 +1050,51 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
     $scope.currentFolders = [];
     $scope.userNuggets = [];
     $scope.currentNuggets = [];
+    $scope.nuggetSearchResults = [];
 
     $scope.logout = function(){
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       $state.go('signin')
     };
+    
+    $scope.searchNuggets = function() {
+      if(!$scope.filter.search) return;
+      $ionicLoading.show();
+      var user = JSON.parse(localStorage.getItem('user'));
+      $http.post('/api/nuggets/search/', {search: $scope.filter.search, userId: user._id})
+          .then( function(res){
+            $scope.nuggetSearchResults = res.data;
+            $ionicLoading.hide();
+            var popup = $ionicPopup.show({
+              cssClass: 'invite-new-member-popup',
+              templateUrl: '../templates/nuggetSearchResult.html',
+              title: 'Search Result',
+              scope: $scope
+            });      
+            
+            popup.then(function(res) {
+              console.log('Tapped!', res);
+            });
+            
+            $scope.closeNuggetSearchResult = function() {
+              popup.close();
+            };             
+            
+          })
+          .catch( function(err){
+            alert("something went wrong please try again, or reload the page")
+          })        
+    }
+    
+    $scope.clickSearchNugget = function($event, nugget) {
+        $scope.closeNuggetSearchResult();
+        if(nugget)
+          localStorage.setItem("selectedNugget", JSON.stringify(nugget));
+        else
+          localStorage.removeItem("selectedNugget");
+        $state.go('addnugget');
+    }
     
     $scope.getTemplates = function() {
       var user = JSON.parse(localStorage.getItem('user'));
@@ -1075,20 +1114,20 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
           })
     }
     
-    // $scope.getTags = function() {
-    //   $http.get('/api/tags/all')
-    //       .then( function(res){
-    //         $scope.tags = res.data;
-    //         $scope.getTemplates();
-    //       })
-    //       .catch( function(err){
-    //         alert("something went wrong please try again, or reload the page")
-    //       })
-    // }
+    $scope.getTags = function() {
+      $http.get('/api/tags/all')
+          .then( function(res){
+            $scope.tags = res.data;
+            $scope.getTemplates();
+          })
+          .catch( function(err){
+            alert("something went wrong please try again, or reload the page")
+          })
+    }
 
     $scope.getFolders = function() {
       var user = JSON.parse(localStorage.getItem('user'));
-      // $scope.getTags();
+      $scope.getTags();
       if($scope.listPosition.currentFolder == "root") {
         $ionicLoading.show();
         $http.get('/api/folders/all/'+ user._id + '/root')
@@ -1192,7 +1231,7 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
         else
           localStorage.removeItem("selectedNugget");
         $state.go('addnugget');
-    }
+    }   
     
     $scope.clickFolder = function($event, folder) {      
       $scope.listPosition.strPath = `<span class="active" ng-click="clickFolder($event, 'root')" style="cursor:pointer;">Home</span>`;

@@ -1,0 +1,14 @@
+<span class="closeIcon" ng-click="closeNuggetSearchResult()"><i class="ion-android-close"></i></span>
+<ion-scroll zooming="true" direction="y"  style="max-height: 400px">
+  <div class="listItemsArea">
+    <div class="list">      
+      <label class="item" ng-repeat="nugget in nuggetSearchResults" ng-click="clickSearchNugget($event, nugget);">
+        <span>{{nugget.parentId=='root'?'Home':nugget.parentId.strPath+'/'+nugget.parentId.name}}/{{nugget.name}}</span>
+      </label>
+      <p ng-show="nuggetSearchResults.length==0">No Results</p>
+    </div>
+    <div class="rightAreaButton">
+      <button type="button" class="saveBtn" ng-click="closeNuggetSearchResult()">Close</button>
+    </div>
+  </div>
+</ion-scroll>

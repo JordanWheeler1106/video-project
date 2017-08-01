@@ -10,7 +10,7 @@
           <div class="list list-inset">
             <label class="item item-input">
               <i class="fa fa-search placeholder-icon"></i>
-              <input type="text" placeholder="Search" ng-model="filter.search">
+              <input type="text" placeholder="Search" ng-model="filter.search" ng-keypress="($event.which===13) && searchNuggets()">
             </label>
           </div>
           <!-- <a href="javascript:" class="my-account-link">Upgrade Now</a> -->
@@ -137,7 +137,7 @@
           <div class="list">
             <a class="item item-icon-right header">
               <i ng-class="showTemplateStore?'ion-minus':'ion-plus'" ng-click="showTemplateStore=!showTemplateStore" ng-init="showTemplateStore=false"></i>
-              <span class="firstName">Template Store</span>
+              <span class="firstName">Window Library</span>
             </a>
           </div>         
           
