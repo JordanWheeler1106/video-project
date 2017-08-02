@@ -144,7 +144,7 @@
           <div class="list" ng-show="showTemplateStore">
             <a class="item item-icon-right" ng-repeat="tmp in storeTemplates" style="cursor:pointer;">
               <span ng-click="clickTemplate(tmp)">{{tmp.name}}</span>
-              <i class="fa fa-plus-square-o" style="font-size: 20px"></i>
+              <i class="fa fa-plus-square-o" style="font-size: 20px" ng-click="clickAddTemplate(tmp)"></i>
             </a>
           </div>
         </div>

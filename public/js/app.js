@@ -1604,6 +1604,77 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
         $scope.clickHomeView('template');
     }
     
+    $scope.clickAddTemplate = function(template) {
+      var mongoObjectId = function () {
+          var timestamp = (new Date().getTime() / 1000 | 0).toString(16);
+          return timestamp + 'xxxxxxxxxxxxxxxx'.replace(/[x]/g, function() {
+              return (Math.random() * 16 | 0).toString(16);
+          }).toLowerCase();
+      };
+
+      template.folders.sort(function(a, b) {
+        return (a.strPath + '/' + a.name > b.strPath + '/' + b.name) ? 1: ((b.strPath + '/' + b.name > a.strPath + '/' + a.name) ? -1 : 0);
+      });
+      
+      var user = JSON.parse(localStorage.getItem('user'));
+      
+      var copyFolders = [];
+      var copyPrompts = [];
+      var folderIds = [];
+      var templateFolders = template.folders.slice(0);
+      for(var i = 0; i < templateFolders.length; i++)
+        folderIds.push(templateFolders[i]._id);
+      
+      $ionicLoading.show();      
+      $http.post('/api/prompts/getAll', {ids: folderIds})
+          .then(function(res){
+            var prompts = res.data;
+            for(var i = 0; i < templateFolders.length; i++) {
+              var folder = {
+                createdAt: templateFolders[i].createdAt,
+                name: templateFolders[i].name,
+                parentId: templateFolders[i].parentId,
+                purpose: templateFolders[i].purpose,
+                strPath: templateFolders[i].strPath,
+                updatedAt: templateFolders[i].updatedAt,
+                userId: templateFolders[i].userId,
+                _id: templateFolders[i]._id
+              }        
+              var folderId = mongoObjectId();
+              for(var j = i + 1; j < templateFolders.length; j++)
+                if(templateFolders[j].parentId == folder._id)
+                  templateFolders[j].parentId = folderId;
+              for(var j = 0; j < prompts.length; j++)
+                if(prompts[j].folder == folder._id) {
+                  copyPrompts.push({
+                    text: prompts[j].text,
+                    folder: folderId
+                  });
+                }
+              folder._id = folderId;
+              folder.userId = user._id;
+              copyFolders.push(folder);
+            }            
+            
+            $http.post('/api/folders/batch', {folders: copyFolders})
+                .then(function(res){
+                  $http.post('/api/prompts/batch', {prompts: copyPrompts})
+                      .then(function(res){                        
+                        $scope.getFolders();
+                      })
+                      .catch( function(err){
+                        alert("something went wrong please try again.")
+                      })                  
+                })
+                .catch( function(err){
+                  alert("something went wrong please try again.")
+                })
+          })
+          .catch( function(err){
+            alert("something went wrong please try again.")
+          })      
+    }
+    
     $scope.clickHomeView = function(view) {      
       if(view != 'template') {
         $scope.template = {

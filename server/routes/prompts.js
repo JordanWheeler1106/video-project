@@ -3,6 +3,13 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Prompt = require('./../models/prompt.model');
 
+router.post('/batch', function(req, res, next) {
+    Prompt.insertMany(req.body.prompts, function(err, prompts) {
+      if(err) return next(err);
+      res.json(prompts);
+    })
+});
+
 router.post('/', function(req, res){
     var id = req.body.id;
     var text = req.body.text;
@@ -27,6 +34,18 @@ router.get('/all/:id', function(req, res){
         return res.send([]);
     }
     Prompt.find({folder: id}, function(err, prompts){
+        if(err){
+            return res.status(404).json({message: "not found"});
+        }
+        else{
+            res.send(prompts);
+        }
+    })
+})
+
+router.post('/getAll', function(req, res){
+    var ids = req.body.ids;
+    Prompt.find({folder: { $in: ids}}, function(err, prompts){
         if(err){
             return res.status(404).json({message: "not found"});
         }
