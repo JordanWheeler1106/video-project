@@ -41,6 +41,13 @@ router.post('/', function(req, res, next) {
     })
 });
 
+router.post('/batch', function(req, res, next) {
+    Folder.insertMany(req.body.folders, function(err, folders) {
+      if(err) return next(err);
+      res.json(folders);
+    })
+});
+
 /* UPDATE Nugget */
 router.put('/:id', function(req, res, next) {
     if(req.body._id) delete req.body._id;
