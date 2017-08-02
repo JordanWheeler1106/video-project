@@ -1,8 +1,14 @@
-app.controller('personalInfoController', personalInfoController);
+app.controller('educationController', educationController);
 
-function personalInfoController($scope, $location, $ionicModal, $rootScope, PersonalInfo) {
+function educationController($scope, $location, $ionicModal, $rootScope, PersonalInfo){
     $scope.location = $location.path().split('/');
     $scope.location = $scope.location[$scope.location.length - 1];
+    
+    
+    PersonalInfo.getList(data => {
+        $scope.personalinfos = data;
+    });
+
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
         $scope.location = toState.url.replace('/', '');
     });
@@ -15,8 +21,4 @@ function personalInfoController($scope, $location, $ionicModal, $rootScope, Pers
     }).then(function (modal) {
         $scope.modal = modal;
     });
-
-
-
-
 }

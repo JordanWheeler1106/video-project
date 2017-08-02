@@ -189,49 +189,49 @@ app.config(function ($stateProvider) {
         .state('VitalInfo.PersonalInfo.PersonalInfo', {
             url: '/personal-info',
             templateUrl: '../js/vital-info/personal-info/personal-info/personal-info.template.html',
-            controller: 'personalInfoController',
+            controller: 'personalInformationController',
             cache: false
         })
         .state('VitalInfo.PersonalInfo.PlacesLived', {
             url: '/places-lived',
             templateUrl: '../js/vital-info/personal-info/places-lived/places-lived.template.html',
-            controller: 'personalInfoController',
+            controller: 'placesLivedController',
             cache: false
         })
         .state('VitalInfo.PersonalInfo.Education', {
             url: '/education',
             templateUrl: '../js/vital-info/personal-info/education/education.template.html',
-            controller: 'personalInfoController',
+            controller: 'educationController',
             cache: false
         })
         .state('VitalInfo.PersonalInfo.Employement', {
             url: '/employement',
             templateUrl: '../js/vital-info/personal-info/employement/employement.template.html',
-            controller: 'personalInfoController',
+            controller: 'employementController',
             cache: false
         })
         .state('VitalInfo.PersonalInfo.Military', {
             url: '/military',
             templateUrl: '../js/vital-info/personal-info/military/military.template.html',
-            controller: 'personalInfoController',
+            controller: 'militaryController',
             cache: false
         })
         .state('VitalInfo.PersonalInfo.Associations', {
             url: '/associations',
             templateUrl: '../js/vital-info/personal-info/associations/associations.template.html',
-            controller: 'personalInfoController',
+            controller: 'associationController',
             cache: false
         })
         .state('VitalInfo.PersonalInfo.Licences', {
             url: '/licences',
             templateUrl: '../js/vital-info/personal-info/licences/licences.template.html',
-            controller: 'personalInfoController',
+            controller: 'licenceController',
             cache: false
         })
         .state('VitalInfo.PersonalInfo.Awards', {
             url: '/awards',
             templateUrl: '../js/vital-info/personal-info/awards/awards.template.html',
-            controller: 'personalInfoController',
+            controller: 'awardController',
             cache: false
         });
 })
