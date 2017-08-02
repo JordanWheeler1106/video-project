@@ -7,7 +7,7 @@
       </label>
     </div>
     <div class="leftBox">
-      <div class="csv-download" ng-click="templateView='create'">
+      <div class="csv-download" ng-click="clickTemplateView('create')">
         <a>
           <i class="ion-ios-plus-outline"></i>
           Add Template
@@ -27,7 +27,7 @@
         </thead>
         <tbody>
           <tr class="user-table" ng-repeat="template in templates | filter: search">            
-            <td>{{template.name}}</td>
+            <td><a ng-click="clickTemplate(template);" style="cursor:pointer;">{{template.name}}</a></td>
             <td>${{template.price}}</td>
             <td>
               <ion-select class="template-tag-selection">
@@ -64,7 +64,7 @@
           </div>
           <div class="col col-20">
             <label class="item item-input">
-              <input type="number" placeholder="Price" ng-model="template.price">
+              <input type="number" placeholder="Price" ng-model="template.price" min="0">
             </label>
           </div>    
         </div>
@@ -80,13 +80,12 @@
             <ion-checkbox ng-repeat="folder in template.folders" ng-click="chooseFolder(folder);" ng-checked="selectedFolder==folder">
               <span>{{folder.strPath.replace("Home","")}}/{{folder.name}}</span>              
             </ion-checkbox>
-
-              <!-- <i class="ion-ios-close-outline" ng-click="removeFolder(folder);"> -->
+            <!-- <i class="ion-ios-close-outline" ng-click="removeFolder(folder._id);"></i> -->
           </div>
         </div>
         <div class="row">
           <div class="template-button-wrapper">
-            <button type="button" class="cancel-btn" ng-click="templateView='list'">Cancel</button>
+            <button type="button" class="cancel-btn" ng-click="clickTemplateView('list')">Cancel</button>
             <button type="button" class="save-btn" ng-click="saveTemplate()">Save</button>
           </div>
         </div>

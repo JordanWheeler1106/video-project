@@ -1817,6 +1817,11 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
       $scope.selectedFolder = folder;
     }
     
+    $scope.clickTemplate = function(template) {
+      $scope.template = template;
+      $scope.clickTemplateView('create', template);
+    }    
+    
     $scope.saveTemplate = function() {      
       if(!$scope.template.name || !$scope.template.tags.length > 0 || !$scope.template.price || !$scope.template.description) {
         $ionicLoading.show({ template: 'Template information is not enough. Please fill the blank field!', noBackdrop: true, duration: 1500 });
@@ -1827,22 +1832,43 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
       var user = JSON.parse(localStorage.getItem('user'));
       $scope.template.userId = user._id;
       $scope.template.status = "approved";
-      $http.post('/api/templates/', $scope.template)
-          .then(function(res){            
-            $ionicLoading.hide();
-            $scope.template = {
-              tags: [],
-              name: '',
-              price: 0,
-              description: '',
-              folders: [],
-              nuggets: []
-            };
-            $scope.getTemplates();
-          })
-          .catch( function(err){
-            alert("something went wrong please try again.")
-          })
+      if($scope.template._id) {
+        $http.put('/api/templates/'+$scope.template._id, $scope.template)
+            .then( function(res){
+              $ionicLoading.hide();
+              $scope.template = {
+                tags: [],
+                name: '',
+                price: 0,
+                description: '',
+                folders: [],
+                nuggets: []
+              };
+              $scope.getTemplates();
+              $scope.clickTemplateView('list', null);
+            })
+            .catch( function(err){
+              console.log("err", err);
+            })
+      } else {
+        $http.post('/api/templates/', $scope.template)
+            .then(function(res){            
+              $ionicLoading.hide();
+              $scope.template = {
+                tags: [],
+                name: '',
+                price: 0,
+                description: '',
+                folders: [],
+                nuggets: []
+              };
+              $scope.getTemplates();
+              $scope.clickTemplateView('list', null);
+            })
+            .catch( function(err){
+              alert("something went wrong please try again.")
+            })
+      }
     }
     
     $scope.createFolder = function(type) {
@@ -1886,6 +1912,7 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
                      $scope.template.folders.sort(function(a, b) {
                        return (a.strPath + '/' + a.name > b.strPath + '/' + b.name) ? 1: ((b.strPath + '/' + b.name > a.strPath + '/' + a.name) ? -1 : 0);
                      });
+                     console.log($scope.template.folders);
                      $ionicLoading.hide();
                    })
                    .catch( function(err){
@@ -1902,6 +1929,21 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
        console.log('Tapped!', res);
      });
     }
+    
+    $scope.clickTemplateView = function(view, template) {      
+        $scope.template = {
+          tags: [],
+          name: '',
+          price: 0,
+          description: '',
+          folders: [],
+          nuggets: []
+        };
+        if(template)
+          $scope.template = template;
+        $scope.templateView = view;
+    }
+    
     $scope.getTemplates = function() {
       $ionicLoading.show();
       $http.get('/api/templates/all').then(function(data){
@@ -1926,9 +1968,10 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
           })
     }
     
-    $scope.removeFolder = function(folder) {
+    $scope.removeFolder = function(folderId) {
+      console.log(folderId);
       $ionicLoading.show();
-      $http.delete('/api/folders/'+folder._id)
+      $http.delete('/api/folders/'+folderId)
           .then( function(res){
             $ionicLoading.hide();
             $scope.template.folders.splice($scope.template.folders.indexOf(folder), 1);
