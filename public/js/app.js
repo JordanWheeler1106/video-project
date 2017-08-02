@@ -748,7 +748,7 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
 
   })
 
-  .controller('addPromptCtrl', function($scope, $http, $stateParams, $ionicLoading){
+  .controller('addPromptCtrl', function($scope, $http, $state, $stateParams, $ionicLoading){
     $scope.id = $stateParams.id;
     $scope.prompts = [];    
     $scope.prompt = {};
@@ -790,6 +790,13 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
         $ionicLoading.hide();
         alert("something went wrong please try again, or reload the page")
       })
+    }
+    
+    $scope.logout = function(){
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      localStorage.removeItem('listPosition');
+      $state.go('signin')
     }
     
   })
@@ -1544,7 +1551,7 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
     }
     
     $scope.saveTemplate = function() {
-      if(!$scope.template.name || !$scope.template.tags.length > 0 || !$scope.template.price || !$scope.template.description) {
+      if(!$scope.template.name || !$scope.template.tags.length > 0 || $scope.template.price < 0 || !$scope.template.description) {
         $ionicLoading.show({ template: 'Template information is not enough. Please fill the blank field!', noBackdrop: true, duration: 1500 });
         return;
       }
@@ -1764,6 +1771,8 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
   .controller('adminTemplatesCtrl', function($scope, $ionicPopover, $ionicPopup, $state, $timeout, $http, $ionicLoading){
     $scope.templateView = "list";
     $scope.tags = [];
+    $scope.prompts = [];    
+    $scope.prompt = {};
     $scope.selectedFolder = null;
     $scope.template = {
       tags: [],
@@ -1820,10 +1829,10 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
     $scope.clickTemplate = function(template) {
       $scope.template = template;
       $scope.clickTemplateView('create', template);
-    }    
+    }
     
     $scope.saveTemplate = function() {      
-      if(!$scope.template.name || !$scope.template.tags.length > 0 || !$scope.template.price || !$scope.template.description) {
+      if(!$scope.template.name || !$scope.template.tags.length > 0 || $scope.template.price < 0 || !$scope.template.description) {
         $ionicLoading.show({ template: 'Template information is not enough. Please fill the blank field!', noBackdrop: true, duration: 1500 });
         return;
       }
@@ -1869,6 +1878,54 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
               alert("something went wrong please try again.")
             })
       }
+    }
+    $scope.openAddPrompt = function() {
+      if(!$scope.selectedFolder) {
+        $ionicLoading.show({ template: 'Please select folder!', noBackdrop: true, duration: 1500 });
+        return;
+      }
+      $scope.templateView = 'prompt';
+      $ionicLoading.show();
+      $scope.getPrompts();
+    }
+    
+    $scope.addprompt = function(e) {
+      if($scope.prompt.name) {
+        $ionicLoading.show();
+        var req = {
+          id: $scope.selectedFolder._id,
+          text: $scope.prompt.name
+        }
+        $http.post('/api/prompts', req)
+            .then( function(res){
+              $scope.prompt = {};
+              $scope.getPrompts();
+            })
+            .catch( function(err){
+              $ionicLoading.hide();
+              alert("something went wrong please try again, or reload the page")
+            })
+      }
+    }
+    $scope.getPrompts = function(){
+      $http.get('/api/prompts/all/'+$scope.selectedFolder._id).then(function(data){
+        $scope.prompts = data.data;
+        $ionicLoading.hide();
+      })
+      .catch(function(){
+        alert("something went wrong please try again, or reload the page")
+      })
+    }
+    
+    $scope.removePrompt = function(id){
+      $ionicLoading.show();
+      $http.delete('/api/prompts/'+id).then(function(data){
+        $scope.getPrompts();
+      })
+      .catch(function(){
+        $ionicLoading.hide();
+        alert("something went wrong please try again, or reload the page")
+      })
     }
     
     $scope.createFolder = function(type) {
@@ -1939,8 +1996,12 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
           folders: [],
           nuggets: []
         };
-        if(template)
+        if(template) {
           $scope.template = template;
+          $scope.template.folders.sort(function(a, b) {
+            return (a.strPath + '/' + a.name > b.strPath + '/' + b.name) ? 1: ((b.strPath + '/' + b.name > a.strPath + '/' + a.name) ? -1 : 0);
+          });
+        }
         $scope.templateView = view;
     }
     
@@ -1968,10 +2029,13 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
           })
     }
     
-    $scope.removeFolder = function(folderId) {
-      console.log(folderId);
+    $scope.removeFolder = function(folder) {
       $ionicLoading.show();
-      $http.delete('/api/folders/'+folderId)
+      if($scope.template.folders.length - 1 > $scope.template.folders.indexOf(folder) && $scope.template.folders[$scope.template.folders.indexOf(folder)+1].parentId == folder._id) {
+        $ionicLoading.show({ template: 'Please remove all folders in this folder!', noBackdrop: true, duration: 1500 });
+        return;
+      }
+      $http.delete('/api/folders/'+folder._id)
           .then( function(res){
             $ionicLoading.hide();
             $scope.template.folders.splice($scope.template.folders.indexOf(folder), 1);

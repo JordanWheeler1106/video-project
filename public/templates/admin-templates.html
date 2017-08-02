@@ -76,12 +76,25 @@
           </div>
         </div><br>
         <div class="row listItemsArea">
-          <div class="list">
+          <table class="table">
+            <tbody>            
+            <tr ng-repeat="folder in template.folders">
+              <td style="width:50px;">
+                <label class="checkbox">
+                 <input type="checkbox" ng-click="chooseFolder(folder);" ng-checked="selectedFolder==folder">
+                </label>
+              </td>
+              <td>{{folder.strPath.replace("Home","")}}/{{folder.name}}</td>
+              <td style="width:50px;"><i class="ion-ios-close-outline" ng-click="removeFolder(folder);"></i></td>
+            </tr>
+            </tbody>
+          </table>
+          <!-- <div class="list">
             <ion-checkbox ng-repeat="folder in template.folders" ng-click="chooseFolder(folder);" ng-checked="selectedFolder==folder">
               <span>{{folder.strPath.replace("Home","")}}/{{folder.name}}</span>              
             </ion-checkbox>
-            <!-- <i class="ion-ios-close-outline" ng-click="removeFolder(folder._id);"></i> -->
-          </div>
+            <i class="ion-ios-close-outline" ng-click="removeFolder(folder._id);"></i>
+          </div> -->
         </div>
         <div class="row">
           <div class="template-button-wrapper">
@@ -114,10 +127,56 @@
               Add Section
             </a>
             
-            <a class="item item-icon-left listFirst" ng-click="addPrompt($event)">
+            <a class="item item-icon-left listFirst" ng-click="openAddPrompt($event)">
               <i class="ion-ios-plus-outline"></i>
               Add Prompt
             </a>
+          </div>
+        </div>
+      </div>
+    </div>    
+  </div>
+  <div class="leftBox" ng-show="templateView=='prompt'">
+    <div class="csv-download" ng-click="templateView='create'">
+      <a>
+        <i class="ion-ios-arrow-back"></i>
+        Back
+      </a>
+    </div>
+    
+    <div class="row">
+      <div class="col col-75 firstRow">
+        <div class="quoteleftBox">
+          <div class="list tag-search-wrapper">
+            <label class="item item-input">
+              <input type="text" placeholder="Search" ng-model="promptSearch">
+              <i class="fa fa-search placeholder-icon"></i>
+            </label>
+          </div>
+          <div class="tableLinks">
+            <span class="active">Prompts</span>
+          </div>
+          <div class="quotes-list">
+            <div class="item" ng-repeat="prompt in prompts | filter: promptSearch">
+              {{prompt.text}}
+              <i class="ion-ios-close-outline" ng-click="removePrompt(prompt._id);"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="rightContent">
+          <div class="list">
+
+            <a class="item item-icon-left listFirst" ng-click="addprompt($event)">
+              <i class="ion-ios-plus-outline"></i>
+              Add New Prompt
+            </a>
+
+            <label class="item item-input">
+              <input type="text" placeholder="New Prompt" name="name" ng-model="prompt.name">
+            </label>
           </div>
         </div>
       </div>

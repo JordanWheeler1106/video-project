@@ -34,9 +34,9 @@ router.get('/:id', function(req, res, next) {
 });
 
 router.post('/search', function(req, res, next) {
-    Nugget.find({author: req.body.userId, parentId: "root", $or: [{ name: {$regex: ".*" + req.body.search + ".*" }}, {tags: {$elemMatch: {text: req.body.search}}}]}).exec(function (err, nuggets) {
+    Nugget.find({author: req.body.userId, parentId: "root", $or: [{ name: {$regex: ".*" + req.body.search + ".*" }}, {tags: {$elemMatch: {text: {$regex: ".*" + req.body.search + ".*" }}}}]}).exec(function (err, nuggets) {
         if (err) return next(err);
-        Nugget.find({author: req.body.userId, parentId: {$ne: "root"}, $or: [{ name: {$regex: ".*" + req.body.search + ".*" }}, {tags: {$elemMatch: {text: req.body.search}}}]}).populate('parentId').exec(function (err, childNuggets) {
+        Nugget.find({author: req.body.userId, parentId: {$ne: "root"}, $or: [{ name: {$regex: ".*" + req.body.search + ".*" }}, {tags: {$elemMatch: {text: {$regex: ".*" + req.body.search + ".*" }}}}]}).populate('parentId').exec(function (err, childNuggets) {
             if (err) return next(err);
             res.json(nuggets.concat(childNuggets));
         });        
