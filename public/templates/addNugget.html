@@ -65,13 +65,14 @@
               </label>
             </div>
           </li> -->
-          <li class="searchField"><a href="javascript:" class="linkNugget" ng-click="sidebar.prompt = true; sidebar.search = false" ng-class="{'active': sidebar.prompt}">Prompts </a></li>
+          <li class="searchField"><a href="javascript:" class="linkNugget" ng-click="sidebar.note = false; sidebar.prompt = true; sidebar.search = false" ng-class="{'active': sidebar.prompt}">Prompts </a></li>
+          <li class="searchField"><a href="javascript:" class="linkNugget" ng-click="sidebar.note = true; sidebar.prompt = false; sidebar.search = false" ng-class="{'active': sidebar.note}">Notes </a></li>
         </ul>
       </div>
     </div>
     <!--////////////////////////////// col ////////////////////////////////-->
     <div class="row rowSetting responsive-lg">
-      <div class="col firstRow" ng-class="(sidebar.prompt|| sidebar.search) ? 'col-75' : 'col-90'">
+      <div class="col firstRow" ng-class="(sidebar.note || sidebar.prompt|| sidebar.search) ? 'col-75' : 'col-90'">
         <form name="nuggetForm">          
           <!-- <textarea ng-model="nugget.content" id="add-nugget-textarea" placeholder="Start your nugget!" required></textarea> -->
           <!-- <div froala="froalaOptions" ng-model="nugget.content"></div> -->
@@ -81,6 +82,7 @@
 
       <ion-scroll zooming="true" direction="y" style="height: 100vh; width: 100%">
         <div ng-include="'../../templates/prompt.html'"></div>
+        <div ng-include="'../../templates/note.html'"></div>
         <div ng-include="'../../templates/searchResult.html'"></div>
       </ion-scroll>
 

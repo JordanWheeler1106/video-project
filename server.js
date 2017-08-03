@@ -30,6 +30,7 @@ app.use('/api/shares', require('./server/routes/shares'));
 app.use('/api/quotes', require('./server/routes/quotes'));
 app.use('/api/tags', require('./server/routes/tags'));
 app.use('/api/prompts', require('./server/routes/prompts'));
+app.use('/api/notes/', require('./server/routes/notes'));
 app.use('/api/templates', require('./server/routes/templates'));
 
 app.get('/*', function(req, res){

@@ -1,0 +1,10 @@
+<!--<ion-scroll zooming="true" direction="y" style="height: 100vh">-->
+<div class="col colSetting" ng-show="sidebar.note">
+  <ul class="list">
+    <li class="item headingList">Notes <i class="ion-close-round" ng-click="sidebar.note = false"></i></li>
+      <li ng-repeat = "note in notes" class="item">
+        {{note.text}}
+      </li>
+    </ul>
+  </div>
+<!--</ion-scroll>-->

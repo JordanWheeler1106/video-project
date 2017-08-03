@@ -72,6 +72,12 @@ app.config(function ($stateProvider) {
             controller: 'addPromptCtrl',
             cache: false
         })
+        .state('addnote', {
+            url: '/addnote?id',
+            templateUrl: '../templates/addNote.html',
+            controller: 'addNoteCtrl',
+            cache: false
+        })
         .state('account.profile', {
             url: '/profile',
             templateUrl: '../templates/profile.html',

@@ -800,6 +800,58 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
     }
     
   })
+  .controller('addNoteCtrl', function($scope, $http, $state, $stateParams, $ionicLoading){
+    $scope.id = $stateParams.id;
+    $scope.notes = [];    
+    $scope.note = {};
+    $scope.addnote = function(e){
+      if($scope.note.name && $scope.id) {
+        $ionicLoading.show();
+        var req = {
+          id: $scope.id,
+          text: $scope.note.name
+        }
+        $http.post('/api/notes', req)
+            .then( function(res){
+              $scope.note = {};
+              $scope.getNotes();
+              $ionicLoading.hide();
+            })
+            .catch( function(err){
+              $ionicLoading.hide();
+              alert("something went wrong please try again, or reload the page")
+            })
+      }
+    }
+    $scope.getNotes = function(){
+      $http.get('/api/notes/all/'+$scope.id).then(function(data){
+        $scope.notes = data.data;
+      })
+      .catch(function(){
+        alert("something went wrong please try again, or reload the page")
+      })
+    }
+    $scope.getNotes();
+    $scope.removeNote = function(id){
+      $ionicLoading.show();
+      $http.delete('/api/notes/'+id).then(function(data){
+        $ionicLoading.hide();
+        $scope.getNotes();
+      })
+      .catch(function(){
+        $ionicLoading.hide();
+        alert("something went wrong please try again, or reload the page")
+      })
+    }
+    
+    $scope.logout = function(){
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      localStorage.removeItem('listPosition');
+      $state.go('signin')
+    }
+    
+  })
   //add nugget controller
   .controller('nuggetCtrl', function($scope, $ionicPopover, $ionicPopup, $timeout, $state, $http, $ionicLoading){    
     $scope.listPosition = JSON.parse(localStorage.getItem("listPosition"));
@@ -809,11 +861,17 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
     },function(err){
       
     })
+
+    $http.get('/api/notes/all/' + $scope.currentFolderId).then(function(data){
+      $scope.notes = data.data;
+    },function(err){
+      
+    })
     if(!localStorage.getItem('token')){
       $state.go('signin')
     }
     //for toggling view.
-    $scope.sidebar = {prompt: false, search: false, showTags: false};
+    $scope.sidebar = {prompt: false, note: false, search: false, showTags: false};
     $scope.filter ={red: false};
     $scope.nuggetForm ={};
     $scope.nugget ={name: '', content: '', tags: [], parentId: $scope.currentFolderId};
@@ -1269,6 +1327,7 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
         $scope.settingTemplate = `<ion-popover-view class="popoverTable">
                                     <img src="../img/arrowUp_03.png" alt=""/>
                                     <ion-content ng-click = "addPrompt(`+index+`)">Add Prompts</ion-content>
+                                    <ion-content ng-click = "addNote(`+index+`)">Add Notes</ion-content>
                                     <ion-content ng-click="renameFolderNugget(`+index+`,'`+type+`')">Rename</ion-content>                              
                                     <ion-content ng-click="copyFolderNugget(`+index+`,'`+type+`')">Copy</ion-content>
                                     <ion-content ng-click="deleteFolderNugget(`+index+`,'`+type+`')">Delete</ion-content>
@@ -1365,6 +1424,11 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
       $scope.settingPopover.hide();
       var folder = $scope.currentFolders[index]._id;
       $state.go('addprompt', {id: folder});
+    }
+    $scope.addNote = function(index){
+      $scope.settingPopover.hide();
+      var folder = $scope.currentFolders[index]._id;
+      $state.go('addnote', {id: folder});
     }
     $scope.renameFolderNugget = function(index, type) {
       $scope.settingPopover.hide();
@@ -1627,6 +1691,7 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
       
       $ionicLoading.show();      
       $http.post('/api/prompts/getAll', {ids: folderIds})
+
           .then(function(res){
             var prompts = res.data;
             for(var i = 0; i < templateFolders.length; i++) {
