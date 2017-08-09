@@ -9,7 +9,7 @@ var Schema = mongoose.Schema;
 // create a schema
 var folderSchema = new Schema({
     name: String,
-    purpose: 0,    
+    purpose: 0,
     userId: {
         type: Schema.Types.ObjectId,
         ref: 'User'

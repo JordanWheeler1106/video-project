@@ -65,4 +65,11 @@ router.delete('/:id', function(req, res, next) {
     });
 });
 
+router.post('/batch/delete', function(req, res, next) {
+    Folder.remove({'_id':{'$in':req.body.folders}}, function(err, folder) {
+      if (err) return next(err);
+      res.json(folder);
+    });
+});
+
 module.exports = router;

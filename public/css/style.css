@@ -17,8 +17,7 @@
 	width: 15%;
 }
 
-.logo-Parent {
-	text-align: center;
+.logo-Parent {-align: center;
 	margin: 0 0 30px 0;
 }
 
@@ -629,8 +628,9 @@ form .list .item {
 	font-size: 30px;
 	color: #267abe;
 	position: relative;
-	top: 5px;
+	/*top: 5px;*/
 	left: 15px;
+	cursor: pointer;
 }
 
 .settingIcon {
@@ -3077,7 +3077,7 @@ form .list .item {
 }
 
 .fr-counter {
-	/*display: none !important;*/
+	display: none !important;
 }
 
 #editor>div::nth-last-child(2) {
@@ -3362,4 +3362,72 @@ form .list .item {
 .listItemsArea span {
 	margin: 0px;
 	text-align:left;
+}
+
+.listItemsArea td span {
+	text-align: center;
+	padding: 2px 5px;
+	border: 1px solid #267abe;
+	cursor: pointer;
+	color: #267abe;
+	font-size: 12px;
+}
+
+.adminTemplateList td {
+	border:none;
+}
+
+.padding2 {
+	padding-left: 60px !important;
+}
+
+.padding3 {
+	padding-left: 90px !important;	
+}
+
+.padding4 {
+	padding-left: 120px !important;	
+}
+
+.padding5 {
+	padding-left: 150px !important;	
+}
+
+.padding1 {
+	padding-left: 30px !important;	
+}
+
+.table .item-input i {
+	color: black;
+	font-weight: 700;
+}
+.folderInput {
+	padding: 0px !important;
+}
+
+.folderInput input{
+	margin-left: 25px;
+	border-left: 1px solid #ddd;
+	padding-left: 20px !important;
+	height: 50px;
+}
+
+.folderInput input.selected {
+	border: 2px solid orange !important;
+}
+
+.folderInput i.ion-0:before {
+	content: "W"
+}
+.folderInput i.ion-1:before {
+	content: "P"
+}
+.folderInput i.ion-2:before {
+	content: "C"
+}
+.folderInput i.ion-3:before {
+	content: "S"
+}
+.folderInput i.ion-4:before {
+	content: "N"
 }

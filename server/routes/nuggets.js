@@ -75,4 +75,11 @@ router.delete('/:id', function(req, res, next) {
     });
 });
 
+router.post('/batch/delete', function(req, res, next) {
+    Nugget.remove({'_id':{'$in':req.body.nuggets}}, function(err, nugget) {
+      if (err) return next(err);
+      res.json(nugget);
+    });
+});
+
 module.exports = router;

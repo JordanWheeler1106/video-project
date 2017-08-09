@@ -873,19 +873,11 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
     //for toggling view.
     $scope.sidebar = {prompt: false, note: false, search: false, showTags: false};
     $scope.filter ={red: false};
-    $scope.nuggetForm ={};
     $scope.nugget ={name: '', content: '', tags: [], parentId: $scope.currentFolderId};
     if(localStorage.getItem('selectedNugget')) {
       $scope.nugget = JSON.parse(localStorage.getItem('selectedNugget'));
     }
-    
-    $scope.froalaOptions = {
-        toolbarButtons : ["bold", "italic", "underline", "|", "align", "formatOL", "formatUL"],
-        toolbarButtonsXS: ["bold", "italic", "underline", "|", "align", "formatOL", "formatUL"],
-        toolbarButtonsSM: ["bold", "italic", "underline", "|", "align", "formatOL", "formatUL"],
-        toolbarButtonsMD: ["bold", "italic", "underline", "|", "align", "formatOL", "formatUL"]
-    };
-    
+
     $scope.folders = [];
 
     //model for tags
@@ -940,23 +932,6 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
         });
       }
     });
-
-
-    //list for prompts
-    $scope.lists = [
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar sem vitae turpis semper, eu molestie ex commodo. Fusce accumsan ultricies elementum, eu molestie ex commodo. Fusce accumsan ultricies elementum.',
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar sem vitae turpis semper, something here',
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar sem vitae turpis semper, eu molestie ex commodo. Fusce accumsan ultricies elementum.',
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar sem vitae turpis semper, eu molestie ex commodo.',
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Fusce accumsan ultricies elementum.',
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar sem vitae turpis semper, eu molestie ex commodo. Fusce accumsan ultricies elementum.',
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar sem vitae turpis semper, eu molestie ex commodo. Fusce accumsan ultricies elementum.',
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar sem vitae turpis semper, eu molestie ex commodo. Fusce accumsan ultricies elementum.',
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar sem vitae turpis semper, eu molestie ex commodo. Fusce accumsan ultricies elementum.',
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar sem vitae turpis semper, eu molestie ex commodo. Fusce accumsan ultricies elementum.',
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar sem vitae turpis semper,'
-    ];
-
     //popups.
     $scope.saveAndPublishPopup = function() {      
       var myPopup = $ionicPopup.show({
@@ -1326,8 +1301,8 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
       if(type == 'folder'){
         $scope.settingTemplate = `<ion-popover-view class="popoverTable">
                                     <img src="../img/arrowUp_03.png" alt=""/>
-                                    <ion-content ng-click = "addPrompt(`+index+`)">Add Prompts</ion-content>
-                                    <ion-content ng-click = "addNote(`+index+`)">Add Notes</ion-content>
+                                    <ion-content ng-click = "addPrompt(`+index+`)">Prompts</ion-content>
+                                    <ion-content ng-click = "addNote(`+index+`)">Notes</ion-content>
                                     <ion-content ng-click="renameFolderNugget(`+index+`,'`+type+`')">Rename</ion-content>                              
                                     <ion-content ng-click="copyFolderNugget(`+index+`,'`+type+`')">Copy</ion-content>
                                     <ion-content ng-click="deleteFolderNugget(`+index+`,'`+type+`')">Delete</ion-content>
@@ -1619,6 +1594,7 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
         $ionicLoading.show({ template: 'Template information is not enough. Please fill the blank field!', noBackdrop: true, duration: 1500 });
         return;
       }
+      
       $ionicLoading.show();
       if($scope.template._id) {
         var user = JSON.parse(localStorage.getItem('user'));
@@ -1664,7 +1640,7 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
     }
        
     $scope.clickTemplate = function(template) {
-        $scope.template = template;
+        $scope.template = template;  
         $scope.clickHomeView('template');
     }
     
@@ -1675,23 +1651,20 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
               return (Math.random() * 16 | 0).toString(16);
           }).toLowerCase();
       };
-
-      template.folders.sort(function(a, b) {
-        return (a.strPath + '/' + a.name > b.strPath + '/' + b.name) ? 1: ((b.strPath + '/' + b.name > a.strPath + '/' + a.name) ? -1 : 0);
-      });
       
       var user = JSON.parse(localStorage.getItem('user'));
       
       var copyFolders = [];
+      var copyNuggets = [];
       var copyPrompts = [];
       var folderIds = [];
       var templateFolders = template.folders.slice(0);
+      var templateNuggets = template.nuggets.slice(0);
       for(var i = 0; i < templateFolders.length; i++)
         folderIds.push(templateFolders[i]._id);
       
       $ionicLoading.show();      
       $http.post('/api/prompts/getAll', {ids: folderIds})
-
           .then(function(res){
             var prompts = res.data;
             for(var i = 0; i < templateFolders.length; i++) {
@@ -1702,7 +1675,7 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
                 purpose: templateFolders[i].purpose,
                 strPath: templateFolders[i].strPath,
                 updatedAt: templateFolders[i].updatedAt,
-                userId: templateFolders[i].userId,
+                userId: user._id,
                 _id: templateFolders[i]._id
               }        
               var folderId = mongoObjectId();
@@ -1716,6 +1689,17 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
                     folder: folderId
                   });
                 }
+              for(var j = 0; j < templateNuggets.length; j++)
+                if(templateNuggets[j].parentId == folder._id) {
+                  copyNuggets.push({
+                    _id: mongoObjectId(),
+                    name: templateNuggets[j].name,
+                    author: user._id,
+                    parentId: folderId,
+                    tags: templateNuggets[j].tags,
+                    content: templateNuggets[j].content
+                  })
+                }
               folder._id = folderId;
               folder.userId = user._id;
               copyFolders.push(folder);
@@ -1723,13 +1707,19 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
             
             $http.post('/api/folders/batch', {folders: copyFolders})
                 .then(function(res){
-                  $http.post('/api/prompts/batch', {prompts: copyPrompts})
+                  $http.post('/api/nuggets/batch', {nuggets: copyNuggets})
                       .then(function(res){                        
-                        $scope.getFolders();
+                        $http.post('/api/prompts/batch', {prompts: copyPrompts})
+                            .then(function(res){                        
+                              $scope.getFolders();
+                            })
+                            .catch( function(err){
+                              alert("something went wrong please try again.")
+                            })  
                       })
                       .catch( function(err){
                         alert("something went wrong please try again.")
-                      })                  
+                      })                                  
                 })
                 .catch( function(err){
                   alert("something went wrong please try again.")
@@ -1906,10 +1896,14 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
   
   .controller('adminTemplatesCtrl', function($scope, $ionicPopover, $ionicPopup, $state, $timeout, $http, $ionicLoading){
     $scope.templateView = "list";
+    $scope.sidebar = {showTags: false};
+    $scope.levelPlaceHolder = ["Window Name", "Purpose Name", "Chapter Name", "Section Name", "Nugget (name only)"]
     $scope.tags = [];
     $scope.prompts = [];    
     $scope.prompt = {};
-    $scope.selectedFolder = null;
+    $scope.nugget = {content: '', tags: []};
+    $scope.selectedFolder = {level: 4};
+    $scope.selectedIndex = 0;
     $scope.template = {
       tags: [],
       name: '',
@@ -1959,70 +1953,194 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
     }
     
     $scope.chooseFolder = function(folder) {
+      $(".folderInput input").removeClass("selected");
       $scope.selectedFolder = folder;
     }
+
     
     $scope.clickTemplate = function(template) {
       $scope.template = template;
+      for(var i = $scope.template.folders.length - 1; i >= 0; i--) {
+          $scope.template.folders[i].level = $scope.template.folders[i].strPath.split("/").length - 1;
+      }
+      for(var i = 0; i < $scope.template.nuggets.length; i++) {
+        for(var j = 0; j < $scope.template.folders.length; j++) 
+          if($scope.template.folders[j]._id == $scope.template.nuggets[i].parentId) {
+            $scope.template.nuggets[i].level = $scope.template.folders[j].level + 1;
+            $scope.template.nuggets[i].type = 'nugget';
+            
+            var index = $scope.template.folders.length;
+            for(var k = j + 1; k < $scope.template.folders.length; k++) {
+              if($scope.template.folders[k].level <= $scope.template.folders[j].level || ($scope.template.folders[k].type=='nugget' && $scope.template.folders[k].level-1 == $scope.template.folders[j].level)) {
+                index = k;
+                break;
+              }
+            }
+            $scope.template.folders.splice(index, 0, $scope.template.nuggets[i]);
+            break;
+          }
+      }
+      $scope.template.nuggets = [];
       $scope.clickTemplateView('create', template);
     }
     
+    $scope.validationTemplate = function() {
+      for(var i = 0; i < $scope.template.folders.length; i++) {
+        if(!$scope.template.folders[i].name) {
+          $ionicLoading.show({ template: 'Name field is required!', noBackdrop: true, duration: 1500 });
+          return false;
+        }
+        
+        if(i > 0 && $scope.template.folders[i].level != 4 && $scope.template.folders[i].level - $scope.template.folders[i-1].level > 1) {
+          $ionicLoading.show({ template: 'Ruls of Window Outlines failed!', noBackdrop: true, duration: 1500 });
+          return false;
+        }        
+      }
+      
+      return true;
+    }
+    
     $scope.saveTemplate = function() {      
-      if(!$scope.template.name || !$scope.template.tags.length > 0 || $scope.template.price < 0 || !$scope.template.description) {
-        $ionicLoading.show({ template: 'Template information is not enough. Please fill the blank field!', noBackdrop: true, duration: 1500 });
+      if(!$scope.validationTemplate()) {        
         return;
       }
+      
+      for(var i = 1; i < $scope.template.folders.length; i++) {
+        var count = $scope.template.folders[i].level - 1;
+        var strPath = "";
+        for(var j = i - 1; j >= 0; j--)
+          if(count == $scope.template.folders[j].level) {
+            if(!strPath)
+              strPath = $scope.template.folders[j].name;
+            else
+              strPath = $scope.template.folders[j].name + "/" + strPath
+              
+            if(count == 0) strPath = "Home/" + strPath;
+            count--;
+          }
+        for(var j = i - 1; j >= 0; j--)
+          if($scope.template.folders[j].level + 1 == $scope.template.folders[i].level) {
+            $scope.template.folders[i].parentId = $scope.template.folders[j]._id;
+            $scope.template.folders[i].strPath = strPath;
+            break;
+          }
+      }
+      
+      for(var i = $scope.template.folders.length - 1; i > 0; i--) {
+        if($scope.template.folders[i].type == 'nugget') {
+          delete $scope.template.folders[i].strPath;
+          delete $scope.template.folders[i].level;
+          delete $scope.template.folders[i].type;
+          $scope.template.nuggets.push($scope.template.folders[i]);
+          $scope.template.folders.splice(i, 1);
+        }
+      }
+      
       $ionicLoading.show();
-
       var user = JSON.parse(localStorage.getItem('user'));
+      $scope.template.name = $scope.template.folders[0].name;
       $scope.template.userId = user._id;
       $scope.template.status = "approved";
+      console.log($scope.template);
       if($scope.template._id) {
+        var folders = [], nuggets = [];
+        for(var i = 0; i < $scope.template.folders.length; i++)
+          folders.push($scope.template.folders[i]._id);
+        for(var i = 0; i < $scope.template.nuggets.length; i++)
+          nuggets.push($scope.template.nuggets[i]._id);
         $http.put('/api/templates/'+$scope.template._id, $scope.template)
             .then( function(res){
-              $ionicLoading.hide();
-              $scope.template = {
-                tags: [],
-                name: '',
-                price: 0,
-                description: '',
-                folders: [],
-                nuggets: []
-              };
-              $scope.getTemplates();
-              $scope.clickTemplateView('list', null);
+              $http.post('/api/folders/batch/delete', {folders: folders})
+                  .then(function(res){
+                    $http.post('/api/nuggets/batch/delete', {nuggets: nuggets})
+                        .then(function(res){
+                            $http.post('/api/folders/batch', {folders: $scope.template.folders})
+                                .then(function(res){
+                                  $http.post('/api/nuggets/batch', {nuggets: $scope.template.nuggets})
+                                      .then(function(res){                    
+                                        $ionicLoading.hide();
+                                        $scope.template = {
+                                          tags: [],
+                                          name: '',
+                                          price: 0,
+                                          description: '',
+                                          folders: [],
+                                          nuggets: []
+                                        };
+                                        $scope.getTemplates();
+                                        $scope.clickTemplateView('list', null);
+                                      })
+                                      .catch( function(err){
+                                        alert("something went wrong please try again.")
+                                      })                  
+                                })
+                                .catch( function(err){
+                                  alert("something went wrong please try again.")
+                                }) 
+                        })
+                        .catch( function(err){
+                          alert("something went wrong please try again.")
+                        }) 
+                  })
+                  .catch( function(err){
+                    alert("something went wrong please try again.")
+                  })                            
             })
             .catch( function(err){
               console.log("err", err);
             })
       } else {
         $http.post('/api/templates/', $scope.template)
-            .then(function(res){            
-              $ionicLoading.hide();
-              $scope.template = {
-                tags: [],
-                name: '',
-                price: 0,
-                description: '',
-                folders: [],
-                nuggets: []
-              };
-              $scope.getTemplates();
-              $scope.clickTemplateView('list', null);
+            .then(function(res){              
+              $http.post('/api/folders/batch', {folders: $scope.template.folders})
+                  .then(function(res){    
+                    $http.post('/api/nuggets/batch', {nuggets: $scope.template.nuggets})
+                        .then(function(res){                    
+                          $ionicLoading.hide();
+                          $scope.template = {
+                            tags: [],
+                            name: '',
+                            price: 0,
+                            description: '',
+                            folders: [],
+                            nuggets: []
+                          };
+                          $scope.getTemplates();
+                          $scope.clickTemplateView('list', null);
+                        })
+                        .catch( function(err){
+                          alert("something went wrong please try again.")
+                        })                  
+                  })
+                  .catch( function(err){
+                    alert("something went wrong please try again.")
+                  })
             })
             .catch( function(err){
               alert("something went wrong please try again.")
             })
       }
     }
-    $scope.openAddPrompt = function() {
-      if(!$scope.selectedFolder) {
-        $ionicLoading.show({ template: 'Please select folder!', noBackdrop: true, duration: 1500 });
-        return;
-      }
+    $scope.openAddPrompt = function(folder) {
+      $scope.selectedFolder = folder;
       $scope.templateView = 'prompt';
       $ionicLoading.show();
       $scope.getPrompts();
+    }
+    
+    $scope.saveAndBack = function() {
+      $scope.nugget.content = $('div#editor').froalaEditor('html.get');
+      $scope.template.folders[$scope.selectedIndex].tags = $scope.nugget.tags;
+      $scope.template.folders[$scope.selectedIndex].content = $scope.nugget.content;
+      $scope.templateView = 'create';
+    }
+    
+    $scope.openAddNugget = function(folder) {
+      $scope.selectedIndex = $scope.template.folders.indexOf(folder);    
+      $scope.nugget.content = folder.content;
+      $scope.nugget.tags = folder.tags;      
+      $scope.templateView = 'nugget';
+      $('div#editor').froalaEditor('html.set', $scope.nugget.content);
     }
     
     $scope.addprompt = function(e) {
@@ -2064,66 +2182,121 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
       })
     }
     
+    // $scope.moveUpFolder =  function(folder) {      
+    //   var index = $scope.template.folders.indexOf(folder);
+    //   $scope.template.folders.splice(index, 1);
+    //   $scope.template.folders.splice(index - 1, 0, folder);
+    // }
+    // 
+    // $scope.moveDownFolder =  function(folder) {
+    //   var index = $scope.template.folders.indexOf(folder);
+    //   $scope.template.folders.splice(index, 1);
+    //   $scope.template.folders.splice(index+1, 0, folder);
+    // }
+    
     $scope.createFolder = function(type) {
-      if(type > 0 && !$scope.selectedFolder) {
-        $ionicLoading.show({ template: 'Please select parent folder!', noBackdrop: true, duration: 1500 });
-        return;
-      }
-      if(type > 0 && type != $scope.selectedFolder.strPath.split("/").length) {
-        $ionicLoading.show({ template: 'Please select correct parent folder!', noBackdrop: true, duration: 1500 });
-        return;
-      }
-      $scope.folder = { name: '', purpose: 0 }
-      
-      var createFolder = $ionicPopup.show({
-       template: '<input type="text" ng-model="folder.name" autofocus>',
-       title: 'Enter Folder Name',
-       scope: $scope,
-       buttons: [
-         { text: 'Cancel' },
-         {
-           text: '<b>Save</b>',
-           type: 'button-positive',
-           onTap: function(e) {
-             if (!$scope.folder.name) {
-               //don't allow the user to close unless he enters wifi password
-               e.preventDefault();
-             } else {
-               $scope.folder.userId = JSON.parse(localStorage.getItem('user'))._id;
-               $scope.folder.parentId = type==0?'root':$scope.selectedFolder._id;
-               $scope.folder.strPath = "Home";
-               if(type > 0) {
-                 for(var i = 0; i < type; i++)
-                  $scope.folder.strPath += '/' + $scope.template.folders[$scope.template.folders.indexOf($scope.selectedFolder)-(type-i-1)].name;
-               }
-              //  console.log($scope.folder);
-              //  return $scope.folder.name;
-               $ionicLoading.show();
-               $http.post('/api/folders/', $scope.folder)
-                   .then( function(res){
-                     $scope.template.folders.push(res.data);
-                     $scope.template.folders.sort(function(a, b) {
-                       return (a.strPath + '/' + a.name > b.strPath + '/' + b.name) ? 1: ((b.strPath + '/' + b.name > a.strPath + '/' + a.name) ? -1 : 0);
-                     });
-                     console.log($scope.template.folders);
-                     $ionicLoading.hide();
-                   })
-                   .catch( function(err){
-                     console.log("err", err);
-                     alert("something went wrong please try again.")
-                   })
-               return $scope.folder.name;
-             }
-           }
-         },
-       ]
-     });
-     createFolder.then(function(res) {
-       console.log('Tapped!', res);
-     });
+        var mongoObjectId = function () {
+            var timestamp = (new Date().getTime() / 1000 | 0).toString(16);
+            return timestamp + 'xxxxxxxxxxxxxxxx'.replace(/[x]/g, function() {
+                return (Math.random() * 16 | 0).toString(16);
+            }).toLowerCase();
+        };
+        var index = $scope.template.folders.length;
+        for(var i = $scope.template.folders.indexOf($scope.selectedFolder)+1; i < $scope.template.folders.length; i++) {
+          if($scope.template.folders[i].level <= $scope.selectedFolder.level || ($scope.template.folders[i].type=='nugget' && $scope.template.folders[i].level-1 == $scope.selectedFolder.level)) {
+            index = i;
+            break;
+          }
+        }
+        if(type == 0) {
+          $scope.template.folders.splice(index, 0, {
+            _id: mongoObjectId(),
+            name: "",
+            userId: JSON.parse(localStorage.getItem('user'))._id,
+            parentId: "root",
+            strPath: "Home",
+            level: type
+          })
+        } else if(type == 4) {
+          $scope.template.folders.splice(index, 0, {
+            _id: mongoObjectId(),
+            name: "",
+            author: JSON.parse(localStorage.getItem('user'))._id,
+            parentId: $scope.selectedFolder._id,
+            strPath: "Home",
+            level: $scope.selectedFolder.level+1,
+            type: 'nugget',
+            tags: [],
+            content: ''
+          })
+        } else {
+          $scope.template.folders.splice(index, 0, {
+            _id: mongoObjectId(),
+            name: "",
+            userId: JSON.parse(localStorage.getItem('user'))._id,
+            parentId: $scope.selectedFolder._id,
+            strPath: "Home",
+            level: type
+          })
+        }
+    //   if(type > 0 && !$scope.selectedFolder) {
+    //     $ionicLoading.show({ template: 'Please select parent folder!', noBackdrop: true, duration: 1500 });
+    //     return;
+    //   }
+    //   if(type > 0 && type != $scope.selectedFolder.strPath.split("/").length) {
+    //     $ionicLoading.show({ template: 'Please select correct parent folder!', noBackdrop: true, duration: 1500 });
+    //     return;
+    //   }
+    //   $scope.folder = { name: '', purpose: 0 }
+    //   
+    //   var createFolder = $ionicPopup.show({
+    //    template: '<input type="text" ng-model="folder.name" autofocus>',
+    //    title: 'Enter Folder Name',
+    //    scope: $scope,
+    //    buttons: [
+    //      { text: 'Cancel' },
+    //      {
+    //        text: '<b>Save</b>',
+    //        type: 'button-positive',
+    //        onTap: function(e) {
+    //          if (!$scope.folder.name) {
+    //            //don't allow the user to close unless he enters wifi password
+    //            e.preventDefault();
+    //          } else {
+    //            $scope.folder.userId = JSON.parse(localStorage.getItem('user'))._id;
+    //            $scope.folder.parentId = type==0?'root':$scope.selectedFolder._id;
+    //            $scope.folder.strPath = "Home";
+    //            if(type > 0) {
+    //              for(var i = 0; i < type; i++)
+    //               $scope.folder.strPath += '/' + $scope.template.folders[$scope.template.folders.indexOf($scope.selectedFolder)-(type-i-1)].name;
+    //            }
+     // 
+    //            $ionicLoading.show();
+    //            $http.post('/api/folders/', $scope.folder)
+    //                .then( function(res){
+    //                  $scope.template.folders.push(res.data);
+    //                  $scope.template.folders.sort(function(a, b) {
+    //                    return (a.strPath + '/' + a.name > b.strPath + '/' + b.name) ? 1: ((b.strPath + '/' + b.name > a.strPath + '/' + a.name) ? -1 : 0);
+    //                  });
+    //                  console.log($scope.template.folders);
+    //                  $ionicLoading.hide();
+    //                })
+    //                .catch( function(err){
+    //                  console.log("err", err);
+    //                  alert("something went wrong please try again.")
+    //                })
+    //            return $scope.folder.name;
+    //          }
+    //        }
+    //      },
+    //    ]
+    //  });
+    //  createFolder.then(function(res) {
+    //    console.log('Tapped!', res);
+    //  });
     }
     
-    $scope.clickTemplateView = function(view, template) {      
+    $scope.clickTemplateView = function(view, template) {
         $scope.template = {
           tags: [],
           name: '',
@@ -2132,13 +2305,19 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
           folders: [],
           nuggets: []
         };
+        
+        $scope.createFolder(0);
+        
         if(template) {
           $scope.template = template;
-          $scope.template.folders.sort(function(a, b) {
-            return (a.strPath + '/' + a.name > b.strPath + '/' + b.name) ? 1: ((b.strPath + '/' + b.name > a.strPath + '/' + a.name) ? -1 : 0);
-          });
+          // $scope.template.folders.sort(function(a, b) {
+          //   return (a.strPath + '/' + a.name > b.strPath + '/' + b.name) ? 1: ((b.strPath + '/' + b.name > a.strPath + '/' + a.name) ? -1 : 0);
+          // });
         }
         $scope.templateView = view;
+        if(view == 'list') {
+          $scope.getTemplates();
+        }
     }
     
     $scope.getTemplates = function() {
@@ -2166,19 +2345,20 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
     }
     
     $scope.removeFolder = function(folder) {
-      $ionicLoading.show();
-      if($scope.template.folders.length - 1 > $scope.template.folders.indexOf(folder) && $scope.template.folders[$scope.template.folders.indexOf(folder)+1].parentId == folder._id) {
-        $ionicLoading.show({ template: 'Please remove all folders in this folder!', noBackdrop: true, duration: 1500 });
-        return;
-      }
-      $http.delete('/api/folders/'+folder._id)
-          .then( function(res){
-            $ionicLoading.hide();
-            $scope.template.folders.splice($scope.template.folders.indexOf(folder), 1);
-          })
-          .catch( function(err){
-            console.log("err", err);
-          })
+      $scope.template.folders.splice($scope.template.folders.indexOf(folder), 1);
+      // $ionicLoading.show();
+      // if($scope.template.folders.length - 1 > $scope.template.folders.indexOf(folder) && $scope.template.folders[$scope.template.folders.indexOf(folder)+1].parentId == folder._id) {
+      //   $ionicLoading.show({ template: 'Please remove all folders in this folder!', noBackdrop: true, duration: 1500 });
+      //   return;
+      // }
+      // $http.delete('/api/folders/'+folder._id)
+      //     .then( function(res){
+      //       $ionicLoading.hide();
+      //       $scope.template.folders.splice($scope.template.folders.indexOf(folder), 1);
+      //     })
+      //     .catch( function(err){
+      //       console.log("err", err);
+      //     })
     }
     
     $scope.clickApproveTemplate = function(template) {
