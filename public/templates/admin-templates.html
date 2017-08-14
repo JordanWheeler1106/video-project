@@ -10,7 +10,7 @@
       <div class="csv-download" ng-click="clickTemplateView('create')">
         <a>
           <i class="ion-ios-plus-outline"></i>
-          Add Template
+          Create Window
         </a>
       </div>
       
@@ -157,22 +157,22 @@
               Add Window
             </a> -->
             
-            <a class="item item-icon-left listFirst" ng-click="createFolder(1)" ng-show="selectedFolder.level == 0">
+            <a class="item item-icon-left listFirst" ng-click="createFolder(1)" ng-show="selectedFolder.level == 0 || selectedFolder.level == 1">
               <i class="ion-ios-plus-outline"></i>
               Purpose
             </a>
             
-            <a class="item item-icon-left listFirst" ng-click="createFolder(2)" ng-show="selectedFolder.level == 1 && selectedFolder.type != 'nugget'">
+            <a class="item item-icon-left listFirst" ng-click="createFolder(2)" ng-show="(selectedFolder.level == 2 || selectedFolder.level == 1) && selectedFolder.type != 'nugget'">
               <i class="ion-ios-plus-outline"></i>
               Chapter
             </a>
             
-            <a class="item item-icon-left listFirst" ng-click="createFolder(3)" ng-show="selectedFolder.level == 2 && selectedFolder.type != 'nugget'">
+            <a class="item item-icon-left listFirst" ng-click="createFolder(3)" ng-show="(selectedFolder.level == 3 || selectedFolder.level == 2) && selectedFolder.type != 'nugget'">
               <i class="ion-ios-plus-outline"></i>
               Section
             </a>
             
-            <a class="item item-icon-left listFirst" ng-click="createFolder(4)" ng-hide="selectedFolder.level == 4 || selectedFolder.type=='nugget'">
+            <a class="item item-icon-left listFirst" ng-click="createFolder(4)" ng-hide="selectedFolder.level == 0">
               <i class="ion-ios-plus-outline"></i>
               Nugget
             </a>

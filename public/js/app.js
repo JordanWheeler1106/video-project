@@ -1219,7 +1219,15 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
             console.log("err", err);
             alert("something went wrong please try again, or reload the page")
           })
-        $scope.getFolders();
+      $http.get('/api/folders/all/'+ user._id)
+          .then( function(res){
+            $scope.userFolders = res.data;
+          })
+          .catch( function(err){
+            console.log("err", err);
+            alert("something went wrong please try again, or reload the page")
+          })
+      $scope.getFolders();
     }
     else{
       $state.go('signin')
@@ -1543,17 +1551,38 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
         return true;
       return false;
     }
+    $scope.checkTemplateItem = function(item, type) {
+      if(type == 'folder') {
+        for(var i = 0; i < $scope.template.folders.length; i++)
+          if($scope.template.folders[i]._id == item._id)
+            return i;
+      } else if(type == 'nugget') {
+        for(var i = 0; i < $scope.template.nuggets.length; i++)
+          if($scope.template.nuggets[i]._id == item._id)
+            return i;
+      }
+      return -1;
+    }
     
     $scope.toggleSelection = function(item, type) {
+      delete item.$$hashKey;
       if(type == 'folder') {
-        var idx = $scope.template.folders.indexOf(item);
+        var idx = $scope.checkTemplateItem(item, type);
         if(idx > -1) {
             $scope.template.folders.splice(idx, 1);
-        } else {
+        } else {            
             $scope.template.folders.push(item);
+            for(var i = $scope.template.folders.indexOf(item); i < $scope.template.folders.length; i++) {
+              for(var j = 0; j < $scope.userFolders.length; j++)
+                if($scope.template.folders[i]._id == $scope.userFolders[j].parentId && $scope.template.folders.indexOf($scope.userFolders[j]) < 0)
+                  $scope.template.folders.push($scope.userFolders[j]);
+              for(var j = 0; j < $scope.userNuggets.length; j++)
+                if($scope.template.folders[i]._id == $scope.userNuggets[j].parentId && $scope.template.nuggets.indexOf($scope.userNuggets[j]) < 0)
+                  $scope.template.nuggets.push($scope.userNuggets[j]);
+            }
         }
       } else if(type == 'nugget') {
-        var idx = $scope.template.nuggets.indexOf(item);
+        var idx = $scope.checkTemplateItem(item, type);
         if(idx > -1) {
             $scope.template.nuggets.splice(idx, 1);
         } else {
@@ -1732,14 +1761,14 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
     
     $scope.clickHomeView = function(view) {      
       if(view != 'template') {
-        $scope.template = {
-          tags: [],
-          name: '',
-          price: 0,
-          description: '',
-          folders: [],
-          nuggets: []
-        };
+        // $scope.template = {
+        //   tags: [],
+        //   name: '',
+        //   price: 0,
+        //   description: '',
+        //   folders: [],
+        //   nuggets: []
+        // };
       }
       $scope.toggleView = view;
     }
@@ -1902,7 +1931,7 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
     $scope.prompts = [];    
     $scope.prompt = {};
     $scope.nugget = {content: '', tags: []};
-    $scope.selectedFolder = {level: 4};
+    $scope.selectedFolder = {level: 0};
     $scope.selectedIndex = 0;
     $scope.template = {
       tags: [],
@@ -2195,6 +2224,7 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
     // }
     
     $scope.createFolder = function(type) {
+        if(type > 0 && !$scope.selectedFolder._id) return;
         var mongoObjectId = function () {
             var timestamp = (new Date().getTime() / 1000 | 0).toString(16);
             return timestamp + 'xxxxxxxxxxxxxxxx'.replace(/[x]/g, function() {
@@ -2217,18 +2247,57 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
             strPath: "Home",
             level: type
           })
-        } else if(type == 4) {
-          $scope.template.folders.splice(index, 0, {
+        } else if(type == 1) {
+          var parentId = $scope.selectedFolder._id;
+          var folderId = mongoObjectId();
+          for(var i = 1; i <= 3; i++) {            
+            $scope.template.folders.splice(index + (i - 1), 0, {
+              _id: folderId,
+              name: "",
+              userId: JSON.parse(localStorage.getItem('user'))._id,
+              parentId: parentId,
+              strPath: "Home",
+              level: i
+            });
+            parentId = folderId;
+          }          
+          $scope.template.folders.splice(index + (i - 1), 0, {
             _id: mongoObjectId(),
             name: "",
             author: JSON.parse(localStorage.getItem('user'))._id,
-            parentId: $scope.selectedFolder._id,
+            parentId: parentId,
             strPath: "Home",
-            level: $scope.selectedFolder.level+1,
+            level: i,
             type: 'nugget',
             tags: [],
             content: ''
           })
+        } else if(type == 4) {
+          if($scope.selectedFolder.type == 'nugget') {
+            $scope.template.folders.splice(index, 0, {
+              _id: mongoObjectId(),
+              name: "",
+              author: JSON.parse(localStorage.getItem('user'))._id,
+              parentId: $scope.selectedFolder._id,
+              strPath: "Home",
+              level: $scope.selectedFolder.level,
+              type: 'nugget',
+              tags: [],
+              content: ''
+            })            
+          } else {
+            $scope.template.folders.splice(index, 0, {
+              _id: mongoObjectId(),
+              name: "",
+              author: JSON.parse(localStorage.getItem('user'))._id,
+              parentId: $scope.selectedFolder._id,
+              strPath: "Home",
+              level: $scope.selectedFolder.level+1,
+              type: 'nugget',
+              tags: [],
+              content: ''
+            })
+          }          
         } else {
           $scope.template.folders.splice(index, 0, {
             _id: mongoObjectId(),

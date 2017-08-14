@@ -6,7 +6,7 @@
     <tr ng-repeat="folder in currentFolders">
       <td>
         <label class="checkbox">
-         <input type="checkbox" ng-click="toggleSelection(folder, 'folder')" ng-checked="template.folders.indexOf(folder)>-1">
+         <input type="checkbox" ng-click="toggleSelection(folder, 'folder')" ng-checked="checkTemplateItem(folder, 'folder') > -1">
         </label>        
       </td>
       <td ng-click="clickFolder($event, folder)" style="cursor:pointer;"><i class="fa fa-folder-o" style="font-size: 20px"></i></td>
@@ -18,7 +18,7 @@
     <tr ng-repeat="nugget in currentNuggets">
       <td>
         <label class="checkbox">
-         <input type="checkbox" ng-click="toggleSelection(nugget, 'nugget')" ng-checked="template.nuggets.indexOf(nugget)>-1">
+         <input type="checkbox" ng-click="toggleSelection(nugget, 'nugget')" ng-checked="checkTemplateItem(nugget, 'nugget') > -1">
         </label>
       </td>
       <td ng-click="clickNugget($event, nugget)" style="cursor:pointer;"><i class="fa fa-file-text-o" style="font-size: 20px"></i></td>

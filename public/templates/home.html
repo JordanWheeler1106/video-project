@@ -73,8 +73,8 @@
       <div class="col">
         <div class="rightContent">
           <div class="list">
-            <a class="item item-icon-right header">
-              <i ng-class="showButtons?'ion-minus':'ion-plus'" ng-click="showButtons=!showButtons" ng-init="showButtons=false"></i>
+            <a class="item item-icon-right header" ng-click="showButtons=!showButtons" ng-init="showButtons=false">
+              <i ng-class="showButtons?'ion-minus':'ion-plus'"></i>
               <span class="firstName">Welcome back, {{user.firstName}}.</span>
             </a>            
           </div>
@@ -87,7 +87,7 @@
 
             <a class="item item-icon-left listFirst" ng-click="openCreateFolder($event)">
               <i class="ion-ios-plus-outline"></i>
-              Add a Folder
+              Create a Window
             </a>
             
             <a class="item item-icon-left listFirst toggleTemplateView" ng-click="clickHomeView('template')">
@@ -95,30 +95,30 @@
               Create a Template
             </a>
 
-            <a class="item item-icon-left listFirst" ng-click="">
+            <!-- <a class="item item-icon-left listFirst" ng-click="">
               <i class="ion-ios-plus-outline"></i>
               Upload a nugget
-            </a>
+            </a> -->
 
           </div>
           
           <div class="list">
-            <a class="item item-icon-right header">
-              <i ng-class="showRecent?'ion-minus':'ion-plus'" ng-click="showRecent=!showRecent" ng-init="showRecent=false"></i>
+            <a class="item item-icon-right header" ng-click="showRecent=!showRecent" ng-init="showRecent=false">
+              <i ng-class="showRecent?'ion-minus':'ion-plus'"></i>
               <span class="firstName">Or continue with a recent nugget:</span>
             </a>
           </div>          
           
           <div class="list" ng-show="showRecent">
 
-            <a class="item item-icon-left" ng-repeat="nugget in userNuggets" ng-click="clickNugget($event, nugget)" style="cursor:pointer;">
+            <a class="item item-icon-left" ng-repeat="nugget in userNuggets | limitTo:5" ng-click="clickNugget($event, nugget)" style="cursor:pointer;">
               <i class="fa fa-file-text-o" style="font-size: 20px"></i>
               [{{nugget.name}}]
             </a>
 
           </div>
           
-          <div class="list">
+          <!-- <div class="list">
             <a class="item item-icon-right header">
               <i ng-class="showMyTemplate?'ion-minus':'ion-plus'" ng-click="showMyTemplate=!showMyTemplate" ng-init="showMyTemplate=false"></i>
               <span class="firstName">My Template</span>
@@ -132,11 +132,11 @@
               <i ng-show="tmp.status=='submit'" title="Waiting for approval" class="fa fa-clock-o" style="font-size: 20px"></i>
               <i ng-show="tmp.status=='approved'" class="fa fa-thumbs-o-up" style="font-size: 20px"></i>
             </a>
-          </div>
+          </div> -->
           
           <div class="list">
-            <a class="item item-icon-right header">
-              <i ng-class="showTemplateStore?'ion-minus':'ion-plus'" ng-click="showTemplateStore=!showTemplateStore" ng-init="showTemplateStore=false"></i>
+            <a class="item item-icon-right header" ng-click="showTemplateStore=!showTemplateStore" ng-init="showTemplateStore=false">
+              <i ng-class="showTemplateStore?'ion-minus':'ion-plus'"></i>
               <span class="firstName">Window Library</span>
             </a>
           </div>         
