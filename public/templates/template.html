@@ -1,5 +1,5 @@
 <div class="leftBox" ng-show="template.folders.length > 0 || template.nuggets.length > 0">
-  <div class="row">    
+  <!-- <div class="row">    
     <div class="col col-40">
       <label class="item item-input">
         <input type="text" placeholder="Template Name" ng-model="template.name">
@@ -11,10 +11,6 @@
           <ion-option ng-show="template.tags.length == 0">Tags</ion-option>
           <ion-option ng-repeat="tag in template.tags"> {{tag.name}} </ion-option>
         </ion-select>
-        <!-- <select ng-model="template.topic">
-          <option value="" disabled selected>
-          <option ng-repeat="tag in tags" value="{{tag.text}}">{{tag.text}}</option>
-        </select> -->
       </label>
     </div>
     <div class="col col-20">
@@ -29,9 +25,9 @@
         <input type="text" placeholder="Descripotion" ng-model="template.description">
       </label>
     </div>
-  </div><br>
+  </div><br> -->
   
-  <div class="row">
+  <!-- <div class="row">
     <div class="col col-10" ng-repeat="folder in template.folders">
       <div class="template-item">
         <i class="fa fa-folder-o" style="font-size: 32px"></i><br>
@@ -46,7 +42,46 @@
         <p>{{nugget.name}}</p>
       </div>
     </div>
+  </div> -->
+  <div class="row listItemsArea">
+    <table class="table adminTemplateList">
+      <tbody>            
+      <tr ng-repeat="folder in template.folders">
+        <!-- <td style="width:50px;">
+          <label class="checkbox">
+            <input type="checkbox" ng-click="chooseFolder(folder);" ng-checked="selectedFolder==folder">
+          </label>
+        </td> -->
+        <td ng-class="'padding'+folder.level">
+          <label class="folderInput item item-input" ng-click="chooseFolder(folder);">
+            <i class="icon placeholder-icon" ng-class="folder.type=='nugget'?'ion-4':'ion-'+folder.level"></i>
+            <input type="text" ng-class="{'selected': folder==selectedFolder}" placeholder="{{levelPlaceHolder[folder.level]}}" ng-model="folder.name">
+          </label>
+        </td>
+        <td style="width:50px;">
+          <i ng-hide="folder.parentId=='root'" class="ion-ios-close-outline" ng-click="removeFolder(folder);"></i>
+        </td>
+        <!-- <td style="width:50px;">
+          <i ng-hide="folder.parentId=='root' || template.folders.indexOf(folder) <= 1" class="ion-arrow-up-c" ng-click="moveUpFolder(folder);"></i>
+        </td>
+        <td style="width:50px;">
+          <i ng-hide="folder.parentId=='root' || template.folders.indexOf(folder) >= template.folders.length - 1" class="ion-arrow-down-c" ng-click="moveDownFolder(folder);"></i>
+        </td> -->
+        <!-- <td style="width:30px;">
+          <span ng-hide="folder.level==4 || folder.type=='nugget'" ng-click="openAddPrompt(folder);">Pr</span>
+          <span ng-show="folder.type=='nugget'" ng-click="openAddNugget(folder);">E</span>
+        </td> -->
+      </tr>
+      </tbody>
+    </table>
+    <!-- <div class="list">
+      <ion-checkbox ng-repeat="folder in template.folders" ng-click="chooseFolder(folder);" ng-checked="selectedFolder==folder">
+        <span>{{folder.strPath.replace("Home","")}}/{{folder.name}}</span>              
+      </ion-checkbox>
+      <i class="ion-ios-close-outline" ng-click="removeFolder(folder._id);"></i>
+    </div> -->
   </div>
+  
   <div class="row">
     <div class="template-button-wrapper">
       <button type="button" class="cancel-btn" ng-click="clickHomeView('list')">Cancel</button>
