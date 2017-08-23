@@ -1416,8 +1416,19 @@ form .list .item {
 
 
 /*/////////////////////////////////////////////////////////*/
+.md-margin-10 {
+	border: 1px solid black;
+	margin: 10px;
+	width: 50%;
+}
 
 @media (min-width: 320px) and (max-width: 767px) {
+	.md-margin-10 {
+		border: 1px solid black;
+		margin: 10px;
+		width: calc(100% - 20px);
+	}
+	
 	.hide-on-sm {
 		display: none !important;
 	}
@@ -3091,12 +3102,13 @@ form .list .item {
 .quotes-list .item {
 	padding: 10px;
 	margin: 10px;
-	float: left;
+	/*float: left;*/
 }
 
 .quotes-list .item i {
 	font-size: 20px;
 	padding-left: 10px;
+	float: right;
 }
 
 .quoteleftBox {
@@ -3238,7 +3250,7 @@ form .list .item {
 	border-radius: 10px;
 }
 .vital-textarea textarea{
-	height: 90px !important;
+	/*height: 90px !important;*/
 }
 
 .flip-180 {
@@ -3352,7 +3364,7 @@ form .list .item {
 }
 
 .vital-textarea {
-	height:100px !important;
+	/*height:100px !important;*/
 }
 
 .float-right{
@@ -3430,4 +3442,11 @@ form .list .item {
 }
 .folderInput i.ion-4:before {
 	content: "N"
+}
+
+.delete-button {
+	font-size:16px;
+	text-align: center;
+	padding: 10px;
+	cursor:pointer;
 }

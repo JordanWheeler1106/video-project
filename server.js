@@ -8,7 +8,7 @@ var bodyParser = require('body-parser')
 var mongoose = require('mongoose');
 
 //mongoose.connect('mongodb://localhost/human-experience')
-    mongoose.connect('mongodb://admin:root@ds131099.mlab.com:31099/thehumexpdevelop')
+    mongoose.connect('mongodb://admin:root@ds151163.mlab.com:51163/thehumexpdevelop')
     .then(function(){
         console.log('connection successful')
     })
@@ -31,7 +31,16 @@ app.use('/api/quotes', require('./server/routes/quotes'));
 app.use('/api/tags', require('./server/routes/tags'));
 app.use('/api/prompts', require('./server/routes/prompts'));
 app.use('/api/notes/', require('./server/routes/notes'));
-app.use('/api/templates', require('./server/routes/templates'));
+app.use('/api/templates/', require('./server/routes/templates'));
+app.use('/api/vital-associations', require('./server/routes/vital-associations'));
+app.use('/api/vital-awards', require('./server/routes/vital-awards'));
+app.use('/api/vital-education', require('./server/routes/vital-education'));
+app.use('/api/vital-employment', require('./server/routes/vital-employment'));
+app.use('/api/vital-licences', require('./server/routes/vital-licences'));
+app.use('/api/vital-military', require('./server/routes/vital-military'));
+app.use('/api/vital-personal-info', require('./server/routes/vital-personal-info'));
+app.use('/api/vital-places-lived', require('./server/routes/vital-places-lived'));
+
 
 app.get('/*', function(req, res){
     res.render('index.html')

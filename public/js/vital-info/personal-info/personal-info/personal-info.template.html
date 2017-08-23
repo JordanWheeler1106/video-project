@@ -1,89 +1,111 @@
 <div class="hide-on-md">
 	<div class="list">
-		<a ng-click="modal.show()" class="item center-text">
+		<!-- ng-click="modal.show()" -->		
+		<a class="item center-text">
 			Personal Information
-            <i class="icon ion-ios-arrow-down vertical-middle"></i>
-            <i class="icon ion-ios-plus-outline blue-text float-right hand"><span style="font-size: 16px;padding-left:5px;">Save</span></i>
+      <i class="icon ion-ios-arrow-down vertical-middle"></i>
+      <i class="icon ion-ios-plus-outline blue-text float-right hand" ng-click="addItem();"><span style="font-size: 16px;padding-left:5px;">Add New</span></i>
 		</a>
 	</div>
 </div>
 <div class="hide-on-sm">
 	<div>
 		<div class="tableLinks">
-            <span class="active">Personal Information</span>
-            <i class="icon ion-ios-plus-outline blue-text float-right hand"><span class="padding-horizontal" style="font-size: 18px;">Save</span></i>
+      <span class="active">Personal Information</span>
+      <i class="icon ion-ios-plus-outline blue-text float-right hand" ng-click="addItem();"><span class="padding-horizontal" style="font-size: 18px;">Add New</span></i>
 		</div>
 	</div>
 </div>
-<div class="md-margin-10">
-    <div class="row responsive-md">
-        <div class="col col-33">
+<div class="md-margin-10 responsive-sm" ng-repeat = "personalinfo in personalinfos">
+    <div class="row">
+      <div class="col col-100">
+          <label class="item item-input">
+              <input type="text" placeholder="First Name" ng-model="personalinfo.firstName" ng-blur="updateData();">
+          </label>
+      </div>      
+    </div>
+		
+		<div class="row">
+      <div class="col col-100">
+          <label class="item item-input">
+              <input type="text" placeholder="Middle Name" ng-model="personalinfo.middleName" ng-blur="updateData();">
+          </label>
+      </div>
+    </div>
+		
+		<div class="row">
+      <div class="col col-100">
+          <label class="item item-input">
+              <input type="text" placeholder="Last Name" ng-model="personalinfo.lastName" ng-blur="updateData();">
+          </label>
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col col-100">
             <label class="item item-input">
-                <input type="text" placeholder="First Name">
+                <input type="date" placeholder="Birth Date" ng-model="personalinfo.birthDate" ng-blur="updateData();">
             </label>
         </div>
-        <div class="col col-33">
+    </div>
+		
+		<div class="row">
+        <div class="col col-100">
             <label class="item item-input">
-                <input type="text" placeholder="Middle Name">
+                <input type="text" placeholder="Birth City" ng-model="personalinfo.birthCity" ng-blur="updateData();">
             </label>
         </div>
-        <div class="col col-33">
+    </div>
+		
+		<div class="row">
+        <div class="col col-100">
             <label class="item item-input">
-                <input type="text" placeholder="Last Name">
+                <input placeholder="Birth State" type="text" ng-model="personalinfo.birthState" ng-blur="updateData();"/>
+
             </label>
         </div>
     </div>
 
-    <div class="row responsive-md">
-        <div class="col col-33">
+    <div class="row">
+        <div class="col col-100">
             <label class="item item-input">
-                <input type="text" onblur="this.value ? (this.type='date'):(this.type='text')" onfocus="(this.type='date')" placeholder="Birth Date">
+                <input type="date" placeholder="Death Date" ng-model="personalinfo.deathDate" ng-blur="updateData();">
+            </label>
+        </div>        
+    </div>
+		
+		<div class="row">
+        <div class="col col-100">
+            <label class="item item-input">
+                <input type="text" placeholder="Death City" ng-model="personalinfo.deathCity" ng-blur="updateData();">
             </label>
         </div>
-        <div class="col col-33">
+    </div>
+		
+		<div class="row">
+        <div class="col col-100">
             <label class="item item-input">
-                <input type="text" placeholder="Birth City">
-            </label>
-        </div>
-        <div class="col col-33">
-            <label class="item item-input">
-                <input placeholder="Birth State" type="text"/>
-
+                <input type="text" placeholder="Death State" ng-model="personalinfo.deathState" ng-blur="updateData();">
             </label>
         </div>
     </div>
 
-    <div class="row responsive-md">
-        <div class="col col-33">
-            <label class="item item-input">
-                <input  type="text" onblur="this.value ? (this.type='date'):(this.type='text')" onfocus="(this.type='date')" placeholder="Death Date">
-            </label>
-        </div>
-        <div class="col col-33">
-            <label class="item item-input">
-                <input type="text" placeholder="Death City">
-            </label>
-        </div>
-        <div class="col col-33">
-            <label class="item item-input">
-                <input type="text" placeholder="Death State">
-            </label>
-        </div>
-    </div>
-
-    <div class="row responsive-md">
-        <div class="col col-33" >
+    <div class="row">
+        <div class="col col-100" >
             <label class="item item-input item-select">
-                <select>
+                <select name="gender" ng-model="personalinfo.gender" ng-blur="updateData();">
                     <option value="" selected disabled>Gender</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
                 </select>
             </label>
         </div>
-        <div class="col col-33" >
+    </div>
+		
+		<div class="row">
+        <div class="col col-100" >
             <label class="item item-input item-select">
-                <select>
+                <select name="ethnicity" ng-model="personalinfo.ethnicity" ng-blur="updateData();">
                     <option value="" selected disabled>Ethnicity</option>
                     <option value="Caucasion">Caucasion</option>
                     <option value="African American">African American</option>
@@ -100,8 +122,17 @@
     <div class="row">
         <div class="col col-100">
             <label class="item item-input vital-textarea">
-                <textarea placeholder="Notes"></textarea>
+                <textarea placeholder="Notes" ng-model="personalinfo.notes" ng-blur="updateData();">{{personalinfo.notes}}</textarea>
             </label>
         </div>
+    </div>
+		
+		<div class="row">
+      <div class="col col-100">
+					<div class="delete-button" ng-click="removeItem(personalinfo);">
+						<i class="ion-ios-close-outline"></i>
+						Delete						
+					</div>
+      </div>
     </div>
 </div>

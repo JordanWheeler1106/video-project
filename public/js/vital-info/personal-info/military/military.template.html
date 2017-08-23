@@ -1,9 +1,10 @@
 <div class="hide-on-md">
 	<div class="list">
-		<a ng-click="modal.show()" class="item center-text">
+		<!-- ng-click="modal.show()" -->
+		<a class="item center-text">
 			Military
             <i class="icon ion-ios-arrow-down vertical-middle"></i>
-            <i class="icon ion-ios-plus-outline blue-text float-right hand"><span style="font-size: 16px;padding-left:5px;">Save</span></i>
+            <i class="icon ion-ios-plus-outline blue-text float-right hand" ng-click="addItem();"><span style="font-size: 16px;padding-left:5px;">Add New</span></i>
 		</a>
 	</div>
 </div>
@@ -11,15 +12,15 @@
 	<div>
 		<div class="tableLinks">
             <span class="active">Military</span>
-            <i class="icon ion-ios-plus-outline blue-text float-right hand"><span class="padding-horizontal" style="font-size: 18px;">Save</span></i>
+            <i class="icon ion-ios-plus-outline blue-text float-right hand" ng-click="addItem();"><span class="padding-horizontal" style="font-size: 18px;">Add New</span></i>
 		</div>
 	</div>
 </div>
-<div class="md-margin-10">
-    <div class="row responsive-md">
-        <div class="col col-33" >
+<div class="md-margin-10 responsive-sm" ng-repeat = "military in militarys">
+    <div class="row">
+        <div class="col col-100" >
             <label class="item item-input item-select">
-                <select>
+                <select ng-model="military.branch" ng-blur="updateData();">
                     <option value="" selected disabled>Branch</option>
                     <option value="Army">Army</option>
                     <option value="Navy">Navy</option>
@@ -29,78 +30,100 @@
                 </select>
             </label>
         </div>
-        <div class="col col-33">
+        <div class="col col-100">
             <label class="item item-input">
-                <input type="number" placeholder="Rank">
+                <input type="number" placeholder="Rank" ng-model="military.rank" ng-blur="updateData();">
             </label>
         </div>
-        <div class="col col-33">
+        <div class="col col-100">
             <label class="item item-input">
-                <input type="text" placeholder="Honors/Awards">
-            </label>
-        </div>
-    </div>
-
-    <div class="row responsive-md">
-        <div class="col col-33">
-            <label class="item item-input">
-                <input type="text" placeholder="Street">
-            </label>
-        </div>
-        <div class="col col-33">
-            <label class="item item-input">
-                <input type="text" placeholder="City">
-            </label>
-        </div>
-        <div class="col col-33">
-            <label class="item item-input">
-                <input type="text" placeholder="State">
+                <input type="text" placeholder="Honors/Awards" ng-model="military.awards" ng-blur="updateData();">
             </label>
         </div>
     </div>
-
-    <div class="row responsive-md">
-        <div class="col col-33">
-            <label class="item item-input">
-                <input type="text" placeholder="Zip Code">
-            </label>
-        </div>
-        <div class="col col-33">
-            <label class="item item-input">
-                <input type="text" placeholder="Country">
-            </label>
-        </div>
-        <div class="col col-33">
-            <label class="item item-input">
-                <input type="text" placeholder="Division">
-            </label>
-        </div>
-    </div>
-
-    <div class="row responsive-md">
-        <div class="col col-33">
-            <label class="item item-input">
-                <input  type="text" onblur="this.value ? (this.type='date'):(this.type='text')" onfocus="(this.type='date')" placeholder="Start Date">
-            </label>
-        </div>
-        <div class="col col-33">
-            <label class="item item-input">
-                <input  type="text" onblur="this.value ? (this.type='date'):(this.type='text')" onfocus="(this.type='date')" placeholder="End Date">
-            </label>
-        </div>
-    </div>
-
-    
 
     <div class="row">
         <div class="col col-100">
-            <label class="item item-input vital-textarea">
-                <textarea placeholder="Notes"></textarea>
+            <label class="item item-input">
+                <input type="text" placeholder="Street" ng-model="military.street" ng-blur="updateData();">
+            </label>
+        </div>
+		</div>
+		
+		<div class="row">
+        <div class="col col-100">
+            <label class="item item-input">
+                <input type="text" placeholder="City" ng-model="military.city" ng-blur="updateData();">
+            </label>
+        </div>
+		</div>
+		
+		<div class="row">
+        <div class="col col-100">
+            <label class="item item-input">
+                <input type="text" placeholder="State" ng-model="military.state" ng-blur="updateData();">
             </label>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col col-100">
+            <label class="item item-input">
+                <input type="text" placeholder="Zip Code" ng-model="military.zipcode" ng-blur="updateData();">
+            </label>
+        </div>
+		</div>
+		
+		<div class="row">
+        <div class="col col-100">
+            <label class="item item-input">
+                <input type="text" placeholder="Country" ng-model="military.country" ng-blur="updateData();">
+            </label>
+        </div>
+		</div>
+		
+		<div class="row">
+        <div class="col col-100">
+            <label class="item item-input">
+                <input type="text" placeholder="Division" ng-model="military.division" ng-blur="updateData();">
+            </label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col col-100">
+            <label class="item item-input">
+                <input  type="date" placeholder="Start Date" ng-model="military.startDate" ng-blur="updateData();">
+            </label>
+        </div>
+		</div>
+		
+		<div class="row">
+        <div class="col col-100">
+            <label class="item item-input">
+                <input  type="date" placeholder="End Date" ng-model="military.endDate" ng-blur="updateData();">
+            </label>
+        </div>
+    </div>
+		
+    <div class="row">
+        <div class="col col-100">
+            <label class="item item-input vital-textarea">
+                <textarea placeholder="Notes" ng-model="military.notes" ng-blur="updateData();">{{military.notes}}</textarea>
+            </label>
+        </div>
+    </div>
+		
+		<div class="row">
+      <div class="col col-100">
+					<div class="delete-button" ng-click="removeItem(military);">
+						<i class="ion-ios-close-outline"></i>
+						Delete						
+					</div>
+      </div>
+    </div>
 </div>
-<div style="width: 100%;" class="leftBox margin-bottom-25">
+<!-- <div style="width: 100%;" class="leftBox margin-bottom-25">
     <table class="table report">
         <tbody>
             <tr class="user-table">
@@ -117,4 +140,4 @@
             </tr>
         </tbody>
     </table>
-</div>
+</div> -->

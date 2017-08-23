@@ -8,80 +8,18 @@ app.factory('PersonalInfo', ['$http', function(){
     }
 
     function getList(callback){
-        var data =  [
-            {
-                firstName: "Mohsin",
-                middleName: "",
-                lastName: "Ammar",
-                birthDate: '02-Aug-17',
-                birthCity: 'Chakwal',
-                birthState: 'Punjab',
-                deathDate: '02-Aug-17',
-                deathCity: 'Chakwal',
-                deathState: 'Punjab',
-                gender : 'Male',
-                ethnicity: 'American'
-            },
-            {
-                firstName: "Mohsin",
-                middleName: "",
-                lastName: "Ammar",
-                birthDate: '02-Aug-17',
-                birthCity: 'Chakwal',
-                birthState: 'Punjab',
-                deathDate: '02-Aug-17',
-                deathCity: 'Chakwal',
-                deathState: 'Punjab',
-                gender : 'Male',
-                ethnicity: 'American'
-            },
-            {
-                firstName: "Mohsin",
-                middleName: "",
-                lastName: "Ammar",
-                birthDate: '02-Aug-17',
-                birthCity: 'Chakwal',
-                birthState: 'Punjab',
-                deathDate: '02-Aug-17',
-                deathCity: 'Chakwal',
-                deathState: 'Punjab',
-                gender : 'Male',
-                ethnicity: 'American'
-            },
-            {
-                firstName: "Mohsin",
-                middleName: "",
-                lastName: "Ammar",
-                birthDate: '02-Aug-17',
-                birthCity: 'Chakwal',
-                birthState: 'Punjab',
-                deathDate: '02-Aug-17',
-                deathCity: 'Chakwal',
-                deathState: 'Punjab',
-                gender : 'Male',
-                ethnicity: 'American'
-            },
-            {
-                firstName: "Mohsin",
-                middleName: "",
-                lastName: "Ammar",
-                birthDate: '02-Aug-17',
-                birthCity: 'Chakwal',
-                birthState: 'Punjab',
-                deathDate: '02-Aug-17',
-                deathCity: 'Chakwal',
-                deathState: 'Punjab',
-                gender : 'Male',
-                ethnicity: 'American'
-            }
-        ]
+        $http.get('/api/quotes/all')
+            .then( function(res){
+              $scope.quotes = [];
+              $scope.quotes = res.data;
+              $scope.timer = $interval(function() {              
+                $scope.quote = $scope.quotes[$scope.index % $scope.quotes.length].name;
+                $scope.index++;
+              }, 5000)
+            })
+            .catch( function(err){
+              alert("something went wrong please try again, or reload the page")
+            })
         callback(data);
     }
-
-
-
-
-
-
-
 }]);

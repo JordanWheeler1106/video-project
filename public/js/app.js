@@ -177,21 +177,21 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
                     .then( function(invite){                      
                       $ionicLoading.hide();
                       if(res.data.user.role=='admin')
-                        $state.go('admin.quotes');
+                        $state.go('admin.templates');
                       else
                         $state.go('home');
                     })
                     .catch( function(err){
                       $ionicLoading.hide();
                       if(res.data.user.role=='admin')
-                        $state.go('admin.quotes');
+                        $state.go('admin.templates');
                       else
                         $state.go('home');
                     })
               } else {
                 $ionicLoading.hide();
                 if(res.data.user.role=='admin')
-                  $state.go('admin.quotes');
+                  $state.go('admin.templates');
                 else
                   $state.go('home');
               }              
@@ -1079,7 +1079,7 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
     $scope.tags = [];
     $scope.filter = {};
     $scope.listPosition = {
-      strPath: `<span class="active" ng-click="clickFolder($event, 'root')">Home</span>`,
+      strPath: `<span class="active" ng-click="clickFolder($event, 'root')">WINDOWS</span>`,
       folderPath: ["Root"],
       currentFolder: "root",
       currentFolderId: "root"
@@ -1284,7 +1284,7 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
     }   
     
     $scope.clickFolder = function($event, folder) {      
-      $scope.listPosition.strPath = `<span class="active" ng-click="clickFolder($event, 'root')" style="cursor:pointer;">Home</span>`;
+      $scope.listPosition.strPath = `<span class="active" ng-click="clickFolder($event, 'root')" style="cursor:pointer;">WINDOWS</span>`;
       $scope.listPosition.currentFolder = folder;
       $scope.listPosition.currentFolderId = folder._id;      
       $scope.getFolders();
@@ -1508,7 +1508,7 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
              } else {
                $scope.folder.userId = JSON.parse(localStorage.getItem('user'))._id;
                $scope.folder.parentId = $scope.listPosition.currentFolder=='root'?$scope.listPosition.currentFolder:$scope.listPosition.currentFolder._id;
-               $scope.folder.strPath = "Home";
+               $scope.folder.strPath = "WINDOWS";
                if($scope.listPosition.currentFolder != 'root') {
                  for(var i = 1; i < $scope.listPosition.folderPath.length; i++)
                   $scope.folder.strPath += '/' + $scope.listPosition.folderPath[i].name;
@@ -1999,7 +1999,7 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
     $scope.prompts = [];    
     $scope.prompt = {};
     $scope.nugget = {content: '', tags: []};
-    $scope.selectedFolder = {level: 0};
+    $scope.selectedFolder = {level: -1};
     $scope.selectedIndex = 0;
     $scope.template = {
       tags: [],
@@ -2112,7 +2112,7 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
             else
               strPath = $scope.template.folders[j].name + "/" + strPath
               
-            if(count == 0) strPath = "Home/" + strPath;
+            if(count == 0) strPath = "WINDOWS/" + strPath;
             count--;
           }
         for(var j = i - 1; j >= 0; j--)
@@ -2301,7 +2301,7 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
         };
         var index = $scope.template.folders.length;
         for(var i = $scope.template.folders.indexOf($scope.selectedFolder)+1; i < $scope.template.folders.length; i++) {
-          if($scope.template.folders[i].level <= $scope.selectedFolder.level || ($scope.template.folders[i].type=='nugget' && $scope.template.folders[i].level-1 == $scope.selectedFolder.level)) {
+          if($scope.template.folders[i].level <= type || ($scope.template.folders[i].type=='nugget' && $scope.template.folders[i].level-1 == type)) {
             index = i;
             break;
           }
@@ -2312,34 +2312,45 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
             name: "",
             userId: JSON.parse(localStorage.getItem('user'))._id,
             parentId: "root",
-            strPath: "Home",
+            strPath: "WINDOWS",
             level: type
           })
         } else if(type == 1) {
-          var parentId = $scope.selectedFolder._id, folderId;
-          for(var i = 1; i <= 3; i++) {            
-            folderId = mongoObjectId();
-            $scope.template.folders.splice(index + (i - 1), 0, {
-              _id: folderId,
+          if($scope.selectedFolder.level >= 1) {
+            $scope.template.folders.splice(index, 0, {
+              _id: mongoObjectId(),
               name: "",
               userId: JSON.parse(localStorage.getItem('user'))._id,
+              parentId: $scope.selectedFolder._id,
+              strPath: "WINDOWS",
+              level: type
+            })
+          } else {
+            var parentId = $scope.selectedFolder._id, folderId;
+            for(var i = 1; i <= 3; i++) {            
+              folderId = mongoObjectId();
+              $scope.template.folders.splice(index + (i - 1), 0, {
+                _id: folderId,
+                name: "",
+                userId: JSON.parse(localStorage.getItem('user'))._id,
+                parentId: parentId,
+                strPath: "WINDOWS",
+                level: i
+              });
+              parentId = folderId;
+            }          
+            $scope.template.folders.splice(index + (i - 1), 0, {
+              _id: mongoObjectId(),
+              name: "",
+              author: JSON.parse(localStorage.getItem('user'))._id,
               parentId: parentId,
-              strPath: "Home",
-              level: i
-            });
-            parentId = folderId;
+              strPath: "WINDOWS",
+              level: i,
+              type: 'nugget',
+              tags: [],
+              content: ''
+            })
           }          
-          $scope.template.folders.splice(index + (i - 1), 0, {
-            _id: mongoObjectId(),
-            name: "",
-            author: JSON.parse(localStorage.getItem('user'))._id,
-            parentId: parentId,
-            strPath: "Home",
-            level: i,
-            type: 'nugget',
-            tags: [],
-            content: ''
-          })
         } else if(type == 4) {
           if($scope.selectedFolder.type == 'nugget') {
             $scope.template.folders.splice(index, 0, {
@@ -2347,7 +2358,7 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
               name: "",
               author: JSON.parse(localStorage.getItem('user'))._id,
               parentId: $scope.selectedFolder._id,
-              strPath: "Home",
+              strPath: "WINDOWS",
               level: $scope.selectedFolder.level,
               type: 'nugget',
               tags: [],
@@ -2359,7 +2370,7 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
               name: "",
               author: JSON.parse(localStorage.getItem('user'))._id,
               parentId: $scope.selectedFolder._id,
-              strPath: "Home",
+              strPath: "WINDOWS",
               level: $scope.selectedFolder.level+1,
               type: 'nugget',
               tags: [],
@@ -2372,7 +2383,7 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
             name: "",
             userId: JSON.parse(localStorage.getItem('user'))._id,
             parentId: $scope.selectedFolder._id,
-            strPath: "Home",
+            strPath: "WINDOWS",
             level: type
           })
         }

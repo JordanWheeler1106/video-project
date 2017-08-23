@@ -1,9 +1,10 @@
 <div class="hide-on-md">
 	<div class="list">
-		<a ng-click="modal.show()" class="item center-text">
+		<!-- ng-click="modal.show()" -->
+		<a class="item center-text">
 			Places Lived
             <i class="icon ion-ios-arrow-down vertical-middle"></i>
-            <i class="icon ion-ios-plus-outline blue-text float-right hand"><span style="font-size: 16px;padding-left:5px;">Save</span></i>
+            <i class="icon ion-ios-plus-outline blue-text float-right hand" ng-click="addItem();"><span style="font-size: 16px;padding-left:5px;">Add New</span></i>
 		</a>
 	</div>
 </div>
@@ -11,43 +12,55 @@
 	<div>
 		<div class="tableLinks">
             <span class="active">Places Lived</span>
-            <i class="icon ion-ios-plus-outline blue-text float-right hand"><span class="padding-horizontal" style="font-size: 18px;">Save</span></i>
+            <i class="icon ion-ios-plus-outline blue-text float-right hand" ng-click="addItem();"><span class="padding-horizontal" style="font-size: 18px;">Add New</span></i>
 		</div>
 	</div>
 </div>
-<div class="md-margin-10">
-    <div class="row responsive-md">
-        <div class="col col-33">
+<div class="md-margin-10 responsive-sm" ng-repeat = "placeslived in placesliveds">
+    <div class="row">
+        <div class="col col-100">
             <label class="item item-input">
-                <input type="text" placeholder="Street">
+                <input type="text" placeholder="Street" ng-model="placeslived.street" ng-blur="updateData();">
             </label>
         </div>
-        <div class="col col-33">
+		</div>
+
+		<div class="row">
+        <div class="col col-100">
             <label class="item item-input">
-                <input type="text" placeholder="City">
+                <input type="text" placeholder="City" ng-model="placeslived.city" ng-blur="updateData();">
             </label>
         </div>
-        <div class="col col-33">
+		</div>
+
+		<div class="row">
+        <div class="col col-100">
             <label class="item item-input">
-                <input type="text" placeholder="State">
+                <input type="text" placeholder="State" ng-model="placeslived.state" ng-blur="updateData();">
             </label>
         </div>
     </div>
 
-    <div class="row responsive-md">
-        <div class="col col-33">
+    <div class="row">
+        <div class="col col-100">
             <label class="item item-input">
-                <input type="text" placeholder="Zip Code">
+                <input type="text" placeholder="Zip Code" ng-model="placeslived.zipcode" ng-blur="updateData();">
             </label>
         </div>
-        <div class="col col-33">
+		</div>
+
+		<div class="row">
+        <div class="col col-100">
             <label class="item item-input">
-                <input type="text" placeholder="Country">
+                <input type="text" placeholder="Country" ng-model="placeslived.country" ng-blur="updateData();">
             </label>
         </div>
-        <div class="col col-33" >
+		</div>
+
+    <div class="row">
+        <div class="col col-100" >
             <label class="item item-input item-select">
-                <select>
+                <select ng-model="placeslived.type" ng-blur="updateData();">
                     <option value="" selected disabled>Type</option>
                     <option value="Single Family Home">Single Family Home</option>
                     <option value="Apartment">Apartment</option>
@@ -59,30 +72,40 @@
         </div>
     </div>
 
-    <div class="row responsive-md">
-        <div class="col col-33">
+    <div class="row">
+        <div class="col col-100">
             <label class="item item-input">
-                <input  type="text" onblur="this.value ? (this.type='date'):(this.type='text')" onfocus="(this.type='date')" placeholder="Start Date">
+                <input  type="date" placeholder="Start Date" ng-model="placeslived.startDate" ng-blur="updateData();">
             </label>
         </div>
-        <div class="col col-33">
-            <label class="item item-input">
-                <input  type="text" onblur="this.value ? (this.type='date'):(this.type='text')" onfocus="(this.type='date')" placeholder="End Date">
-            </label>
-        </div>
-    </div>
-
-    
+		</div>
 
     <div class="row">
         <div class="col col-100">
             <label class="item item-input">
-                <textarea placeholder="Notes"></textarea>
+                <input  type="date" placeholder="End Date" ng-model="placeslived.endDate" ng-blur="updateData();">
             </label>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col col-100">
+            <label class="item item-input">
+                <textarea placeholder="Notes" ng-model="placeslived.notes" ng-blur="updateData();">{{placeslived.notes}}</textarea>
+            </label>
+        </div>
+    </div>
+		
+		<div class="row">
+      <div class="col col-100">
+					<div class="delete-button" ng-click="removeItem(placeslived);">
+						<i class="ion-ios-close-outline"></i>
+						Delete						
+					</div>
+      </div>
+    </div>
 </div>
-<div style="width: 100%;" class="leftBox margin-bottom-25">
+<!-- <div style="width: 100%;" class="leftBox margin-bottom-25">
     <table class="table report">
         <tbody>
             <tr class="user-table">
@@ -97,4 +120,4 @@
             </tr>
         </tbody>
     </table>
-</div>
+</div> -->

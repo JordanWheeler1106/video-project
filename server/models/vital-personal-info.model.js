@@ -7,7 +7,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 // create a schema
-var personalInfoSchema = new Schema({
+var vitalPersonalInfoSchema = new Schema({
     user: {
         type: Schema.Types.ObjectId,
         ref: 'User'
@@ -22,13 +22,14 @@ var personalInfoSchema = new Schema({
     deathCity: String,
     deathState: String,
     gender: String,
-    ethnicity: String
+    ethnicity: String,
+    notes: String
 });
 
 
 // the schema is useless so far
 // we need to create a model using it
-var Nugget = mongoose.model('Nugget', nuggetSchema);
+var VitalPersonalInfo = mongoose.model('VitalPersonalInfo', vitalPersonalInfoSchema);
 
 // make this available to Nugget in our Node applications
-module.exports = Nugget;
+module.exports = VitalPersonalInfo;
