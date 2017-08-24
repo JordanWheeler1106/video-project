@@ -13,6 +13,8 @@ function awardController($scope, $location, $ionicModal, $rootScope, $http, $ion
             res.data[i].date = new Date(res.data[i].date);
           }
           $scope.awards = res.data;
+          if($scope.awards.length == 0)
+              $scope.addItem();
           $ionicLoading.hide();
         })
         .catch( function(err){
@@ -43,6 +45,8 @@ function awardController($scope, $location, $ionicModal, $rootScope, $http, $ion
       $http.delete('/api/vital-awards/'+award._id)
           .then( function(res){
             $scope.awards.splice($scope.awards.indexOf(award), 1);
+            if($scope.awards.length == 0)
+                $scope.addItem();
             $ionicLoading.hide();
           })
           .catch( function(err){

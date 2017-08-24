@@ -14,6 +14,8 @@ function employementController($scope, $location, $ionicModal, $rootScope, $http
             res.data[i].endDate = new Date(res.data[i].endDate);
           }
           $scope.employments = res.data;
+          if($scope.employments.length == 0)
+              $scope.addItem();
           $ionicLoading.hide();
         })
         .catch( function(err){
@@ -44,6 +46,8 @@ function employementController($scope, $location, $ionicModal, $rootScope, $http
       $http.delete('/api/vital-employment/'+employment._id)
           .then( function(res){
             $scope.employments.splice($scope.employments.indexOf(employment), 1);
+            if($scope.employments.length == 0)
+                $scope.addItem();
             $ionicLoading.hide();
           })
           .catch( function(err){

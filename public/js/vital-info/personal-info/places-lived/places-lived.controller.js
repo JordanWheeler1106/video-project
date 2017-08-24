@@ -14,6 +14,8 @@ function placesLivedController($scope, $location, $ionicModal, $rootScope, $http
             res.data[i].endDate = new Date(res.data[i].endDate);
           }
           $scope.placesliveds = res.data;
+          if($scope.placesliveds.length == 0)
+              $scope.addItem();
           $ionicLoading.hide();
         })
         .catch( function(err){
@@ -44,6 +46,8 @@ function placesLivedController($scope, $location, $ionicModal, $rootScope, $http
       $http.delete('/api/vital-places-lived/'+placeslived._id)
           .then( function(res){
             $scope.placesliveds.splice($scope.placesliveds.indexOf(placeslived), 1);
+            if($scope.placesliveds.length == 0)
+                $scope.addItem();
             $ionicLoading.hide();
           })
           .catch( function(err){

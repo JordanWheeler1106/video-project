@@ -14,6 +14,8 @@ function associationController($scope, $location, $ionicModal, $rootScope, $http
             res.data[i].endDate = new Date(res.data[i].endDate);
           }
           $scope.associations = res.data;
+          if($scope.associations.length == 0)
+              $scope.addItem();
           $ionicLoading.hide();
         })
         .catch( function(err){
@@ -44,6 +46,8 @@ function associationController($scope, $location, $ionicModal, $rootScope, $http
       $http.delete('/api/vital-associations/'+association._id)
           .then( function(res){
             $scope.associations.splice($scope.associations.indexOf(association), 1);
+            if($scope.associations.length == 0)
+                $scope.addItem();
             $ionicLoading.hide();
           })
           .catch( function(err){

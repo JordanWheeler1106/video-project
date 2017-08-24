@@ -88,7 +88,7 @@
         </div>
 		</div>
 		
-		<div class="row">
+		<!-- <div class="row">
         <div class="col col-100" >
             <label class="item item-input item-select">
                 <select ng-model="education.type" ng-blur="updateData();">
@@ -101,11 +101,12 @@
                 </select>
             </label>
         </div>
-    </div>
+    </div> -->
 
     <div class="row">
         <div class="col col-100">
             <label class="item item-input">
+								<span>Start Date</span>
                 <input  type="date" placeholder="Start Date" ng-model="education.startDate" ng-blur="updateData();">
             </label>
         </div>
@@ -114,6 +115,7 @@
 		<div class="row">
         <div class="col col-100">
             <label class="item item-input">
+								<span>End Date</span>
                 <input  type="date" placeholder="End Date" ng-model="education.endDate" ng-blur="updateData();">
             </label>
         </div>

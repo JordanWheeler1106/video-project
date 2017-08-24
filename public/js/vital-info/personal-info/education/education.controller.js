@@ -14,6 +14,8 @@ function educationController($scope, $location, $ionicModal, $rootScope, $http, 
             res.data[i].endDate = new Date(res.data[i].endDate);
           }
           $scope.educations = res.data;
+          if($scope.educations.length == 0)
+              $scope.addItem();
           $ionicLoading.hide();
         })
         .catch( function(err){
@@ -44,6 +46,8 @@ function educationController($scope, $location, $ionicModal, $rootScope, $http, 
       $http.delete('/api/vital-education/'+education._id)
           .then( function(res){
             $scope.educations.splice($scope.educations.indexOf(education), 1);
+            if($scope.educations.length == 0)
+                $scope.addItem();
             $ionicLoading.hide();
           })
           .catch( function(err){

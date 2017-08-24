@@ -14,6 +14,8 @@ function licenceController($scope, $location, $ionicModal, $rootScope, $http, $i
             res.data[i].endDate = new Date(res.data[i].endDate);
           }
           $scope.licencess = res.data;
+          if($scope.licencess.length == 0)
+              $scope.addItem();
           $ionicLoading.hide();
         })
         .catch( function(err){
@@ -44,6 +46,8 @@ function licenceController($scope, $location, $ionicModal, $rootScope, $http, $i
       $http.delete('/api/vital-licences/'+licences._id)
           .then( function(res){
             $scope.licencess.splice($scope.licencess.indexOf(licences), 1);
+            if($scope.licencess.length == 0)
+                $scope.addItem();
             $ionicLoading.hide();
           })
           .catch( function(err){

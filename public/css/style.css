@@ -3450,3 +3450,12 @@ form .list .item {
 	padding: 10px;
 	cursor:pointer;
 }
+
+.md-margin-10 input[type="date"] {
+	margin-left: 80px;
+}
+
+.md-margin-10 label span {
+	color: #aaa;
+	font-size:14px;
+}

@@ -30,11 +30,17 @@
                 </select>
             </label>
         </div>
+		</div>
+
+		<div class="row">
         <div class="col col-100">
             <label class="item item-input">
-                <input type="number" placeholder="Rank" ng-model="military.rank" ng-blur="updateData();">
+                <input type="text" placeholder="Rank" ng-model="military.rank" ng-blur="updateData();">
             </label>
         </div>
+		</div>
+
+		<div class="row">
         <div class="col col-100">
             <label class="item item-input">
                 <input type="text" placeholder="Honors/Awards" ng-model="military.awards" ng-blur="updateData();">
@@ -93,6 +99,7 @@
     <div class="row">
         <div class="col col-100">
             <label class="item item-input">
+								<span>Start Date</span>
                 <input  type="date" placeholder="Start Date" ng-model="military.startDate" ng-blur="updateData();">
             </label>
         </div>
@@ -101,6 +108,7 @@
 		<div class="row">
         <div class="col col-100">
             <label class="item item-input">
+								<span>End Date</span>
                 <input  type="date" placeholder="End Date" ng-model="military.endDate" ng-blur="updateData();">
             </label>
         </div>

@@ -13,6 +13,8 @@ function personalInformationController($scope, $location, $ionicModal, $rootScop
             res.data[i].deathDate = new Date(res.data[i].deathDate);
           }
           $scope.personalinfos = res.data;
+          if($scope.personalinfos.length == 0)
+              $scope.addItem();
           $ionicLoading.hide();
         })
         .catch( function(err){
@@ -43,6 +45,8 @@ function personalInformationController($scope, $location, $ionicModal, $rootScop
       $http.delete('/api/vital-personal-info/'+personalinfo._id)
           .then( function(res){
             $scope.personalinfos.splice($scope.personalinfos.indexOf(personalinfo), 1);
+            if($scope.personalinfos.length == 0)
+                $scope.addItem();
             $ionicLoading.hide();
           })
           .catch( function(err){

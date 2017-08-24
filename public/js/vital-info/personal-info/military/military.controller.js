@@ -14,6 +14,8 @@ function militaryController($scope, $location, $ionicModal, $rootScope, $http, $
             res.data[i].endDate = new Date(res.data[i].endDate);
           }
           $scope.militarys = res.data;
+          if($scope.militarys.length == 0)
+              $scope.addItem();
           $ionicLoading.hide();
         })
         .catch( function(err){
@@ -44,6 +46,8 @@ function militaryController($scope, $location, $ionicModal, $rootScope, $http, $
       $http.delete('/api/vital-military/'+military._id)
           .then( function(res){
             $scope.militarys.splice($scope.militarys.indexOf(military), 1);
+            if($scope.militarys.length == 0)
+                $scope.addItem();
             $ionicLoading.hide();
           })
           .catch( function(err){
