@@ -1677,6 +1677,7 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
               };
               $scope.getTemplates();
               $scope.clickHomeView('list');
+              $rootScope.$broadcast('scroll-top', {top: 1});
             })
             .catch( function(err){
               console.log("err", err);
@@ -1697,6 +1698,7 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
               };
               $scope.getTemplates();
               $scope.clickHomeView('list');
+              $rootScope.$broadcast('scroll-top', {top: 1});
             })
             .catch( function(err){
               alert("something went wrong please try again.")
@@ -1990,12 +1992,46 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
     $ionicLoading.show();
     $scope.getAllUsers();
   })
-  
-  .controller('adminTemplatesCtrl', function($scope, $ionicPopover, $ionicPopup, $state, $timeout, $http, $ionicLoading){
+  .controller('adminCtrl', function($scope, $state, $ionicScrollDelegate, $timeout) {
+    
+      if (!localStorage.getItem('token')) {
+          $state.go('signin')
+      }
+      $scope.logout = function () {
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          $state.go('signin')
+      }
+      
+      $scope.getScrollPosition = function(){         
+         var element = $('.follow-scroll'),
+             originalY = 200;
+         // Should probably be set in CSS; but here just for emphasis
+         element.css('position', 'relative');
+         var scrollTop = $ionicScrollDelegate.getScrollPosition().top;
+     
+         element.stop(false, false).animate({
+             top: scrollTop < originalY
+                     ? 0
+                     : scrollTop - originalY
+         }, 50);
+      }
+      
+      $scope.$on('scroll-top', function(event, args) {
+        if(args.top == 0) {
+          localStorage.setItem('scrollTop', $ionicScrollDelegate.getScrollPosition().top)
+        }
+        $timeout(function() {
+          $ionicScrollDelegate.scrollTo(0, args.top);
+        }, 0);
+      })
+  })
+  .controller('adminTemplatesCtrl', function($rootScope, $scope, $ionicScrollDelegate, $ionicPopover, $ionicPopup, $state, $timeout, $http, $ionicLoading){
     $scope.templateView = "list";
     $scope.sidebar = {showTags: false};
     $scope.levelPlaceHolder = ["Window Name", "Purpose Name", "Chapter Name", "Section Name", "Nugget (name only)"]
     $scope.tags = [];
+    $scope.isSaved = false;
     $scope.prompts = [];    
     $scope.prompt = {};
     $scope.nugget = {content: '', tags: []};
@@ -2009,6 +2045,15 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
       folders: [],
       nuggets: []
     };
+    
+    if(localStorage.getItem('template'))
+      $scope.template = JSON.parse(localStorage.getItem('template'));
+    
+    $scope.$on('$destroy', function( event ) {
+        if($scope.templateView == 'create' && !$scope.template._id) {
+          localStorage.setItem("template", JSON.stringify($scope.template));
+        }        
+    });
 
     $scope.getTags = function() {
       $http.get('/api/tags/all')
@@ -2138,7 +2183,6 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
       $scope.template.name = $scope.template.folders[0].name;
       $scope.template.userId = user._id;
       $scope.template.status = "approved";
-      console.log($scope.template);
       if($scope.template._id) {
         var folders = [], nuggets = [];
         for(var i = 0; i < $scope.template.folders.length; i++)
@@ -2223,6 +2267,7 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
       $scope.templateView = 'prompt';
       $ionicLoading.show();
       $scope.getPrompts();
+      $rootScope.$broadcast('scroll-top', {top: 0});
     }
     
     $scope.saveAndBack = function() {
@@ -2230,14 +2275,32 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
       $scope.template.folders[$scope.selectedIndex].tags = $scope.nugget.tags;
       $scope.template.folders[$scope.selectedIndex].content = $scope.nugget.content;
       $scope.templateView = 'create';
+      if(localStorage.getItem('scrollTop')) {
+        $rootScope.$broadcast('scroll-top', {top: parseInt(localStorage.getItem('scrollTop'))});
+        localStorage.removeItem('scrollTop');
+      }
+      else
+        $rootScope.$broadcast('scroll-top', {top: 0});
     }
     
-    $scope.openAddNugget = function(folder) {
+    $scope.openAddNugget = function(folder) {      
       $scope.selectedIndex = $scope.template.folders.indexOf(folder);    
       $scope.nugget.content = folder.content;
       $scope.nugget.tags = folder.tags;      
       $scope.templateView = 'nugget';
       $('div#editor').froalaEditor('html.set', $scope.nugget.content);
+      $rootScope.$broadcast('scroll-top', {top: 0});
+    }
+    
+    
+    $scope.clickPromptBack = function() {
+      if(localStorage.getItem('scrollTop')) {
+        $rootScope.$broadcast('scroll-top', {top: parseInt(localStorage.getItem('scrollTop'))});
+        localStorage.removeItem('scrollTop');
+      }
+      else
+        $rootScope.$broadcast('scroll-top', {top: 0});
+      $scope.templateView='create';
     }
     
     $scope.addprompt = function(e) {
@@ -2444,18 +2507,26 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
     //  });
     }
     
-    $scope.clickTemplateView = function(view, template) {
-        $scope.template = {
-          tags: [],
-          name: '',
-          price: 0,
-          description: '',
-          folders: [],
-          nuggets: []
-        };
-        
-        $scope.createFolder(0);
-        
+    $scope.cancelTemplate = function() {
+        localStorage.removeItem('template');        
+        $scope.clickTemplateView('list');
+        $rootScope.$broadcast('scroll-top', {top: 1});
+    }
+    $scope.createTemplate = function() {
+      $scope.template = {
+        tags: [],
+        name: '',
+        price: 0,
+        description: '',
+        folders: [],
+        nuggets: []
+      };      
+      $scope.createFolder(0);
+      if(localStorage.getItem('template'))
+        $scope.template = JSON.parse(localStorage.getItem('template'));
+      $scope.clickTemplateView('create');
+    }
+    $scope.clickTemplateView = function(view, template) {        
         if(template) {
           $scope.template = template;
           // $scope.template.folders.sort(function(a, b) {

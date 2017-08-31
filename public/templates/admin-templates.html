@@ -7,7 +7,7 @@
       </label>
     </div>
     <div class="leftBox">
-      <div class="csv-download" ng-click="clickTemplateView('create')">
+      <div class="csv-download" ng-click="createTemplate()">
         <a>
           <i class="ion-ios-plus-outline"></i>
           Create Window
@@ -143,14 +143,14 @@
         </div>
         <div class="row">
           <div class="template-button-wrapper">
-            <button type="button" class="cancel-btn" ng-click="clickTemplateView('list')">Cancel</button>
+            <button type="button" class="cancel-btn" ng-click="cancelTemplate()">Cancel</button>
             <button type="button" class="save-btn" ng-click="saveTemplate()">Save</button>
           </div>
         </div>
       </div>
     
       <div class="col">
-        <div class="rightContent" style="margin: 0px 50px;">
+        <div class="rightContent follow-scroll" style="margin: 0px 50px;">
           <div class="list">          
             <!-- <a class="item item-icon-left listFirst" ng-click="createFolder(0)">
               <i class="ion-ios-plus-outline"></i>
@@ -187,7 +187,7 @@
     </div>    
   </div>
   <div class="leftBox" ng-show="templateView=='prompt'">
-    <div class="csv-download" ng-click="templateView='create'">
+    <div class="csv-download" ng-click="clickPromptBack();">
       <a>
         <i class="ion-ios-arrow-back"></i>
         Back
@@ -196,7 +196,13 @@
     
     <div class="row">
       <div class="col col-75 firstRow">
-        <div class="quoteleftBox">
+        <div class="promptleftBox">
+          <div class="table row">
+            <label class="folderInput item item-input">
+              <i class="icon placeholder-icon" ng-class="selectedFolder.type=='nugget'?'ion-4':'ion-'+selectedFolder.level"></i>
+              <input type="text" class="selected" placeholder="{{levelPlaceHolder[selectedFolder.level]}}" value ="{{selectedFolder.name}}">
+            </label>
+          </div>
           <div class="list tag-search-wrapper">
             <label class="item item-input">
               <input type="text" placeholder="Search" ng-model="promptSearch">

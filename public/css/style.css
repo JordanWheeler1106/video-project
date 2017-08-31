@@ -624,7 +624,8 @@ form .list .item {
 	color: inherit;
 }
 
-.table td i {
+.table td i,
+.table .folderInput i {
 	font-size: 30px;
 	color: #267abe;
 	position: relative;
@@ -3117,8 +3118,22 @@ form .list .item {
 	margin: 25px 0 0 0;
 }
 
+.promptleftBox {
+	padding: 0px 20px 30px;
+	width: 95%;
+}
+
 .tag-search-wrapper {
 	width: 300px;
+}
+
+.promptleftBox .tag-search-wrapper {
+	padding: 5px;
+	margin-top: 20px;	
+}
+
+.promptleftBox .table .folderInput {
+	width: 100%;
 }
 
 .tag-search-wrapper i {

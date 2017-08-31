@@ -111,16 +111,8 @@ app.config(function ($stateProvider) {
         .state('admin', {
             url: '/admin',
             templateUrl: '../templates/admin.html',
-            controller: function ($scope, $state) {
-                if (!localStorage.getItem('token')) {
-                    $state.go('signin')
-                }
-                $scope.logout = function () {
-                    localStorage.removeItem('token');
-                    localStorage.removeItem('user');
-                    $state.go('signin')
-                }
-            }
+            controller: 'adminCtrl',
+            cache: false
         })
         .state('admin.plans', {
             url: '/plans',
