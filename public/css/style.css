@@ -1429,7 +1429,7 @@ form .list .item {
 		margin: 10px;
 		width: calc(100% - 20px);
 	}
-	
+
 	.hide-on-sm {
 		display: none !important;
 	}
@@ -3129,7 +3129,7 @@ form .list .item {
 
 .promptleftBox .tag-search-wrapper {
 	padding: 5px;
-	margin-top: 20px;	
+	margin-top: 20px;
 }
 
 .promptleftBox .table .folderInput {
@@ -3165,22 +3165,22 @@ form .list .item {
 }
 
 .template-button-wrapper {
-	width: 65%;
-	margin: 35px 0 0 17%;
-	/*padding: 35px 0 20px 0;*/
-	/*border-top: 1px solid #ccc;*/
-	float: left;
+	width: 100%;
+	margin: 35px 0 0 0;
+	/* padding: 35px 0 20px 0; */
+	/* border-top: 1px solid #ccc; */
+	/* float: left; */
 	text-align: center;
 }
 
 .template-button-wrapper .cancel-btn {
-	width: 40%;
-	float: left;
+	width: 30%;
+	/*float: left;*/
 }
 
 .template-button-wrapper .save-btn {
-	width: 40%;
-	float: right;
+	width: 30%;
+	/*float: right;*/
 }
 
 .template-button-wrapper button {
@@ -3192,7 +3192,7 @@ form .list .item {
 	font-family: 'Source Sans Pro', sans-serif;
 	font-weight: 700;
 	position: relative;
-	margin-top: 20px;
+	margin: 20px 10px 0px 10px;
 }
 
 .template-tag {
@@ -3409,19 +3409,19 @@ form .list .item {
 }
 
 .padding3 {
-	padding-left: 90px !important;	
+	padding-left: 90px !important;
 }
 
 .padding4 {
-	padding-left: 120px !important;	
+	padding-left: 120px !important;
 }
 
 .padding5 {
-	padding-left: 150px !important;	
+	padding-left: 150px !important;
 }
 
 .padding1 {
-	padding-left: 30px !important;	
+	padding-left: 30px !important;
 }
 
 .table .item-input i {
