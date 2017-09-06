@@ -62,6 +62,7 @@ app.config(function ($stateProvider) {
                 $scope.logout = function () {
                     localStorage.removeItem('token');
                     localStorage.removeItem('user');
+                    localStorage.removeItem('listPosition');
                     $state.go('signin')
                 }
             }
@@ -139,9 +140,27 @@ app.config(function ($stateProvider) {
             cache: false
         })
         .state('admin.users', {
-            url: '/quotes',
+            url: '/users',
             templateUrl: '../templates/admin-users.html',
             controller: 'adminUsersCtrl',
+            cache: false
+        })
+        .state('admin.userDetail', {
+            url: '/users?id',
+            templateUrl: '../templates/admin-user-detail.html',
+            controller: 'adminUserDetailCtrl',
+            cache: false
+        })
+        .state('admin.message', {
+            url: '/message',
+            templateUrl: '../templates/admin-message.html',
+            controller: 'adminMessageCtrl',
+            cache: false
+        })
+        .state('admin.sponsor', {
+            url: '/sponsor',
+            templateUrl: '../templates/admin-sponsor.html',
+            controller: 'adminSponsorCtrl',
             cache: false
         })
         .state('admin.stats', {

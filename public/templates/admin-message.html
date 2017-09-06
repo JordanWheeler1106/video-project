@@ -1,13 +1,13 @@
 <div class="row rowPadding responsive-lg">
   <div class="col firstRow">
-    <div class="list tag-search-wrapper">
+    <!-- <div class="list tag-search-wrapper">
       <label class="item item-input">        
         <input type="text" placeholder="Search" ng-model="search">
         <i class="fa fa-search placeholder-icon"></i>
       </label>
-    </div>
+    </div> -->
     <div class="leftBox">
-      <table class="table">
+      <!-- <table class="table">
         <thead>
           <tr>
             <td></td>
@@ -20,13 +20,13 @@
         <tbody>
           <tr ng-hide = "user.email == 'admin@humanexp.com'" class="user-table" ng-repeat="user in users | filter: search | orderBy: 'firstName'">
             <td style="padding: 0px;"><img style = "width:50px; border-radius: 50%; height:50px;" ng-src="{{user.photo}}" alt="profile"></td>
-            <td><a ng-click="clickUserDetail(user._id);" style="cursor:pointer;">{{user.firstName + ' ' + user.lastName}}</a></td>
+            <td><a ui-sref="admin.stats">{{user.firstName + ' ' + user.lastName}}</a></td>
             <td>{{user.status}}</td>
             <td style="font-size: 16px; color:black">{{user.lastLogin | date: 'MMMM d, yyyy'}}</td>
             <td><i class="ion-ios-gear-outline settingIcon" ng-click="openSettingPopover($event, user._id)"></i></td>
           </tr>
         </tbody>
-      </table>
+      </table> -->
     </div>
   </div>
 </div>

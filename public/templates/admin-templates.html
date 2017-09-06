@@ -136,8 +136,9 @@
                 <i ng-hide="folder.parentId=='root' || template.folders.indexOf(folder) >= template.folders.length - 1" class="ion-arrow-down-c" ng-click="moveDownFolder(folder);"></i>
               </td> -->
               <td style="width:30px;">
-                <span ng-hide="folder.level==4 || folder.type=='nugget'" ng-click="openAddPrompt(folder);">Pr</span>
-                <span ng-show="folder.type=='nugget'" ng-click="openAddNugget(folder);">E</span>
+                <span ng-click="openAddPrompt(folder);">Pr</span>
+                <!-- <span ng-hide="folder.level==4 || folder.type=='nugget'" ng-click="openAddPrompt(folder);">Pr</span>
+                <span ng-show="folder.type=='nugget'" ng-click="openAddNugget(folder);">E</span> -->
               </td>
             </tr>
             </tbody>

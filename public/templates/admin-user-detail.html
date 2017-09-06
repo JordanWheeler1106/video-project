@@ -1,0 +1,69 @@
+<div class="row rowPadding responsive-lg">
+  <div class="col">
+    <!-- <div class="list tag-search-wrapper">
+      <label class="item item-input">        
+        <input type="text" placeholder="Search" ng-model="search">
+        <i class="fa fa-search placeholder-icon"></i>
+      </label>
+    </div> -->
+    <h4>User Details</h4>
+    <div class="leftBox">
+      <div class="list">
+        <span><b>Member Name:</b> {{user.firstName}} {{user.lastName}}</span>
+      </div>
+      <div class="list">
+        <span><b>Email:</b> {{user.email}}</span>
+      </div>
+      <div class="list">
+        <span><b>Address:</b> {{user.address}}</span>
+      </div>
+      <div class="list">
+        <span><b>City:</b> {{user.city}}</span>
+      </div>
+      <div class="list">
+        <span><b>State:</b> {{user.state}}</span>
+      </div>
+      <div class="list">
+        <span><b>Zipcode:</b> {{user.zipcode}}</span>
+      </div>
+      <div class="list">
+        <span><b>Phone:</b> {{user.phone}}</span>
+      </div>
+      <div class="list">
+        <span><b>Cell Phone:</b> {{user.cellphone}}</span>
+      </div>
+      <div class="list">
+        <span><b>Date of Birth:</b> {{user.birth.split("T")[0]}}</span>
+      </div>
+      <div class="list">
+        <span><b>Gender:</b> {{user.gender}}</span>
+      </div>
+      <div class="list">
+        <span><b>Account Status:</b> {{user.status}}</span>
+      </div>
+      <div class="list">
+        <span><b>Selected Plan:</b> {{user.stripePlanId}}</span>
+      </div>
+      <div class="list">
+        <span><b>Billing Period:</b> {{user.billingPeriod}}</span>
+      </div>
+      <div class="list">
+        <span><b>Perpetuity Pricing:</b> {{user.perpetuity}}</span>
+      </div>
+      <div class="list">
+        <span><b>Data Pricing:</b> {{user.dataPrice}}</span>
+      </div>
+      <div class="list">
+        <span><b>Voice2Text Charges:</b> {{user.voice2textCharge}}</span>
+      </div>
+      <div class="list">
+        <span><b>Plan Credits:</b> {{user.planCredit}}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="user-detail-wrapper">
+        <button type="button" class="delete-btn" ng-click="deleteUser()">Delete</button>
+      </div>
+    </div>    
+  </div>
+</div>

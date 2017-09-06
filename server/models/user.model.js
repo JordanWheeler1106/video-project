@@ -87,8 +87,7 @@ var userSchema = new Schema({
     },
     resetPassword: Date,
     lastLogin: {
-        type: Date,
-        default: Date.now
+        type: Date
     },
     status: {
         type: String,

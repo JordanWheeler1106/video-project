@@ -266,7 +266,6 @@ router.post('/', function(req, res, next) {
     );    
 });
 
-/* LOGIN User */
 router.post('/login', function(req, res, next) {
     User.findOne({ email: req.body.email , status: 'active'}, function(err, user) {
         if (err) return next(err);

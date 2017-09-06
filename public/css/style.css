@@ -43,7 +43,7 @@
 
 .tabsNav ul li {
 	display: inline-block;
-	margin: 0 60px 0 0;
+	margin: 0 30px 0 0;
 }
 
 .tabsNav ul li a {
@@ -556,6 +556,13 @@ form .list .item {
 	padding: 30px 20px;
 	width: 95%;
 	margin: 25px 0 0 0;
+}
+
+.sponsorBox {
+	border: 1px solid #333;
+	border-radius: 5px;
+	padding: 2px !important;
+	margin: 1px !important;
 }
 
 .tableLinks {
@@ -3193,6 +3200,19 @@ form .list .item {
 	font-weight: 700;
 	position: relative;
 	margin: 20px 10px 0px 10px;
+}
+
+.user-detail-wrapper button {
+	background: none;
+	border: 1px solid #cccccc;
+	height: 45px;
+	color: black;
+	text-transform: uppercase;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-weight: 700;
+	position: relative;
+	margin: 20px 10px 0px 10px;
+	padding:10px 30px;
 }
 
 .template-tag {
