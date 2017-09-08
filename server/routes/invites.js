@@ -9,6 +9,10 @@ var mongoose = require('mongoose');
 var sendMail = require('./../components/email');
 var Invite = require('./../models/invite.model');
 var User = require('./../models/user.model');
+var aws = require('aws-sdk');
+aws.config.loadFromPath('config.json');
+var path = require('path');
+var EmailTemplate = require('email-templates').EmailTemplate;
 
 //TODO create auth middleware for checking authorizations.
 
@@ -67,15 +71,38 @@ router.post('/', function(req, res, next) {
             Invite.create(req.body, function (err, invite) {
                 if (err) return next(err);
                 if(invite) {
-                  var invitation_email = '<div>Yea!! "Customer Name" has invited you to join The Human Experience. Click the link below to start creating and sharing your life story!! :)</div><a href="user email clickable link">Accpet Invitation</a>';
-                  invitation_email = invitation_email.replace('user email clickable link', 'http://thehumexpdevelop.com/#/signup?token=' + invite._id);
+                  // var invitation_email = '<div>Yea!! "Customer Name" has invited you to join The Human Experience. Click the link below to start creating and sharing your life story!! :)</div><a href="user email clickable link">Accpet Invitation</a>';
+                  // invitation_email = invitation_email.replace('user email clickable link', 'http://thehumexpdevelop.com/#/signup?token=' + invite._id);
                   //send mail to user.
-                  sendMail({
-                      to: invite.email, // list of receivers
-                      subject: 'Invitation from Human Experience', // Subject line
-                      html: invitation_email
-                  });          
-                  res.json(invite);
+                  var templatesDir = path.resolve(__dirname, '../../public/templates/email');
+                  var template = new EmailTemplate(path.join(templatesDir, 'customer-refferal'));
+                  template.render({customer_name: invite.firstName+" "+invite.lastName, invite_code: invite._id}, function(err, tmp) {
+                      if(err) {
+                        return console.error(err);
+                      }
+                      var ses = new aws.SES({apiVersion: '2010-12-01'});
+        
+                      // this sends the email
+                      // @todo - add HTML version
+                      ses.sendEmail( {
+                         Source: "The Human Experience <admin@thehumanexperience.info>",
+                         Destination: { ToAddresses: [req.body.email] },
+                         Message: {
+                             Subject: {
+                                Data: 'Invitation from Human Experience'
+                             },
+                             Body: {
+                                 Html: {
+                                     Data: tmp.html,
+                                 }
+                              }
+                         }
+                      }
+                      , function(err, data) {
+                          if(err) throw err
+                          res.json(invite);
+                       });
+                  });
                 } else {
                   res.send(404);
                 }

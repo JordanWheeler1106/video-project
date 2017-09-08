@@ -10,7 +10,10 @@ var User = require('./../models/user.model.js');
 var sendMail = require('./../components/email');
 var aws = require('aws-sdk');
 var uuid = require('node-uuid');
+aws.config.loadFromPath('config.json');
 var stripe = require('stripe')('sk_test_5OkzLmaV7pKtbBpokhXYO8mX');
+var path = require('path');
+var EmailTemplate = require('email-templates').EmailTemplate;
 
 //TODO create auth middleware for checking authorizations.
 
@@ -33,15 +36,35 @@ router.get('/email/:id', function(req, res, next) {
             if(err) return next(err);
             if(user){
                 //mail template.
-                var reset_password = '<div>A request to reset your password has been requested and a link has been sent to the email on file. Select the link below to reset your password.</div><a href="user email clickable link">click here to redirect to reset password page</a>';
-                reset_password = reset_password.replace('user email clickable link', 'http://thehumexpdevelop.com/#/changePassword/' + user._id);
-                //send mail to user.
-                sendMail({
-                    to: email, // list of receivers
-                    subject: 'Reset Password!', // Subject line
-                    html: reset_password
+                var templatesDir = path.resolve(__dirname, '../../public/templates/email');
+                var template = new EmailTemplate(path.join(templatesDir, 'password-reset'));
+                template.render({reset_code: user._id}, function(err, tmp) {
+                    if(err) {
+                      return console.error(err);
+                    }
+                    var ses = new aws.SES({apiVersion: '2010-12-01'});
+
+                    // this sends the email
+                    // @todo - add HTML version
+                    ses.sendEmail( {
+                       Source: "The Human Experience <admin@thehumanexperience.info>",
+                       Destination: { ToAddresses: [email] },
+                       Message: {
+                           Subject: {
+                              Data: 'Reset Password'
+                           },
+                           Body: {
+                               Html: {
+                                   Data: tmp.html,
+                               }
+                            }
+                       }
+                    }
+                    , function(err, data) {
+                        if(err) throw err
+                        res.json({message: "Your request has been submitted please check your mail"});
+                     });
                 });
-                res.json({message: "Your request has been submitted please check your mail"});
             }
             else{
                 res.send(404)
@@ -249,17 +272,36 @@ router.post('/', function(req, res, next) {
                     return res.status(400).send({message: 'something went wrong.'});
                 }
                 //generate token for next 10 hours.
-                var welcome_email = '<div>Welcome to The Human Experience our goal is to help you document your life story and share with the world!</div>';
-                
-                //send mail to user.
-                sendMail({
-                    to: req.body.email, // list of receivers
-                    subject: 'Welcome to Humun Experience!', // Subject line
-                    html: welcome_email
+                var templatesDir = path.resolve(__dirname, '../../public/templates/email');
+                var template = new EmailTemplate(path.join(templatesDir, 'register'));
+                template.render({}, function(err, tmp) {
+                    if(err) {
+                      return console.error(err);
+                    }
+                    var ses = new aws.SES({apiVersion: '2010-12-01'});
+
+                    // this sends the email
+                    // @todo - add HTML version
+                    ses.sendEmail( {
+                       Source: "The Human Experience <admin@thehumanexperience.info>",
+                       Destination: { ToAddresses: [user.email] },
+                       Message: {
+                           Subject: {
+                              Data: 'Welcome to The Human Experience'
+                           },
+                           Body: {
+                               Html: {
+                                   Data: tmp.html,
+                               }
+                            }
+                       }
+                    }
+                    , function(err, data) {
+                        if(err) throw err
+                        var token = jwt.sign({_id: user._id }, 'human_exp', { expiresIn: "10h" });
+                        res.json({token: token});
+                     });
                 });
-                
-                var token = jwt.sign({_id: user._id }, 'human_exp', { expiresIn: "10h" });
-                res.json({token: token});
             });
         }
       }
@@ -294,8 +336,8 @@ router.post('/login', function(req, res, next) {
 });
 
 /* UPDATE User */
-router.post('/resetPassword/:id', function (req, res, next) {
-    var userId = req.params.id;
+router.post('/resetPassword', function (req, res, next) {
+    var userId = req.body.userId;
     var newPass = String(req.body.newPassword);
 
     return User.findOne({_id: userId}, function(err, user){

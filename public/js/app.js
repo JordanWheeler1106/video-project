@@ -290,6 +290,7 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
               $state.go('signin')
             })
             .catch( function(err){
+              $ionicLoading.hide();
               console.log("err", err);
             })
       }
@@ -725,7 +726,7 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
       if(form.$valid){
         //hit api with login data.
         $ionicLoading.show();
-        $http.put('/api/users/reset/password/' + $state.params.id, $scope.changePassword)
+        $http.post('/api/users/resetPassword/', {userId: $state.params.id, newPassword: $scope.changePassword.newPassword})
             .then( function(res){
               $scope.changeSuccess = true;
               $ionicLoading.hide();
