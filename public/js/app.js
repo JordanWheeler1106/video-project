@@ -554,6 +554,8 @@ var app = angular.module('starter', ['ionic', 'slick', 'ngTagsInput', 'froala'])
     $scope.clickSendInvite = function() {
       var user = JSON.parse(localStorage.getItem('user'));
       $scope.invite.inviteFrom = user._id;
+      $scope.invite.firstName = user.firstName;
+      $scope.invite.lastName = user.lastName;
       if($scope.invite.email) {
         $http.post('/api/invites/', $scope.invite)
             .then( function(res){

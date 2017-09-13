@@ -76,7 +76,7 @@ router.post('/', function(req, res, next) {
                   //send mail to user.
                   var templatesDir = path.resolve(__dirname, '../../public/templates/email');
                   var template = new EmailTemplate(path.join(templatesDir, 'customer-refferal'));
-                  template.render({customer_name: invite.firstName+" "+invite.lastName, invite_code: invite._id}, function(err, tmp) {
+                  template.render({customer_name: req.body.firstName+" "+req.body.lastName, invite_code: invite._id}, function(err, tmp) {
                       if(err) {
                         return console.error(err);
                       }
