@@ -1,5 +1,5 @@
 <div class="row rowPadding responsive-lg">
-  <div class="col col-75 firstRow">
+  <div class="col firstRow">
     <div class="quoteleftBox">
       <div class="list tag-search-wrapper">
         <label class="item item-input">        
@@ -8,18 +8,31 @@
         </label>
       </div>
       <div class="tableLinks">
-        <span class="active">Tags/Topics</span>            
+        <div class="row">
+          <div class="col-80">
+            <span class="active">Tags/Topics</span>
+          </div>
+          <div class="col-20 item-add-wrapper">
+            <a ng-click="addTag($event)">
+              <i class="ion-ios-plus-outline"></i>
+              Add
+            </a>
+          </div>
+        </div>
+         
       </div>
       <div class="quotes-list">
-        <div class="item" ng-repeat="tag in tags | filter: search">
-          {{tag.name}}
+        <div class="item item-input" ng-repeat="tag in tags | filter: search">
+          <input type="text" ng-model="tag.name" ng-blur="updateTag(tag)" value="{{tag.name}}">
           <i class="ion-ios-close-outline" ng-click="removeTag(tag);"></i>
+          <!-- {{tag.name}}
+          <i class="ion-ios-close-outline" ng-click="removeTag(tag);"></i> -->
         </div>
       </div>
     </div>
   </div>
 
-  <div class="col">
+  <!-- <div class="col">
     <div class="rightContent">      
       <div class="list">
         
@@ -33,5 +46,5 @@
         </label>
       </div>
     </div>
-  </div>
+  </div> -->
 </div>

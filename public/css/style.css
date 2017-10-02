@@ -396,16 +396,30 @@ form .list .item {
 	margin-left: 15px;
 }
 
+.window-tabs {
+	width: calc(100% - 200px);
+  margin: 10px 100px;
+}
+
 .home1-tabs {
 	width: 60%;
 	margin: 15px 0 13px 26.5%;
 }
 
+
 .home1-tabs ul li {
 	display: inline-block;
-	padding: 8px 30px 8px 0;
+	padding: 8px 30px 8px 0;	
 }
 
+.window-tabs ul li {
+	display: inline-block;
+	padding: 8px 30px;
+	border: 1px solid #ccc;
+	cursor: pointer;
+}
+
+.window-tabs ul li a,
 .home1-tabs ul li a {
 	text-decoration: none;
 	color: rgb(166, 165, 165);
@@ -413,11 +427,27 @@ form .list .item {
 	font-weight: 600;
 	font-size: 16px;
 }
-
+.window-tabs ul li a.active,
 .home1-tabs ul li a.active {
 	color: #0b73ba;
 }
 
+.window-view {
+	border: 1px solid #ccc;
+	min-height: 300px;
+	padding: 10px 30px;
+	margin-top: -1px;
+}
+
+.topic-item {
+	
+}
+
+.topic-template-item {
+	padding: 5px 20px;
+	border: 1px solid black;
+	margin-top: -1px;
+}
 .home1-tabs ul li:first-child {
 	border-right: 1px solid #cccccc;
 }
@@ -463,22 +493,25 @@ form .list .item {
 	padding: 5px 125px;
 }
 
-.firstRow h3 {
+.sponsor-firstRow {
+	padding: 10px 100px;
+}
+/*.firstRow h3 {
 	font-family: 'Merriweather', serif;
 	font-weight: 600;
 	font-size: 24px;
 	margin: 30px 0 5px 0;
 	text-align: center;
 	cursor: pointer;
-}
+}*/
 
-.firstRow span {
+/*.firstRow span {
 	font-family: 'Merriweather', serif;
 	font-size: 16px;
 	margin: 0 0 40px 0;
 	text-align: center;
 	display: block;
-}
+}*/
 
 .rightContent .firstName {
 	font-family: 'Source Sans Pro', sans-serif;
@@ -561,8 +594,34 @@ form .list .item {
 .sponsorBox {
 	border: 1px solid #333;
 	border-radius: 5px;
-	padding: 2px !important;
+	padding: 0px;
 	margin: 1px !important;
+	font-size:12px;
+}
+
+.sponsorBox .col {
+	border-right: 1px solid black;
+}
+
+.sponsorBox .col:last-child {
+	border: none;
+}
+
+.sponsorVariableBox {
+	padding-left: 50px;
+	font-size: 12px;
+	margin: 1px !important;
+	line-height: 25px;
+}
+
+.admin-form-control {
+	line-height: 25px;
+}
+.admin-form-control input, 
+.sponsorVariableBox input {
+	border: 1px solid black;
+	width: 80px;
+	height: 25px;
 }
 
 .tableLinks {
@@ -601,9 +660,12 @@ form .list .item {
 	/*padding: 12px 30px 18px;*/
 }
 
-.table td:nth-child(4) {
-	font-size: 14px;
-	color: #9b9da0;
+.table td:nth-child(3) .level {
+	/*font-size: 14px;*/
+	/*color: #9b9da0;*/
+	font-size: inherit;
+  padding: 5px 20px;
+  border: 1px solid #ccc;
 }
 
 .table td {
@@ -907,7 +969,7 @@ form .list .item {
 }
 
 .searchField:last-child a {
-	margin: 0 40px 0 0;
+	/*margin: 0 40px 0 0;*/
 }
 
 .nugget-tabs .leftUl {
@@ -1506,13 +1568,13 @@ form .list .item {
 		font-size: 16px;
 		margin-left: 2px;
 	}
-	.firstRow h3 {
+	/*.firstRow h3 {
 		margin: 0 0 15px 0;
 		display: block;
-	}
-	.firstRow span {
+	}*/
+	/*.firstRow span {
 		margin: 0 0 30px 0;
-	}
+	}*/
 	.responsiveSliderBg {
 		background: #f3f3f4;
 		padding: 40px 0 40px 0;
@@ -1598,9 +1660,9 @@ form .list .item {
 		width: 100%;
 		margin: 0 0 0 0;
 	}
-	.leftBox .tableLinks span {
+	/*.leftBox .tableLinks span {
 		font-size: 16px;
-	}
+	}*/
 	.table td:nth-child(3) {
 		display: none;
 	}
@@ -2220,7 +2282,7 @@ form .list .item {
 
 .listItemsArea {
 	width: 100%;
-	display: inline-block;
+	/*display: inline-block;*/
 	text-align: left;
 }
 
@@ -3086,23 +3148,6 @@ form .list .item {
 	font-family: 'Source Sans Pro', sans-serif;
 }
 
-.fr-box.fr-basic.fr-top .fr-wrapper {
-	/*border: none !important;
-	box-shadow: none !important;*/
-}
-
-.fr-quick-insert {
-	/*display: none !important;*/
-}
-
-.fr-counter {
-	display: none !important;
-}
-
-#editor>div::nth-last-child(2) {
-	/*display: none !important;*/
-}
-
 .quotes-list {
 	margin: 20px;
 }
@@ -3195,6 +3240,19 @@ form .list .item {
 	border: 1px solid #cccccc;
 	height: 45px;
 	color: black;
+	text-transform: uppercase;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-weight: 700;
+	position: relative;
+	margin: 20px 10px 0px 10px;
+}
+
+.follow-scroll button {
+	background: none;
+	width: 80%;
+	color: #267abe;
+	border: 1px solid #267abe;
+	height: 35px;
 	text-transform: uppercase;
 	font-family: 'Source Sans Pro', sans-serif;
 	font-weight: 700;
@@ -3424,6 +3482,10 @@ form .list .item {
 	border:none;
 }
 
+.nopadding {
+	padding: 0px !important;
+}
+
 .padding2 {
 	padding-left: 60px !important;
 }
@@ -3493,4 +3555,47 @@ form .list .item {
 .md-margin-10 label span {
 	color: #aaa;
 	font-size:14px;
+}
+
+em {
+	font-style:italic;
+}
+
+.window-button {
+	padding: 5px 10px;
+	background: #fff;
+	color: black;
+	border:1px solid #ccc;
+	cursor:pointer;
+}
+
+.item-add-wrapper {
+	text-align: right;
+	font-size:16px;
+	cursor:pointer;
+}
+.item-add-wrapper a i {
+	color:#387ef5;
+}
+
+.window-outline {
+	position:absolute;
+	width:100%;
+	max-height: 1000px;
+	min-height: 700px;
+	height: 700px;
+	top:30px;
+	right: -140%;
+	box-shadow: 0 0 4px 0 #cccccc;
+	background-color: white;
+	overflow: auto;
+	z-index: 10;
+}
+
+.window-outline .closeIcon {
+	position: absolute;
+	right: 10px;
+	top: 5px;
+	font-size: 18px;
+	cursor: pointer;
 }

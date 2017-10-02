@@ -1,6 +1,12 @@
 <!-- <div class="leftBox" ng-show="template.folders.length > 0 || template.nuggets.length > 0"> -->
 <div class="leftBox">
-  <div class="row">
+  <div class="csv-download" ng-click="clickBackBtn();">
+    <a>
+      <i class="ion-ios-arrow-back"></i>
+      Back
+    </a>
+  </div>  
+  <div class="row">    
     <div class="col col-75 firstRow">
       <!-- <div class="row">
         <div class="col col-40">
@@ -44,7 +50,7 @@
                 <input type="text" ng-class="{'selected': folder==selectedFolder}" placeholder="{{levelPlaceHolder[folder.level]}}" ng-model="folder.name">
               </label>
             </td>
-            <td style="width:50px;">
+            <td style="width:50px;" ng-show="!template.userId || user._id==template.userId._id">
               <i ng-hide="folder.parentId=='root'" class="ion-ios-close-outline" ng-click="removeFolder(folder);"></i>
             </td>
             <!-- <td style="width:50px;">
@@ -53,8 +59,9 @@
             <td style="width:50px;">
               <i ng-hide="folder.parentId=='root' || template.folders.indexOf(folder) >= template.folders.length - 1" class="ion-arrow-down-c" ng-click="moveDownFolder(folder);"></i>
             </td> -->
-            <td style="width:30px;">
-              <span ng-click="openAddPrompt(folder);">Pr</span>
+            <td style="width:30px;" ng-show="!template.userId || user._id==template.userId._id">
+              <!-- <span ng-click="openAddPrompt(folder);">Pr</span> -->
+              <span ng-click="openAddNote(folder);">Nt</span>
               <!-- <span ng-hide="folder.level==4 || folder.type=='nugget'" ng-click="openAddPrompt(folder);">Pr</span>
               <span ng-show="folder.type=='nugget'" ng-click="openAddNugget(folder);">E</span> -->
             </td>
@@ -68,7 +75,7 @@
           <i class="ion-ios-close-outline" ng-click="removeFolder(folder._id);"></i>
         </div> -->
       </div>
-      <div class="row" ng-hide="template.userId">
+      <div class="row" ng-show="!template.userId || user._id==template.userId._id">
         <div class="template-button-wrapper">
           <button type="button" class="cancel-btn" ng-click="cancelTemplate()">Cancel</button>
           <button type="button" class="save-btn" ng-click="saveTemplate(1)">Save</button>
@@ -78,7 +85,7 @@
     </div>
 
     <div class="col">
-      <div class="rightContent follow-scroll" style="margin: 0px 50px;">
+      <div class="rightContent follow-scroll" style="margin: 0px 50px;" ng-show="!template.userId || user._id==template.userId._id">
         <div class="list">
           <!-- <a class="item item-icon-left listFirst" ng-click="createFolder(0)">
             <i class="ion-ios-plus-outline"></i>
@@ -104,16 +111,19 @@
             <i class="ion-ios-plus-outline"></i>
             Nugget
           </a>
-
-          <a class="item item-icon-left listFirst" ng-click="saveTemplate(0);">
-            <i class="ion-ios-plus-outline"></i>
+          
+          <button type="button" ng-click="saveTemplate(0);">
+            <!-- <i class="ion-ios-plus-outline"></i> -->
             Save
-          </a>
+          </button>
 
-          <a class="item item-icon-left listFirst" ng-click="cancelTemplate();">
-            <i class="ion-ios-plus-outline"></i>
+          <button type="button" ng-click="cancelTemplate();">
             Exit
-          </a>
+          </button>
+          
+          <button type="button" ng-click="printTemplate();">
+            Print
+          </button>          
 
           <!-- <a class="item item-icon-left listFirst" ng-click="openAddPrompt($event)">
             <i class="ion-ios-plus-outline"></i>

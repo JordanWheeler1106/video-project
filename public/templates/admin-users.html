@@ -14,7 +14,7 @@
             <td>Name</td>
             <td>Status</td>
             <td style="font-size: 16px; color:black">Last Login</td>
-            <td></td>
+            <!-- <td></td> -->
           </tr>
         </thead>
         <tbody>
@@ -23,7 +23,7 @@
             <td><a ng-click="clickUserDetail(user._id);" style="cursor:pointer;">{{user.firstName + ' ' + user.lastName}}</a></td>
             <td>{{user.status}}</td>
             <td style="font-size: 16px; color:black">{{user.lastLogin | date: 'MMMM d, yyyy'}}</td>
-            <td><i class="ion-ios-gear-outline settingIcon" ng-click="openSettingPopover($event, user._id)"></i></td>
+            <!-- <td><i class="ion-ios-gear-outline settingIcon" ng-click="openSettingPopover($event, user._id)"></i></td> -->
           </tr>
         </tbody>
       </table>

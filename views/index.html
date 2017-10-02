@@ -6,6 +6,7 @@
   <title>Human Experience</title>
 
   <link rel="manifest" href="manifest.json">
+  <script src="lib/jquery/dist/jquery.min.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Arvo:400,700" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:300,400,700,800|Merriweather:300,400,700,900" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet">
@@ -21,32 +22,87 @@
 
   <link rel="stylesheet" href="lib/slick-carousel/slick/slick.css">
   <link rel="stylesheet" href="lib/slick-carousel/slick/slick-theme.css">
-  <link rel="stylesheet" href="lib/components-font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
   <link href="lib/ionic/css/ionic.css" rel="stylesheet">
-  <link href='https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.1/css/froala_editor.min.css' rel='stylesheet' type='text/css' />
-  <link href='https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.1/css/froala_style.min.css' rel='stylesheet' type='text/css' />
+	
   <link rel="stylesheet" type="text/css" href="lib/ng-tags-input/ng-tags-input.min.css">
   <!--<link href="css/ionic.app.css" rel="stylesheet">-->
   <link href="css/style.css" rel="stylesheet">
+  
+  <!-- Include Froala Editor styles -->
+  <link rel="stylesheet" href="lib/froala-wysiwyg-editor/css/froala_editor.min.css" />
+  <link rel="stylesheet" href="lib/froala-wysiwyg-editor/css/froala_style.min.css" />
+  <link rel="stylesheet" href="lib/angular-color-picker/angular-color-picker.css">
+  
+  
+	<!-- Include Froala Editor Plugins styles -->
+  <link rel="stylesheet" href="lib/froala-wysiwyg-editor/css/plugins/char_counter.css">
+  <link rel="stylesheet" href="lib/froala-wysiwyg-editor/css/plugins/code_view.css">
+  <link rel="stylesheet" href="lib/froala-wysiwyg-editor/css/plugins/colors.css">
+  <link rel="stylesheet" href="lib/froala-wysiwyg-editor/css/plugins/emoticons.css">
+  <link rel="stylesheet" href="lib/froala-wysiwyg-editor/css/plugins/file.css">
+  <link rel="stylesheet" href="lib/froala-wysiwyg-editor/css/plugins/fullscreen.css">
+  <link rel="stylesheet" href="lib/froala-wysiwyg-editor/css/plugins/image_manager.css">
+  <link rel="stylesheet" href="lib/froala-wysiwyg-editor/css/plugins/image.css">
+  <link rel="stylesheet" href="lib/froala-wysiwyg-editor/css/plugins/line_breaker.css">
+  <link rel="stylesheet" href="lib/froala-wysiwyg-editor/css/plugins/table.css">
+  <link rel="stylesheet" href="lib/froala-wysiwyg-editor/css/plugins/video.css">
   
   <script id="fr-fek">try{(function (k){localStorage.FEK=k;t=document.getElementById('fr-fek');t.parentNode.removeChild(t);})('lqnbe1C-11gntH-7jjftE-11G-10dD1uxu==')}catch(e){}</script>
   <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
   <link href="css/ionic.app.css" rel="stylesheet">
   -->
 
-  <!-- ionic/angularjs js -->
-  <script src="lib/jquery/dist/jquery.js"></script>
+  <!-- ionic/angularjs js -->  
   <script src="lib/ionic/js/ionic.bundle.js"></script>
 
   <script src="lib/slick-carousel/slick/slick.js"></script>
   <script src="lib/angular-slick/dist/slick.js"></script>
-  <script src="lib/ng-tags-input/ng-tags-input.min.js"></script>
-  <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.1/js/froala_editor.min.js'></script>
+  <script src="lib/ng-tags-input/ng-tags-input.min.js"></script>  
+  <script src="lib/angular-color-picker/angular-color-picker.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.1//js/froala_editor.pkgd.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
+  <script type="text/javascript" src="lib/jspdf/addimage.js"></script>
+  <script type="text/javascript" src="lib/jspdf/cell.js"></script>
+  <script type="text/javascript" src="lib/jspdf/from_html.js"></script>
+  <script type="text/javascript" src="lib/jspdf/javascript.js"></script>
+  <script type="text/javascript" src="lib/jspdf/svg.js"></script>
+  <script type="text/javascript" src="lib/jspdf/split_text_to_size.js"></script>
+  <script type="text/javascript" src="lib/jspdf/standard_fonts_metrics.js"></script>
+  
+  <!-- Include Froala Editor -->
+  <script src="lib/froala-wysiwyg-editor/js/froala_editor.min.js"></script>
+
+	<!-- Include Froala Editor Plugins -->
+  <script src="lib/froala-wysiwyg-editor/js/plugins/align.min.js"></script>
+  <script src="lib/froala-wysiwyg-editor/js/plugins/char_counter.min.js"></script>
+  <script src="lib/froala-wysiwyg-editor/js/plugins/code_beautifier.min.js"></script>
+  <script src="lib/froala-wysiwyg-editor/js/plugins/code_view.min.js"></script>
+  <script src="lib/froala-wysiwyg-editor/js/plugins/colors.min.js"></script>
+  <script src="lib/froala-wysiwyg-editor/js/plugins/emoticons.min.js"></script>
+  <script src="lib/froala-wysiwyg-editor/js/plugins/entities.min.js"></script>
+  <script src="lib/froala-wysiwyg-editor/js/plugins/file.min.js"></script>
+  <script src="lib/froala-wysiwyg-editor/js/plugins/font_family.min.js"></script>
+  <script src="lib/froala-wysiwyg-editor/js/plugins/font_size.min.js"></script>
+  <script src="lib/froala-wysiwyg-editor/js/plugins/fullscreen.min.js"></script>
+  <script src="lib/froala-wysiwyg-editor/js/plugins/image.min.js"></script>
+  <script src="lib/froala-wysiwyg-editor/js/plugins/image_manager.min.js"></script>
+  <script src="lib/froala-wysiwyg-editor/js/plugins/inline_style.min.js"></script>
+  <script src="lib/froala-wysiwyg-editor/js/plugins/line_breaker.min.js"></script>
+  <script src="lib/froala-wysiwyg-editor/js/plugins/link.min.js"></script>
+  <script src="lib/froala-wysiwyg-editor/js/plugins/lists.min.js"></script>
+  <script src="lib/froala-wysiwyg-editor/js/plugins/paragraph_format.min.js"></script>
+  <script src="lib/froala-wysiwyg-editor/js/plugins/paragraph_style.min.js"></script>
+  <script src="lib/froala-wysiwyg-editor/js/plugins/quote.min.js"></script>
+  <script src="lib/froala-wysiwyg-editor/js/plugins/save.min.js"></script>
+  <script src="lib/froala-wysiwyg-editor/js/plugins/table.min.js"></script>
+  <script src="lib/froala-wysiwyg-editor/js/plugins/video.min.js"></script>
+	<!-- End Froala -->
+
+  <!-- <script src="lib/angular/angular.min.js"></script> -->
+
   <script src="lib/angular-froala/angular-froala.js"></script>
-  <script src="lib/angular-froala/froala-sanitize.js"></script>
 
   <!-- cordova script (this will be a 404 during development) -->
   <!-- <script src="cordova.js"></script> -->

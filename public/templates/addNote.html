@@ -57,6 +57,7 @@
         </ul>
       </div>
     </div>
+    
     <div class="row rowPadding responsive-lg">
       <div class="col col-75 firstRow">
         <div class="quoteleftBox">
@@ -79,9 +80,14 @@
       </div>
 
       <div class="col">
-        <div class="rightContent">
+        <div class="csv-download" ng-show="isBack">
+          <a ui-sref = "home({view: 'template'})">
+            <i class="ion-ios-arrow-back"></i>
+            Back to Template
+          </a>
+        </div>
+        <div class="rightContent">          
           <div class="list">
-
             <a class="item item-icon-left listFirst" ng-click="addnote($event)">
               <i class="ion-ios-plus-outline"></i>
               Add New Note

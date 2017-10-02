@@ -31,30 +31,14 @@ var userSchema = new Schema({
         required: true,
         unique: true
     },
-    birth: {
-        type: Date
-    },
-    address: {
-        type: String
-    },
-    address1: {
-        type: String
-    },
-    city: {
-        type: String
-    },
-    state: {
-        type: String
-    },
-    zipcode: {
-        type: String
-    },
-    phone: {
-        type: String
-    },
-    cellphone: {
-        type: String
-    },
+    birth: Date,
+    address: String,
+    address1: String,
+    city: String,
+    state: String,
+    zipcode: String,
+    phone: String,
+    cellphone: String,
     password: {
         type: String,
         required: true
@@ -67,15 +51,23 @@ var userSchema = new Schema({
         type: Boolean,
         default: true
     },
-    stripeCustomerId: {
-        type: String
-    },
-    stripePlanId: {
-        type: String
-    },
-    stripeSubscriptionId: {
-        type: String
-    },
+    archivedTemplates: [String],
+    stripeCustomerId: String,
+    stripePlanId: String,
+    stripeSubscriptionId: String,
+    billingPeriod: String,
+    perpetuityDataStore: String,
+    perpetuityPricePerGB: String,
+    perpetuityPriceToMember: String,
+    dataBeyondFree: String,
+    dataPricePerGB: String,
+    dataPriceToMember: String,
+    voiceBeyondFree: String,
+    voicePricePerGB: String,
+    voicePriceToMember: String,
+    referredMember1: String,
+    referredMember2: String,
+    totalPeriodBilling: String,
     salt: String,
     createdAt: {
         type: Date,
@@ -86,9 +78,7 @@ var userSchema = new Schema({
         default: Date.now
     },
     resetPassword: Date,
-    lastLogin: {
-        type: Date
-    },
+    lastLogin: Date,
     status: {
         type: String,
         default: "active"

@@ -1,5 +1,5 @@
 <ion-pane>
-  <ion-content>
+  <ion-content on-scroll="getScrollPosition()" delegate-handle="adminScroll">
     <div class="bar bar-header bar-stable headerNav" style="position: relative;">
       <div class="nav">
         <!--<h1 class="title navHeading">the logo</h1>-->
@@ -7,6 +7,7 @@
         <div class="linksNav">
           <a href="javascript:" class="full-information active">Life-In-Full</a>
           <a ui-sref="VitalInfo.PersonalInfo.PersonalInfo" class="full-information">Vital Information</a>
+          <a ui-sref="WindowLibrary" class="full-information">Window Library</a>
           <div class="list list-inset">
             <label class="item item-input">
               <i class="fa fa-search placeholder-icon"></i>
@@ -29,9 +30,10 @@
         <a href="javascript:" class="full-information active">
           Life-In-Full
           <a href="javascript:" class="anchorChild" ng-class="{'active': toggleView == 'sphere'}" ng-click="toggleView = 'sphere'">View Life-in-Full as Sphere</a>
-        <a href="javascript:" class="anchorChild lastEle" ng-class="{'active': toggleView == 'list'}" ng-click="toggleView = 'list'">View Life-in-Full as List</a>
+          <a href="javascript:" class="anchorChild lastEle" ng-class="{'active': toggleView == 'list'}" ng-click="toggleView = 'list'">View Life-in-Full as List</a>
         </a>
         <a ui-sref="VitalInfo" class="full-information vital">Vital Information</a>
+        <a ui-sref="Window" class="full-information vital">Window Library</a>
         <a href="https://the-human-experience.helpshift.com/a/the/" target="_blank" class="full-information vital">Help</a>
         <a ui-sref="account.profile" class="full-information vital">My Account</a>
         <div class="list list-inset">
@@ -57,6 +59,8 @@
         </ul>
       </div>
     </div>
+    <ui-view>
+    </ui-view>
     <div class="row rowPadding responsive-lg">
       <div class="col col-75 firstRow">
         <div ng-show="toggleView == 'sphere'">
@@ -70,8 +74,8 @@
         </div>
       </div>
 
-      <div class="col">
-        <div class="rightContent">
+      <div class="col" style="position:relative;">
+        <div class="rightContent">          
           <div class="list">
             <a class="item item-icon-right header" ng-click="showButtons=!showButtons" ng-init="showButtons=false">
               <!-- <i ng-class="showButtons?'ion-minus':'ion-plus'"></i> -->
@@ -118,6 +122,27 @@
             </a>
 
           </div>
+          
+          <div class="window-outline">
+            <span class="closeIcon" ng-click="closeWindowOutline()"><i class="ion-android-close"></i></span>
+            <table class="table adminTemplateList" style="margin-top:20px;">
+              <tbody>
+              <tr ng-repeat="folder in selectedFolderOutline">
+                <!-- <td style="width:50px;">
+                  <label class="checkbox">
+                    <input type="checkbox" ng-click="chooseFolder(folder);" ng-checked="selectedFolder==folder">
+                  </label>
+                </td> -->
+                <td ng-class="'padding'+folder.level">
+                  <label class="folderInput item item-input">
+                    <i class="icon placeholder-icon" ng-class="folder.type=='nugget'?'ion-4':'ion-'+folder.level"></i>
+                    <input type="text" placeholder="{{levelPlaceHolder[folder.level]}}" ng-model="folder.name" readonly>
+                  </label>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
 
           <!-- <div class="list">
             <a class="item item-icon-right header">
@@ -135,7 +160,7 @@
             </a>
           </div> -->
 
-          <div class="list">
+          <!-- <div class="list">
             <a class="item item-icon-right header" ng-click="showTemplateStore=!showTemplateStore" ng-init="showTemplateStore=false">
               <i ng-class="showTemplateStore?'ion-minus':'ion-plus'"></i>
               <span class="firstName">Window Library</span>
@@ -147,7 +172,7 @@
               <span ng-click="clickTemplate(tmp)">{{tmp.name}}</span>
               <i class="fa fa-plus-square-o" style="font-size: 20px" ng-click="clickAddTemplate(tmp)"></i>
             </a>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

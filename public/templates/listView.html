@@ -4,23 +4,23 @@
   <table class="table">
     <tbody>
     <tr ng-repeat="folder in currentFolders">
-      <td>
+      <!-- <td>
         <label class="checkbox">
          <input type="checkbox" ng-click="toggleSelection(folder, 'folder')" ng-checked="checkTemplateItem(folder, 'folder') > -1">
         </label>        
-      </td>
+      </td> -->
       <td ng-click="clickFolder($event, folder)" style="cursor:pointer;"><i class="fa fa-folder-o" style="font-size: 20px"></i></td>
       <td ng-click="clickFolder($event, folder)" style="cursor:pointer;">{{folder.name}}</td>
-      <td>({{folder.purpose}} purposes)</td>
+      <td ng-click="showWindow($event, folder)"><label class="level" style="cursor:pointer;">{{level[folder.strPath.split("/").length - 1]}}</label></td>
       <td>Last worked on {{folder.updatedAt.split("T")[0]}}</td>
       <td><i class="ion-ios-gear-outline settingIcon" ng-click="openSettingPopover($event, $index, 'folder')"></i></td>
     </tr>
     <tr ng-repeat="nugget in currentNuggets">
-      <td>
+      <!-- <td>
         <label class="checkbox">
          <input type="checkbox" ng-click="toggleSelection(nugget, 'nugget')" ng-checked="checkTemplateItem(nugget, 'nugget') > -1">
         </label>
-      </td>
+      </td> -->
       <td ng-click="clickNugget($event, nugget)" style="cursor:pointer;"><i class="fa fa-file-text-o" style="font-size: 20px"></i></td>
       <td ng-click="clickNugget($event, nugget)" style="cursor:pointer;">{{nugget.name}}</td>
       <td></td>

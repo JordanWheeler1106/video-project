@@ -1,5 +1,5 @@
 <ion-pane>
-  <ion-content ng-click="sidebar.showTags = false">
+  <ion-content ng-click="sidebar.showTags = false" scroll="false">
     <div class="bar bar-header bar-stable headerNav" style="position: relative;">
       <div class="nav">
         <a ui-sref="home"><img src="img/logo.png" class="logo" alt=""/></a>
@@ -65,14 +65,16 @@
               </label>
             </div>
           </li> -->
-          <li class="searchField"><a href="javascript:" class="linkNugget" ng-click="sidebar.note = false; sidebar.prompt = true; sidebar.search = false" ng-class="{'active': sidebar.prompt}">Prompts </a></li>
-          <li class="searchField"><a href="javascript:" class="linkNugget" ng-click="sidebar.note = true; sidebar.prompt = false; sidebar.search = false" ng-class="{'active': sidebar.note}">Notes </a></li>
+          <li class="searchField"><a href="javascript:" class="linkNugget" ng-click="sidebar.view = 1; sidebar.search = false" ng-class="{'active': sidebar.view==1}">Prompts </a></li>
+          <li class="searchField"><a href="javascript:" class="linkNugget" ng-click="sidebar.view = 2; sidebar.search = false" ng-class="{'active': sidebar.view==2}">Notes </a></li>
+          <li class="searchField"><a href="javascript:" class="linkNugget moreEditFeatures" ng-click="sidebar.view = 3; sidebar.search = false" ng-class="{'active': sidebar.view==3}">More Editor Features </a></li>
+          <li class="searchField"><a href="javascript:" class="linkNugget voice2Text" ng-click="sidebar.view = 4; sidebar.search = false" ng-class="{'active': sidebar.view==4}">Voice2Text </a></li>
         </ul>
       </div>
     </div>
     <!--////////////////////////////// col ////////////////////////////////-->
     <div class="row rowSetting responsive-lg">
-      <div class="col firstRow" ng-class="(sidebar.note || sidebar.prompt|| sidebar.search) ? 'col-75' : 'col-90'">
+      <div class="col firstRow" ng-class="(sidebar.view < 3) ? 'col-75' : 'col-90'">
         <form name="nuggetForm">          
           <!-- <textarea ng-model="nugget.content" id="add-nugget-textarea" placeholder="Start your nugget!" required></textarea> -->
           <!-- <div froala="froalaOptions" ng-model="nugget.content"></div> -->
@@ -145,6 +147,15 @@
         imageDefaultAlign: 'left',
         heightMin: 300
       })
+      
+      $(".voice2Text").click(function() {
+        $(".fr-toolbar").hide();
+      })
+      
+      $(".moreEditFeatures").click(function() {
+        $(".fr-toolbar").show();
+      })
+      
     });
   </script>
 </div>

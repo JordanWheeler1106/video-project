@@ -1,0 +1,13 @@
+<span class="closeIcon" ng-click="closeTopicPopup()"><i class="ion-android-close"></i></span>
+<ion-scroll zooming="true" direction="y" style="height: 300px">
+  <div class="listItemsArea">
+    <div class="list">
+      <ion-checkbox ng-repeat="topic in topics" ng-click="chooseTopic(tag)" ng-checked="template.topic==topic._id">
+        <span>{{topic.name}}</span>
+      </ion-checkbox>
+    </div>
+    <div class="rightAreaButton">
+      <button type="button" class="saveBtn" ng-click="closeTopicPopup()">Close</button>
+    </div>
+  </div>
+</ion-scroll>

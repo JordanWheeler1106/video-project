@@ -8,11 +8,7 @@ var Schema = mongoose.Schema;
 
 // create a schema
 var quoteSchema = new Schema({
-    name: {
-        type: String,
-        required: true,
-        unique: true
-    },    
+    name: String,   
     createdAt: {
         type: Date,
         default: Date.now

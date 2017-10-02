@@ -1,19 +1,29 @@
 <div class="row rowPadding responsive-lg">
-  <div class="col col-75 firstRow">
+  <div class="col firstRow">
     <div class="quoteleftBox">
       <div class="tableLinks">
-        <span class="active">Quotes</span>            
+        <div class="row">
+          <div class="col-80">
+            <span class="active">Quotes</span>
+          </div>
+          <div class="col-20 item-add-wrapper">
+            <a ng-click="addQuote($event)">
+              <i class="ion-ios-plus-outline"></i>
+              Add
+            </a>
+          </div>
+        </div>        
       </div>
       <div class="quotes-list">
-        <div class="item" ng-repeat="quote in quotes">
-          {{quote.name}}
+        <div class="item item-input" ng-repeat="quote in quotes">
+          <input type="text" ng-model="quote.name" ng-blur="updateQuote(quote)" value="{{quote.name}}">
           <i class="ion-ios-close-outline" ng-click="removeQuote(quote);"></i>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="col">
+  <!-- <div class="col">
     <div class="rightContent">
       <div class="list">
         
@@ -27,5 +37,5 @@
         </label>
       </div>
     </div>
-  </div>
+  </div> -->
 </div>

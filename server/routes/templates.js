@@ -26,7 +26,7 @@ router.get('/all/:id', function(req, res, next) {
 });
 
 router.get('/store', function(req, res, next) {
-    Template.find({status: "approved"}).populate('userId').populate('tags').populate('folders').populate('nuggets').exec(function (err, templates) {
+    Template.find({status: "approved"}).populate('userId').populate('tags').populate('folders').populate('nuggets').populate('topic').exec(function (err, templates) {
         if (err) return next(err);
         res.json(templates);
     });

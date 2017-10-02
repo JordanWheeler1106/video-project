@@ -1,0 +1,11 @@
+<span class="closeIcon" ng-click="closeWindowPopup()"><i class="ion-android-close"></i></span>
+<ion-scroll zooming="true" direction="y" style="height: 300px">
+  <div class="listItemsArea">
+    <div class="list" ng-repeat="template in templates" ng-click="chooseWindow(template)">
+      <span>{{template.name}}</span>
+    </div>
+    <div class="rightAreaButton">
+      <button type="button" class="saveBtn" ng-click="closeWindowPopup()">Close</button>
+    </div>
+  </div>
+</ion-scroll>

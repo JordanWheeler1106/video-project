@@ -1,7 +1,7 @@
 <!--<ion-scroll zooming="true" direction="y" style="height: 100vh">-->
-<div class="col colSetting" ng-show="sidebar.note">
+<div class="col colSetting" ng-show="sidebar.view==2">
   <ul class="list">
-    <li class="item headingList">Notes <i class="ion-close-round" ng-click="sidebar.note = false"></i></li>
+    <li class="item headingList">Notes <i class="ion-close-round" ng-click="sidebar.view = 3"></i></li>
       <li ng-repeat = "note in notes" class="item">
         {{note.text}}
       </li>

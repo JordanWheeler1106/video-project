@@ -1,0 +1,128 @@
+<ion-pane>
+  <ion-content on-scroll="getScrollPosition()" delegate-handle="adminScroll">
+    <div class="bar bar-header bar-stable headerNav" style="position: relative; height: 99px; border: none;">
+      <div class="nav">
+        <!--<h1 class="title navHeading">the logo</h1>-->
+        <a ui-sref="home"><img src="img/logo.png" class="logo" alt=""/></a>
+        <div class="linksNav">
+          <a ui-sref="home" class="full-information">Life-In-Full</a>
+          <a ui-sref="VitalInfo.PersonalInfo.PersonalInfo" class="full-information">Vital Information</a>
+          <a ui-sref="javascript;" class="full-information active">Window Library</a>
+          <div class="list list-inset">
+            <label class="item item-input">
+              <i class="fa fa-search placeholder-icon"></i>
+              <input type="text" placeholder="Search" ng-model="filter.search" ng-keypress="($event.which===13) && searchNuggets()">
+            </label>
+          </div>
+          <!-- <a href="javascript:" class="my-account-link">Upgrade Now</a> -->
+          <a href="https://the-human-experience.helpshift.com/a/the/" target="_blank" class="my-account-link myaccount">Help</a>
+          <a ui-sref="account.profile" class="my-account-link myaccount">My Account</a>
+          <a ng-click="logout()" class="my-account-link logout">Logout</a>
+          <!-- <button class="button button-positive" ng-click="logout()">Logout</button> -->
+          <!--<h6>Share Your Story</h6>-->
+          <!--<h5><a href="javascript:">Sign In or Sign Up</a></h5>-->
+        </div>
+        <button type="button" ng-show="!toggleMenu" class="menuBtn" ng-click="toggleMenu = true">Menu</button>
+        <a href="javascript:" class="closeMenuBtn" ng-show="toggleMenu" ng-click="toggleMenu = false">Close Menu</a>
+      </div>
+      <!--///////////////////////// Mobile Version Nav ///////////////////////////////////-->
+      <div class="linksNavMobile" ng-show="toggleMenu">
+        <a href="javascript:" class="full-information active">
+          Life-In-Full
+          <a href="javascript:" class="anchorChild" ng-class="{'active': toggleView == 'sphere'}" ng-click="toggleView = 'sphere'">View Life-in-Full as Sphere</a>
+          <a href="javascript:" class="anchorChild lastEle" ng-class="{'active': toggleView == 'list'}" ng-click="toggleView = 'list'">View Life-in-Full as List</a>
+        </a>
+        <a ui-sref="VitalInfo" class="full-information vital">Vital Information</a>
+        <a ui-sref="javascript;" class="full-information vital">Window Library</a>
+        <a href="https://the-human-experience.helpshift.com/a/the/" target="_blank" class="full-information vital">Help</a>
+        <a ui-sref="account.profile" class="full-information vital">My Account</a>
+        <div class="list list-inset">
+          <label class="item item-input">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input type="text" placeholder="Search">
+          </label>
+        </div>
+        <!-- <a href="javascript:" class="my-account-link">Upgrade Now</a> -->
+        <a ng-click="logout()" class="full-information vital logout">Logout</a>
+        <!-- <button class="button button-positive" ng-click="logout()">Logout</button> -->
+
+        <!--<h6>Share Your Story</h6>-->
+        <!--<h5><a href="javascript:">Sign In or Sign Up</a></h5>-->
+      </div>
+      <!--///////////////////////// Mobile Version Nav ///////////////////////////////////-->      
+    </div>
+    <ui-view>
+    </ui-view>
+    <div class="row rowPadding responsive-lg" style="margin-top:20px;">
+      <div class="col firstRow" ng-show="toggleView == 'template'">
+        <div ng-include="'../../templates/template.html'"></div>
+      </div>
+      <div class="col col-75 firstRow" ng-show="toggleView=='templateList'">
+        <div class="window-tabs">
+          <ul>
+            <li><a href="javascript:" ng-click="clickWindowView('active')" ng-class="{'active': view == 'active'}">Active</a></li>
+            <li><a href="javascript:" ng-click="clickWindowView('archive')" ng-class="{'active': view == 'archive'}">Archive</a></li>
+          </ul>
+          <div class="window-view">
+            <div ng-show="view == 'active'">
+              <div class="topic-item" ng-repeat="item in activeTopicTemplates">
+                <h4 style="cursor:pointer;" ng-click="selectTopic(item.topic);"><center>{{item.topic.name}}</center></h4>
+                <div class="topic-template-item" ng-repeat="template in item.templates" ng-style="{'background-color':item.topic.color}">
+                  <div class="row">
+                    <div class="col-60">
+                      <label ng-click="clickTemplate(template);" style="cursor:pointer;">{{template.name}}</label>
+                    </div>
+                    <div class="col-40">
+                      <a class="window-button" ng-click="archiveTemplate(template)">Archive</a>
+                      <a class="window-button" ng-click="addTemplate(template)">Add Template</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="topic-template-item" ng-show="item.templates.length==0">
+                  No items on this topic.
+                </div>
+              </div>
+            </div>
+            <div ng-show="view == 'archive'">
+              <div class="topic-item" ng-repeat="item in archiveTopicTemplates">
+                <h4 style="cursor:pointer;" ng-click="selectTopic(item.topic);"><center>{{item.topic.name}}</center></h4>
+                <div class="topic-template-item" ng-repeat="template in item.templates" ng-style="{'background-color':item.topic.color}">
+                  <div class="row">
+                    <div class="col-60">
+                      <label ng-click="clickTemplate(template);" style="cursor:pointer;">{{template.name}}</label>
+                    </div>
+                    <div class="col-40">
+                      <a class="window-button" ng-click="unarchiveTemplate(template)">Active</a>&nbsp;
+                      <a class="window-button" ng-click="addTemplate(template)">Add Template</a>
+                    </div>
+                  </div>                  
+                </div>
+                <div class="topic-template-item" ng-show="item.templates.length==0">
+                  No items on this topic.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col" ng-show="toggleView=='templateList'">
+        <div class="list">
+          <h4>Create Topic</h4>
+          <label class="item item-input">
+            <input type="text" placeholder="Enter Topic" name="name" ng-model="topic.name">
+          </label>
+          <br>
+          <h4>Select Color</h4>
+          <color-picker ng-model="topic.color"></color-picker>
+          <div class="row">
+            <div class="template-button-wrapper">
+              <button type="button" class="cancel-btn" ng-click="deleteTopic" ng-show="topic._id">Delete</button>
+              <button type="button" class="save-btn" ng-click="addTopic()">Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-pane>

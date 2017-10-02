@@ -18,6 +18,9 @@
         <span><b>Address:</b> {{user.address}}</span>
       </div>
       <div class="list">
+        <span><b>Additional Address:</b> {{user.address1}}</span>
+      </div>
+      <div class="list">
         <span><b>City:</b> {{user.city}}</span>
       </div>
       <div class="list">
@@ -25,12 +28,11 @@
       </div>
       <div class="list">
         <span><b>Zipcode:</b> {{user.zipcode}}</span>
-      </div>
-      <div class="list">
-        <span><b>Phone:</b> {{user.phone}}</span>
-      </div>
-      <div class="list">
-        <span><b>Cell Phone:</b> {{user.cellphone}}</span>
+        <div class="padding1"><br>
+          <span>Primary Phone: {{user.phone}}</span><br>
+          <span>Cell Phone: {{user.cellphone}}</span><br>
+          <span>Other: {{user.other}}</span>
+        </div>
       </div>
       <div class="list">
         <span><b>Date of Birth:</b> {{user.birth.split("T")[0]}}</span>
@@ -38,30 +40,166 @@
       <div class="list">
         <span><b>Gender:</b> {{user.gender}}</span>
       </div>
-      <div class="list">
-        <span><b>Account Status:</b> {{user.status}}</span>
+      <div class="list row nopadding">
+        <div class="col col-20 nopadding">
+          <span><b>Account Status:</b></span>
+        </div>
+        <div class="col col-40 nopadding">
+          <select ng-model="user.status">
+            <option value="active">Active</option>
+            <option value="suspend">Suspend</option>
+          </select>
+        </div>
+      </div>
+      <div class="list row nopadding">
+        <div class="col col-20 nopadding">
+          <span><b>Billing Period:</b></span>
+        </div>
+        <div class="col col-40 nopadding">
+          <select ng-model="user.billingPeriod">
+            <option value="monthly" selected>Monthly</option>
+            <option value="quarterly">Quarterly</option>
+            <option value="annualy">Annualy</option>
+            <option value="life">Life</option>
+          </select>
+        </div>
       </div>
       <div class="list">
-        <span><b>Selected Plan:</b> {{user.stripePlanId}}</span>
+        <span><b>Pricing in Perpetuity Surcharge:</b></span>
+        <div class="padding1 admin-form-control">
+          <div class="row">
+            <div class="col col-20 nopadding">
+              <span>Data stored in Perpetuity:</span>
+            </div>
+            <div class="col col-20 nopadding">
+              <input type="text" ng-model="user.perpetuityDataStore">
+            </div>
+          </div>
+        </div>
+        <div class="padding1 admin-form-control">
+          <div class="row">
+            <div class="col col-20 nopadding">
+              <span>Price per GB:</span>
+            </div>
+            <div class="col col-20 nopadding">
+              <input type="text" ng-model="user.perpetuityPricePerGB">
+            </div>
+          </div>
+        </div>
+        <div class="padding2 admin-form-control">
+          <div class="row">
+            <div class="col col-20 nopadding">
+              <span>Price to Member:</span>
+            </div>
+            <div class="col col-20 nopadding">
+              <input type="text" ng-model="user.perpetuityPriceToMember">
+            </div>
+          </div>
+        </div>
       </div>
       <div class="list">
-        <span><b>Billing Period:</b> {{user.billingPeriod}}</span>
+        <span><b>Data Surcharge:</b></span>
+        <div class="padding1 admin-form-control">
+          <div class="row">
+            <div class="col col-20 nopadding">
+              <span>Data beyond Free:</span>
+            </div>
+            <div class="col col-20 nopadding">
+              <input type="text" ng-model="user.dataBeyondFree">
+            </div>
+          </div>
+        </div>
+        <div class="padding1 admin-form-control">
+          <div class="row">
+            <div class="col col-20 nopadding">
+              <span>Price per GB:</span>
+            </div>
+            <div class="col col-20 nopadding">
+              <input type="text" ng-model="user.dataPricePerGB">
+            </div>
+          </div>
+        </div>
+        <div class="padding2 admin-form-control">
+          <div class="row">
+            <div class="col col-20 nopadding">
+              <span>Price to Member:</span>
+            </div>
+            <div class="col col-20 nopadding">
+              <input type="text" ng-model="user.dataPriceToMember">
+            </div>
+          </div>
+        </div>
       </div>
       <div class="list">
-        <span><b>Perpetuity Pricing:</b> {{user.perpetuity}}</span>
+        <span><b>Voice Surcharge:</b></span>
+        <div class="padding1 admin-form-control">
+          <div class="row">
+            <div class="col col-20 nopadding">
+              <span>Data beyond Free:</span>
+            </div>
+            <div class="col col-20 nopadding">
+              <input type="text" ng-model="user.voiceBeyondFree">
+            </div>
+          </div>
+        </div>
+        <div class="padding1 admin-form-control">
+          <div class="row">
+            <div class="col col-20 nopadding">
+              <span>Price per GB:</span>
+            </div>
+            <div class="col col-20 nopadding">
+              <input type="text" ng-model="user.voicePricePerGB">
+            </div>
+          </div>
+        </div>
+        <div class="padding2 admin-form-control">
+          <div class="row">
+            <div class="col col-20 nopadding">
+              <span>Price to Member:</span>
+            </div>
+            <div class="col col-20 nopadding">
+              <input type="text" ng-model="user.voicePriceToMember">
+            </div>
+          </div>
+        </div>
       </div>
       <div class="list">
-        <span><b>Data Pricing:</b> {{user.dataPrice}}</span>
-      </div>
-      <div class="list">
-        <span><b>Voice2Text Charges:</b> {{user.voice2textCharge}}</span>
-      </div>
-      <div class="list">
-        <span><b>Plan Credits:</b> {{user.planCredit}}</span>
+        <span><b>Promotion Plan Credit:</b></span>
+        <div class="padding1 admin-form-control">
+          <div class="row">
+            <div class="col col-20 nopadding">
+              <span>Referred Member #1:</span>
+            </div>
+            <div class="col col-20 nopadding">
+              <input type="text" ng-model="user.referredMember1">
+            </div>
+          </div>
+        </div>
+        <div class="padding1 admin-form-control">
+          <div class="row">
+            <div class="col col-20 nopadding">
+              <span>Referred Member #2:</span>
+            </div>
+            <div class="col col-20 nopadding">
+              <input type="text" ng-model="user.referredMember2">
+            </div>
+          </div>
+        </div>
+        <div class="padding2 admin-form-control">
+          <div class="row">
+            <div class="col col-20 nopadding">
+              <span>Total Period Billing:</span>
+            </div>
+            <div class="col col-20 nopadding">
+              <input type="text" ng-model="user.totalPeriodBilling">
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="row">
       <div class="user-detail-wrapper">
+        <button type="button" class="delete-btn" ng-click="saveUser()">Save</button>&nbsp;&nbsp;&nbsp;
         <button type="button" class="delete-btn" ng-click="deleteUser()">Delete</button>
       </div>
     </div>    

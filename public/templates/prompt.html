@@ -1,7 +1,7 @@
 <!--<ion-scroll zooming="true" direction="y" style="height: 100vh">-->
-<div class="col colSetting" ng-show="sidebar.prompt">
+<div class="col colSetting" ng-show="sidebar.view==1">
   <ul class="list">
-    <li class="item headingList">Prompts <i class="ion-close-round" ng-click="sidebar.prompt = false"></i></li>
+    <li class="item headingList">Prompts <i class="ion-close-round" ng-click="sidebar.view = 3"></i></li>
       <li ng-repeat = "prompt in prompts" class="item">
         {{prompt.text}}
       </li>

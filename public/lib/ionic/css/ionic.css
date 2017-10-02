@@ -3008,8 +3008,8 @@ time, mark, audio, video {
   font: inherit;
   font-size: 100%; }
 
-ol, ul {
-  list-style: none; }
+/*ol, ul {
+  list-style: none; }*/
 
 blockquote, q {
   quotes: none; }

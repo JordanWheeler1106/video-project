@@ -84,6 +84,21 @@
   <div class="leftBox" ng-show="templateView=='create'">
     <div class="row">
       <div class="col col-75 firstRow">
+        <div class="row">
+          <div class="col col-30">&nbsp;</div>
+          <div class="col col-40">
+            <label class="item item-input item-select item-light">
+              <div class = "input-label">
+                Select
+              </div>
+              <select ng-model="template.topic">
+                <option value="" disabled selected>Topic</option>
+                <option ng-repeat="topic in topics" value="{{topic._id}}">{{topic.name}}</option>
+              </select>
+            </label>
+          </div>
+          <div class="col col-30">&nbsp;</div>
+        </div>
         <!-- <div class="row">
           <div class="col col-40">
             <label class="item item-input">
@@ -103,14 +118,15 @@
               <input type="number" placeholder="Price" ng-model="template.price" min="0">
             </label>
           </div>
-        </div>
-        <div class="row">
+        </div> -->
+        <!-- <div class="row">
           <div class="col col-100">
             <label class="item item-input">
               <input type="text" placeholder="Descripotion" ng-model="template.description">
             </label>
           </div>
         </div><br> -->
+
         <div class="row listItemsArea">
           <table class="table adminTemplateList">
             <tbody>
@@ -139,6 +155,14 @@
                 <span ng-click="openAddPrompt(folder);">Pr</span>
                 <!-- <span ng-hide="folder.level==4 || folder.type=='nugget'" ng-click="openAddPrompt(folder);">Pr</span>
                 <span ng-show="folder.type=='nugget'" ng-click="openAddNugget(folder);">E</span> -->
+              </td>
+              <td style="width:30px;">
+                <span ng-show="folder.level > 0" ng-click="openLinkWindow(folder);">L</span>
+                <!-- <span ng-hide="folder.level==4 || folder.type=='nugget'" ng-click="openAddPrompt(folder);">Pr</span>
+                <span ng-show="folder.type=='nugget'" ng-click="openAddNugget(folder);">E</span> -->
+              </td>
+              <td style="width:30px;">
+                <span ng-show="folder.type=='nugget'" ng-click="openAddNugget(folder);">N</span>
               </td>
             </tr>
             </tbody>
@@ -185,17 +209,20 @@
             <a class="item item-icon-left listFirst" ng-click="createFolder(4)" ng-hide="selectedFolder.level == 0 || selectedFolder.level == -1">
               <i class="ion-ios-plus-outline"></i>
               Nugget
-            </a>
+            </a><br>
 
-            <a class="item item-icon-left listFirst" ng-click="saveTemplate(0);">
-              <i class="ion-ios-plus-outline"></i>
+            <button type="button" ng-click="saveTemplate(0);">
+              <!-- <i class="ion-ios-plus-outline"></i> -->
               Save
-            </a>
+            </button>
 
-            <a class="item item-icon-left listFirst" ng-click="cancelTemplate();">
-              <i class="ion-ios-plus-outline"></i>
+            <button type="button" ng-click="cancelTemplate();">
               Exit
-            </a>
+            </button>
+            
+            <button type="button" ng-click="printTemplate();">
+              Print
+            </button>
 
             <!-- <a class="item item-icon-left listFirst" ng-click="openAddPrompt($event)">
               <i class="ion-ios-plus-outline"></i>
@@ -255,6 +282,92 @@
             </label>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="leftBox" ng-show="templateView=='link'">
+    <div class="csv-download" ng-click="clickPromptBack();">
+      <a>
+        <i class="ion-ios-arrow-back"></i>
+        Back
+      </a>
+    </div>
+
+    <div class="row listItemsArea">
+      <div class="col col-50 firstRow">
+        <div class="row">
+          <div class="col col-30">&nbsp;</div>
+          <div class="col col-40">
+            <label class="item item-input item-select item-light">
+              <div class = "input-label">
+                Select
+              </div>
+              <select ng-model="template.topic" disabled>
+                <option value="" disabled selected>Topic</option>
+                <option ng-repeat="topic in topics" value="{{topic._id}}">{{topic.name}}</option>
+              </select>
+            </label>
+          </div>
+          <div class="col col-30">&nbsp;</div>
+        </div>
+        <table class="table adminTemplateList">
+          <tbody>
+          <tr ng-repeat="folder in template.folders">
+            <td ng-class="'padding'+folder.level">
+              <label class="folderInput item item-input">
+                <i class="icon placeholder-icon" ng-class="folder.type=='nugget'?'ion-4':'ion-'+folder.level"></i>
+                <input type="text" ng-class="{'selected': folder==selectedFolder}" placeholder="{{levelPlaceHolder[folder.level]}}" ng-model="folder.name" readonly>
+              </label>
+            </td>
+            <!-- <td style="width:30px;">
+              <span ng-show="folder.level > 0" ng-click="linkWindow(folder);">L</span>
+            </td> -->
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="col col-50">
+        <div class="row">
+          <div class="col col-50">
+            <label class="item item-input item-select item-light">
+              <div class = "input-label">
+                Select Window
+              </div>
+              <select ng-model="linkTemplate" ng-options="item as item.name for item in templates | filter:skipValues" ng-change="selectLinkTemplate(linkTemplate);">
+                <option value="" disabled selected>Select Window</option>
+                <!-- <option ng-repeat="tmp in templates" value="{{tmp}}" ng-hide="template._id==tmp._id">{{tmp.name}}</option> -->
+              </select>
+            </label>
+          </div>
+          <div class="col col-50">
+            <label class="item item-input item-select item-light">
+              <div class = "input-label">
+                Select
+              </div>
+              <select ng-model="linkTemplate.topic" disabled>
+                <option value="" disabled selected>Topic</option>
+                <option ng-repeat="topic in topics" value="{{topic._id}}">{{topic.name}}</option>
+              </select>
+            </label>
+          </div>
+        </div>
+        <table class="table adminTemplateList">
+          <tbody>
+          <tr ng-repeat="folder in linkTemplate.folders">
+            <td ng-class="'padding'+folder.level">
+              <label class="folderInput item item-input">
+                <i class="icon placeholder-icon" ng-class="folder.type=='nugget'?'ion-4':'ion-'+folder.level"></i>
+                <input type="text" ng-class="{'selected': folder==selectedFolder}" placeholder="{{levelPlaceHolder[folder.level]}}" ng-model="folder.name" readonly>
+              </label>
+            </td>
+            <td style="width:30px;">
+              <span ng-show="folder.level > 0 && selectedFolder.type==folder.type && selectedFolder.level==folder.level" ng-click="linkWindow(folder);">L</span>
+            </td>
+          </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

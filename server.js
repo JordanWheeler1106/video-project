@@ -8,13 +8,13 @@ var bodyParser = require('body-parser')
 var mongoose = require('mongoose');
 
 //mongoose.connect('mongodb://localhost/human-experience')
-    mongoose.connect('mongodb://admin:root@ds151163.mlab.com:51163/thehumexpdevelop')
-    .then(function(){
-        console.log('connection successful')
-    })
-    .catch(function(err){
-        console.error(err)
-    });
+mongoose.connect('mongodb://admin:root@ds151163.mlab.com:51163/thehumexpdevelop')
+.then(function(){
+    console.log('connection successful')
+})
+.catch(function(err){
+    console.error(err)
+});
 
 //serve static files.
 app.use(express.static(__dirname + '/public'));
@@ -30,6 +30,7 @@ app.use('/api/shares', require('./server/routes/shares'));
 app.use('/api/quotes', require('./server/routes/quotes'));
 app.use('/api/tags', require('./server/routes/tags'));
 app.use('/api/prompts', require('./server/routes/prompts'));
+app.use('/api/topics', require('./server/routes/topics'));
 app.use('/api/notes/', require('./server/routes/notes'));
 app.use('/api/templates/', require('./server/routes/templates'));
 app.use('/api/vital-associations', require('./server/routes/vital-associations'));

@@ -11,6 +11,48 @@ var Nugget = require('./../models/nugget.model');
 //TODO create auth middleware for checking authorizations.
 
 /* GET ALL NuggetS */
+router.get('/audio/:id', function(req, res, next) {
+  var WebSocket = require('ws');
+  
+  var ws = new WebSocket('ws://169.46.27.138:8080/stream');
+  
+  ws.on('message', function incoming(data) {
+    console.log(data);
+    var result = JSON.parse(data);
+    switch(result.action) {
+      case "connected":
+        var command = {
+        	"action" : "clientResponse",
+        	"message" : "connected",
+        	"user" : req.params.id
+        }
+        ws.send(JSON.stringify(command));
+        break;
+      case "ready":
+        var command = {
+        	"action": "configure"
+        }
+        ws.send(JSON.stringify(command));
+        break;
+      case "configured":
+        var command = {
+            "continuous": true,
+            "timestamps": true,
+            "content-type": "audio/l16;rate=16000;channels=1",
+            "smart_formatting": true,
+            "profanity_filter": true,
+            "interim_results": true,
+            "action": "start"
+        }
+        ws.send(JSON.stringify(command));
+        break;
+      case "streamReady":
+        res.send({result: true})
+        break;
+    }  
+  });  
+});
+
 router.get('/all/:id', function(req, res, next) {
     Nugget.find({author: req.params.id}, function (err, nuggets) {
         if (err) return next(err);

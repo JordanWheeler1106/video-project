@@ -19,6 +19,10 @@ var templateSchema = new Schema({
     price: Number,
     description: String,
     tags: [{type:mongoose.Schema.Types.ObjectId, ref: 'Tag'}],
+    topic: {
+      type: Schema.Types.ObjectId,
+      ref: 'Topic'
+    },
     folders: [{type:mongoose.Schema.Types.ObjectId, ref: 'Folder'}],
     nuggets: [{type:mongoose.Schema.Types.ObjectId, ref: 'Nugget'}],
     status: {
