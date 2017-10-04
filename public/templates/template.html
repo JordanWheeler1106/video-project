@@ -1,6 +1,6 @@
 <!-- <div class="leftBox" ng-show="template.folders.length > 0 || template.nuggets.length > 0"> -->
 <div class="leftBox">
-  <div class="csv-download" ng-click="clickBackBtn();">
+  <div class="csv-download" ng-click="clickBackBtn();" ng-show="toggleView == 'template'">
     <a>
       <i class="ion-ios-arrow-back"></i>
       Back
@@ -8,6 +8,21 @@
   </div>  
   <div class="row">    
     <div class="col col-75 firstRow">
+      <div class="row">
+        <div class="col col-30">&nbsp;</div>
+        <div class="col col-40">
+          <label class="item item-input item-select item-light">
+            <div class = "input-label">
+              Select
+            </div>
+            <select ng-model="template.topic">
+              <option value="" disabled selected>Topic</option>
+              <option ng-repeat="topic in topics" value="{{topic._id}}">{{topic.name}}</option>
+            </select>
+          </label>
+        </div>
+        <div class="col col-30">&nbsp;</div>
+      </div>
       <!-- <div class="row">
         <div class="col col-40">
           <label class="item item-input">

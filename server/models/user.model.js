@@ -52,6 +52,7 @@ var userSchema = new Schema({
         default: true
     },
     archivedTemplates: [String],
+    copiedTemplates: [String],
     stripeCustomerId: String,
     stripePlanId: String,
     stripeSubscriptionId: String,

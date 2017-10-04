@@ -70,11 +70,13 @@
                 <div class="topic-template-item" ng-repeat="template in item.templates" ng-style="{'background-color':item.topic.color}">
                   <div class="row">
                     <div class="col-60">
-                      <label ng-click="clickTemplate(template);" style="cursor:pointer;">{{template.name}}</label>
+                      <!-- <label ng-click="clickTemplate(template);" style="cursor:pointer;">{{template.name}}</label> -->
+                      <label style="cursor:pointer;">{{template.name}}</label>
                     </div>
                     <div class="col-40">
                       <a class="window-button" ng-click="archiveTemplate(template)">Archive</a>
-                      <a class="window-button" ng-click="addTemplate(template)">Add Template</a>
+                      <a class="window-button" ng-click="addTemplate(template)" ng-show="user.copiedTemplates.indexOf(template._id)<0">Add Template</a>
+                      <a class="window-button" ng-click="editTemplate(template)" ng-show="user.copiedTemplates.indexOf(template._id)>-1">Edit</a>
                     </div>
                   </div>
                 </div>
@@ -89,11 +91,13 @@
                 <div class="topic-template-item" ng-repeat="template in item.templates" ng-style="{'background-color':item.topic.color}">
                   <div class="row">
                     <div class="col-60">
-                      <label ng-click="clickTemplate(template);" style="cursor:pointer;">{{template.name}}</label>
+                      <!-- <label ng-click="clickTemplate(template);" style="cursor:pointer;">{{template.name}}</label> -->
+                      <label style="cursor:pointer;">{{template.name}}</label>
                     </div>
                     <div class="col-40">
                       <a class="window-button" ng-click="unarchiveTemplate(template)">Active</a>&nbsp;
-                      <a class="window-button" ng-click="addTemplate(template)">Add Template</a>
+                      <a class="window-button" ng-click="addTemplate(template)" ng-show="user.copiedTemplates.indexOf(template._id)<0">Add Template</a>
+                      <a class="window-button" ng-click="editTemplate(template)" ng-show="user.copiedTemplates.indexOf(template._id)>-1">Edit</a>
                     </div>
                   </div>                  
                 </div>

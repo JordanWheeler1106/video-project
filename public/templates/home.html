@@ -136,7 +136,7 @@
                 <td ng-class="'padding'+folder.level">
                   <label class="folderInput item item-input">
                     <i class="icon placeholder-icon" ng-class="folder.type=='nugget'?'ion-4':'ion-'+folder.level"></i>
-                    <input type="text" placeholder="{{levelPlaceHolder[folder.level]}}" ng-model="folder.name" readonly>
+                    <input type="text" placeholder="{{levelPlaceHolder[folder.level]}}" ng-model="folder.name" ng-blur="updateFolder(folder)">
                   </label>
                 </td>
               </tr>
