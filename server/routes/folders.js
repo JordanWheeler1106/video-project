@@ -12,11 +12,19 @@ var Folder = require('./../models/folder.model');
 
 /* GET ALL NuggetS */
 router.get('/all/:id', function(req, res, next) {
-    Folder.find({userId: req.params.id}, function (err, folders) {
+    Folder.find({userId: req.params.id}).populate('topic').exec(function (err, folders) {
         if (err) return next(err);
         res.json(folders);
     });
 });
+
+// router.get('/all/:id', function(req, res, next) {
+//     Folder.find({userId: req.params.id}, function (err, folders) {
+//         if (err) return next(err);
+//         res.json(folders);
+//     });
+// });
+
 
 router.get('/all/:id/:parentId', function(req, res, next) {
     Folder.find({userId: req.params.id, parentId: req.params.parentId}, function (err, folders) {

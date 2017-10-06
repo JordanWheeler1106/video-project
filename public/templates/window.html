@@ -70,8 +70,8 @@
                 <div class="topic-template-item" ng-repeat="template in item.templates" ng-style="{'background-color':item.topic.color}">
                   <div class="row">
                     <div class="col-60">
-                      <!-- <label ng-click="clickTemplate(template);" style="cursor:pointer;">{{template.name}}</label> -->
-                      <label style="cursor:pointer;">{{template.name}}</label>
+                      <label ng-click="clickTemplate(template);" style="cursor:pointer;">{{template.name}}</label>
+                      <!-- <label style="cursor:pointer;">{{template.name}}</label> -->
                     </div>
                     <div class="col-40">
                       <a class="window-button" ng-click="archiveTemplate(template)">Archive</a>
@@ -91,8 +91,8 @@
                 <div class="topic-template-item" ng-repeat="template in item.templates" ng-style="{'background-color':item.topic.color}">
                   <div class="row">
                     <div class="col-60">
-                      <!-- <label ng-click="clickTemplate(template);" style="cursor:pointer;">{{template.name}}</label> -->
-                      <label style="cursor:pointer;">{{template.name}}</label>
+                      <label ng-click="clickTemplate(template);" style="cursor:pointer;">{{template.name}}</label>
+                      <!-- <label style="cursor:pointer;">{{template.name}}</label> -->
                     </div>
                     <div class="col-40">
                       <a class="window-button" ng-click="unarchiveTemplate(template)">Active</a>&nbsp;
@@ -121,7 +121,7 @@
           <color-picker ng-model="topic.color"></color-picker>
           <div class="row">
             <div class="template-button-wrapper">
-              <button type="button" class="cancel-btn" ng-click="deleteTopic" ng-show="topic._id">Delete</button>
+              <button type="button" class="cancel-btn" ng-click="removeTopic(topic._id)" ng-show="topic._id">Delete</button>
               <button type="button" class="save-btn" ng-click="addTopic()">Submit</button>
             </div>
           </div>

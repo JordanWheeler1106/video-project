@@ -5,8 +5,9 @@
         <!--<h1 class="title navHeading">the logo</h1>-->
         <a ui-sref="home"><img src="img/logo.png" class="logo" alt=""/></a>
         <div class="linksNav">
-          <a href="javascript:" class="full-information active">Life-In-Full</a>
-          <a href="javascript:" class="full-information">Vital Information</a>
+          <a ui-sref="home" class="full-information">Life-In-Full</a>
+          <a ui-sref="VitalInfo.PersonalInfo.PersonalInfo" class="full-information">Vital Information</a>
+          <a ui-sref="WindowLibrary" class="full-information">Window Library</a>
           <div class="list list-inset">
             <label class="item item-input">
               <i class="fa fa-search placeholder-icon"></i>
@@ -32,6 +33,7 @@
         <a ui-sref = "home({view: 'list'})" class="anchorChild lastEle" ng-class="{'active': toggleView == 'list'}" ng-click="toggleView = 'list'">View Life-in-Full as List</a>
         </a>
         <a href="javascript:" class="full-information vital">Vital Information</a>
+        <a ui-sref="Window" class="full-information vital">Window Library</a>
         <a href="https://the-human-experience.helpshift.com/a/the/" target="_blank" class="full-information vital">Help</a>
         <a ui-sref="account.profile" class="full-information vital">My Account</a>
         <div class="list list-inset">

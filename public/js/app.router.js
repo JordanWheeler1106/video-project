@@ -168,6 +168,11 @@ app.config(function ($stateProvider) {
             templateUrl: '../templates/admin-stats.html',
             controller: 'adminStatsCtrl'
         })
+        .state('admin.sphere', {
+            url: '/sphere',
+            templateUrl: '../templates/admin-sphere.html',
+            controller: 'adminSphereCtrl'
+        })
         .state('WindowLibrary', {
             url: '/window',
             templateUrl: '../templates/window.html',

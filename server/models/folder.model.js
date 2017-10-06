@@ -14,6 +14,10 @@ var folderSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
+    topic: {
+      type: Schema.Types.ObjectId,
+      ref: 'Topic'
+    },
     parentId: {
         type: String,
         ref: 'Folder'
