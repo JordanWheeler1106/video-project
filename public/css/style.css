@@ -3521,6 +3521,10 @@ form .list .item {
 	height: 50px;
 }
 
+.folderInput input.linked {
+	border: 2px solid lightblue !important;
+}
+
 .folderInput input.selected {
 	border: 2px solid orange !important;
 }

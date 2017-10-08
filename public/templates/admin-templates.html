@@ -139,7 +139,7 @@
               <td ng-class="'padding'+folder.level">
                 <label class="folderInput item item-input" ng-click="chooseFolder(folder);">
                   <i class="icon placeholder-icon" ng-class="folder.type=='nugget'?'ion-4':'ion-'+folder.level"></i>
-                  <input type="text" ng-class="{'selected': folder==selectedFolder}" placeholder="{{levelPlaceHolder[folder.level]}}" ng-model="folder.name">
+                  <input type="text" ng-class="{'selected': folder==selectedFolder, 'linked': template.linkedItems.indexOf(folder._id)>-1}" placeholder="{{levelPlaceHolder[folder.level]}}" ng-model="folder.name">
                 </label>
               </td>
               <td style="width:50px;">
@@ -295,11 +295,11 @@
     </div>
 
     <div class="row listItemsArea">
-      <div class="col col-50 firstRow">
-        <div class="row">
+      <div class="col col-50">
+        <div class="row">          
           <div class="col col-30">&nbsp;</div>
-          <div class="col col-40">
-            <label class="item item-input item-select item-light">
+          <div class="col col-40" style="height: 58px;">&nbsp;
+            <!-- <label class="item item-input item-select item-light">
               <div class = "input-label">
                 Select
               </div>
@@ -307,41 +307,10 @@
                 <option value="" disabled selected>Topic</option>
                 <option ng-repeat="topic in topics" value="{{topic._id}}">{{topic.name}}</option>
               </select>
-            </label>
+            </label> -->
           </div>
           <div class="col col-30">&nbsp;</div>
-        </div>
-        <table class="table adminTemplateList">
-          <tbody>
-          <tr ng-repeat="folder in template.folders">
-            <td ng-class="'padding'+folder.level">
-              <label class="folderInput item item-input">
-                <i class="icon placeholder-icon" ng-class="folder.type=='nugget'?'ion-4':'ion-'+folder.level"></i>
-                <input type="text" ng-class="{'selected': folder==selectedFolder}" placeholder="{{levelPlaceHolder[folder.level]}}" ng-model="folder.name" readonly>
-              </label>
-            </td>
-            <!-- <td style="width:30px;">
-              <span ng-show="folder.level > 0" ng-click="linkWindow(folder);">L</span>
-            </td> -->
-          </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="col col-50">
-        <div class="row">
-          <div class="col col-50">
-            <label class="item item-input item-select item-light">
-              <div class = "input-label">
-                Select Window
-              </div>
-              <select ng-model="linkTemplate" ng-options="item as item.name for item in templates | filter:skipValues" ng-change="selectLinkTemplate(linkTemplate);">
-                <option value="" disabled selected>Select Window</option>
-                <!-- <option ng-repeat="tmp in templates" value="{{tmp}}" ng-hide="template._id==tmp._id">{{tmp.name}}</option> -->
-              </select>
-            </label>
-          </div>
-          <div class="col col-50">
+          <!-- <div class="col col-50">
             <label class="item item-input item-select item-light">
               <div class = "input-label">
                 Select
@@ -351,7 +320,7 @@
                 <option ng-repeat="topic in topics" value="{{topic._id}}">{{topic.name}}</option>
               </select>
             </label>
-          </div>
+          </div> -->
         </div>
         <table class="table adminTemplateList">
           <tbody>
@@ -369,6 +338,41 @@
           </tbody>
         </table>
       </div>
+      
+      <div class="col col-50 firstRow">
+        <div class="row">
+          <div class="col col-20">&nbsp;</div>
+          <div class="col col-60">
+            <label class="item item-input item-select item-light">
+              <div class = "input-label">
+                Select Window
+              </div>
+              <select ng-model="linkTemplate" ng-options="item as item.name for item in templates | filter:skipValues" ng-change="selectLinkTemplate(linkTemplate);">
+                <option value="" disabled selected>Select Target Window</option>
+                <!-- <option ng-repeat="tmp in templates" value="{{tmp}}" ng-hide="template._id==tmp._id">{{tmp.name}}</option> -->
+              </select>
+            </label>
+          </div>
+          <div class="col col-20">&nbsp;</div>
+        </div>
+        <table class="table adminTemplateList">
+          <tbody>
+          <tr ng-repeat="folder in template.folders">
+            <td ng-class="'padding'+folder.level">
+              <label class="folderInput item item-input">
+                <i class="icon placeholder-icon" ng-class="folder.type=='nugget'?'ion-4':'ion-'+folder.level"></i>
+                <input type="text" ng-class="{'selected': folder==selectedFolder, 'linked': template.linkedItems.indexOf(folder._id)>-1}" placeholder="{{levelPlaceHolder[folder.level]}}" ng-model="folder.name" readonly>
+              </label>
+            </td>
+            <!-- <td style="width:30px;">
+              <span ng-show="folder.level > 0" ng-click="linkWindow(folder);">L</span>
+            </td> -->
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      
     </div>
   </div>
 </div>

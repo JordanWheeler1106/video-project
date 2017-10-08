@@ -25,6 +25,7 @@ var templateSchema = new Schema({
     },
     folders: [{type:mongoose.Schema.Types.ObjectId, ref: 'Folder'}],
     nuggets: [{type:mongoose.Schema.Types.ObjectId, ref: 'Nugget'}],
+    linkedItems:[String],
     status: {
       type: String,
       default: 'pending'
