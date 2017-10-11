@@ -1620,7 +1620,7 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput','froala','mp.colorPi
     };
 
     $scope.deleteFolderNugget = function(index, type) {
-      $scope.settingPopover.hide();
+      // $scope.settingPopover.hide();
       if(confirm("Are you sure to delete this item?")) {
         if(type=='folder') {
           $ionicLoading.show();
@@ -2734,7 +2734,6 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput','froala','mp.colorPi
       $scope.template.name = $scope.template.folders[0].name;
       $scope.template.userId = user._id;
       // $scope.template.status = "approved";
-      console.log($scope.template);
       if($scope.template._id) {
         var folders = [], nuggets = [];
         for(var i = 0; i < $scope.template.folders.length; i++)
@@ -2762,8 +2761,7 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput','froala','mp.colorPi
                                             nuggets: [],
                                             linkedItems: []
                                           };
-                                          $scope.getTemplates();
-                                          $scope.clickTemplateView('list', null);
+                                          $scope.clickTemplateView('list');
                                           $rootScope.$broadcast('scroll-top', {top: 1});
                                         // } else {
                                         //   
@@ -2791,10 +2789,10 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput','froala','mp.colorPi
       } else {
         var folders = [], nuggets = [];
         for(var i = 0; i < $scope.template.folders.length; i++)
-          if($scope.template.linkedItems.indexOf($scope.template.folders[i]._id)<0)
+          // if($scope.template.linkedItems.indexOf($scope.template.folders[i]._id)<0)
             folders.push($scope.template.folders[i]);
         for(var i = 0; i < $scope.template.nuggets.length; i++)
-          if($scope.template.linkedItems.indexOf($scope.template.nuggets[i]._id)<0)
+          // if($scope.template.linkedItems.indexOf($scope.template.nuggets[i]._id)<0)
             nuggets.push($scope.template.nuggets[i]);
         $http.post('/api/templates/', $scope.template)
             .then(function(res){
@@ -2803,20 +2801,16 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput','froala','mp.colorPi
                     $http.post('/api/nuggets/batch', {nuggets: nuggets})
                         .then(function(res){
                           $ionicLoading.hide();
-                          if(isBack) {
-                            $scope.template = {
-                              tags: [],
-                              name: '',
-                              price: 0,
-                              description: '',
-                              folders: [],
-                              nuggets: [],
-                              linkedItems: []
-                            };
-                            $scope.getTemplates();
-                            $scope.clickTemplateView('list', null);
-                          }
-
+                          $scope.template = {
+                            tags: [],
+                            name: '',
+                            price: 0,
+                            description: '',
+                            folders: [],
+                            nuggets: [],
+                            linkedItems: []
+                          };
+                          $scope.clickTemplateView('list', null);
                         })
                         .catch( function(err){
                           alert("something went wrong please try again.")
@@ -2847,21 +2841,70 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput','froala','mp.colorPi
       $rootScope.$broadcast('scroll-top', {top: 0});
     }
     $scope.linkWindow = function(folder) {
+      var mongoObjectId = function () {
+          var timestamp = (new Date().getTime() / 1000 | 0).toString(16);
+          return timestamp + 'xxxxxxxxxxxxxxxx'.replace(/[x]/g, function() {
+              return (Math.random() * 16 | 0).toString(16);
+          }).toLowerCase();
+      };
       var index = $scope.template.folders.indexOf($scope.selectedFolder);
       for(var i = index+1; i < $scope.template.folders.length; i++)
         if($scope.template.folders[i].level == $scope.template.folders[index].level) break;
       index = i;
       var linkIndex = $scope.linkTemplate.folders.indexOf(folder);
-      $scope.template.folders.splice(index++, 0, folder);
+      var folderId = mongoObjectId(), prevLevel = folder.level, parentId = folderId;
+      var originFolderIds = [folder._id];
+      var linkFolder = {
+        _id: folderId,
+        name: folder.name,
+        userId: JSON.parse(localStorage.getItem('user'))._id,
+        parentId: $scope.selectedFolder._id,
+        strPath: "WINDOWS",
+        level: folder.level,
+        type: folder.type?folder.type:"folder"
+      }
+      $scope.template.folders.splice(index++, 0, linkFolder);
       if(!$scope.template.linkedItems)
         $scope.template.linkedItems = [];
-      $scope.template.linkedItems.push(folder._id);
+      $scope.template.linkedItems.push(linkFolder._id);
+      var parentId = linkFolder._id;
       for(var i = linkIndex+1; i < $scope.linkTemplate.folders.length; i++) {
-        if(folder.level == $scope.linkTemplate.folders[i].level) break;
-        $scope.template.folders.splice(index++, 0, $scope.linkTemplate.folders[i]);
-        $scope.template.linkedItems.push($scope.linkTemplate.folders[i]._id);
+        if(folder.level == $scope.linkTemplate.folders[i].level) break;                
+        folderId = mongoObjectId();
+        originFolderIds.push($scope.linkTemplate.folders[i]._id)
+        linkFolder = {
+          _id: folderId,
+          name: $scope.linkTemplate.folders[i].name,
+          userId: JSON.parse(localStorage.getItem('user'))._id,
+          parentId: parentId,
+          strPath: "WINDOWS",
+          level: $scope.linkTemplate.folders[i].level,
+          type: $scope.linkTemplate.folders[i].type?$scope.linkTemplate.folders[i].type:"folder"
+        }
+        
+        if(prevLevel < $scope.linkTemplate.folders[i].level) {
+          prevLevel = $scope.linkTemplate.folders[i].level;
+          parentId = folderId;
+        } else if(prevLevel > $scope.linkTemplate.folders[i].level) {
+          for(var j = index - 1; j >= 0; j--)
+            if($scope.linkTemplate.folders[i].level > $scope.template.folders[j].level) {
+                prevLevel = $scope.template.folders[j].level;
+                parentId = $scope.template.folders[j]._id;
+                break;
+            }
+        }
+        $scope.template.folders.splice(index++, 0, linkFolder);
+        $scope.template.linkedItems.push(linkFolder._id);
       }
       
+      
+      // $http.post('/api/prompts/getAll', {ids: originFolderIds})
+      //     .then(function(res){
+      //         
+      //     })
+      //     .catch( function(err){
+      //       $ionicLoading.hide();
+      //     })
       // $scope.template.folders[$scope.template.folders.indexOf($scope.selectedFolder)] = folder;
       
       // $scope.selectedFolder = folder;
@@ -4139,7 +4182,7 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput','froala','mp.colorPi
                   for(var k = 0; k < prompts.length; k++) {
                     if(prompts[k].folder == templateNuggets[j]._id) {
                       copyPrompts.push({
-                        text: prompts[j].text,
+                        text: prompts[k].text,
                         folder: nuggetId
                       });
                     }

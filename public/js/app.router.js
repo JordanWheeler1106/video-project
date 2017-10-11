@@ -8,7 +8,7 @@ app.config(function ($stateProvider) {
         })
         .state('signup', {
             url: '/signup',
-            templateUrl: '../templates/signup.html',
+            templateUrl: '../templates/signUp.html',
             controller: 'signupCtrl',
             cache: false
         })

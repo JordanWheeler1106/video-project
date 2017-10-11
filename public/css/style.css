@@ -1,4 +1,9 @@
 /* Empty. Add your own CSS if you like */
+.bar.bar-stable {
+	position: relative;
+	background: #1b2b2b !important;
+	border-bottom: 2px solid #626342;
+}
 
 .headerNav {
 	background: white !important;
@@ -9,7 +14,8 @@
 .nav {
 	width: 85%;
 	margin: 0 auto;
-	border-bottom: 1px solid #b2b2b2;
+	/*border-bottom: 1px solid #b2b2b2;*/
+	border-bottom: 1px solid #626342;
 	padding: 20px 0 15px 0;
 }
 
@@ -346,13 +352,15 @@ form .list .item {
 	margin: 12px 0 0 30px;
 	text-decoration: none;
 	font-size: 16px;
-	color: rgb(166, 165, 165);
+	color: white;
+	/*color: rgb(166, 165, 165);*/
 	font-family: 'Merriweather', serif;
 	font-weight: 500;
 }
 
 .active {
-	color: #333333;
+	color:#626342;
+	/*color: #333333;*/
 	font-weight: 600;
 }
 
@@ -369,6 +377,7 @@ form .list .item {
 .list-inset .item-input i {
 	padding-right: 10px;
 	font-size: 22px;
+	color:#626342;
 }
 
 .list-inset ::-webkit-input-placeholder {
@@ -386,13 +395,15 @@ form .list .item {
 }
 
 .my-account-link.logout {
-	color: rgb(166, 165, 165);
+	color: white;
+	/*color: rgb(166, 165, 165);*/
 	margin-left: 15px;
 	cursor: pointer;
 }
 
 .my-account-link.myaccount {
-	color: rgb(166, 165, 165);
+	color: white;
+	/*color: rgb(166, 165, 165);*/
 	margin-left: 15px;
 }
 
@@ -422,14 +433,21 @@ form .list .item {
 .window-tabs ul li a,
 .home1-tabs ul li a {
 	text-decoration: none;
-	color: rgb(166, 165, 165);
+	/*color: rgb(166, 165, 165);*/
+	color: white;
 	font-family: 'Source Sans Pro', sans-serif;
 	font-weight: 600;
 	font-size: 16px;
 }
+
+.window-tabs ul li a {
+	color: rgb(166, 165, 165);
+}
+
 .window-tabs ul li a.active,
 .home1-tabs ul li a.active {
-	color: #0b73ba;
+	/*color: #0b73ba;*/
+	color: #626342;
 }
 
 .window-view {
@@ -439,8 +457,21 @@ form .list .item {
 	margin-top: -1px;
 }
 
-.topic-item {
-	
+.topic-item .title-wrapper {
+	text-align:center;
+	padding: 10px;
+}
+
+.topic-item .title-wrapper i {
+	padding-left: 5px;
+	font-size:16px;
+	color: #267abe;
+	cursor:pointer;
+}
+
+.topic-item .title-wrapper span {
+	padding: 5px 10px;
+	border: 1px solid gray;
 }
 
 .topic-template-item {
@@ -474,14 +505,16 @@ form .list .item {
 
 .vital-info-tabs ul li a {
 	text-decoration: none;
-	color: rgb(166, 165, 165);
+	/*color: rgb(166, 165, 165);*/
+	color: white;
 	font-family: 'Source Sans Pro', sans-serif;
 	font-weight: 600;
 	font-size: 16px;
 }
 
 .vital-info-tabs ul li a.active {
-	color: #0b73ba;
+	/*color: #0b73ba;*/
+	color: #626342;
 }
 
 .vital-info-tabs ul li a i {
@@ -518,7 +551,8 @@ form .list .item {
 	font-size: 16px;
 	font-weight: 600;
 	padding: 0 0 15px 0;
-	border-bottom: 1px solid #ccc;
+	/*border-bottom: 1px solid #ccc;*/
+	border-bottom: 1px solid #626342;
 	display: block;
 }
 
@@ -627,7 +661,8 @@ form .list .item {
 .tableLinks {
 	width: 100%;
 	display: inline-block;
-	border-bottom: 1px solid #ccc;
+	/*border-bottom: 1px solid #ccc;*/
+	border-bottom: 1px solid #626342;
 }
 
 .leftBox .tableLinks span,
@@ -670,7 +705,8 @@ form .list .item {
 
 .table td {
 	padding: 12px 5px 12px;
-	border-bottom: 1px solid #ccc;
+	/*border-bottom: 1px solid #ccc;*/
+	border-bottom: 1px solid #626342;
 	font-size: 16px;
 	vertical-align: middle;
 	font-family: 'Source Sans Pro', sans-serif;
@@ -696,7 +732,8 @@ form .list .item {
 .table td i,
 .table .folderInput i {
 	font-size: 30px;
-	color: #267abe;
+	/*color: #267abe;*/
+	color: #626342;
 	position: relative;
 	/*top: 5px;*/
 	left: 15px;
@@ -953,14 +990,16 @@ form .list .item {
 
 .nugget-tabs ul li .linkNugget {
 	font-size: 16px;
-	color: #333333;
+	color: white;
+	/*color: #333333;*/
 	font-weight: 500;
 	padding: 0 0 0 20px;
 	display: inline-block;
 }
 
 .nugget-tabs ul li .linkNugget.active {
-	color: #2b7ebf;
+	/*color: #2b7ebf;*/
+	color: #626342;
 }
 
 .searchField {
@@ -2391,12 +2430,14 @@ form .list .item {
 }
 
 .account-tabs ul li a.active {
-	color: #1b75bb;
+	/*color: #1b75bb;*/
+	color: #626342;
 }
 
 .account-tabs ul li a {
 	text-decoration: none;
-	color: #989898;
+	/*color: #989898;*/
+	color: white;
 	font-size: 16px;
 }
 
@@ -3423,7 +3464,8 @@ form .list .item {
 }
 
 .blue-text {
-	color: rgb(57, 133, 196) !important;
+	color: #626342;
+	/*color: rgb(57, 133, 196) !important;*/
 }
 
 .hand {
@@ -3602,4 +3644,18 @@ em {
 	top: 5px;
 	font-size: 18px;
 	cursor: pointer;
+}
+
+.search-item {
+	background: #1b2b2b;
+	border-radius: 0 !important;
+}
+
+.search-item .item {
+	background: #1b2b2b;
+	border-radius: 0 !important;
+}
+
+.search-item input {
+	color: white;
 }

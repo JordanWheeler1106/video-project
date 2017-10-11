@@ -13,7 +13,10 @@
       <td ng-click="clickFolder($event, folder)" style="cursor:pointer;">{{folder.name}}</td>
       <td ng-click="showWindow($event, folder)"><label class="level" style="cursor:pointer;">{{level[folder.strPath.split("/").length - 1]}}</label></td>
       <td>Last worked on {{folder.updatedAt.split("T")[0]}}</td>
-      <td><i class="ion-ios-gear-outline settingIcon" ng-click="openSettingPopover($event, $index, 'folder')"></i></td>
+      <td>
+        <!-- <i class="ion-ios-gear-outline settingIcon" ng-click="openSettingPopover($event, )"></i> -->
+        <i class="ion-ios-close-outline" ng-click="deleteFolderNugget($index, 'folder')"></i>
+      </td>
     </tr>
     <tr ng-repeat="nugget in currentNuggets">
       <!-- <td>
@@ -25,7 +28,10 @@
       <td ng-click="clickNugget($event, nugget)" style="cursor:pointer;">{{nugget.name}}</td>
       <td></td>
       <td>Last worked on {{nugget.updatedAt.split("T")[0]}}</td>
-      <td><i class="ion-ios-gear-outline settingIcon" ng-click="openSettingPopover($event, $index, 'nugget')"></i></td>
+      <td>
+        <!-- <i class="ion-ios-gear-outline settingIcon" ng-click="openSettingPopover($event, $index, 'nugget')"></i> -->
+        <i class="ion-ios-close-outline" ng-click="deleteFolderNugget($index, 'nugget')"></i>
+      </td>
     </tr>
     </tbody>
   </table>

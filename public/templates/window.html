@@ -8,7 +8,7 @@
           <a ui-sref="home" class="full-information">Life-In-Full</a>
           <a ui-sref="VitalInfo.PersonalInfo.PersonalInfo" class="full-information">Vital Information</a>
           <a ui-sref="javascript;" class="full-information active">Window Library</a>
-          <div class="list list-inset">
+          <div class="list list-inset search-item">
             <label class="item item-input">
               <i class="fa fa-search placeholder-icon"></i>
               <input type="text" placeholder="Search" ng-model="filter.search" ng-keypress="($event.which===13) && searchNuggets()">
@@ -60,20 +60,23 @@
       <div class="col col-75 firstRow" ng-show="toggleView=='templateList'">
         <div class="window-tabs">
           <ul>
-            <li><a href="javascript:" ng-click="clickWindowView('active')" ng-class="{'active': view == 'active'}">Active</a></li>
-            <li><a href="javascript:" ng-click="clickWindowView('archive')" ng-class="{'active': view == 'archive'}">Archive</a></li>
+            <li><a href="javascript:" ng-click="clickWindowView('active')" ng-class="{'active': view == 'active'}">Live Library</a></li>
+            <li><a href="javascript:" ng-click="clickWindowView('archive')" ng-class="{'active': view == 'archive'}">Archive Library</a></li>
           </ul>
           <div class="window-view">
             <div ng-show="view == 'active'">
-              <div class="topic-item" ng-repeat="item in activeTopicTemplates">
-                <h4 style="cursor:pointer;" ng-click="selectTopic(item.topic);"><center>{{item.topic.name}}</center></h4>
+              <div class="topic-item" ng-repeat="item in activeTopicTemplates">   
+                <div class="title-wrapper">
+                  <span>{{item.topic.name}}</span><i ng-click="selectTopic(item.topic);" class="fa fa-pencil placeholder-icon"></i>
+                </div>
                 <div class="topic-template-item" ng-repeat="template in item.templates" ng-style="{'background-color':item.topic.color}">
                   <div class="row">
                     <div class="col-60">
-                      <label ng-click="clickTemplate(template);" style="cursor:pointer;">{{template.name}}</label>
+                      <label>{{template.name}}</label>
                       <!-- <label style="cursor:pointer;">{{template.name}}</label> -->
                     </div>
                     <div class="col-40">
+                      <a class="window-button" ng-click="clickTemplate(template);" ng-show="user.copiedTemplates.indexOf(template._id)<0">View</a>
                       <a class="window-button" ng-click="archiveTemplate(template)">Archive</a>
                       <a class="window-button" ng-click="addTemplate(template)" ng-show="user.copiedTemplates.indexOf(template._id)<0">Add Template</a>
                       <a class="window-button" ng-click="editTemplate(template)" ng-show="user.copiedTemplates.indexOf(template._id)>-1">Edit</a>
@@ -87,14 +90,17 @@
             </div>
             <div ng-show="view == 'archive'">
               <div class="topic-item" ng-repeat="item in archiveTopicTemplates">
-                <h4 style="cursor:pointer;" ng-click="selectTopic(item.topic);"><center>{{item.topic.name}}</center></h4>
+                <div class="title-wrapper">
+                  <span>{{item.topic.name}}</span><i ng-click="selectTopic(item.topic);" class="fa fa-pencil placeholder-icon"></i>
+                </div>
                 <div class="topic-template-item" ng-repeat="template in item.templates" ng-style="{'background-color':item.topic.color}">
                   <div class="row">
                     <div class="col-60">
-                      <label ng-click="clickTemplate(template);" style="cursor:pointer;">{{template.name}}</label>
+                      <label>{{template.name}}</label>
                       <!-- <label style="cursor:pointer;">{{template.name}}</label> -->
                     </div>
                     <div class="col-40">
+                      <a class="window-button" ng-click="clickTemplate(template);" ng-show="user.copiedTemplates.indexOf(template._id)<0">View</a>
                       <a class="window-button" ng-click="unarchiveTemplate(template)">Active</a>&nbsp;
                       <a class="window-button" ng-click="addTemplate(template)" ng-show="user.copiedTemplates.indexOf(template._id)<0">Add Template</a>
                       <a class="window-button" ng-click="editTemplate(template)" ng-show="user.copiedTemplates.indexOf(template._id)>-1">Edit</a>

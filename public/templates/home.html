@@ -1,6 +1,6 @@
 <ion-pane>
   <ion-content on-scroll="getScrollPosition()" delegate-handle="adminScroll">
-    <div class="bar bar-header bar-stable headerNav" style="position: relative;">
+    <div class="bar bar-header bar-stable headerNav">
       <div class="nav">
         <!--<h1 class="title navHeading">the logo</h1>-->
         <a ui-sref="home"><img src="img/logo.png" class="logo" alt=""/></a>
@@ -8,7 +8,7 @@
           <a href="javascript:" class="full-information active">Life-In-Full</a>
           <a ui-sref="VitalInfo.PersonalInfo.PersonalInfo" class="full-information">Vital Information</a>
           <a ui-sref="WindowLibrary" class="full-information">Window Library</a>
-          <div class="list list-inset">
+          <div class="list list-inset search-item">
             <label class="item item-input">
               <i class="fa fa-search placeholder-icon"></i>
               <input type="text" placeholder="Search" ng-model="filter.search" ng-keypress="($event.which===13) && searchNuggets()">
@@ -52,7 +52,7 @@
       <!--///////////////////////// Mobile Version Nav ///////////////////////////////////-->
       <div class="home1-tabs">
         <ul>
-          <li><a href="javascript:" ng-click="openFilterTemplatePopover($event)" style="color: #387ef5">Show All <i class="ion-chevron-down"></i></a></li>
+          <li><a href="javascript:" ng-click="openFilterTemplatePopover($event)" style="color: #626342">Show All <i class="ion-chevron-down"></i></a></li>
           <li><a href="javascript:" class="toggleSphereView" ng-class="{'active': toggleView == 'sphere'}" ng-click="clickHomeView('sphere')">View as Sphere</a></li>
           <li><a href="javascript:" class="toggleListView" ng-class="{'active': toggleView == 'list'}" ng-click="clickHomeView('list')">View as List</a></li>
           <!-- <li class="upgradeBtn"><button type="button">Upgrade Now</button></li> -->
