@@ -420,7 +420,7 @@ form .list .item {
 
 .home1-tabs ul li {
 	display: inline-block;
-	padding: 8px 30px 8px 0;	
+	padding: 8px 30px 8px 0;
 }
 
 .window-tabs ul li {
@@ -651,7 +651,7 @@ form .list .item {
 .admin-form-control {
 	line-height: 25px;
 }
-.admin-form-control input, 
+.admin-form-control input,
 .sponsorVariableBox input {
 	border: 1px solid black;
 	width: 80px;
@@ -3658,4 +3658,64 @@ em {
 
 .search-item input {
 	color: white;
+}
+
+#info {
+    font-size: small;
+    position: absolute;
+  	top: 0px; width: 100%;
+  	padding: 5px;
+  	text-align: center;
+  	z-index: 2;
+}
+CANVAS {
+  background-color: gray;
+  cursor: pointer;
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  user-select:none;
+}
+#uiContainer {
+  z-index: 2;
+  padding: 1em;
+  /*position: absolute;
+  top: 175px;
+  right: 120px;*/
+  width: 250px;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  color: white;
+  font-size: xx-small;
+}
+#ui {
+}
+#fpsContainer {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+  color: white;
+  font-family: sans-serif;
+}
+#viewContainer {
+  width: 50%;
+  height: 100%;
+}
+
+.quotes-list .item span {
+	width: calc(100% - 60px);
+	white-space: nowrap;
+	overflow: hidden !important;
+	text-overflow: ellipsis;
+}
+
+.quotes-list .item i {
+	cursor: pointer;
+}
+
+#ui input {
+	height: 25px;
+	width: 100%;
+	padding: 5px;
+	font-size: 12px;
 }

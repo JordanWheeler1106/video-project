@@ -117,6 +117,20 @@ function setupImagePlane() {
   return new tdl.models.Model(program, arrays, textures);
 }
 
+function splitter(str, l){
+    var strs = [];
+    while(str.length > l){
+        var pos = str.substring(0, l).lastIndexOf(' ');
+        pos = pos <= 0 ? l : pos;
+        strs.push(str.substring(0, pos));
+        var i = str.indexOf(' ', pos)+1;
+        if(i < pos || i > pos+l)
+            i = pos;
+        str = str.substring(i);
+    }
+    strs.push(str);
+    return strs;
+}
 /**
  * Sets up a blank Plane
  */
@@ -161,7 +175,7 @@ ImgTexture.prototype.load = function(imgUrl, msg) {
   }
   this.img = img;
   this.msg = msg;
-  img.src = imgUrl;
+  img.src = "img/sphere/test.jpg";
 };
 
 ImgTexture.prototype.uploadTexture = function() {
@@ -177,12 +191,22 @@ ImgTexture.prototype.uploadTexture = function() {
     height = 216;
   }
   g_ctx2d.drawImage(img, 0, 0, width, height);
-  g_ctx2d.clearRect(0, 192, 256, 64);
+  //randoming color background for each rectangle
+  var first_col = Math.floor(Math.random(255)*255);
+  var sec_col = Math.floor(Math.random(255)*255);
+  var third_col = Math.floor(Math.random(255)*255);
+  g_ctx2d.fillStyle='rgb('+first_col+','+sec_col+','+third_col+')';
+  g_ctx2d.fillRect(0, 0, 256, 256);
   g_ctx2d.font = "20px sans-serif";
-  g_ctx2d.fillStyle = "rgb(255,255,255)";
+  g_ctx2d.fillStyle = "rgb(255,255,255)";  //font color
   // TODO: Obviously this needs to be split better.
-  g_ctx2d.fillText(msg.substr(0, Math.floor(msg.length / 2)), 10, 220);
-  g_ctx2d.fillText(msg.substr(Math.floor(msg.length / 2)), 10, 240);
+  //here we write the text
+  if(!msg) return;
+  var words = splitter(msg, 25);
+  for(var i = 0; i < words.length; i++) {
+    g_ctx2d.fillText(words[i], 10, 140 - Math.ceil(words.length / 2) * 20  + i * 20);
+  }
+
   gl.bindTexture(gl.TEXTURE_2D, this.texture);
   gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, gl.RGBA, gl.UNSIGNED_BYTE, g_canvas2d);
   gl.generateMipmap(gl.TEXTURE_2D);
@@ -449,9 +473,9 @@ function handleMouseDown(e) {
 
   var si = computeSphereGridInfo();
   var sel = computeSelection(si, g_lastMousePosition, g_lastMouseGridPosition);
-  var status = document.getElementById("status");
-  status.innerHTML = g_textures[sel.y][sel.x].msg;
-
+  // var status = document.getElementById("status");
+  // status.innerHTML = g_textures[sel.y][sel.x].msg;
+  // angular.element(document.getElementById('viewContainer')).scope().selectItemFromSphereView(g_textures[sel.y][sel.x].msg);
   return false;
 }
 
@@ -475,9 +499,27 @@ function handleMouseUp(e) {
     var oldest = moveHistory[0];
     var newest = moveHistory[moveHistory.length - 1];
     var elapsedTime = newest.time - oldest.time;
+
     if (elapsedTime < 0.4) {
       g_moveVelocityX =  (newest.position.x - oldest.position.x) / elapsedTime;
       g_moveVelocityY = -(newest.position.y - oldest.position.y) / elapsedTime;
+      if(g_moveVelocityX == 0 && g_moveVelocityY == 0) {
+        console.log('click');
+        startX = pos.x;
+        startY = pos.y;
+        scrollXStart = g_scrollX;
+        scrollYStart = g_scrollY;
+        g_moveVelocityX = 0;
+        g_moveVelocityY = 0;
+
+        var si = computeSphereGridInfo();
+        var sel = computeSelection(si, g_lastMousePosition, g_lastMouseGridPosition);
+        // var status = document.getElementById("status");
+        // status.innerHTML = g_textures[sel.y][sel.x].msg;
+        angular.element(document.getElementById('viewContainer')).scope().selectItemFromSphereView(g_textures[sel.y][sel.x].msg);
+      } else {
+        console.log('drag');
+      }
     }
   }
   return false;
@@ -526,6 +568,9 @@ function raySphereIntersection(point1, point2, center, radius) {
   return math.addVector(point1, math.mulScalarVector(m, dp));
 }
 
+var headlines = [];
+var sphereFlag = false;
+
 function main() {
   math = tdl.math;
   fast = tdl.fast;
@@ -534,6 +579,7 @@ function main() {
   //canvas = WebGLDebugUtils.makeLostContextSimulatingCanvas(canvas);
   // tell the simulator when to lose context.
   //canvas.loseContextInNCalls(10000);
+  sphereFlag = true;
 
   tdl.webgl.registerContextLostHandler(canvas, handleContextLost);
   tdl.webgl.registerContextRestoredHandler(canvas, handleContextRestored);
@@ -575,29 +621,6 @@ function handleContextRestored() {
 
 function initialize() {
   //gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, gl.TRUE);
-
-  var headlines = [
-    "China defends dealings with Iran after US pressure",
-    "Software fix coming for iOS vulnerabilities",
-    "Study sees linking of specific genes to coronaries",
-    "Intel agrees to marketing restrictions in FTC deal",
-    "Hefty weight gain in pregnancy causes big babies",
-    "How will Google Wave be reincarnated?",
-    "New Criteria for Diagnosing Alzheimer's Coming",
-    "Microsoft, Salesforce.com Settle Patent-Infringement Suits",
-    "Promising Results Reported for Cholesterol and Hepatitis C Drugs",
-    "BlackBerry Torch 9800 (AT&T)",
-    "Health Buzz: Dietary Supplements Often Contain Harmful Ingredients",
-    "200000 Android smartphones activated per day",
-    "Man Alerted to His Diabetes When His Terrier Eats His Infected Toe",
-    "Dell Inspiron M101z",
-    "More States Growing Obese: CDC",
-    "Solar Storm Causes Fantastic Light Show",
-    "For Hitchens brothers, rift starts with religion",
-    "FCC draws fire over talks with Internet, telecom giants on A'net neutrality'",
-    "Epilepsy Drugs Don't Raise Suicide Risk, Study Shows",
-    "Despite Death Grip, Most iPhone 4 Users 'Very Satisfied'",
-    "Why women are attracted to a man dressed in red"];
 
   var images = [
     "img/sphere/test_00.jpg",
@@ -641,8 +664,8 @@ function initialize() {
         tmpHeadlines = headlines.slice();
       }
       var img = tmpImages.splice(math.randomInt(tmpImages.length), 1)[0];
-      var headline = tmpHeadlines.splice(math.randomInt(tmpHeadlines.lenght), 1)[0];
-      imgTexture.load(img, "[" + jj + "/" + ii + "]" + headline);
+      var headline = tmpHeadlines.splice(math.randomInt(tmpHeadlines.length), 1)[0];
+      imgTexture.load(img, headline);
     }
     g_textures.push(textures);
   }
@@ -654,7 +677,7 @@ function initialize() {
 
   var then = 0.0;
   var clock = 0.0;
-  var fpsElem = document.getElementById("fps");
+  // var fpsElem = document.getElementById("fps");
 
   var projection = new Float32Array(16);
   var view = new Float32Array(16);
@@ -703,7 +726,7 @@ function initialize() {
     then = now;
 
     g_fpsTimer.update(elapsedTime);
-    fpsElem.innerHTML = g_fpsTimer.averageFPS;
+    // fpsElem.innerHTML = g_fpsTimer.averageFPS;
 
     clock += elapsedTime;
     eyePosition[0] = 0;
@@ -827,15 +850,48 @@ function getUIValue(obj, id) {
 function setupSlider($, elem, ui, obj) {
   var labelDiv = document.createElement('div');
   labelDiv.appendChild(document.createTextNode(ui.name));
-  var sliderDiv = document.createElement('div');
-  sliderDiv.id = ui.name;
+  // var sliderDiv = document.createElement('div');
+  // sliderDiv.id = ui.name;
+  // elem.appendChild(labelDiv);
+  // elem.appendChild(sliderDiv);
+
+  var inputTag = document.createElement("input");
+  inputTag.setAttribute('type', 'range');
+  inputTag.setAttribute('min', 0);
+  inputTag.setAttribute('max', ui.max * 1000);
+  inputTag.setAttribute('step', 5);
+  inputTag.setAttribute('value', ui.value * 1000);
+  // inputTag.setAttribute('data-rangeslider', null);
+  inputTag.id = ui.name;
+
   elem.appendChild(labelDiv);
-  elem.appendChild(sliderDiv);
-  $(sliderDiv).slider({
-    range: false,
-    step: 1,
-    max: ui.max * 1000,
-    value: getUIValue(obj, ui.name),
-    slide: function(event, ui) { setParam(event, ui, obj); }
-  });
+  elem.appendChild(inputTag);
+
+  // $(inputTag).rangeslider({
+  //           // Deactivate the feature detection
+  //     polyfill: false,
+  //     // Callback function
+  //     onInit: function() {
+  //         valueOutput(this.$element[0]);
+  //     },
+  //     // Callback function
+  //     onSlide: function(position, value) {
+  //         setParam(event, ui, obj);
+  //     },
+  //     // Callback function
+  //     onSlideEnd: function(position, value) {
+  //         getUIValue(obj, ui.name);
+  //     }
+  // });
+  $(inputTag).change(function() {
+      obj[ui.name] = $(this).val() / 1000;
+  })
+
+  // $(sliderDiv).slider({
+  //   range: false,
+  //   step: 1,
+  //   max: ui.max * 1000,
+  //   value: getUIValue(obj, ui.name),
+  //   slide: function(event, ui) { setParam(event, ui, obj); }
+  // });
 }

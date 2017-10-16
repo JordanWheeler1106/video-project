@@ -1,5 +1,5 @@
 <div class="row rowPadding responsive-lg">
-  <div class="col firstRow">
+  <div class="col firstRow" ng-show="view=='list'">
     <div class="quoteleftBox">
       <div class="tableLinks">
         <div class="row">
@@ -12,13 +12,42 @@
               Add
             </a>
           </div>
-        </div>        
+        </div>
       </div>
       <div class="quotes-list">
-        <div class="item item-input" ng-repeat="quote in quotes">
-          <input type="text" ng-model="quote.name" ng-blur="updateQuote(quote)" value="{{quote.name}}">
-          <i class="ion-ios-close-outline" ng-click="removeQuote(quote);"></i>
+        <div class="item item-input" ng-repeat="quote in quotes" style="height:auto;">
+          <div class="col-90">
+            <div ng-bind-html="quote.validatedString"></div>
+          </div>
+          <div class="col-10">
+            <i class="fa fa-remove" ng-click="removeQuote(quote);"></i>
+            <i class="fa fa-pencil" ng-click="editQuote(quote);"></i>
+          </div>
+          <!-- <input type="text" ng-model="quote.name" ng-blur="updateQuote(quote)" value="{{quote.name}}"> -->
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col firstRow" ng-show="view=='edit'">
+    <div class="quoteleftBox">
+      <div>
+        <div class="row">
+          <div class="col-80">
+            <span class="active">&nbsp;</span>
+          </div>
+          <div class="col-20 item-add-wrapper">
+            <a ng-click="updateQuote($event)">
+              Save
+            </a>&nbsp;&nbsp;&nbsp;
+            <a ng-click="cancelQuote($event)">
+              Back
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="quotes-list">
+        <div id="editor"></div>
       </div>
     </div>
   </div>
@@ -26,12 +55,12 @@
   <!-- <div class="col">
     <div class="rightContent">
       <div class="list">
-        
+
         <a class="item item-icon-left listFirst" ng-click="addQuote($event)">
           <i class="ion-ios-plus-outline"></i>
           Add New Quote
         </a>
-        
+
         <label class="item item-input">
           <input type="text" placeholder="New Quote" name="name" ng-model="quote.name">
         </label>
@@ -39,3 +68,18 @@
     </div>
   </div> -->
 </div>
+
+<script>
+  $(function(){
+    $('#editor').froalaEditor({
+      placeholderText: 'Start you nugget!',
+      toolbarButtonsXS: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color'],
+      toolbarButtonsSM: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color'],
+      toolbarButtonsMD: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color'],
+      toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color'],
+      videoDefaultAlign: 'left',
+      imageDefaultAlign: 'left',
+      heightMin: 100
+    })
+  });
+</script>

@@ -49,7 +49,7 @@
         <!--<h6>Share Your Story</h6>-->
         <!--<h5><a href="javascript:">Sign In or Sign Up</a></h5>-->
       </div>
-      <!--///////////////////////// Mobile Version Nav ///////////////////////////////////-->      
+      <!--///////////////////////// Mobile Version Nav ///////////////////////////////////-->
     </div>
     <ui-view>
     </ui-view>
@@ -65,7 +65,7 @@
           </ul>
           <div class="window-view">
             <div ng-show="view == 'active'">
-              <div class="topic-item" ng-repeat="item in activeTopicTemplates">   
+              <div class="topic-item" ng-repeat="item in activeTopicTemplates">
                 <div class="title-wrapper">
                   <span>{{item.topic.name}}</span><i ng-click="selectTopic(item.topic);" class="fa fa-pencil placeholder-icon"></i>
                 </div>
@@ -78,7 +78,7 @@
                     <div class="col-40">
                       <a class="window-button" ng-click="clickTemplate(template);" ng-show="user.copiedTemplates.indexOf(template._id)<0">View</a>
                       <a class="window-button" ng-click="archiveTemplate(template)">Archive</a>
-                      <a class="window-button" ng-click="addTemplate(template)" ng-show="user.copiedTemplates.indexOf(template._id)<0">Add Template</a>
+                      <a class="window-button" ng-click="addTemplate(template)" ng-show="user.copiedTemplates.indexOf(template._id)<0">Add Window</a>
                       <a class="window-button" ng-click="editTemplate(template)" ng-show="user.copiedTemplates.indexOf(template._id)>-1">Edit</a>
                     </div>
                   </div>
@@ -90,9 +90,9 @@
             </div>
             <div ng-show="view == 'archive'">
               <div class="topic-item" ng-repeat="item in archiveTopicTemplates">
-                <div class="title-wrapper">
+                <!-- <div class="title-wrapper">
                   <span>{{item.topic.name}}</span><i ng-click="selectTopic(item.topic);" class="fa fa-pencil placeholder-icon"></i>
-                </div>
+                </div> -->
                 <div class="topic-template-item" ng-repeat="template in item.templates" ng-style="{'background-color':item.topic.color}">
                   <div class="row">
                     <div class="col-60">
@@ -102,21 +102,21 @@
                     <div class="col-40">
                       <a class="window-button" ng-click="clickTemplate(template);" ng-show="user.copiedTemplates.indexOf(template._id)<0">View</a>
                       <a class="window-button" ng-click="unarchiveTemplate(template)">Active</a>&nbsp;
-                      <a class="window-button" ng-click="addTemplate(template)" ng-show="user.copiedTemplates.indexOf(template._id)<0">Add Template</a>
+                      <a class="window-button" ng-click="addTemplate(template)" ng-show="user.copiedTemplates.indexOf(template._id)<0">Add Window</a>
                       <a class="window-button" ng-click="editTemplate(template)" ng-show="user.copiedTemplates.indexOf(template._id)>-1">Edit</a>
                     </div>
-                  </div>                  
+                  </div>
                 </div>
-                <div class="topic-template-item" ng-show="item.templates.length==0">
+                <!-- <div class="topic-template-item" ng-show="item.templates.length==0">
                   No items on this topic.
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="col" ng-show="toggleView=='templateList'">
+      <div class="col" ng-show="toggleView=='templateList' && view != 'archive'">
         <div class="list">
           <h4>Create Topic</h4>
           <label class="item item-input">

@@ -64,7 +64,7 @@
     <div class="row rowPadding responsive-lg">
       <div class="col col-75 firstRow">
         <div ng-show="toggleView == 'sphere'">
-          <!-- <div ng-include="'../../templates/sphereView.html'"></div> -->
+          <div ng-include="'../../templates/sphereView.html'"></div>
         </div>
         <div ng-show="toggleView == 'list'">
           <div ng-include="'../../templates/listView.html'"></div>
@@ -75,7 +75,7 @@
       </div>
 
       <div class="col" style="position:relative;">
-        <div class="rightContent">          
+        <div class="rightContent">
           <div class="list">
             <a class="item item-icon-right header" ng-click="showButtons=!showButtons" ng-init="showButtons=false">
               <!-- <i ng-class="showButtons?'ion-minus':'ion-plus'"></i> -->
@@ -122,7 +122,7 @@
             </a>
 
           </div>
-          
+
           <div class="window-outline">
             <span class="closeIcon" ng-click="closeWindowOutline()"><i class="ion-android-close"></i></span>
             <table class="table adminTemplateList" style="margin-top:20px;">

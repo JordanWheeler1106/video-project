@@ -7,9 +7,16 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 // create a schema
-var quoteSchema = new Schema({
-    name: String,
-    string: String,
+var sphereSchema = new Schema({
+    imageScale: String,
+    imageWidth: String,
+    imageHeight: String,
+    imageSpacing: String,
+    rowOffset: String,
+    eyeRadius: String,
+    selectionIntensity: String,
+    bendRadius: String,
+    bendAmount: String,
     createdAt: {
         type: Date,
         default: Date.now
@@ -19,7 +26,7 @@ var quoteSchema = new Schema({
 
 // the schema is useless so far
 // we need to create a model using it
-var Quote = mongoose.model('Quote', quoteSchema);
+var Sphere = mongoose.model('Sphere', sphereSchema);
 
 // make this available to Nugget in our Node applications
-module.exports = Quote;
+module.exports = Sphere;

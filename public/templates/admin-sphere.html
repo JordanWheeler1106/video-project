@@ -1,113 +1,71 @@
-<style>
-#info {
-    font-size: small;
-    position: absolute;
-  	top: 0px; width: 100%;
-  	padding: 5px;
-  	text-align: center;
-  	z-index: 2;
-}
-CANVAS {
-  background-color: gray;
-  cursor: pointer;
-  -webkit-user-select:none;
-  -moz-user-select:none;
-  user-select:none;
-}
-#uiContainer {
-  z-index: 2;
-  padding: 1em;
-  /*position: absolute;
-  top: 175px;
-  right: 120px;*/
-  width: 250px;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
-  color: white;
-  font-size: xx-small;
-}
-#ui {
-}
-#fpsContainer {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  z-index: 2;
-  color: white;
-  font-family: sans-serif;
-}
-#viewContainer {
-  width: 50%;
-  height: 100%;  
-}
-</style>
+
 <div class="row rowPadding responsive-lg">
   <div id="fpsContainer">
     <div class="fps">fps: <span id="fps"></div>
     <div id="status"></div>
   </div>
   <div id="uiContainer">
-  <div id="ui"></div>
+    <div id="ui"></div>
   </div>
   <div id="viewContainer">
-  <canvas id="canvas" width="1024" height="1024" style="width: 100%; height: 100%;"></canvas>
+    <canvas id="canvas" width="1024" height="1024" style="width: 100%; height: 100%;"></canvas>
   </div>
-  <!--- black shader -->
+    <!--- black shader -->
   <script id="blackVertexShader" type="text/something-not-javascript">
-  uniform mat4 worldViewProjection;
-  attribute vec4 position;
-  void main() {
-    gl_Position = worldViewProjection * position;
-  }
+    uniform mat4 worldViewProjection;
+    attribute vec4 position;
+    void main() {
+      gl_Position = worldViewProjection * position;
+    }
   </script>
   <script id="blackFragmentShader" type="text/something-not-javascript">
-  #ifdef GL_ES
-  precision mediump float;
-  #endif
-  void main() {
-    gl_FragColor = vec4(0,0,0,0);
-  }
+    #ifdef GL_ES
+    precision mediump float;
+    #endif
+    void main() {
+      gl_FragColor = vec4(0,0,0,0);
+    }
   </script>
-  <!--- imageSphere -->
+    <!--- imageSphere -->
   <script id="imageSphereVertexShader" type="text/something-not-javascript">
-  uniform mat4 viewProjection;
-  uniform mat4 world;
-  uniform float bendRadius;
-  uniform float bendAmount;
-  attribute vec4 position;
-  attribute vec2 texCoord;
-  varying vec2 v_texCoord;
-  void main() {
-    v_texCoord = texCoord;
-    vec4 wp = world * position;
-    float longitude = 3.14159 * 0.5 - wp.x;
-    float latitude = 3.14159 * 0.5 - wp.y;
-    float sinTheta = sin(longitude);
-    float cosTheta = cos(longitude);
-    float sinPhi = sin(latitude);
-    float cosPhi = cos(latitude);
-    float ux = cosTheta * sinPhi;
-    float uy = cosPhi;
-    float uz = sinTheta * sinPhi;
-    vec4 wp1 = vec4(
-      ux * bendRadius,
-      uy * bendRadius,
-      uz * bendRadius,
-      1);
-    vec4 wp2 = vec4(wp.x, wp.y, wp.z + bendRadius, 1.0);
-    gl_Position = viewProjection * mix(wp2, wp1, bendAmount);
-  }
+    uniform mat4 viewProjection;
+    uniform mat4 world;
+    uniform float bendRadius;
+    uniform float bendAmount;
+    attribute vec4 position;
+    attribute vec2 texCoord;
+    varying vec2 v_texCoord;
+    void main() {
+      v_texCoord = texCoord;
+      vec4 wp = world * position;
+      float longitude = 3.14159 * 0.5 - wp.x;
+      float latitude = 3.14159 * 0.5 - wp.y;
+      float sinTheta = sin(longitude);
+      float cosTheta = cos(longitude);
+      float sinPhi = sin(latitude);
+      float cosPhi = cos(latitude);
+      float ux = cosTheta * sinPhi;
+      float uy = cosPhi;
+      float uz = sinTheta * sinPhi;
+      vec4 wp1 = vec4(
+        ux * bendRadius,
+        uy * bendRadius,
+        uz * bendRadius,
+        1);
+      vec4 wp2 = vec4(wp.x, wp.y, wp.z + bendRadius, 1.0);
+      gl_Position = viewProjection * mix(wp2, wp1, bendAmount);
+    }
   </script>
   <script id="imageSphereFragmentShader" type="text/something-not-javascript">
-  #ifdef GL_ES
-  precision mediump float;
-  #endif
-  varying vec2 v_texCoord;
-  uniform sampler2D diffuseSampler;
-  uniform vec4 colorMult;
-  void main() {
-    vec4 diffuse = texture2D(diffuseSampler, vec2(v_texCoord.x, v_texCoord.y));
-    gl_FragColor = diffuse * colorMult;
-  }
+    #ifdef GL_ES
+    precision mediump float;
+    #endif
+    varying vec2 v_texCoord;
+    uniform sampler2D diffuseSampler;
+    uniform vec4 colorMult;
+    void main() {
+      vec4 diffuse = texture2D(diffuseSampler, vec2(v_texCoord.x, v_texCoord.y));
+      gl_FragColor = diffuse * colorMult;
+    }
   </script>
 </div>
