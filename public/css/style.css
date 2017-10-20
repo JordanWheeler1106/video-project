@@ -58,6 +58,10 @@
 	font-size: 16px;
 }
 
+.tabsNav ul li a.active {
+	color: #edad1d;
+}
+
 .headerNav .navHeading {
 	text-transform: uppercase;
 	font-size: 40px;
@@ -359,7 +363,8 @@ form .list .item {
 }
 
 .active {
-	color:#626342;
+	color: #edad1d;
+	/*color:#626342;*/
 	/*color: #333333;*/
 	font-weight: 600;
 }
@@ -447,7 +452,7 @@ form .list .item {
 .window-tabs ul li a.active,
 .home1-tabs ul li a.active {
 	/*color: #0b73ba;*/
-	color: #626342;
+	color: #edad1d;
 }
 
 .window-view {
@@ -514,7 +519,7 @@ form .list .item {
 
 .vital-info-tabs ul li a.active {
 	/*color: #0b73ba;*/
-	color: #626342;
+	color: #edad1d;
 }
 
 .vital-info-tabs ul li a i {
@@ -2431,7 +2436,7 @@ form .list .item {
 
 .account-tabs ul li a.active {
 	/*color: #1b75bb;*/
-	color: #626342;
+	color: #edad1d;
 }
 
 .account-tabs ul li a {
@@ -3464,7 +3469,7 @@ form .list .item {
 }
 
 .blue-text {
-	color: #626342;
+	color: #edad1d;
 	/*color: rgb(57, 133, 196) !important;*/
 }
 

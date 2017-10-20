@@ -67,7 +67,8 @@
             <div ng-show="view == 'active'">
               <div class="topic-item" ng-repeat="item in activeTopicTemplates">
                 <div class="title-wrapper">
-                  <span>{{item.topic.name}}</span><i ng-click="selectTopic(item.topic);" class="fa fa-pencil placeholder-icon"></i>
+                  <span>{{item.topic.name}}</span>
+                  <!-- <i ng-click="selectTopic(item.topic);" class="fa fa-pencil placeholder-icon"></i> -->
                 </div>
                 <div class="topic-template-item" ng-repeat="template in item.templates" ng-style="{'background-color':item.topic.color}">
                   <div class="row">
@@ -79,7 +80,7 @@
                       <a class="window-button" ng-click="clickTemplate(template);" ng-show="user.copiedTemplates.indexOf(template._id)<0">View</a>
                       <a class="window-button" ng-click="archiveTemplate(template)">Archive</a>
                       <a class="window-button" ng-click="addTemplate(template)" ng-show="user.copiedTemplates.indexOf(template._id)<0">Add Window</a>
-                      <a class="window-button" ng-click="editTemplate(template)" ng-show="user.copiedTemplates.indexOf(template._id)>-1">Edit</a>
+                      <a class="window-button" ng-click="editTemplate(template)" ng-show="user.copiedTemplates.indexOf(template._id)>-1">Outline</a>
                     </div>
                   </div>
                 </div>
@@ -103,7 +104,7 @@
                       <a class="window-button" ng-click="clickTemplate(template);" ng-show="user.copiedTemplates.indexOf(template._id)<0">View</a>
                       <a class="window-button" ng-click="unarchiveTemplate(template)">Active</a>&nbsp;
                       <a class="window-button" ng-click="addTemplate(template)" ng-show="user.copiedTemplates.indexOf(template._id)<0">Add Window</a>
-                      <a class="window-button" ng-click="editTemplate(template)" ng-show="user.copiedTemplates.indexOf(template._id)>-1">Edit</a>
+                      <a class="window-button" ng-click="editTemplate(template)" ng-show="user.copiedTemplates.indexOf(template._id)>-1">Outline</a>
                     </div>
                   </div>
                 </div>
