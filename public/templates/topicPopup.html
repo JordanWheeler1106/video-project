@@ -2,9 +2,20 @@
 <ion-scroll zooming="true" direction="y" style="height: 300px">
   <div class="listItemsArea">
     <div class="list">
-      <ion-checkbox ng-repeat="topic in topics" ng-click="chooseTopic(tag)" ng-checked="template.topic==topic._id">
-        <span>{{topic.name}}</span>
-      </ion-checkbox>
+      <div class="row topicItem">
+        <div class="col col-80" ng-click="selectTopic(null)">
+          <span><i class="ion-ios-plus-outline"></i>&nbsp;&nbsp;Add New Topic</span>
+        </div>
+        <div class="col col-20">&nbsp;</div>
+      </div>
+      <div class="row topicItem" ng-repeat="topic in topics">
+        <div class="col col-80" ng-click="selectTopic(topic)">
+          <span>{{topic.name}}</span>
+        </div>
+        <div class="col col-20" style="text-align:right;">
+          <i class="ion-ios-close-outline" ng-click="removeTopic(topic._id)"></i>
+        </div>
+      </div>
     </div>
     <div class="rightAreaButton">
       <button type="button" class="saveBtn" ng-click="closeTopicPopup()">Close</button>

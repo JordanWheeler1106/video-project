@@ -460,6 +460,8 @@ form .list .item {
 	min-height: 300px;
 	padding: 10px 30px;
 	margin-top: -1px;
+	height: 750px;
+	overflow: auto;
 }
 
 .topic-item .title-wrapper {
@@ -2725,8 +2727,8 @@ form .list .item {
 
 .invite-friends-area {
 	width: 65%;
-	margin: 35px 0 0 17%;
-	padding: 35px 0 20px 0;
+	margin: 0px 0 0 17%;
+	padding: 0px 0 20px 0;
 	border-top: 1px solid #ccc;
 	float: left;
 	text-align: center;
@@ -3612,14 +3614,6 @@ em {
 	font-style:italic;
 }
 
-.window-button {
-	padding: 5px 10px;
-	background: #fff;
-	color: black;
-	border:1px solid #ccc;
-	cursor:pointer;
-}
-
 .item-add-wrapper {
 	text-align: right;
 	font-size:16px;
@@ -3723,4 +3717,56 @@ CANVAS {
 	width: 100%;
 	padding: 5px;
 	font-size: 12px;
+}
+
+.invite-friends-list {
+	width: 65%;
+  font-size: 16px;
+	font-weight: 400;
+  margin: 35px 0 0 17%;
+	text-align: left;
+}
+
+.invite-friends-area .row .link-btn {
+	width: calc(50% - 5px);
+	height: auto;
+	float: left;
+	padding: 0px;
+	margin: 0px;
+	margin-left: 10px;
+}
+
+.invite-friends-area .row .link-btn:first-child {
+	margin-left: 0px;
+}
+.topicItem {
+	border-bottom: 1px solid gray;
+	margin:0px !important;
+	padding: 0px !important;
+	line-height: 42px;
+}
+.topicItem i {
+	font-size:20px;
+	color: black;
+}
+.topicItem span {
+	font-size:18px;
+	color: black;
+}
+
+.dragdroplistitem,
+.dragdroplist li {
+	padding: 5px 20px;
+  border: 1px solid black !important;
+  margin-top: -1px;
+	width: 100%;
+}
+
+.dragdroplistitem .window-button,
+.dragdroplist li .window-button {
+	padding: 5px 10px;
+	background: #fff;
+	color: black;
+	border:1px solid #ccc;
+	cursor:pointer;
 }

@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var app = angular.module('starter', ['ionic', 'ngTagsInput','froala','mp.colorPicker'])
+var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'froala','mp.colorPicker'])
 // var app = angular.module('starter', ['ionic', 'froala'])
 
 .run(function($ionicPlatform) {
@@ -191,6 +191,22 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput','froala','mp.colorPi
                       else
                         $state.go('home');
                     })
+              // } else if($location.search()['inviteToken']) {
+              //   $http.post('/api/invites/accept',{inviteid:$location.search()['inviteToken'], email: res.data.user.email})
+              //       .then( function(invite){
+              //         $ionicLoading.hide();
+              //         if(res.data.user.role=='admin')
+              //           $state.go('admin.templates');
+              //         else
+              //           $state.go('home');
+              //       })
+              //       .catch( function(err){
+              //         $ionicLoading.hide();
+              //         if(res.data.user.role=='admin')
+              //           $state.go('admin.templates');
+              //         else
+              //           $state.go('home');
+              //       })
               } else {
                 $ionicLoading.hide();
                 if(res.data.user.role=='admin')
@@ -233,6 +249,31 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput','froala','mp.colorPi
             localStorage.setItem("token", res.data.token);
             if($location.search()['token']) {
               $http.post('/api/shares/accept',{shareid:$location.search()['token']})
+                  .then( function(res){
+                    $ionicLoading.hide();
+                    $state.go('home');
+                  })
+                  .catch( function(err){
+                    $ionicLoading.hide();
+                    $state.go('home');
+                  })
+            } else if($location.search()['inviteToken']) {
+              $http.post('/api/invites/accept',{inviteid:$location.search()['inviteToken'], email: res.data.user.email})
+                  .then( function(res){
+                    $ionicLoading.hide();
+                    $state.go('home');
+                  })
+                  .catch( function(err){
+                    $ionicLoading.hide();
+                    $state.go('home');
+                  })
+            } else if($location.search()['inviteFrom']) {
+              var invite = {
+                email: res.data.user.email,
+                inviteFrom: $location.search()['inviteFrom'],
+                status: "accepted"
+              }
+              $http.post('/api/invites/saveInvite', invite)
                   .then( function(res){
                     $ionicLoading.hide();
                     $state.go('home');
@@ -554,6 +595,20 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput','froala','mp.colorPi
   })
   .controller('refferAFriendCtrl', function($scope, $http, $ionicPopup, $state, $ionicLoading){
     $scope.invite = { email: '' };
+    $scope.invitedList = [];
+    $scope.invites = [];
+    $scope.getInvitedList = function() {
+      var user = JSON.parse(localStorage.getItem('user'));
+      $http.get('/api/invites/all/' + user._id)
+          .then(function(res) {
+            $scope.invites = res.data;
+          })
+          .catch( function(err){
+            // $ionicLoading.hide();
+            // $ionicLoading.show({ template: 'You have already invited!', noBackdrop: true, duration: 2000 });
+          })
+    }
+
     $scope.clickSendInvite = function() {
       var user = JSON.parse(localStorage.getItem('user'));
       $scope.invite.inviteFrom = user._id;
@@ -570,6 +625,7 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput','froala','mp.colorPi
                   $ionicLoading.show({ template: 'You have already invited!', noBackdrop: true, duration: 2000 });
                 } else {
                   $ionicLoading.hide();
+                  $scope.getInvitedList();
                   $ionicLoading.show({ template: "Invitation Email has been sent successfully.", noBackdrop: true, duration: 2000 });
                 }
             })
@@ -581,16 +637,43 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput','froala','mp.colorPi
     }
 
     $scope.copyToClipboard = function () {
-        var copyElement = document.createElement("textarea");
-        copyElement.style.position = 'fixed';
-        copyElement.style.opacity = '0';
-        copyElement.textContent = 'http://thehumexpdevelop.com/#/signup';
-        var body = document.getElementsByTagName('body')[0];
-        body.appendChild(copyElement);
-        copyElement.select();
-        document.execCommand('copy');
-        body.removeChild(copyElement);
+      var user = JSON.parse(localStorage.getItem('user'));
+      var copyElement = document.createElement("textarea");
+      copyElement.style.position = 'fixed';
+      copyElement.style.opacity = '0';
+      copyElement.textContent = 'https://thehumanexperienceapp.com/#/signup?inviteFrom=' + user._id;
+      var body = document.getElementsByTagName('body')[0];
+      body.appendChild(copyElement);
+      copyElement.select();
+      document.execCommand('copy');
+      body.removeChild(copyElement);
     }
+
+    $scope.resendInvite = function(invite) {
+      $http.post('/api/invites/resend', invite)
+          .then( function(res){
+              $ionicLoading.hide();
+              $scope.getInvitedList();
+              $ionicLoading.show({ template: "Invitation Email has been resent successfully.", noBackdrop: true, duration: 2000 });
+          })
+          .catch( function(err){
+            $ionicLoading.hide();
+          })
+    }
+
+    $scope.cancelInvite = function(invite) {
+      $http.delete('/api/invites', invite._id)
+          .then( function(res){
+              $ionicLoading.hide();
+              $scope.getInvitedList();
+              $ionicLoading.show({ template: "Invitation has been cancelled.", noBackdrop: true, duration: 2000 });
+          })
+          .catch( function(err){
+            $ionicLoading.hide();
+          })
+    }
+
+    $scope.getInvitedList();
   })
   .controller('shareSettingCtrl', function($scope, $http, $ionicPopup, $state, $ionicLoading){
 
@@ -3955,19 +4038,51 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput','froala','mp.colorPi
       })
     }
 
+    $scope.clickChangeTopic = function() {
+      // $scope.user.cancelPlan = false;
+      var popup = $ionicPopup.show({
+        cssClass: 'invite-new-member-popup',
+        templateUrl: '../templates/topicPopup.html',
+        title: 'Select Topic',
+        scope: $scope
+      });
 
-    $scope.removeTopic = function(id){
-      $ionicLoading.show();
-      $http.delete('/api/topics/'+id).then(function(data){
-        $ionicLoading.hide();
-        $scope.getTopics();
-      })
-      .catch(function(){
-        $ionicLoading.hide();
-        alert("something went wrong please try again, or reload the page")
-      })
+      popup.then(function(res) {
+        console.log('Tapped!', res);
+      });
+
+      $scope.closeTopicPopup = function() {
+        popup.close();
+      };
+
+      $scope.selectTopic = function(topic) {
+        if(topic)
+          $scope.topic = topic;
+        else {
+          $scope.topic = {
+            color: "",
+            name: "",
+            new: true
+          }
+        }
+        popup.close();
+      }
+
+      $scope.removeTopic = function(id){
+        $ionicLoading.show();
+        $http.delete('/api/topics/'+id).then(function(data){
+          $ionicLoading.hide();
+          $scope.getTopics();
+        })
+        .catch(function(){
+          $ionicLoading.hide();
+          alert("something went wrong please try again, or reload the page")
+        })
+      }
     }
-
+    $scope.cancelTopic = function() {
+      $scope.topic = {};
+    }
     $scope.getTemplates = function() {
       $http.post('/api/templates/batch', {userIds:[$scope.user._id, "595ee200104076180ee01085"]})
           .then( function(res){
@@ -3975,10 +4090,10 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput','froala','mp.colorPi
             $scope.activeTopicTemplates = [];
             $scope.archiveTopicTemplates = [];
             for(var i = 0; i < $scope.topics.length; i++) {
-              $scope.activeTopicTemplates.push({topic: $scope.topics[i], templates: []});
+              $scope.activeTopicTemplates.push({topic: $scope.topics[i], templates: [{name:"No items on this topic.", isNotItem: true}]});
               $scope.archiveTopicTemplates.push({topic: $scope.topics[i], templates: []});
             }
-            var activeOtherTemplates = [], archiveOtherTemplates = [];
+            var activeOtherTemplates = [], archiveOtherTemplates = [], activeConsideredTemplates = [];
             if(!$scope.user.archivedTemplates)
               $scope.user.archivedTemplates = [];
             for(var i = 0; i < $scope.storeTemplates.length; i++) {
@@ -3986,7 +4101,7 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput','froala','mp.colorPi
                 var flag = false;
                 if($scope.user.copiedTemplates.indexOf($scope.storeTemplates[i]._id) < 0) {
                   for(var j = 0; j < $scope.activeTopicTemplates.length; j++)
-                    if($scope.storeTemplates[i].topic && $scope.storeTemplates[i].topic.name == $scope.activeTopicTemplates[j].topic.name) {
+                    if($scope.storeTemplates[i].topic && $scope.storeTemplates[i].topic.name == $scope.activeTopicTemplates[j].topic.name && $scope.storeTemplates[i].userId._id == $scope.user._id) {
                       flag = true;
                       $scope.activeTopicTemplates[j].templates.push($scope.storeTemplates[i]);
                     }
@@ -4003,8 +4118,12 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput','froala','mp.colorPi
                     }
                 }
 
-                if(!flag)
-                  activeOtherTemplates.push($scope.storeTemplates[i]);
+                if(!flag) {
+                  if($scope.storeTemplates[i].userId._id == $scope.user._id)
+                    activeOtherTemplates.push($scope.storeTemplates[i]);
+                  else
+                    activeConsideredTemplates.push($scope.storeTemplates[i]);
+                }
               } else {
                 flag = false;
                 if($scope.user.copiedTemplates.indexOf($scope.storeTemplates[i]._id) < 0) {
@@ -4030,13 +4149,69 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput','froala','mp.colorPi
                   archiveOtherTemplates.push($scope.storeTemplates[i]);
               }
             }
-            $scope.activeTopicTemplates.push({topic: {name: "Other", color: "#fff"}, templates: activeOtherTemplates});
-            $scope.archiveTopicTemplates.push({topic: {name: "Other", color: "#fff"}, templates: archiveOtherTemplates});
+            $scope.activeTopicTemplates.push({topic: {name: "Unassigned", color: "#fff"}, templates: activeOtherTemplates});
+            $scope.activeTopicTemplates.push({topic: {name: "To Be Considered", color: "#fff"}, templates: activeConsideredTemplates});
+            $scope.archiveTopicTemplates.push({topic: {name: "Unassigned", color: "#fff"}, templates: archiveOtherTemplates});
 
+            $scope.filterTemplates();
           })
           .catch( function(err){
             alert("something went wrong please try again, or reload the page")
           })
+    }
+
+    $scope.onDragend = function(item, template, event) {
+
+      if(template.userId._id == $scope.user._id || $scope.user.copiedTemplates.indexOf(template._id) > -1) {
+        for(var i = 0; i < $scope.activeTopicTemplates.length; i++)
+          for(var j = 0; j < $scope.activeTopicTemplates[i].templates.length; j++)
+            if($scope.activeTopicTemplates[i].templates[j]._id == template._id) {
+              template.topic = $scope.activeTopicTemplates[i].topic;
+              break;
+            }
+
+        var folder = {};
+        for(var i = 0; i < $scope.userFolders.length; i++)
+          if($scope.userFolders[i].name == template.name && $scope.userFolders[i].strPath.split("/").length-1==0) {
+            folder = $scope.userFolders[i]; break;
+          }
+        $scope.template = {
+          _id: "copied-template",
+          userId: $scope.user,
+          name: folder.name,
+          topic: template.topic,
+          description: '',
+          folders: $scope.getWindowOutline(folder),
+          nuggets: [],
+          linkedItems: []
+        };
+
+        $scope.saveTemplate();
+      } else {
+        for(var i = 0; i < $scope.activeTopicTemplates.length; i++)
+          for(var j = 0; j < $scope.activeTopicTemplates[i].templates.length; j++)
+            if($scope.activeTopicTemplates[i].templates[j]._id == template._id) {
+              template.topic = $scope.activeTopicTemplates[i].topic;
+              break;
+            }
+        $scope.addTemplate(template);
+      }
+      $scope.filterTemplates();
+    }
+
+    $scope.filterTemplates = function() {
+      for(var i = 0; i < $scope.activeTopicTemplates.length; i++) {
+        if($scope.activeTopicTemplates[i].templates.length > 1) {
+          for(var j = 0; j < $scope.activeTopicTemplates[i].templates.length; j++)
+            if($scope.activeTopicTemplates[i].templates[j].isNotItem)
+              $scope.activeTopicTemplates[i].templates.splice(j,1);
+        }
+        else if($scope.activeTopicTemplates[i].templates.length > 0) {
+
+        }
+        else
+          $scope.activeTopicTemplates[i].templates = [{name:"No items on this topic.", isNotItem: true}]
+      }
     }
 
     $scope.archiveTemplate = function(template) {
@@ -4067,13 +4242,12 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput','froala','mp.colorPi
           })
     }
 
-    $scope.selectTopic = function(topic) {
-      $scope.topic = topic;
-    }
+
     $scope.clickWindowView = function(view) {
       $scope.view = view;
     }
     $scope.clickBackBtn = function() {
+      // $ionicScrollDelegate.getScrollView().options.scrollingY = false;
       $scope.toggleView = 'templateList';
       $scope.template = {};
     }
@@ -4194,6 +4368,7 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput','froala','mp.colorPi
       $scope.selectedFolder = folder;
     }
     $scope.clickTemplate = function(template) {
+        // $ionicScrollDelegate.getScrollView().options.scrollingY = true;
         $scope.template = {
           topic: template.topic?template.topic._id:"",
           description: template.description,
@@ -4255,6 +4430,7 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput','froala','mp.colorPi
     }
 
     $scope.editTemplate = function(template) {
+      // $ionicScrollDelegate.getScrollView().options.scrollingY = true;
       var folder = {};
       for(var i = 0; i < $scope.userFolders.length; i++)
         if($scope.userFolders[i].name == template.name && $scope.userFolders[i].strPath.split("/").length-1==0) {
@@ -4483,28 +4659,33 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput','froala','mp.colorPi
           })
     }
 
-    $scope.getScrollPosition = function(){
-       var element = $('.follow-scroll'),
-           originalY = 200;
-       // Should probably be set in CSS; but here just for emphasis
-       element.css('position', 'relative');
-       var obj = $(".scroll");
-       var transformMatrix = obj.css("-webkit-transform") ||
-        obj.css("-moz-transform")    ||
-        obj.css("-ms-transform")     ||
-        obj.css("-o-transform")      ||
-        obj.css("transform");
-       var matrix = transformMatrix.replace(/[^0-9\-.,]/g, '').split(',');
-       var x = matrix[12] || matrix[4];//translate x
-       var scrollTop = parseInt(matrix[13] || matrix[5]) * (-1);//translate y
-      //  console.log(scrollTop);
-      //  var scrollTop = $ionicScrollDelegate.getScrollPosition().top;
-       element.stop(false, false).animate({
-           top: scrollTop < originalY
-                   ? 0
-                   : scrollTop - originalY
-       }, 50);
-    }
+    $("#windowView").scroll(function() {
+      var element = $('.follow-scroll'),
+          originalY = 200;
+      // Should probably be set in CSS; but here just for emphasis
+      element.css('position', 'relative');
+      var scrollTop = $(this).scrollTop();
+      // var obj = $(".scroll");
+      // var transformMatrix = obj.css("-webkit-transform") ||
+      //  obj.css("-moz-transform")    ||
+      //  obj.css("-ms-transform")     ||
+      //  obj.css("-o-transform")      ||
+      //  obj.css("transform");
+      // var matrix = transformMatrix.replace(/[^0-9\-.,]/g, '').split(',');
+      // var x = matrix[12] || matrix[4];//translate x
+      // var scrollTop = parseInt(matrix[13] || matrix[5]) * (-1);//translate y
+     //  console.log(scrollTop);
+     //  var scrollTop = $ionicScrollDelegate.getScrollPosition().top;
+      element.stop(false, false).animate({
+          top: scrollTop < originalY
+                  ? 0
+                  : scrollTop - originalY
+      }, 50);
+    });
+    //
+    // $scope.getScrollPosition = function(){
+    //
+    // }
 
     $scope.$on('scroll-top', function(event, args) {
       if(args.top == 0) {
@@ -4522,7 +4703,12 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput','froala','mp.colorPi
       $state.go('signin')
     }
 
-    $ionicLoading.hide();
+    // $timeout(function() {
+    //   $ionicScrollDelegate.getScrollView().options.scrollingY = false;
+    // }, 50);
+
+
+    $ionicLoading.show();
     $scope.getUserFolders(true);
     $scope.getUserNuggets();
   })

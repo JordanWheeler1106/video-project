@@ -23,7 +23,7 @@ router.get('/all/:id', function(req, res, next) {
         res.json(invites);
     });
 });
-// 
+//
 // router.get('/all/:id/:parentId', function(req, res, next) {
 //     Invite.find({userId: req.params.id, parentId: req.params.parentId}, function (err, invites) {
 //         if (err) return next(err);
@@ -32,14 +32,51 @@ router.get('/all/:id', function(req, res, next) {
 // });
 
 /* GET SINGLE Nugget BY ID */
-router.get('/:id', function(req, res, next) {  
+router.get('/:id', function(req, res, next) {
     Invite.findById(req.params.id, function (err, invite) {
         if (err) return next(err);
-        res.json(invite);        
+        res.json(invite);
     });
 });
 
-router.post('/accept', function(req, res, next) {  
+router.post('/resend', function(req, res, next) {
+  User.findById({_id: req.body.inviteFrom}, function (err, user) {
+      if (err) return next(err);
+      if(user) {
+        var templatesDir = path.resolve(__dirname, '../../public/templates/email');
+        var template = new EmailTemplate(path.join(templatesDir, 'customer-refferal'));
+        template.render({customer_name: user.firstName+" "+user.lastName, invite_code: req.body._id}, function(err, tmp) {
+            if(err) {
+              return console.error(err);
+            }
+            var ses = new aws.SES({apiVersion: '2010-12-01'});
+
+            // this sends the email
+            // @todo - add HTML version
+            ses.sendEmail( {
+               Source: "The Human Experience <admin@thehumanexperience.info>",
+               Destination: { ToAddresses: [req.body.email] },
+               Message: {
+                   Subject: {
+                      Data: 'Invitation from Human Experience'
+                   },
+                   Body: {
+                       Html: {
+                           Data: tmp.html,
+                       }
+                    }
+               }
+            }
+            , function(err, data) {
+                if(err) throw err
+                res.json(req.body);
+             });
+        });
+      }
+  });
+});
+
+router.post('/accept', function(req, res, next) {
     Invite.findById(req.body.inviteid, function (err, invite) {
         if (err) return next(err);
         if(invite && invite.email == req.body.email) {
@@ -55,6 +92,13 @@ router.post('/accept', function(req, res, next) {
 });
 
 /* SAVE Nugget */
+router.post('/saveInvite', function(req, res, next) {
+    Invite.create(req.body, function (err, invite) {
+        if (err) return next(err);
+        res.json(invite);
+    })
+});
+
 router.post('/', function(req, res, next) {
   User.findOne({email: req.body.email}, function (err, user) {
       if (err) return next(err);
@@ -81,7 +125,7 @@ router.post('/', function(req, res, next) {
                         return console.error(err);
                       }
                       var ses = new aws.SES({apiVersion: '2010-12-01'});
-        
+
                       // this sends the email
                       // @todo - add HTML version
                       ses.sendEmail( {
@@ -108,8 +152,8 @@ router.post('/', function(req, res, next) {
                 }
             })
           }
-        });        
-      }        
+        });
+      }
   });
 });
 

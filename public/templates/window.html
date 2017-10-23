@@ -1,5 +1,6 @@
 <ion-pane>
-  <ion-content on-scroll="getScrollPosition()" delegate-handle="adminScroll">
+  <!-- <ion-content on-scroll="getScrollPosition()" delegate-handle="adminScroll"> -->
+  <ion-content id="windowView" scroll="false" style="overflow: auto;">
     <div class="bar bar-header bar-stable headerNav" style="position: relative; height: 99px; border: none;">
       <div class="nav">
         <!--<h1 class="title navHeading">the logo</h1>-->
@@ -51,8 +52,7 @@
       </div>
       <!--///////////////////////// Mobile Version Nav ///////////////////////////////////-->
     </div>
-    <ui-view>
-    </ui-view>
+
     <div class="row rowPadding responsive-lg" style="margin-top:20px;">
       <div class="col firstRow" ng-show="toggleView == 'template'">
         <div ng-include="'../../templates/template.html'"></div>
@@ -68,25 +68,43 @@
               <div class="topic-item" ng-repeat="item in activeTopicTemplates">
                 <div class="title-wrapper">
                   <span>{{item.topic.name}}</span>
-                  <!-- <i ng-click="selectTopic(item.topic);" class="fa fa-pencil placeholder-icon"></i> -->
                 </div>
-                <div class="topic-template-item" ng-repeat="template in item.templates" ng-style="{'background-color':item.topic.color}">
+                <ul class="dragdroplist"
+                    dnd-list="item.templates"
+                    dnd-disable-if="item.topic.name=='Unassigned' || item.topic.name=='To Be Considered'">
+                    <li ng-repeat="template in item.templates"
+                        dnd-draggable="template"
+                        dnd-disable-if="template.isNotItem"
+                        dnd-moved="item.templates.splice($index, 1)"
+                        dnd-effect-allowed="move"
+                        ng-style="{'background-color':item.topic.color}"
+                        dnd-dragstart="onDragstart(item, template, event)"
+                        dnd-dragend="onDragend(item, template, event)">
+                        <div class="row">
+                          <div class="col-60">
+                            <label>{{template.name}}</label>
+                          </div>
+                          <div class="col-40" ng-hide="template.isNotItem">
+                            <a class="window-button" ng-click="archiveTemplate(template)">Archive</a>
+                            <a class="window-button" ng-click="clickTemplate(template);" ng-show="user.copiedTemplates.indexOf(template._id)<0">View</a>
+                            <a class="window-button" ng-click="editTemplate(template)" ng-show="user.copiedTemplates.indexOf(template._id)>-1">Outline</a>
+                          </div>
+                        </div>
+                    </li>
+                </ul>
+                <!-- <div class="topic-template-item" ng-repeat="template in item.templates" ng-style="{'background-color':item.topic.color}">
                   <div class="row">
                     <div class="col-60">
                       <label>{{template.name}}</label>
-                      <!-- <label style="cursor:pointer;">{{template.name}}</label> -->
                     </div>
                     <div class="col-40">
-                      <a class="window-button" ng-click="clickTemplate(template);" ng-show="user.copiedTemplates.indexOf(template._id)<0">View</a>
                       <a class="window-button" ng-click="archiveTemplate(template)">Archive</a>
-                      <a class="window-button" ng-click="addTemplate(template)" ng-show="user.copiedTemplates.indexOf(template._id)<0">Add Window</a>
+                      <a class="window-button" ng-click="clickTemplate(template);" ng-show="user.copiedTemplates.indexOf(template._id)<0">View</a>
                       <a class="window-button" ng-click="editTemplate(template)" ng-show="user.copiedTemplates.indexOf(template._id)>-1">Outline</a>
                     </div>
                   </div>
-                </div>
-                <div class="topic-template-item" ng-show="item.templates.length==0">
-                  No items on this topic.
-                </div>
+                </div> -->
+
               </div>
             </div>
             <div ng-show="view == 'archive'">
@@ -94,16 +112,16 @@
                 <!-- <div class="title-wrapper">
                   <span>{{item.topic.name}}</span><i ng-click="selectTopic(item.topic);" class="fa fa-pencil placeholder-icon"></i>
                 </div> -->
-                <div class="topic-template-item" ng-repeat="template in item.templates" ng-style="{'background-color':item.topic.color}">
+                <div class="dragdroplistitem" ng-repeat="template in item.templates" ng-style="{'background-color':item.topic.color}">
                   <div class="row">
                     <div class="col-60">
                       <label>{{template.name}}</label>
                       <!-- <label style="cursor:pointer;">{{template.name}}</label> -->
                     </div>
                     <div class="col-40">
-                      <a class="window-button" ng-click="clickTemplate(template);" ng-show="user.copiedTemplates.indexOf(template._id)<0">View</a>
                       <a class="window-button" ng-click="unarchiveTemplate(template)">Active</a>&nbsp;
-                      <a class="window-button" ng-click="addTemplate(template)" ng-show="user.copiedTemplates.indexOf(template._id)<0">Add Window</a>
+                      <a class="window-button" ng-click="clickTemplate(template);" ng-show="user.copiedTemplates.indexOf(template._id)<0">View</a>
+                      <!-- <a class="window-button" ng-click="addTemplate(template)" ng-show="user.copiedTemplates.indexOf(template._id)<0">Add Window</a> -->
                       <a class="window-button" ng-click="editTemplate(template)" ng-show="user.copiedTemplates.indexOf(template._id)>-1">Outline</a>
                     </div>
                   </div>
@@ -115,10 +133,17 @@
             </div>
           </div>
         </div>
+
       </div>
 
-      <div class="col" ng-show="toggleView=='templateList' && view != 'archive'">
-        <div class="list">
+      <div class="col" ng-show="toggleView=='templateList' && view != 'archive'" style="padding-top:50px;">
+        <label class="item item-input template-tag" ng-click="clickChangeTopic()" ng-show="!topic.name && !topic.new">
+          <ion-select class="template-tag-selection">
+            <ion-option ng-show="!topic.name">Select Topic</ion-option>
+            <ion-option ng-show="topic.name">{{topic.name}}</ion-option>
+          </ion-select>
+        </label>
+        <div class="list" ng-show="topic.name || topic.new">
           <h4>Create Topic</h4>
           <label class="item item-input">
             <input type="text" placeholder="Enter Topic" name="name" ng-model="topic.name">
@@ -128,7 +153,7 @@
           <color-picker ng-model="topic.color"></color-picker>
           <div class="row">
             <div class="template-button-wrapper">
-              <button type="button" class="cancel-btn" ng-click="removeTopic(topic._id)" ng-show="topic._id">Delete</button>
+              <button type="button" class="cancel-btn" ng-click="cancelTopic()">Cancel</button>
               <button type="button" class="save-btn" ng-click="addTopic()">Submit</button>
             </div>
           </div>

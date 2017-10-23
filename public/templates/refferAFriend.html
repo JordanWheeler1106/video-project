@@ -9,8 +9,23 @@
     </div>
     <button type="button" ng-click="clickSendInvite()">send invite</button>
   </div>
+  <div class="invite-friends-list" ng-show="invites.length > 0">
+    <div class="row">
+      <div  class="col col-60">Invited Friends</div>
+      <div  class="col col-20">Status</div>
+      <div  class="col col-20">&nbsp;</div>
+    </div>
+  </div>
   <div class="invite-friends-area">
-    <h2>More ways to invite your friends</h2>
+    <div class="row" ng-repeat="inv in invites" style="text-align:left;">
+      <div class="col col-60">{{inv.email}}</div>
+      <div class="col col-20" style="text-transform: capitalize;">{{inv.status=='accepted'?'Active':'Invited'}}</div>
+      <div class="col col-20" ng-show="inv.status=='invited'">
+        <button type="button" class="link-btn" ng-click="resendInvite(inv);">Resend</button>
+        <button type="button" class="link-btn" ng-click="cancelInvite(inv);">Cancel</button>
+      </div>
+    </div>
+    <h2 style="margin-top:50px;">More ways to invite your friends</h2>
     <button type="button" class="link-btn" ng-click="copyToClipboard()"><i class="ion-link"></i> copy link</button>
     <button type="button" class="share-btn"><i class="ion-social-facebook"></i> share on facebook</button>
   </div>
