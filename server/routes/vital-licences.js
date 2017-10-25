@@ -64,5 +64,84 @@ router.post('/batch', function(req, res, next) {
       res.json(licences);
     })
 });
+router.post('/info/:userid', function(req,res) {
+    var vitalLicences = new VitalLicences();
+    var params = req.body;
+    var userId = req.params.userid;
 
+    vitalLicences.user = userId;
+    vitalLicences.city = params.city;
+    vitalLicences.authority = params.authority,
+    vitalLicences.grantedDate = params.grantedDate,
+    vitalLicences.state = params.state,
+    vitalLicences.zipcode = params.zipcode, 
+    vitalLicences.country = params.country,
+    vitalLicences.type = params.type,
+    vitalLicences.address = params.address,
+    vitalLicences.addedAddressInfo = params.addedAddressInfo,
+    vitalLicences.pobox = params.pobox,
+    vitalLicences.notes = params.notes
+
+    vitalLicences.save((err, vitalLicencesStored) =>{
+        if(err){
+            res.status(500).send({message: 'There has been an error.'});               
+        } else {
+            if(!vitalLicencesStored){
+                res.status(404).send({message: 'The information couldn\'t be saved.'});                   
+            } else {
+                res.status(200).send({LicencesEntry: vitalLicencesStored});
+            }
+        }
+    });
+});
+
+router.put('/info/:infoid', function(req, res){
+    var infoId = req.params.infoid;
+    var update = req.body;
+
+    VitalLicences.findByIdAndUpdate(infoId, update, (err, licencesUpdated) =>{
+        if(err){
+            res.status(500).send({message: 'There has been an error.'});               
+        } else {
+            if(!licencesUpdated){
+                res.status(404).send({message: 'The information couldn\'t be updated.'});                   
+            } else {
+                res.status(200).send({LicenceEdited: licencesUpdated});
+            }
+        }
+    });
+});
+
+router.delete('/info/:infoid', function(req, res){
+    var infoId = req.params.infoid;
+    var update = req.body;
+
+    VitalLicences.findByIdAndRemove(infoId, update, (err, licenceRemoved) =>{
+        if(err){
+            res.status(500).send({message: 'There has been an error.'});               
+        } else {
+            if(!licenceRemoved){
+                res.status(404).send({message: 'The information couldn\'t be deleted.'});                   
+            } else {
+                res.status(200).send({LicenceRemoved: licenceRemoved});
+            }
+        }
+    });
+});
+
+router.get('/info/all/:userid', function(req, res){
+    var userId=req.params.userid;
+    var find=VitalLicences.find({user: userId});   
+    find.exec((err, infoObtained)=>{
+        if(err){
+            res.status(500).send({message: 'There has been an error.'}); 
+        } else {
+            if(!infoObtained){
+                res.status(404).send({message: 'There are no entries.'});
+            } else {
+                res.status(200).send({LicenceEntries: infoObtained}); 
+            }
+        }
+    });
+});
 module.exports = router;

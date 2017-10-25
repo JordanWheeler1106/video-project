@@ -13,17 +13,21 @@ var vitalEmploymentSchema = new Schema({
         ref: 'User'
     },
     company: String,
+    branch: String,
     title: String,
-    awards: String,
     street: String,
     city: String,
     state: String,
     zipcode: Number, 
     country: String,
-    type: String,
+    industryType: String,
     startDate: Date,
     endDate: Date,
-    notes: String
+    addedEmployerInfo: Array,
+    addedAddressInfo: Array,
+    county: String,
+    employmentNotes: String,
+    employerNotes: String
 });
 
 

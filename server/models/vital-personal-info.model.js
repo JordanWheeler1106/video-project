@@ -12,16 +12,15 @@ var vitalPersonalInfoSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    firstName: String,
-    middleName: String,
-    lastName: String,
     birthDate: Date,
-    birthCity: String,
-    birthState: String,
+    birthPlace: String,
     deathDate: Date,
-    deathCity: String,
-    deathState: String,
+    deathPlace: String,
     gender: String,
+    race: String,
+    priorNames: String,
+    addedBasicInfo: Array,
+    addedCriticalInfo: Array,
     ethnicity: String,
     notes: String
 });

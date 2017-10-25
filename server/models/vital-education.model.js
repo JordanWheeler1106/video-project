@@ -13,7 +13,7 @@ var vitalEducationSchema = new Schema({
         ref: 'User'
     },
     school: String,
-    degree: String,
+    major: String,
     awards: String,
     street: String,
     city: String,
@@ -23,6 +23,15 @@ var vitalEducationSchema = new Schema({
     type: String,
     startDate: Date,
     endDate: Date,
+    schoolDescription: String,
+    diploma: String,
+    addedSchoolAddresInfo: Array,
+    others: String, 
+    addedMajorInfo: Array,
+    addedDiplomaInfo: Array,
+    addedAwardsInfo: Array,
+    addedOtherInfo: Array,
+    addedExtracurricularInfo: Array,
     notes: String
 });
 

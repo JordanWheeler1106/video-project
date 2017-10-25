@@ -69,7 +69,8 @@
           </li> -->
           <li class="searchField"><a href="javascript:" class="linkNugget" ng-click="sidebar.view = 1; sidebar.search = false" ng-class="{'active': sidebar.view==1}">Prompts </a></li>
           <li class="searchField"><a href="javascript:" class="linkNugget" ng-click="sidebar.view = 2; sidebar.search = false" ng-class="{'active': sidebar.view==2}">Notes </a></li>
-          <li class="searchField"><a href="javascript:" class="linkNugget moreEditFeatures" ng-click="sidebar.view = 3; sidebar.search = false" ng-class="{'active': sidebar.view==3}">More Editor Features </a></li>
+          <li class="searchField"><a href="javascript:" class="linkNugget normalEditor" ng-click="sidebar.view = 3; sidebar.search = false" ng-class="{'active': sidebar.view==3}">Normal Editor </a></li>
+          <li class="searchField"><a href="javascript:" class="linkNugget advanceEditor" ng-click="sidebar.view = 5; sidebar.search = false" ng-class="{'active': sidebar.view==5}">Advance Editor </a></li>
           <li class="searchField"><a href="javascript:" class="linkNugget voice2Text" ng-click="sidebar.view = 4; sidebar.search = false" ng-class="{'active': sidebar.view==4}">Voice2Text </a></li>
         </ul>
       </div>
@@ -141,21 +142,122 @@
     $(function(){
       $('#editor').froalaEditor({
         placeholderText: 'Start you nugget!',
-        toolbarButtonsXS: ['fullscreen', 'bold', 'italic', 'underline', '|', 'fontFamily', 'fontSize', 'color', '|', 'insertLink', 'insertImage', 'insertVideo'],
-        toolbarButtonsSM: ['fullscreen', 'bold', 'italic', 'underline', '|', 'fontFamily', 'fontSize', 'color', '|', 'insertLink', 'insertImage', 'insertVideo'],
-        toolbarButtonsMD: ['fullscreen', 'bold', 'italic', 'underline', '|', 'fontFamily', 'fontSize', 'color', '|', 'insertLink', 'insertImage', 'insertVideo'],
-        toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', '|', 'fontFamily', 'fontSize', 'color', '|', 'insertLink', 'insertImage', 'insertVideo'],
+        toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo'],
+        toolbarButtonsXS: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo'],
+        toolbarButtonsSM: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo'],
+        toolbarButtonsMD: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo'],
+        toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo'],
         videoDefaultAlign: 'left',
         imageDefaultAlign: 'left',
         heightMin: 300
       })
 
+      setTimeout(function() {
+        $("#strikeThrough-1").hide();
+        $("#subscript-1").hide();
+        $("#superscript-1").hide();
+        $("#inlineStyle-1").hide();
+        $("#dropdown-menu-inlineStyle-1").hide();
+        $("#paragraphStyle-1").hide();
+        $("#dropdown-menu-paragraphStyle-1").hide();
+        $("#paragraphFormat-1").hide();
+        $("#dropdown-menu-paragraphFormat-1").hide();
+        $("#align-1").hide();
+        $("#dropdown-menu-align-1").hide();
+        $("#formatOL-1").hide();
+        $("#formatUL-1").hide();
+        $("#outdent-1").hide();
+        $("#indent-1").hide();
+        $("#quote-1").hide();
+        $("#dropdown-menu-quote-1").hide();
+        $("#insertFile-1").hide();
+        $("#insertTable-1").hide();
+        $(".fr-separator.fr-hs").hide();
+        $("#emoticons-1").hide();
+        $("#insertHR-1").hide();
+        $("#selectAll-1").hide();
+        $("#clearFormatting-1").hide();
+        $("#html-1").hide();
+        $("#undo-1").hide();
+        $("#redo-1").hide();
+        var separatorVs = $(".fr-separator.fr-vs");
+        $(separatorVs[2]).hide();
+        $(separatorVs[3]).hide();
+        $(separatorVs[4]).hide();
+      }, 50);
+
       $(".voice2Text").click(function() {
         $(".fr-toolbar").hide();
       })
 
-      $(".moreEditFeatures").click(function() {
+      $(".normalEditor").click(function() {
         $(".fr-toolbar").show();
+        $("#strikeThrough-1").hide();
+        $("#subscript-1").hide();
+        $("#superscript-1").hide();
+        $("#inlineStyle-1").hide();
+        $("#dropdown-menu-inlineStyle-1").hide();
+        $("#paragraphStyle-1").hide();
+        $("#dropdown-menu-paragraphStyle-1").hide();
+        $("#paragraphFormat-1").hide();
+        $("#dropdown-menu-paragraphFormat-1").hide();
+        $("#align-1").hide();
+        $("#dropdown-menu-align-1").hide();
+        $("#formatOL-1").hide();
+        $("#formatUL-1").hide();
+        $("#outdent-1").hide();
+        $("#indent-1").hide();
+        $("#quote-1").hide();
+        $("#dropdown-menu-quote-1").hide();
+        $("#insertFile-1").hide();
+        $("#insertTable-1").hide();
+        $(".fr-separator.fr-hs").hide();
+        $("#emoticons-1").hide();
+        $("#insertHR-1").hide();
+        $("#selectAll-1").hide();
+        $("#clearFormatting-1").hide();
+        $("#html-1").hide();
+        $("#undo-1").hide();
+        $("#redo-1").hide();
+        var separatorVs = $(".fr-separator.fr-vs");
+        $(separatorVs[2]).hide();
+        $(separatorVs[3]).hide();
+        $(separatorVs[4]).hide();
+      })
+
+      $(".advanceEditor").click(function() {
+        $(".fr-toolbar").show();
+        $("#strikeThrough-1").show();
+        $("#subscript-1").show();
+        $("#superscript-1").show();
+        $("#inlineStyle-1").show();
+        $("#dropdown-menu-inlineStyle-1").show();
+        $("#paragraphStyle-1").show();
+        $("#dropdown-menu-paragraphStyle-1").show();
+        $("#paragraphFormat-1").show();
+        $("#dropdown-menu-paragraphFormat-1").show();
+        $("#align-1").show();
+        $("#dropdown-menu-align-1").show();
+        $("#formatOL-1").show();
+        $("#formatUL-1").show();
+        $("#outdent-1").show();
+        $("#indent-1").show();
+        $("#quote-1").show();
+        $("#dropdown-menu-quote-1").show();
+        $("#insertFile-1").show();
+        $("#insertTable-1").show();
+        $(".fr-separator.fr-hs").show();
+        $("#emoticons-1").show();
+        $("#insertHR-1").show();
+        $("#selectAll-1").show();
+        $("#clearFormatting-1").show();
+        $("#html-1").show();
+        $("#undo-1").show();
+        $("#redo-1").show();
+        var separatorVs = $(".fr-separator.fr-vs");
+        $(separatorVs[2]).show();
+        $(separatorVs[3]).show();
+        $(separatorVs[4]).show();
       })
 
     });

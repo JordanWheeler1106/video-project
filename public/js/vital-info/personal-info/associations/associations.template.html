@@ -3,134 +3,209 @@
 		<!-- ng-click="modal.show()" -->
 		<a class="item center-text">
 			Associations/Memberships
-            <i class="icon ion-ios-arrow-down vertical-middle"></i>
-            <i class="icon ion-ios-plus-outline blue-text float-right hand" ng-click="addItem();"><span style="font-size: 16px;padding-left:5px;">Add New</span></i>
 		</a>
 	</div>
 </div>
-<div class="hide-on-sm">
+<div class="hide-on-sm blue-form">
 	<div>
 		<div class="tableLinks">
-            <span class="active">Associations/Memberships</span>
-            <i class="icon ion-ios-plus-outline blue-text float-right hand" ng-click="addItem();"><span class="padding-horizontal" style="font-size: 18px;">Add New</span></i>
+			<span class="active">Associations/Memberships</span>
 		</div>
 	</div>
 </div>
-<div class="md-margin-10 responsive-sm" ng-repeat = "association in associations">
-    <div class="row">
-        <div class="col col-100">
-            <label class="item item-input">
-                <input type="text" placeholder="Association" ng-model="association.association" ng-blur="updateData();">
-            </label>
-        </div>
-		</div>
+<div class="responsive-sm blue-form" ng-repeat="association in associations track by $index" ng-if="$parent.checkedItems['association'][association.type] || association.type == unedfined">
 
-    <div class="row">
-        <div class="col col-100">
-            <label class="item item-input">
-                <input type="text" placeholder="Position" ng-model="association.position" ng-blur="updateData();">
-            </label>
-        </div>
-		</div>
 
-    <div class="row">
-        <div class="col col-100">
-            <label class="item item-input">
-                <input type="text" placeholder="Honors/Awards" ng-model="association.awards" ng-blur="updateData();">
-            </label>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col col-100">
-            <label class="item item-input">
-                <input type="text" placeholder="Street" ng-model="association.street" ng-blur="updateData();">
-            </label>
-        </div>
-		</div>
-
-    <div class="row">
-        <div class="col col-100">
-            <label class="item item-input">
-                <input type="text" placeholder="City" ng-model="association.city" ng-blur="updateData();">
-            </label>
-        </div>
-		</div>
-
-    <div class="row">
-        <div class="col col-100">
-            <label class="item item-input">
-                <input type="text" placeholder="State" ng-model="association.state" ng-blur="updateData();">
-            </label>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col col-100">
-            <label class="item item-input">
-                <input type="text" placeholder="Zip Code" ng-model="association.zipcode" ng-blur="updateData();">
-            </label>
-        </div>
-		</div>
-
-    <div class="row">
-        <div class="col col-100">
-            <label class="item item-input">
-                <input type="text" placeholder="Country" ng-model="association.country" ng-blur="updateData();">
-            </label>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col col-100">
-            <label class="item item-input">
-								<span>Start Date</span>
-                <input type="date" placeholder="Start Date" ng-model="association.startDate" ng-blur="updateData();">
-            </label>
-        </div>
-		</div>
-
-    <div class="row">
-        <div class="col col-100">
-            <label class="item item-input">
-								<span>End Date</span>
-                <input  type="date" placeholder="End Date" ng-model="association.endDate" ng-blur="updateData();">
-            </label>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col col-100">
-            <label class="item item-input vital-textarea">
-                <textarea placeholder="Notes" ng-model="association.notes" ng-blur="updateData();">{{association.notes}}</textarea>
-            </label>
-        </div>
-    </div>
-		
 		<div class="row">
-      <div class="col col-100">
-					<div class="delete-button" ng-click="removeItem(association);">
-						<i class="ion-ios-close-outline"></i>
-						Delete						
-					</div>
+			<div class="col col-10">
+				<span class="input-name">Type</span>
+			</div>
+			<div class="col col-90">
+				<select ng-model="association.type" class="input">
+					<option ng-repeat="e in association_list" value="{{e}}">{{e}}</option>
+				</select>
+			</div>
+		</div>
+
+		<div>
+			<div class="tableLinks subtitle">
+	      <span class="active">Organization</span>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col col-10">
+				<span class="input-name">Name of Organization</span>
+			</div>
+      <div class="col col-90">
+        <input type="text" ng-model="association.association" class="input">
       </div>
     </div>
+
+		<div class="row">
+			<div class="col col-10">
+				<span class="input-name">Description of Organization and Purpose</span>
+			</div>
+      <div class="col col-90">
+        <textarea class="textarea" ng-model="association.description" rows="5"></textarea>
+      </div>
+    </div>
+
+
+		<div>
+			<div class="tableLinks subtitle">
+	      <span class="active">Dates of Membership</span>
+			</div>
+		</div>
+
+
+    <div class="row date">
+			<div class="col col-10">
+				<span class="input-name">From</span>
+			</div>
+      <div class="col col-90">
+        <input type="number" ng-model="association.startDate.day" class="input">
+				<input type="number" ng-model="association.startDate.month" class="input">
+				<input type="number" ng-model="association.startDate.year" class="input">
+      </div>
+    </div>
+
+
+    <div class="row date">
+			<div class="col col-10">
+				<span class="input-name">To</span>
+			</div>
+      <div class="col col-90">
+        <input type="number" ng-model="association.endDate.day" class="input">
+				<input type="number" ng-model="association.endDate.month" class="input">
+				<input type="number" ng-model="association.endDate.year" class="input">
+      </div>
+    </div>
+
+
+		<div>
+			<div class="tableLinks subtitle">
+	      <span class="active">Offices/Responsabilities</span>
+			</div>
+		</div>
+
+		<div class="row" ng-repeat="(title, value) in association.addedResponsibilitiesInfo">
+			<div class="col col-10">
+				<span class="input-name">{{title}}</span>
+			</div>
+      <div class="col col-90">
+        <input type="text" ng-model="association.addedResponsibilitiesInfo[title]" class="input">
+      </div>
+    </div>
+
+		<div class="row">
+			<div class="col col-10"></div>
+      <div class="col col-90">
+				<add-another label-text="Add Another" hash="association.addedResponsibilitiesInfo"></add-another>
+      </div>
+    </div>
+
+
+		<div>
+			<div class="tableLinks subtitle">
+	      <span class="active">Notes</span>
+			</div>
+		</div>
+
+    <div class="row">
+			<div class="col col-10">
+			</div>
+      <div class="col col-90">
+        <textarea class="textarea" ng-model="association.notes" rows="5"></textarea>
+      </div>
+    </div>
+
+
+		<div>
+			<div class="tableLinks subtitle">
+	      <span class="active">Location</span>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col col-10">
+				<span class="input-name">Street Address</span>
+			</div>
+      <div class="col col-90">
+        <input type="text" ng-model="association.street" class="input">
+      </div>
+    </div>
+
+		<div class="row" ng-repeat="(title, value) in association.addedAddressInfo">
+			<div class="col col-10">
+				<span class="input-name">{{title}}</span>
+			</div>
+      <div class="col col-90">
+        <input type="text" ng-model="association.addedAddressInfo[title]" class="input">
+      </div>
+    </div>
+
+		<div class="row">
+			<div class="col col-10"></div>
+      <div class="col col-90">
+				<add-another label-text="Add Another" hash="association.addedAddressInfo"></add-another>
+      </div>
+    </div>
+
+		<div class="row">
+			<div class="col col-10">
+				<span class="input-name">City</span>
+			</div>
+      <div class="col col-90">
+        <input type="text" ng-model="association.city" class="input">
+      </div>
+    </div>
+
+		<div class="row">
+			<div class="col col-10">
+				<span class="input-name">State</span>
+			</div>
+      <div class="col col-90">
+        <input type="text" ng-model="association.state" class="input">
+      </div>
+    </div>
+
+		<div class="row">
+			<div class="col col-10">
+				<span class="input-name">Zip Code</span>
+			</div>
+      <div class="col col-90">
+        <input type="number" ng-model="association.zipcode" class="input">
+      </div>
+    </div>
+
+		<div class="row">
+			<div class="col col-10">
+				<span class="input-name">Country</span>
+			</div>
+      <div class="col col-90">
+        <input type="text" ng-model="association.country" class="input">
+      </div>
+    </div>
+
+
+
+		<div class="row buttons">
+		  <button class="blue-button" ng-click="save($index)">Save</button>
+			<button class="blue-button" ng-click="delete($index)">Delete</button>
+		</div>
+
+
 </div>
-<!-- <div style="width: 100%;" class="leftBox margin-bottom-25">
-    <table class="table report">
-        <tbody>
-            <tr class="user-table">
-                <th>Association</th>                
-                <th>Street</th>
-                <th>City</th>
-                <th>State</th>
-                <th>Zipcode</th>
-                <th>Country</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Poisition</th>                
-                <th>Actions</th>                
-            </tr>
-        </tbody>
-    </table>
-</div> -->
+
+
+
+<div class="row">
+	<div class="col col-33">
+	</div>
+	<div class="col col-33 add-form-button">
+		<button ng-click="addForm()" class="blue-button">Add Form</button>
+	</div>
+	<div class="col col-33">
+	</div>
+</div>

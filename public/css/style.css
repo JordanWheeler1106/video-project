@@ -3777,3 +3777,111 @@ CANVAS {
 .fr-box.fr-basic .fr-element {
 	background: #fcf3de;
 }
+
+.vital-forms {
+	padding-left: 20px;
+}
+
+.side-menu .item {
+	background: rgb(242,249,250);
+	color: #666;
+	font-weight:bold;
+	padding: 16px 14px;
+}
+
+.side-menu .item.title {
+  font-size:18px;
+}
+
+.side-menu .item.side-nav-clicked {
+	background: rgb(207,229,265);
+	color: #666 !important;
+}
+.side-menu .item button.blue-button {
+	margin:0;
+	padding: 1px 7px;
+}
+.vital-forms {
+	background: rgb(242,249,250);
+	color: #666;
+}
+
+.blue-form .tableLinks {
+	border:none;
+	margin-bottom:10px;
+}
+
+.blue-form .tableLinks.subtitle {
+	border:none;
+	margin-bottom:10px;
+	margin-top: 20px;
+	margin-bottom: 0;
+	border-top:1px solid #ccc;
+}
+.blue-form .tableLinks.subtitle span {
+	font-size: 18px;
+	margin-top: -13px;
+	display: block;
+	padding: 0 10px 0 1px;
+	background: rgb(242,249,250);
+	float: left;
+}
+
+.blue-form .input-name {
+	font-size: 14px;
+	font-weight:bold;
+}
+
+.blue-form .input {
+	border-radius: 3px;
+	border: 1px solid #ccc;
+	height: 26px;
+	padding-left: 5px;
+	width: 300px;
+}
+
+.blue-form .textarea {
+	border-radius: 3px;
+	border: 1px solid #ccc;
+	width: 100%;
+	padding: 5px;
+}
+
+.blue-form .row.date .input {
+	float:left;
+	margin-right: 4px;
+}
+.blue-form .row.date .input:nth-child(1) {
+		width: 50px;
+}
+.blue-form .row.date .input:nth-child(2) {
+		width: 50px;
+}
+.blue-form .row.date .input:nth-child(3) {
+		width: 80px;
+}
+
+.blue-form .buttons {
+	margin: 20px 0;
+}
+
+.blue-form .add-item {
+	color: rgb(104, 163, 199);
+	font-weight:bold;
+	cursor: pointer;
+}
+
+
+button.blue-button {
+	background: rgb(104, 163, 199);
+	color: #fff;
+	border-radius: 5px;
+	padding: 5px 10px;
+	margin-right: 10px;
+	font-weight: bold;
+	border:none;
+}
+
+.add-form-button {
+	text-align: center;
+}

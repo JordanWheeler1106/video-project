@@ -12,6 +12,8 @@ var vitalPlaceslivedSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
+    addedResidenceInfo: Array,
+    county: String,
     street: String,
     city: String,
     state: String,

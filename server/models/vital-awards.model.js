@@ -12,16 +12,11 @@ var vitalAwardsSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    association: String,
-    awards: String,
-    honors: String,
-    street: String,
-    city: String,
-    state: String,
-    zipcode: Number, 
-    country: String,
+    organization: String,
+    description: String,
     date: Date,
-    notes: String
+    notes: String,
+    type: String
 });
 
 

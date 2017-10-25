@@ -1,39 +1,31 @@
 <div class="side-nav hide-on-sm">
-	<div class="list">
-		<div class="item item-divider">
-			Title
+	<div class="list side-menu">
+		<div class="item item-divider title">
+			Contents
 		</div>
 		<a class="item" ng-class="{'side-nav-clicked': location == 'personal-info'}" ui-sref = 'VitalInfo.PersonalInfo.PersonalInfo'>
-			Personal Information
-			<span class="item-note">12.12.17</span>
+			Primary Information
 		</a>
 		<a class="item" ng-class="{'side-nav-clicked': location == 'places-lived'}" ui-sref = 'VitalInfo.PersonalInfo.PlacesLived'>
 			Places Lived
-			<span class="item-note">12.12.17</span>
 		</a>
 		<a class="item" ng-class="{'side-nav-clicked': location == 'education'}" ui-sref = 'VitalInfo.PersonalInfo.Education'>
-			Education
-			<span class="item-note">12.12.17</span>
+			Education <button class="blue-button float-right" ng-click="showList('education')">LIST</button>
 		</a>
 		<a class="item" ng-class="{'side-nav-clicked': location == 'employement'}" ui-sref = 'VitalInfo.PersonalInfo.Employement'>
 			Employment
-			<span class="item-note">12.12.17</span>
 		</a>
 		<a class="item" ng-class="{'side-nav-clicked': location == 'military'}" ui-sref = 'VitalInfo.PersonalInfo.Military'>
 			Military
-			<span class="item-note">12.12.17</span>
 		</a>
 		<a class="item" ng-class="{'side-nav-clicked': location == 'associations'}" ui-sref = 'VitalInfo.PersonalInfo.Associations'>
-			Associations/Memberships
-			<span class="item-note">12.12.17</span>
+			Associations/Memberships <button class="blue-button float-right" ng-click="showList('association')">LIST</button>
 		</a>
 		<a class="item" ng-class="{'side-nav-clicked': location == 'licences'}" ui-sref = 'VitalInfo.PersonalInfo.Licences'>
-			Licences/Certifications
-			<span class="item-note">12.12.17</span>
+			Licences/Certifications <button class="blue-button float-right" ng-click="showList('licence')">LIST</button>
 		</a>
 		<a class="item" ng-class="{'side-nav-clicked': location == 'awards'}" ui-sref = 'VitalInfo.PersonalInfo.Awards'>
-			Awards/Honours
-			<span class="item-note">12.12.17</span>
+			Awards/Honours <button class="blue-button float-right" ng-click="showList('award')">LIST</button>
 		</a>
 	</div>
 </div>

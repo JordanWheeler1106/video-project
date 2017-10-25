@@ -65,4 +65,96 @@ router.post('/batch', function(req, res, next) {
     })
 });
 
+router.post('/info/:userid', function(req,res) {
+    var vitalEducation = new VitalEducation();
+    var params = req.body;
+    var userId = req.params.userid;
+
+    vitalEducation.user=userId;
+    vitalEducation.school = params.school;
+    vitalEducation.major = params.major;
+    vitalEducation.awards = params.awards;
+    vitalEducation.street = params.street;
+    vitalEducation.city = params.city;
+    vitalEducation.state = params.state;
+    vitalEducation.zipcode = params.zipcode;
+    vitalEducation.country = params.country;
+    vitalEducation.type = params.type;
+    vitalEducation.startDate = params.startDate;
+    vitalEducation.endDate = params.endDate;
+    vitalEducation.schoolDescription = params.schoolDescription;
+    vitalEducation.diploma = params.diploma;
+    vitalEducation.addedSchoolAddresInfo = params.addedSchoolAddresInfo;
+    vitalEducation.others = params.others;
+    vitalEducation.addedMajorInfo = params.addedMajorInfo,
+    vitalEducation.addedDiplomaInfo = params.addedDiplomaInfo,
+    vitalEducation.addedAwardsInfo = params.addedAwardsInfo,
+    vitalEducation.addedOtherInfo = params.addedOtherInfo,
+    vitalEducation.addedExtracurricularInfo = params.addedExtracurricularInfo,
+    vitalEducation.notes = params.notes;
+    vitalEducation.save((err, vitalEducationStored) =>{
+        if(err){
+            res.status(500).send({message: 'There has been an error.'});               
+        } else {
+            if(!vitalEducationStored){
+                res.status(404).send({message: 'The information couldn\'t be saved.'});                   
+            } else {
+                res.status(200).send({EducationEntry: vitalEducationStored});
+            }
+        }
+    });
+});
+
+router.put('/info/:infoid', function(req, res){
+    var infoId = req.params.infoid;
+    var update = req.body;
+
+    VitalEducation.findByIdAndUpdate(infoId, update, (err, educationUpdated) =>{
+        if(err){
+            res.status(500).send({message: 'There has been an error.'});               
+        } else {
+            if(!educationUpdated){
+                res.status(404).send({message: 'The information couldn\'t be updated.'});                   
+            } else {
+                res.status(200).send({EducationUpdated: educationUpdated});
+            }
+        }
+    });
+});
+
+router.delete('/info/:infoid', function(req, res){
+    var infoId = req.params.infoid;
+    var update = req.body;
+
+    VitalEducation.findByIdAndRemove(infoId, update, (err, educationRemoved) =>{
+        if(err){
+            res.status(500).send({message: 'There has been an error.'});               
+        } else {
+            if(!educationRemoved){
+                res.status(404).send({message: 'The information couldn\'t be deleted.'});                   
+            } else {
+                res.status(200).send({EducationRemoved: educationRemoved});
+            }
+        }
+    });
+});
+
+router.get('/info/all/:userid', function(req, res){
+    var userId=req.params.userid;
+    var find=VitalEducation.find({user: userId});   
+    find.exec((err, infoObtained)=>{
+        if(err){
+            res.status(500).send({message: 'There has been an error.'}); 
+        } else {
+            if(!infoObtained){
+                res.status(404).send({message: 'There are no entries.'});
+            } else {
+                res.status(200).send({EducationEntries: infoObtained}); 
+            }
+        }
+    });
+
+});
+
+
 module.exports = router;

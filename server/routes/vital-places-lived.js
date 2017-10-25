@@ -65,4 +65,87 @@ router.post('/batch', function(req, res, next) {
     })
 });
 
+router.post('/info/:userid', function(req,res) {
+    var vitalPlacesLived = new VitalPlacesLived();
+    var params = req.body;
+    var userId = req.params.userid;
+
+    vitalPlacesLived.user = userId;
+    vitalPlacesLived.street = params.street;
+    vitalPlacesLived.city = params.city;
+    vitalPlacesLived.state = params.state;
+    vitalPlacesLived.zipcode = params.zipcode;
+    vitalPlacesLived.country = params.country;
+    vitalPlacesLived.county = params.county;
+    vitalPlacesLived.addedResidenceInfo = params.addedResidenceInfo;
+    vitalPlacesLived.type = params.type;
+    vitalPlacesLived.startDate = params.startDate;
+    vitalPlacesLived.endDate = params.endDate;
+    vitalPlacesLived.notes = params.notes;
+
+    vitalPlacesLived.save((err, vitalPlacesLivedStored) =>{
+        if(err){
+            res.status(500).send({message: 'There has been an error.'});               
+        } else {
+            if(!vitalPlacesLivedStored){
+                res.status(404).send({message: 'The information couldn\'t be saved.'});
+            } else {
+                res.status(200).send({PlacesLivedEntry: vitalPlacesLivedStored});
+            }
+        }
+    });
+});
+
+router.put('/info/:infoid', function(req, res){
+    var infoId = req.params.infoid;
+    var update = req.body;
+
+    VitalPlacesLived.findByIdAndUpdate(infoId, update, (err, placesUpdated) =>{
+        if(err){
+            res.status(500).send({message: 'There has been an error.'});
+        } else {
+            if(!placesUpdated){
+                res.status(404).send({message: 'The information couldn\'t be updated.'});
+            } else {
+                res.status(200).send({PlacesLived: placesUpdated});
+            }
+        }
+    });
+});
+
+router.delete('/info/:infoid', function(req, res){
+    var infoId = req.params.infoid;
+    var update = req.body;
+
+    VitalPlacesLived.findByIdAndRemove(infoId, update, (err, placesRemoved) =>{
+        if(err){
+            res.status(500).send({message: 'There has been an error.'});
+        } else {
+            if(!placesRemoved){
+                res.status(404).send({message: 'The information couldn\'t be deleted.'});
+            } else {
+                res.status(200).send({PlacesLivedRemoved: placesRemoved});
+            }
+        }
+    });
+});
+
+router.get('/info/all/:userid', function(req, res){
+    var userId=req.params.userid;
+    var find=VitalPlacesLived.find({user: userId});
+    find.exec((err, infoObtained)=>{
+        if(err){
+            res.status(500).send({message: 'There has been an error.'});
+        } else {
+            if(!infoObtained){
+                res.status(404).send({message: 'There are no entries.'});
+            } else {
+                res.status(200).send({PlacesLived: infoObtained});
+            }
+        }
+    });
+
+});
+
+
 module.exports = router;

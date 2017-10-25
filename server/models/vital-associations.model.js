@@ -13,16 +13,18 @@ var vitalAssociationsSchema = new Schema({
         ref: 'User'
     },
     association: String,
-    position: String,
-    awards: String,
-    street: Number, 
+    description: String,
+    street: String, 
     city: String,
     state: String,
-    zipcode: String,
+    zipcode: Number,
     country: String,
     startDate: Date,
+    addedResponsibilitiesInfo: Array,
+    addedAddressInfo: Array,
     endDate: Date,
-    notes: String
+    notes: String,
+    type: String
 });
 
 

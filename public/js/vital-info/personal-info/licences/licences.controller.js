@@ -1,96 +1,66 @@
 app.controller('licenceController', licenceController);
 
 function licenceController($scope, $location, $ionicModal, $rootScope, $http, $ionicLoading){
-    $scope.location = $location.path().split('/');
-    $scope.location = $scope.location[$scope.location.length - 1];
-    
-    $scope.licencess = [];
-    $scope.user = JSON.parse(localStorage.getItem("user"));
+  $scope.licences = []
+  $scope.licence_list = LICENCE_LIST;
+
+  $scope.user = JSON.parse(localStorage.getItem("user"));
+
+  $ionicLoading.show();
+  $http.get('/api/vital-licences/info/all/'+$scope.user._id)
+    .then( function(res){
+      if (res.data.LicenceEntries.length == 0) {
+        $scope.addForm();
+      } else {
+        for (var i = 0; i<res.data.LicenceEntries.length; i++) {
+          var e = res.data.LicenceEntries[i];
+          e.grantedDate = dateToHash(new Date(e.grantedDate));
+          e.addedAddressInfo = arrayToAddedInfo(e.addedAddressInfo);
+          $scope.licences.push(e);
+        }
+      }
+      $ionicLoading.hide();
+    })
+    .catch( function(err){
+      alert("something went wrong please try again, or reload the page")
+      $ionicLoading.hide();
+    })
+
+  $scope.save = function (index) {
+    var e = angular.copy($scope.licences[index]);
+    e.grantedDate = hashToDate(e.grantedDate);
+    e.addedAddressInfo = addedInfoToArray(e.addedAddressInfo);
     $ionicLoading.show();
-    $http.get('/api/vital-licences/all/'+$scope.user._id)
-        .then( function(res){
-          for(var i = 0; i < res.data.length; i++) {
-            res.data[i].startDate = new Date(res.data[i].startDate);
-            res.data[i].endDate = new Date(res.data[i].endDate);
-          }
-          $scope.licencess = res.data;
-          if($scope.licencess.length == 0)
-              $scope.addItem();
+    if(e._id) {
+      $http.put('/api/vital-licences/info/'+e._id, e)
+        .then(function() {
           $ionicLoading.hide();
-        })
-        .catch( function(err){
-          alert("something went wrong please try again, or reload the page")
-        })
-    
-    $scope.updateData = function() {
-      var ids = [];
-      for(var i = 0; i < $scope.licencess.length; i++)
-        ids.push($scope.licencess[i]._id);
-        
-      $http.post('/api/vital-licences/batch/delete', {ids: ids})
-          .then( function(res){
-            $http.post('/api/vital-licences/batch', {data: $scope.licencess})
-                .then( function(res){
-                })
-                .catch( function(err){
-                  alert("something went wrong please try again, or reload the page")
-                })
-          })
-          .catch( function(err){
-            alert("something went wrong please try again, or reload the page")
-          })
-    }
-    
-    $scope.removeItem = function(licences) {
-      $ionicLoading.show();
-      $http.delete('/api/vital-licences/'+licences._id)
-          .then( function(res){
-            $scope.licencess.splice($scope.licencess.indexOf(licences), 1);
-            if($scope.licencess.length == 0)
-                $scope.addItem();
-            $ionicLoading.hide();
-          })
-          .catch( function(err){
-            alert("something went wrong please try again, or reload the page")
-          })
-    }
-    
-    $scope.addItem = function() {
-      var mongoObjectId = function () {
-          var timestamp = (new Date().getTime() / 1000 | 0).toString(16);
-          return timestamp + 'xxxxxxxxxxxxxxxx'.replace(/[x]/g, function() {
-              return (Math.random() * 16 | 0).toString(16);
-          }).toLowerCase();
-      };
-      
-      $scope.licencess.push({
-        _id: mongoObjectId(),
-        user: $scope.user._id,
-        association: "",
-        licences: "",
-        awards: "",
-        street: "",
-        city: "",
-        state: "",
-        zipcode: "", 
-        country: "",
-        type: "",
-        notes: ""
-      });
-      
-      $scope.updateData();
+        });
+    } else {
+      $http.post('/api/vital-licences/info/'+$scope.user._id, e)
+        .then(function() {
+          $ionicLoading.hide();
+        });
     }
 
-    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-        $scope.location = toState.url.replace('/', '');
-    });
-    
-    $scope.modalLinkClicked = function (heading) {
-        $scope.modal.hide();
-    }
-    $ionicModal.fromTemplateUrl('templates/modal.html', {
-        scope: $scope
-    }).then(function (modal) {
-        $scope.modal = modal;
-    });
+  }
+
+  $scope.delete = function(index) {
+    var e = $scope.licences[index];
+    $ionicLoading.show();
+    $http.delete('/api/vital-licences/info/'+e._id)
+      .then(function() {
+        $scope.licences.splice(index)
+        $ionicLoading.hide();
+        if ($scope.licences.length == 0) {
+          $scope.addForm();
+        }
+      })
+  }
+
+  $scope.addForm = function () {
+    $scope.licences.push({
+      addedAddressInfo: {}
+    })
+  }
 }

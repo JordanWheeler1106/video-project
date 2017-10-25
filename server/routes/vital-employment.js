@@ -64,4 +64,90 @@ router.post('/batch', function(req, res, next) {
       res.json(employments);
     })
 });
+
+router.post('/info/:userid', function(req,res) {
+    var vitalEmployment = new VitalEmployment();
+    var params = req.body;
+    var userId = req.params.userid;
+
+    vitalEmployment.user = userId;
+    vitalEmployment.company = params.company;
+    vitalEmployment.branch = params.branch;
+    vitalEmployment.title = params.title;
+    vitalEmployment.street = params.street;
+    vitalEmployment.city = params.city;
+    vitalEmployment.state = params.state;
+    vitalEmployment.zipcode = params.zipcode;
+    vitalEmployment.country = params.country;
+    vitalEmployment.industryType = params.industryType;
+    vitalEmployment.startDate = params.startDate;
+    vitalEmployment.endDate = params.endDate;
+    vitalEmployment.addedAddressInfo = params.addedAddressInfo;
+    vitalEmployment.addedEmployerInfo = params.addedEmployerInfo;
+    vitalEmployment.county = params.county;
+    vitalEmployment.employerNotes = params.employerNotes;
+    vitalEmployment.employerNotes = params.employmentNotes;
+   
+    vitalEmployment.save((err, vitalEmploymentStored) =>{
+        if(err){
+            res.status(500).send({message: 'There has been an error.'});               
+        } else {
+            if(!vitalEmploymentStored){
+                res.status(404).send({message: 'The information couldn\'t be saved.'});                   
+            } else {
+                res.status(200).send({EmploymentEntry: vitalEmploymentStored});
+            }
+        }
+    });
+});
+
+router.put('/info/:infoid', function(req, res){
+    var infoId = req.params.infoid;
+    var update = req.body;
+
+    VitalEmployment.findByIdAndUpdate(infoId, update, (err, employmentUpdated) =>{
+        if(err){
+            res.status(500).send({message: 'There has been an error.'});               
+        } else {
+            if(!employmentUpdated){
+                res.status(404).send({message: 'The information couldn\'t be updated.'});                   
+            } else {
+                res.status(200).send({EmploymentEdited: employmentUpdated});
+            }
+        }
+    });
+});
+
+router.delete('/info/:infoid', function(req, res){
+    var infoId = req.params.infoid;
+    var update = req.body;
+
+    VitalEmployment.findByIdAndRemove(infoId, update, (err, employmentRemoved) =>{
+        if(err){
+            res.status(500).send({message: 'There has been an error.'});               
+        } else {
+            if(!employmentRemoved){
+                res.status(404).send({message: 'The information couldn\'t be deleted.'});                   
+            } else {
+                res.status(200).send({EmploymentRemoved: employmentRemoved});
+            }
+        }
+    });
+});
+
+router.get('/info/all/:userid', function(req, res){
+    var userId=req.params.userid;
+    var find=VitalEmployment.find({user: userId});   
+    find.exec((err, infoObtained)=>{
+        if(err){
+            res.status(500).send({message: 'There has been an error.'}); 
+        } else {
+            if(!infoObtained){
+                res.status(404).send({message: 'There are no entries.'});
+            } else {
+                res.status(200).send({EmploymentEntries: infoObtained}); 
+            }
+        }
+    });
+});
 module.exports = router;

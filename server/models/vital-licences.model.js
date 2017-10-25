@@ -12,17 +12,17 @@ var vitalLicencesSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    association: String,
-    licences: String,
-    awards: String,
     street: String,
     city: String,
+    authority: String,
+    grantedDate: Date,
     state: String,
     zipcode: Number, 
     country: String,
     type: String,
-    startDate: Date,
-    endDate: Date,
+    address: String,
+    addedAddressInfo: Array,
+    pobox: String,
     notes: String
 });
 

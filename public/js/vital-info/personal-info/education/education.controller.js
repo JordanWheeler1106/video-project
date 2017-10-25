@@ -1,96 +1,89 @@
 app.controller('educationController', educationController);
 
 function educationController($scope, $location, $ionicModal, $rootScope, $http, $ionicLoading){
-    $scope.location = $location.path().split('/');
-    $scope.location = $scope.location[$scope.location.length - 1];
-    
     $scope.educations = [];
+    $scope.education_list = EDUCATION_LIST;
+
+    console.log($scope.$parent.checkedItems);
+
     $scope.user = JSON.parse(localStorage.getItem("user"));
+
     $ionicLoading.show();
-    $http.get('/api/vital-education/all/'+$scope.user._id)
-        .then( function(res){
-          for(var i = 0; i < res.data.length; i++) {
-            res.data[i].startDate = new Date(res.data[i].startDate);
-            res.data[i].endDate = new Date(res.data[i].endDate);
+    $http.get('/api/vital-education/info/all/'+$scope.user._id)
+      .then( function(res){
+        if (res.data.EducationEntries.length == 0) {
+          $scope.addForm();
+        } else {
+          for (var i = 0; i<res.data.EducationEntries.length; i++) {
+            var e = res.data.EducationEntries[i];
+            e.startDate = dateToHash(new Date(e.startDate));
+            e.endDate = dateToHash(new Date(e.endDate));
+            e.addedSchoolAddresInfo = arrayToAddedInfo(e.addedSchoolAddresInfo);
+            e.addedMajorInfo = arrayToAddedInfo(e.addedMajorInfo);
+            e.addedDiplomaInfo = arrayToAddedInfo(e.addedDiplomaInfo);
+            e.addedOtherInfo = arrayToAddedInfo(e.addedOtherInfo);
+            e.addedExtracurricularInfo = arrayToAddedInfo(e.addedExtracurricularInfo);
+            $scope.educations.push(e);
           }
-          $scope.educations = res.data;
-          if($scope.educations.length == 0)
-              $scope.addItem();
-          $ionicLoading.hide();
-        })
-        .catch( function(err){
-          alert("something went wrong please try again, or reload the page")
-        })
-    
-    $scope.updateData = function() {
-      var ids = [];
-      for(var i = 0; i < $scope.educations.length; i++)
-        ids.push($scope.educations[i]._id);
-        
-      $http.post('/api/vital-education/batch/delete', {ids: ids})
-          .then( function(res){
-            $http.post('/api/vital-education/batch', {data: $scope.educations})
-                .then( function(res){
-                })
-                .catch( function(err){
-                  alert("something went wrong please try again, or reload the page")
-                })
-          })
-          .catch( function(err){
-            alert("something went wrong please try again, or reload the page")
-          })
-    }
-    
-    $scope.removeItem = function(education) {
+        }
+        $ionicLoading.hide();
+      })
+      .catch( function(err){
+        alert("something went wrong please try again, or reload the page")
+        $ionicLoading.hide();
+      })
+
+    $scope.save = function (index) {
+      var e = angular.copy($scope.educations[index]);
+      e.startDate = hashToDate(e.startDate);
+      e.endDate = hashToDate(e.endDate);
+      e.addedSchoolAddresInfo = addedInfoToArray(e.addedSchoolAddresInfo);
+      e.addedMajorInfo = addedInfoToArray(e.addedMajorInfo);
+      e.addedDiplomaInfo = addedInfoToArray(e.addedDiplomaInfo);
+      e.addedOtherInfo = addedInfoToArray(e.addedOtherInfo);
+      e.addedExtracurricularInfo = addedInfoToArray(e.addedExtracurricularInfo);
       $ionicLoading.show();
-      $http.delete('/api/vital-education/'+education._id)
-          .then( function(res){
-            $scope.educations.splice($scope.educations.indexOf(education), 1);
-            if($scope.educations.length == 0)
-                $scope.addItem();
+      if(e._id) {
+        $http.put('/api/vital-education/info/'+e._id, e)
+          .then(function() {
             $ionicLoading.hide();
-          })
-          .catch( function(err){
-            alert("something went wrong please try again, or reload the page")
-          })
-    }
-    
-    $scope.addItem = function() {
-      var mongoObjectId = function () {
-          var timestamp = (new Date().getTime() / 1000 | 0).toString(16);
-          return timestamp + 'xxxxxxxxxxxxxxxx'.replace(/[x]/g, function() {
-              return (Math.random() * 16 | 0).toString(16);
-          }).toLowerCase();
-      };
-      
-      $scope.educations.push({
-        _id: mongoObjectId(),
-        user: $scope.user._id,
-        school: "",
-        degree: "",
-        awards: "",
-        street: "",
-        city: "",
-        state: "",
-        zipcode: "", 
-        country: "",
-        type: "",
-        notes: ""
-      });
-      
-      $scope.updateData();
+          });
+      } else {
+        $http.post('/api/vital-education/info/'+$scope.user._id, e)
+          .then(function() {
+            $ionicLoading.hide();
+          });
+      }
+
     }
 
-    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-        $scope.location = toState.url.replace('/', '');
-    });
-    
-    $scope.modalLinkClicked = function (heading) {
-        $scope.modal.hide();
+    $scope.delete = function(index) {
+      var e = $scope.educations[index];
+      $ionicLoading.show();
+      $http.delete('/api/vital-education/info/'+e._id)
+        .then(function() {
+          $scope.educations.splice(index)
+          $ionicLoading.hide();
+          if ($scope.educations.length == 0) {
+            $scope.addForm();
+          }
+        })
     }
-    $ionicModal.fromTemplateUrl('templates/modal.html', {
-        scope: $scope
-    }).then(function (modal) {
-        $scope.modal = modal;
-    });
+
+    $scope.addForm = function () {
+      $scope.educations.push({
+        addedSchoolAddresInfo: {},
+        addedMajorInfo: {
+          "Major(s)": ''
+        },
+        addedDiplomaInfo: {
+          "Diploma/Certificate/": ''
+        },
+        addedOtherInfo: {
+          "Other": ''
+        },
+        addedExtracurricularInfo: {},
+
+      })
+    }
 }
