@@ -630,6 +630,7 @@ form .list .item {
 	padding: 30px 20px;
 	width: 95%;
 	margin: 25px 0 0 0;
+	background: #fcf3de;
 }
 
 .sponsorBox {
@@ -702,6 +703,7 @@ form .list .item {
 	/*padding: 12px 30px 18px;*/
 }
 
+.table td:nth-child(4) .level,
 .table td:nth-child(3) .level {
 	/*font-size: 14px;*/
 	/*color: #9b9da0;*/
@@ -1006,7 +1008,8 @@ form .list .item {
 
 .nugget-tabs ul li .linkNugget.active {
 	/*color: #2b7ebf;*/
-	color: #626342;
+	/*color: #626342;*/
+	color: #edad1d;
 }
 
 .searchField {
@@ -3769,4 +3772,8 @@ CANVAS {
 	color: black;
 	border:1px solid #ccc;
 	cursor:pointer;
+}
+
+.fr-box.fr-basic .fr-element {
+	background: #fcf3de;
 }

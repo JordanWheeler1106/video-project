@@ -1669,10 +1669,15 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'froala
 
     $scope.getWindowOutline = function(folder) {
         var windowOutline = [];
-        for(var i= 0; i < $scope.currentFolders.length; i++) {
-            folder = $scope.currentFolders[i];
-            folder.level = folder.strPath.split("/").length - 1;
-            windowOutline.push(folder);
+        if(folder) {
+          folder.level = folder.strPath.split("/").length - 1;
+          windowOutline.push(folder);
+        } else {
+          for(var i= 0; i < $scope.currentFolders.length; i++) {
+              folder = $scope.currentFolders[i];
+              folder.level = folder.strPath.split("/").length - 1;
+              windowOutline.push(folder);
+          }
         }
 
         for(var i = 0; i < windowOutline.length; i++) {
@@ -1692,8 +1697,8 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'froala
     }
 
     $scope.showWindow = function($event, folder) {
-      $scope.selectedFolderOutline = $scope.getWindowOutline(folder);
-      $(".window-outline").animate({"right":"-20%"}, "fast");
+      // $scope.selectedFolderOutline = $scope.getWindowOutline(null);
+      // $(".window-outline").animate({"right":"-20%"}, "fast");
     }
 
     $scope.closeWindowOutline = function() {
@@ -1927,45 +1932,6 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'froala
       $scope.createFolder(0);
       $scope.toggleView = 'template'
 
-    //   var createFolder = $ionicPopup.show({
-    //    template: '<input type="text" ng-model="folder.name" autofocus>',
-    //    title: 'Enter Folder Name',
-    //    scope: $scope,
-    //    buttons: [
-    //      { text: 'Cancel' },
-    //      {
-    //        text: '<b>Save</b>',
-    //        type: 'button-positive',
-    //        onTap: function(e) {
-    //          if (!$scope.folder.name) {
-    //            //don't allow the user to close unless he enters wifi password
-    //            e.preventDefault();
-    //          } else {
-    //            $scope.folder.userId = JSON.parse(localStorage.getItem('user'))._id;
-    //            $scope.folder.parentId = $scope.listPosition.currentFolder=='root'?$scope.listPosition.currentFolder:$scope.listPosition.currentFolder._id;
-    //            $scope.folder.strPath = "WINDOWS";
-    //            if($scope.listPosition.currentFolder != 'root') {
-    //              for(var i = 1; i < $scope.listPosition.folderPath.length; i++)
-    //               $scope.folder.strPath += '/' + $scope.listPosition.folderPath[i].name;
-    //            }
-    //            $ionicLoading.show();
-    //            $http.post('/api/folders/', $scope.folder)
-    //                .then( function(res){
-    //                  $scope.getFolders();
-    //                })
-    //                .catch( function(err){
-    //                  console.log("err", err);
-    //                  alert("something went wrong please try again.")
-    //                })
-    //            return $scope.folder.name;
-    //          }
-    //        }
-    //      },
-    //    ]
-    //  });
-    //  createFolder.then(function(res) {
-    //    console.log('Tapped!', res);
-    //  });
     };
 
     $scope.closeSettingPopover = function() {
@@ -2058,6 +2024,23 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'froala
 
     $scope.removeFolder = function(folder) {
       $scope.template.folders.splice($scope.template.folders.indexOf(folder), 1);
+      if($scope.template._id == "copied-template") {
+        if(folder.type=='nugget') {
+          $http.delete('/api/nuggets/'+ folder._id)
+              .then( function(res){
+              })
+              .catch( function(err){
+                alert("something went wrong please try again, or reload the page")
+              })
+        } else {
+          $http.delete('/api/folders/'+ folder._id)
+              .then( function(res){
+              })
+              .catch( function(err){
+                alert("something went wrong please try again, or reload the page")
+              })
+        }
+      }
     }
 
     $scope.validationTemplate = function() {
@@ -2118,62 +2101,113 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'froala
       }
 
       $ionicLoading.show();
-      var user = JSON.parse(localStorage.getItem('user'));
-      $scope.template.name = $scope.template.folders[0].name;
-      $scope.template.userId = user._id;
-      $scope.template.status = "approved";
+      if($scope.template._id == "copied-template") {
+        var folders = [], nuggets = [];
+        for(var i = 0; i < $scope.template.folders.length; i++)
+          folders.push($scope.template.folders[i]._id);
+        for(var i = 0; i < $scope.template.nuggets.length; i++)
+          nuggets.push($scope.template.nuggets[i]._id);
+        $http.post('/api/folders/batch/delete', {folders: folders})
+            .then(function(res){
+              $http.post('/api/nuggets/batch/delete', {nuggets: nuggets})
+                  .then(function(res){
+                      $http.post('/api/folders/batch', {folders: $scope.template.folders})
+                          .then(function(res){
+                            $http.post('/api/nuggets/batch', {nuggets: $scope.template.nuggets})
+                                .then(function(res){
+                                  $ionicLoading.hide();
+                                  // if(isBack) {
+                                    $scope.getUserFolders();
+                                    $scope.getUserNuggets();
+                                    $scope.getFolders();
+                                    $scope.template = {
+                                      tags: [],
+                                      name: '',
+                                      price: 0,
+                                      description: '',
+                                      folders: [],
+                                      nuggets: [],
+                                      linkedItems: []
+                                    };
+                                    $scope.clickHomeView('list');
+                                    $rootScope.$broadcast('scroll-top', {top: 1});
+                                  // } else {
+                                  //
+                                  // }
+                                })
+                                .catch( function(err){
+                                  alert("something went wrong please try again.")
+                                })
+                          })
+                          .catch( function(err){
+                            alert("something went wrong please try again.")
+                          })
+                  })
+                  .catch( function(err){
+                    alert("something went wrong please try again.")
+                  })
+            })
+            .catch( function(err){
+              alert("something went wrong please try again.")
+            })
+      } else {
+        var user = JSON.parse(localStorage.getItem('user'));
+        $scope.template.name = $scope.template.folders[0].name;
+        $scope.template.userId = user._id;
+        $scope.template.status = "approved";
 
-      $http.post('/api/templates/', $scope.template)
-          .then(function(res){
-            var mongoObjectId = function () {
-                var timestamp = (new Date().getTime() / 1000 | 0).toString(16);
-                return timestamp + 'xxxxxxxxxxxxxxxx'.replace(/[x]/g, function() {
-                    return (Math.random() * 16 | 0).toString(16);
-                }).toLowerCase();
-            };
+        $http.post('/api/templates/', $scope.template)
+            .then(function(res){
+              var mongoObjectId = function () {
+                  var timestamp = (new Date().getTime() / 1000 | 0).toString(16);
+                  return timestamp + 'xxxxxxxxxxxxxxxx'.replace(/[x]/g, function() {
+                      return (Math.random() * 16 | 0).toString(16);
+                  }).toLowerCase();
+              };
 
-            $scope.user = JSON.parse(localStorage.getItem('user'));
-            $scope.template._id = res.data._id;
-            // var template = $scope.template;
-            $scope.template.folders[0].topic = $scope.template.topic;
-            $http.post('/api/folders/batch', {folders: $scope.template.folders})
-                .then(function(res){
-                  $http.post('/api/nuggets/batch', {nuggets: $scope.template.nuggets})
-                      .then(function(res){
-                          $scope.user.copiedTemplates.push($scope.template._id);
-                          $http.put('/api/users/'+$scope.user._id, $scope.user)
-                              .then( function(res){
-                                localStorage.setItem('user', JSON.stringify($scope.user));
-                                $scope.getUserFolders();
-                                $scope.getUserNuggets();
-                                $scope.getFolders();
+              $scope.user = JSON.parse(localStorage.getItem('user'));
+              $scope.template._id = res.data._id;
+              // var template = $scope.template;
+              $scope.template.folders[0].topic = $scope.template.topic;
+              $http.post('/api/folders/batch', {folders: $scope.template.folders})
+                  .then(function(res){
+                    $http.post('/api/nuggets/batch', {nuggets: $scope.template.nuggets})
+                        .then(function(res){
+                            $scope.user.copiedTemplates.push($scope.template._id);
+                            $http.put('/api/users/'+$scope.user._id, $scope.user)
+                                .then( function(res){
+                                  localStorage.setItem('user', JSON.stringify($scope.user));
+                                  $scope.getUserFolders();
+                                  $scope.getUserNuggets();
+                                  $scope.getFolders();
+                                  $ionicLoading.hide();
+                                  $scope.template = {
+                                    tags: [],
+                                    name: '',
+                                    price: 0,
+                                    description: '',
+                                    folders: [],
+                                    nuggets: [],
+                                    linkedItems: []
+                                  };
+                                  $scope.clickHomeView('list');
+                              })
+                              .catch( function(err){
                                 $ionicLoading.hide();
-                                $scope.template = {
-                                  tags: [],
-                                  name: '',
-                                  price: 0,
-                                  description: '',
-                                  folders: [],
-                                  nuggets: [],
-                                  linkedItems: []
-                                };
-                                $scope.clickHomeView('list');
-                            })
-                            .catch( function(err){
-                              $ionicLoading.hide();
-                            })
-                      })
-                      .catch( function(err){
-                        $ionicLoading.hide();
-                      })
-                })
-                .catch( function(err){
-                  $ionicLoading.hide();
-                })
-          })
-          .catch( function(err){
-            alert("something went wrong please try again.")
-          })
+                              })
+                        })
+                        .catch( function(err){
+                          $ionicLoading.hide();
+                        })
+                  })
+                  .catch( function(err){
+                    $ionicLoading.hide();
+                  })
+            })
+            .catch( function(err){
+              alert("something went wrong please try again.")
+            })
+      }
     }
 
     $scope.chooseFolder = function(folder) {
@@ -2198,40 +2232,47 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'froala
             break;
           }
         }
+        var folders = [], nuggets=[];
         if(type == 0) {
-          $scope.template.folders.splice(index, 0, {
+          var folder = {
             _id: mongoObjectId(),
             name: "",
             userId: JSON.parse(localStorage.getItem('user'))._id,
             parentId: "root",
             strPath: "WINDOWS",
             level: type
-          })
+          };
+          $scope.template.folders.splice(index, 0, folder)
+          folders.push(folder);
         } else if(type == 1) {
           if($scope.selectedFolder.level >= 1) {
-            $scope.template.folders.splice(index, 0, {
+            var folder = {
               _id: mongoObjectId(),
               name: "",
               userId: JSON.parse(localStorage.getItem('user'))._id,
               parentId: $scope.selectedFolder._id,
               strPath: "WINDOWS",
               level: type
-            })
+            }
+            $scope.template.folders.splice(index, 0, folder)
+            folders.push(folder);
           } else {
             var parentId = $scope.selectedFolder._id, folderId;
             for(var i = 1; i <= 3; i++) {
               folderId = mongoObjectId();
-              $scope.template.folders.splice(index + (i - 1), 0, {
+              var folder = {
                 _id: folderId,
                 name: "",
                 userId: JSON.parse(localStorage.getItem('user'))._id,
                 parentId: parentId,
                 strPath: "WINDOWS",
                 level: i
-              });
+              };
+              $scope.template.folders.splice(index + (i - 1), 0, folder);
+              folders.push(folder);
               parentId = folderId;
             }
-            $scope.template.folders.splice(index + (i - 1), 0, {
+            var folder = {
               _id: mongoObjectId(),
               name: "",
               author: JSON.parse(localStorage.getItem('user'))._id,
@@ -2241,11 +2282,13 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'froala
               type: 'nugget',
               tags: [],
               content: ''
-            })
+            };
+            $scope.template.folders.splice(index + (i - 1), 0, folder);
+            folders.push(folder);
           }
         } else if(type == 4) {
           if($scope.selectedFolder.type == 'nugget') {
-            $scope.template.folders.splice(index, 0, {
+            var nugget = {
               _id: mongoObjectId(),
               name: "",
               author: JSON.parse(localStorage.getItem('user'))._id,
@@ -2255,9 +2298,11 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'froala
               type: 'nugget',
               tags: [],
               content: ''
-            })
+            }
+            $scope.template.folders.splice(index, 0, nugget)
+            nuggets.push(nugget);
           } else {
-            $scope.template.folders.splice(index, 0, {
+            var nugget = {
               _id: mongoObjectId(),
               name: "",
               author: JSON.parse(localStorage.getItem('user'))._id,
@@ -2267,17 +2312,36 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'froala
               type: 'nugget',
               tags: [],
               content: ''
-            })
+            };
+            $scope.template.folders.splice(index, 0, nugget)
+            nuggets.push(nugget);
           }
         } else {
-          $scope.template.folders.splice(index, 0, {
+          var folder = {
             _id: mongoObjectId(),
             name: "",
             userId: JSON.parse(localStorage.getItem('user'))._id,
             parentId: $scope.selectedFolder._id,
             strPath: "WINDOWS",
             level: type
-          })
+          };
+          $scope.template.folders.splice(index, 0, folder)
+          folders.push(folder);
+        }
+
+        if($scope.template._id == "copied-template") {
+          $http.post('/api/folders/batch', {folders: folders})
+              .then(function(res){
+                $http.post('/api/nuggets/batch', {nuggets: nuggets})
+                    .then(function(res){
+                    })
+                    .catch( function(err){
+                      alert("something went wrong please try again.")
+                    })
+              })
+              .catch( function(err){
+                alert("something went wrong please try again.")
+              })
         }
     }
 
@@ -2293,6 +2357,11 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'froala
     $scope.cancelTemplate = function() {
         localStorage.removeItem('template');
         $scope.clickHomeView('list');
+        if($scope.template._id == "copied-template") {
+          $scope.getUserFolders();
+          $scope.getUserNuggets();
+          $scope.getFolders();
+        }
         $rootScope.$broadcast('scroll-top', {top: 1});
     }
 
@@ -2523,6 +2592,22 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'froala
           .catch( function(err){
             alert("something went wrong please try again.")
           })
+    }
+
+    $scope.showWindowOutline = function($event, folder) {
+      $scope.template = {
+        _id: "copied-template",
+        userId: $scope.user,
+        name: folder.name,
+        topic: folder.topic,
+        description: '',
+        folders: $scope.getWindowOutline(folder),
+        nuggets: [],
+        linkedItems: []
+      };
+
+      $scope.toggleView = 'template';
+
     }
 
     $scope.clickHomeView = function(view) {
