@@ -3649,7 +3649,7 @@ em {
 }
 
 .search-item {
-	background: #1b2b2b;
+	/*background: #1b2b2b;*/
 	border-radius: 0 !important;
 }
 
@@ -3659,7 +3659,7 @@ em {
 }
 
 .search-item input {
-	color: white;
+	/*color: white;*/
 }
 
 #info {

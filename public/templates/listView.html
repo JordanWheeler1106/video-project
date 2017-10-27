@@ -11,8 +11,8 @@
       </td> -->
       <td ng-click="clickFolder($event, folder)" style="cursor:pointer;"><i class="fa fa-folder-o" style="font-size: 20px"></i></td>
       <td ng-click="clickFolder($event, folder)" style="cursor:pointer;">{{folder.name}}</td>
-      <td ng-click="showWindowOutline($event, folder)"><label class="level" style="cursor:pointer;">Outline</label></td>
       <td ng-click="showWindow($event, folder)"><label class="level" style="cursor:pointer;">{{level[folder.strPath.split("/").length - 1]}}</label></td>
+      <td ng-click="showWindowOutline($event, folder)"><label class="level" style="cursor:pointer;">Outline</label></td>      
       <td>Last worked on {{folder.updatedAt | date: 'MM/dd/yyyy'}}</td>
 
       <!-- <td>

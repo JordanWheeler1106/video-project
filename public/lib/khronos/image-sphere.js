@@ -197,14 +197,14 @@ ImgTexture.prototype.uploadTexture = function() {
   var third_col = Math.floor(Math.random(255)*255);
   g_ctx2d.fillStyle='rgb('+first_col+','+sec_col+','+third_col+')';
   g_ctx2d.fillRect(0, 0, 256, 256);
-  g_ctx2d.font = "20px sans-serif";
+  g_ctx2d.font = "32px sans-serif";
   g_ctx2d.fillStyle = "rgb(255,255,255)";  //font color
   // TODO: Obviously this needs to be split better.
   //here we write the text
   if(!msg) return;
-  var words = splitter(msg, 25);
+  var words = splitter(msg, 15);
   for(var i = 0; i < words.length; i++) {
-    g_ctx2d.fillText(words[i], 10, 140 - Math.ceil(words.length / 2) * 20  + i * 20);
+    g_ctx2d.fillText(words[i], 128 - Math.ceil(g_ctx2d.measureText(words[i]).width / 2), 140 - Math.ceil(words.length / 2) * 32  + i * 40);
   }
 
   gl.bindTexture(gl.TEXTURE_2D, this.texture);
