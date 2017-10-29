@@ -964,106 +964,47 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'froala
     if(!localStorage.getItem('token')){
       $state.go('signin')
     }
+    $scope.artyom = null;
+    $scope.voiceText = "";
     //for toggling view.
     $scope.sidebar = {view: 3};
     $scope.$watch('sidebar.view', function() {
       if($scope.sidebar.view != 3) {
         $(".fr-toolbar").show();
         if($scope.sidebar.view == 4) {
-          var user = JSON.parse(localStorage.getItem('user'));
-          // $ionicLoading.show({ template: "You can start the voice to text.", noBackdrop: true, duration: 2000 });
-          window.WebSocket = window.WebSocket || window.MozWebSocket;
-          // if browser doesn't support WebSocket, just show
-          // some notification and exit
-          if (!window.WebSocket) {
-            $ionicLoading.show({ template: "Sorry, but your browser doesn't support WebSocket.", noBackdrop: true, duration: 2000 });
-          }
-          // open connection
-          var ws = new WebSocket('wss://169.46.27.138:8080/stream');
-          ws.onopen = function () {
-            $ionicLoading.show();
-            // first we want users to enter their names
-          };
-          ws.onerror = function (error) {
-            $ionicLoading.hide();
-            $ionicLoading.show({ template: "Sorry, but there's some problem with your connection or the server is down.", noBackdrop: true, duration: 2000 });
-
-            // just in there were some problems with connection...
-          };
-          // most important part - incoming messages
-          ws.onmessage = function (message) {
-            // try to parse JSON message. Because we know that the server
-            // always returns JSON this should work without any problem but
-            // we should make sure that the massage is not chunked or
-            // otherwise damaged.
-            var result = JSON.parse(message.data);
-            console.log(result);
-            switch(result.action) {
-              case "connected":
-                var command = {
-                	"action" : "clientResponse",
-                	"message" : "connected",
-                	"user" : user._id
-                }
-                ws.send(JSON.stringify(command));
-                break;
-              case "ready":
-                var command = {
-                	"action": "configure"
-                }
-                ws.send(JSON.stringify(command));
-                break;
-              case "configured":
-                var command = {
-                    "continuous": true,
-                    "timestamps": true,
-                    "content-type": "audio/l16;rate=16000;channels=1",
-                    "smart_formatting": true,
-                    "profanity_filter": true,
-                    "interim_results": true,
-                    "action": "start"
-                }
-                ws.send(JSON.stringify(command));
-                break;
-              case "streamReady":
-                $ionicLoading.hide();
-                $ionicLoading.show({ template: "You can start now!", noBackdrop: true, duration: 2000 });
-                var session = {
-                  audio: true,
-                  video: false
-                };
-                var recordRTC = null;
-                navigator.getUserMedia(session, function (mediaStream) {
-                  recordRTC = RecordRTC(MediaStream);
-                  recordRTC.startRecording();
-                }, function(error) {
-                  console.log(error);
-                });
-
-                recordRTC.stopRecording(function(audioURL) {
-                  var audioData = recordRTC.getBlob();
-                  console.log(audioData);
-                });
-                break;
-              case "watson_closed":
-                $ionicLoading.show({ template: "Stop!", noBackdrop: true, duration: 2000 });
-                break;
+          $scope.artyom = new Artyom();
+          $scope.artyom.redirectRecognizedTextOutput(function(text, isFinal) {
+            if(isFinal){
+                // Nothing
+                var voice =`<p>`+$scope.voiceText+`</p>`;
+                $('div#editor').froalaEditor('html.set', $('div#editor').froalaEditor('html.get')+voice);
+            }else{
+                $scope.voiceText = text;
             }
-          };
-          // $ionicLoading.show();
-          // var user = JSON.parse(localStorage.getItem('user'));
-          // $http.get('/api/nuggets/audio/'+user._id)
-          //     .then( function(res){
-          //       console.log(res);
-          //       if(res.result) {
-          //         $ionicLoading.show({ template: "You can start the voice to text.", noBackdrop: true, duration: 2000 });
-          //
-          //       }
-          //       $ionicLoading.hide();
-          //     })
-          //     .catch( function(err){
-          //       alert("something went wrong please try again.")
-          //     })
+          });
+          $scope.artyom.addCommands({
+              indexes: [""],
+              action: function(){
+              }
+          });
+          $scope.artyom.initialize({
+              lang: "en-GB", // GreatBritain english
+              continuous: true, // Listen forever
+              soundex: true,// Use the soundex algorithm to increase accuracy
+              debug: false, // Show messages in the console
+              listen: true
+          }).then(() => {
+              console.log("Artyom has been succesfully initialized");
+          }).catch((err) => {
+              console.error("Artyom couldn't be initialized: ", err);
+          });
+        } else {
+            if($scope.artyom) {
+              $scope.artyom.fatality().then(() => {
+                  $scope.artyom = null;
+                  console.log("Artyom succesfully stopped");
+              });
+            }
         }
       }
     });
@@ -1071,6 +1012,7 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'froala
     $scope.nugget ={name: '', content: '', tags: [], parentId: $scope.currentFolderId};
     if(localStorage.getItem('selectedNugget')) {
       $scope.nugget = JSON.parse(localStorage.getItem('selectedNugget'));
+      console.log($scope.nugget);
       $scope.promptsFolderIds.push($scope.nugget._id);
       $scope.notesFolderIds.push($scope.nugget._id);
     }
@@ -1301,6 +1243,10 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'froala
       $scope.insertMediaPopover.hide();
     };
 
+    $scope.$on("$destroy", function() {
+      console.log('destroy');
+    });
+
 
   })
   //reset password controller
@@ -1347,9 +1293,9 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'froala
 
             headlines = [];
             for(var i = 0; i < $scope.currentFolders.length; i++)
-                headlines.push($scope.currentFolders[i].name);
+                headlines.push({id: $scope.currentFolders[i]._id, name: $scope.currentFolders[i].name, topic: $scope.currentFolders[i].topic, type:"folder", level: ($scope.currentFolders[i].strPath.split("/").length - 1)});
             for(var i = 0; i < $scope.currentNuggets.length; i++)
-                headlines.push($scope.currentNuggets[i].name);
+                headlines.push({id: $scope.currentNuggets[i]._id, name: $scope.currentNuggets[i].name, type:"nugget"});
 
             main();
           })
@@ -1385,17 +1331,17 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'froala
     $scope.currentNuggets = [];
     $scope.nuggetSearchResults = [];
 
-    $scope.selectItemFromSphereView = function(itemName) {
+    $scope.selectItemFromSphereView = function(item) {
       for(var i = 0; i < $scope.currentFolders.length; i++) {
-        if($scope.currentFolders[i].name == itemName) {
+        if($scope.currentFolders[i]._id == item.id) {
           $scope.clickFolder(null, $scope.currentFolders[i]);
           return;
         }
       }
 
       for(var i = 0; i < $scope.currentNuggets.length; i++) {
-        if($scope.currentNuggets[i].name == itemName) {
-          $scope.clickNugget(null, $scope.currentFolders[i]);
+        if($scope.currentNuggets[i]._id == item.id) {
+          $scope.clickNugget(null, $scope.currentNuggets[i]);
           return;
         }
       }
@@ -1533,9 +1479,9 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'froala
                     $scope.currentNuggets = res.data;
                     headlines = [];
                     for(var i = 0; i < $scope.currentFolders.length; i++)
-                        headlines.push($scope.currentFolders[i].name);
+                        headlines.push({id: $scope.currentFolders[i]._id, name: $scope.currentFolders[i].name, topic: $scope.currentFolders[i].topic, type:"folder", level: ($scope.currentFolders[i].strPath.split("/").length - 1)});
                     for(var i = 0; i < $scope.currentNuggets.length; i++)
-                        headlines.push($scope.currentNuggets[i].name);
+                        headlines.push({id: $scope.currentNuggets[i]._id, name: $scope.currentNuggets[i].name, type:"nugget"});
                     if(sphereFlag)
                       initialize();
                     $ionicLoading.hide();
@@ -1559,9 +1505,9 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'froala
                     $scope.currentNuggets = res.data;
                     headlines = [];
                     for(var i = 0; i < $scope.currentFolders.length; i++)
-                        headlines.push($scope.currentFolders[i].name);
+                        headlines.push({id: $scope.currentFolders[i]._id, name: $scope.currentFolders[i].name, topic: $scope.currentFolders[i].topic, type:"folder", level: ($scope.currentFolders[i].strPath.split("/").length - 1)});
                     for(var i = 0; i < $scope.currentNuggets.length; i++)
-                        headlines.push($scope.currentNuggets[i].name);
+                        headlines.push({id: $scope.currentNuggets[i]._id, name: $scope.currentNuggets[i].name, type:"nugget"});
                     if(sphereFlag)
                       initialize();
                     $ionicLoading.hide();
@@ -3993,7 +3939,7 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'froala
               setupSlider($, div, ui, obj);
               uiElem.appendChild(div);
             }
-            headlines = ["China defends dealings with Iran after US pressure",
+            var msgs = ["China defends dealings with Iran after US pressure",
             "Software fix coming for iOS vulnerabilities",
             "Study sees linking of specific genes to coronaries",
             "Intel agrees to marketing restrictions in FTC deal",
@@ -4015,6 +3961,10 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'froala
             "Despite Death Grip, Most iPhone 4 Users 'Very Satisfied'",
             "Why women are attracted to a man dressed in red"];
 
+            headlines = [];
+            for(var i = 0; i < msgs.length; i++)
+                headlines.push({name: msgs[i], type:"admin"});
+
             main();
           })
           .catch( function(err){
@@ -4027,7 +3977,7 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'froala
 
       $http.put('/api/spheres/'+$scope.sphere._id, $scope.sphere)
           .then( function(res){
-            console.log(res);
+
           })
           .catch( function(err){
           })

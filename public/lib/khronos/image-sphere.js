@@ -182,27 +182,74 @@ ImgTexture.prototype.uploadTexture = function() {
   var img = this.img;
   var msg = this.msg;
   g_ctx2d.clearRect(0, 0, 256, 256);
-  // stretch the image to 256 width
-  var width = 256;
-  var height = img.height * 256 / img.width;
-  // stretch until it's 216 height
-  if (height < 216) {
-    width = img.width * 216 / height;
-    height = 216;
+  if(msg.type == "admin") {
+    var first_col = Math.floor(Math.random(255)*255);
+    var sec_col = Math.floor(Math.random(255)*255);
+    var third_col = Math.floor(Math.random(255)*255);
+    g_ctx2d.fillStyle='rgb('+first_col+','+sec_col+','+third_col+')';
+    g_ctx2d.fillRect(0, 0, 256, 256);
+  } else if(msg.type == "folder") {
+    g_ctx2d.fillStyle=msg.topic?msg.topic.color:"rgb(255,255,255)";
+    switch(msg.level) {
+      case 0:
+        g_ctx2d.fillRect(0, 0, 256, 256);
+        break;
+      case 1:
+        g_ctx2d.beginPath();
+        g_ctx2d.moveTo(0, 128);
+        g_ctx2d.lineTo(40, 0);
+        g_ctx2d.lineTo(216, 0);
+        g_ctx2d.lineTo(256, 128);
+        g_ctx2d.lineTo(216, 256);
+        g_ctx2d.lineTo(40, 256);
+        g_ctx2d.lineTo(0, 128);
+        g_ctx2d.closePath();
+        g_ctx2d.fill();
+        break;
+      case 2:
+        var numberOfSides = 5,
+            size = 128,
+            Xcenter = 128,
+            Ycenter = 128,
+            step  = 2 * Math.PI / numberOfSides,//Precalculate step value
+            shift = (Math.PI / 180.0) * -18;//Quick fix ;)
+
+        g_ctx2d.beginPath();
+        for (var i = 0; i <= numberOfSides;i++) {
+        	var curStep = i * step + shift;
+            g_ctx2d.lineTo (Xcenter + size * Math.cos(curStep), Ycenter + size * Math.sin(curStep));
+        }
+        g_ctx2d.closePath();
+        g_ctx2d.fill();
+        break;
+      case 3:
+        g_ctx2d.beginPath();
+        g_ctx2d.arc(128, 128, 125, 0, 2 * Math.PI, false);
+        g_ctx2d.closePath();
+        g_ctx2d.fill();
+        break;
+    }
+  } else if(msg.type == "nugget") {
+    g_ctx2d.fillStyle="rgb(255,255,255)";
+    g_ctx2d.beginPath();
+    g_ctx2d.moveTo(0, 128);
+    g_ctx2d.lineTo(128, 0);
+    g_ctx2d.lineTo(256, 128);
+    g_ctx2d.lineTo(128, 256);
+    g_ctx2d.lineTo(0, 128);
+    g_ctx2d.closePath();
+    g_ctx2d.fill();
+  } else {
+    g_ctx2d.fillStyle="rgb(255,255,255)";
+    g_ctx2d.fillRect(0, 0, 256, 256);
   }
-  g_ctx2d.drawImage(img, 0, 0, width, height);
-  //randoming color background for each rectangle
-  var first_col = Math.floor(Math.random(255)*255);
-  var sec_col = Math.floor(Math.random(255)*255);
-  var third_col = Math.floor(Math.random(255)*255);
-  g_ctx2d.fillStyle='rgb('+first_col+','+sec_col+','+third_col+')';
-  g_ctx2d.fillRect(0, 0, 256, 256);
+
   g_ctx2d.font = "32px sans-serif";
-  g_ctx2d.fillStyle = "rgb(255,255,255)";  //font color
+  g_ctx2d.fillStyle = "rgb(0,0,0)";  //font color
   // TODO: Obviously this needs to be split better.
   //here we write the text
   if(!msg) return;
-  var words = splitter(msg, 15);
+  var words = splitter(msg.name, 15);
   for(var i = 0; i < words.length; i++) {
     g_ctx2d.fillText(words[i], 128 - Math.ceil(g_ctx2d.measureText(words[i]).width / 2), 140 - Math.ceil(words.length / 2) * 32  + i * 40);
   }
