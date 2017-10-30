@@ -92,7 +92,7 @@ router.post('/info/:userid', function(req,res) {
             if(!vitalAssociationsStored){
                 res.status(404).send({message: 'The information couldn\'t be saved.'});                   
             } else {
-                res.status(200).send({AssociationEntry: vitalAssociationsStored});
+                res.status(200).send(vitalAssociationsStored);
             }
         }
     });
@@ -126,7 +126,7 @@ router.delete('/info/:infoid', function(req, res){
             if(!associationRemoved){
                 res.status(404).send({message: 'The information couldn\'t be deleted.'});                   
             } else {
-                res.status(200).send({AssociationRemoved: associationRemoved});
+                res.status(200).send(associationRemoved);
             }
         }
     });
@@ -142,7 +142,7 @@ router.get('/info/all/:userid', function(req, res){
             if(!infoObtained){
                 res.status(404).send({message: 'There are no entries.'});
             } else {
-                res.status(200).send({AssociationEntries: infoObtained}); 
+                res.status(200).send(infoObtained);
             }
         }
     });

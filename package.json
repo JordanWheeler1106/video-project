@@ -8,6 +8,7 @@
     "bcrypt": "^1.0.2",
     "body-parser": "^1.17.2",
     "ejs": "~1.0.0",
+    "email-templates": "^3.0.8",
     "express": "~4.0.0",
     "jsonwebtoken": "^7.4.1",
     "mongoose": "^4.10.4",

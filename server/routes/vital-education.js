@@ -99,7 +99,7 @@ router.post('/info/:userid', function(req,res) {
             if(!vitalEducationStored){
                 res.status(404).send({message: 'The information couldn\'t be saved.'});                   
             } else {
-                res.status(200).send({EducationEntry: vitalEducationStored});
+                res.status(200).send(vitalEducationStored);
             }
         }
     });
@@ -149,7 +149,7 @@ router.get('/info/all/:userid', function(req, res){
             if(!infoObtained){
                 res.status(404).send({message: 'There are no entries.'});
             } else {
-                res.status(200).send({EducationEntries: infoObtained}); 
+                res.status(200).send(infoObtained);
             }
         }
     });

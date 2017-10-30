@@ -28,11 +28,6 @@ function personalInfoController($scope, $location, $ionicModal, $rootScope, Pers
         licence: {},
         award: {}
     }
-    angular.forEach($scope.lists, function(v, i){
-      angular.forEach(v, function(item) {
-        $scope.checkedItems[i][item] = true;
-      })
-    })
     $scope.showList = function(type) {
       $scope.selectedList = $scope.lists[type]
       $scope.type = type;
@@ -45,7 +40,12 @@ function personalInfoController($scope, $location, $ionicModal, $rootScope, Pers
              text: '<b>Ok</b>',
              type: 'button-positive',
              onTap: function(e) {
-
+               var pushed = [];
+               angular.forEach($scope.checkedItems[$scope.type], function(v, i) {
+                 if (v)
+                  pushed.push(i);
+               })
+               $rootScope.$broadcast('listButtonClicked', pushed);
              }
            }
          ]

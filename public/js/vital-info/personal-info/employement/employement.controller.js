@@ -1,76 +1,108 @@
 app.controller('employementController', employementController);
 
 function employementController($scope, $location, $ionicModal, $rootScope, $http, $ionicLoading){
-    $scope.employments = [];
-
-    $scope.user = JSON.parse(localStorage.getItem("user"));
-
-    $ionicLoading.show();
-    $http.get('/api/vital-employment/info/all/'+$scope.user._id)
-      .then( function(res){
-        if (res.data.EmploymentEntries.length == 0) {
-          $scope.addForm();
-        } else {
-          for (var i = 0; i<res.data.EmploymentEntries.length; i++) {
-            var e = res.data.EmploymentEntries[i];
-            e.startDate = dateToHash(new Date(e.startDate));
-            e.endDate = dateToHash(new Date(e.endDate));
-            e.addedEmployerInfo = arrayToAddedInfo(e.addedEmployerInfo);
-            e.addedAddressInfo = arrayToAddedInfo(e.addedAddressInfo);
-            $scope.employments.push(e);
+  $scope.user = JSON.parse(localStorage.getItem("user"));
+  $scope.form = {
+    title: "Employment",
+    getUrl: '/api/vital-employment/info/all/'+$scope.user._id,
+    postUrl: '/api/vital-employment/info/'+$scope.user._id,
+    putUrl: '/api/vital-employment/info/:id',
+    deleteUrl: '/api/vital-employment/info/:id',
+    sections: [
+      {
+        title: "Employer",
+        fields: [
+          {
+            name: "company",
+            title: "Name of Employer",
+            type: "string"
+          },
+          {
+            name: "branch",
+            title: "Branch/Divisio/Sub",
+            type: "string"
+          },
+          {
+            name: "industryType",
+            title: "Primary Business or Industry",
+            type: "string"
+          },
+          {
+            name: "title",
+            title: "Position/Title",
+            type: "string"
+          },
+          {
+            name: "addedEmployerInfo",
+            type: "addedInfo"
+          },
+          {
+            name: "employerNotes",
+            title: "Notes",
+            type: "textarea"
           }
-        }
-        $ionicLoading.hide();
-      })
-      .catch( function(err){
-        alert("something went wrong please try again, or reload the page")
-        $ionicLoading.hide();
-      })
-
-    $scope.save = function (index) {
-      var e = angular.copy($scope.employments[index]);
-      e.startDate = hashToDate(e.startDate);
-      e.endDate = hashToDate(e.endDate);
-      e.addedEmployerInfo = addedInfoToArray(e.addedEmployerInfo);
-      e.addedAddressInfo = addedInfoToArray(e.addedAddressInfo);
-      $ionicLoading.show();
-      if(e._id) {
-        $http.put('/api/vital-employment/info/'+e._id, e)
-          .then(function() {
-            $ionicLoading.hide();
-          });
-      } else {
-        $http.post('/api/vital-employment/info/'+$scope.user._id, e)
-          .then(function() {
-            $ionicLoading.hide();
-          });
+        ]
+      },
+      {
+        title: "Dates of Employment",
+        fields: [
+          {
+            name: "startDate",
+            title: "From",
+            type: "date"
+          },
+          {
+            name: "endDate",
+            title: "To",
+            type: "date"
+          }
+        ]
+      },
+      {
+        title: "Location",
+        fields: [
+          {
+            title: "Street Address",
+            name: "street",
+            type: "string"
+          },
+          {
+            name: "addedAddressInfo",
+            type: "addedInfo"
+          },
+          {
+            title: "City",
+            name: "city",
+            type: "string"
+          },
+          {
+            title: "State",
+            name: "state",
+            type: "string"
+          },
+          {
+            title: "Zip Code",
+            name: "zipcode",
+            type: "number"
+          },
+          {
+            title: "Country",
+            name: "country",
+            type: "string"
+          }
+        ]
+      },
+      {
+        title: "Notes",
+        fields: [
+          {
+            title: "Notes",
+            name: "employmentNotes",
+            type: "textarea"
+          }
+        ]
       }
-
-    }
-
-    $scope.delete = function(index) {
-      var e = $scope.employments[index];
-      $ionicLoading.show();
-      $http.delete('/api/vital-employment/info/'+e._id)
-        .then(function() {
-          $scope.employments.splice(index)
-          $ionicLoading.hide();
-          if ($scope.employments.length == 0) {
-            $scope.addForm();
-          }
-        })
-    }
-
-    $scope.addForm = function () {
-      $scope.employments.push({
-        addedEmployerInfo: {
-          "Name of Employer": '',
-          "Branch/Division/Sub": '',
-          "Primary Business of Industry": '',
-          "Position/Title": ''
-        },
-        addedAddressInfo: {}
-      })
-    }
+    ]
+  }
 
 }

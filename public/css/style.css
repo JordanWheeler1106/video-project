@@ -3474,8 +3474,7 @@ form .list .item {
 }
 
 .blue-text {
-	color: #edad1d;
-	/*color: rgb(57, 133, 196) !important;*/
+	color: rgb(57, 133, 196) !important;
 }
 
 .hand {
@@ -3838,6 +3837,13 @@ CANVAS {
 	height: 26px;
 	padding-left: 5px;
 	width: 300px;
+	float:left;
+	margin-right: 10px;
+}
+
+.blue-form .remove-button {
+	font-size: 15px;
+	cursor: pointer;
 }
 
 .blue-form .textarea {
@@ -3884,4 +3890,10 @@ button.blue-button {
 
 .add-form-button {
 	text-align: center;
+	margin-top: -25px;
+}
+
+.blue-form.repeated-form {
+	border-bottom: 2px solid #ccc;
+	padding: 20px 0;
 }

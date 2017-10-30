@@ -1,72 +1,79 @@
 app.controller('placesLivedController', placesLivedController);
 
 function placesLivedController($scope, $location, $ionicModal, $rootScope, $http, $ionicLoading){
-    $scope.placeslived = [];
-
-    $scope.user = JSON.parse(localStorage.getItem("user"));
-
-    $ionicLoading.show();
-    $http.get('/api/vital-places-lived/info/all/'+$scope.user._id)
-      .then( function(res){
-        if (res.data.PlacesLived.length == 0) {
-          $scope.addForm();
-        } else {
-          for (var i = 0; i<res.data.PlacesLived.length; i++) {
-            var pl = res.data.PlacesLived[i];
-            pl.startDate = dateToHash(new Date(pl.startDate));
-            pl.endDate = dateToHash(new Date(pl.endDate));
-            pl.addedResidenceInfo = arrayToAddedInfo(pl.addedResidenceInfo);
-            $scope.placeslived.push(pl);
+  $scope.user = JSON.parse(localStorage.getItem("user"));
+  $scope.form = {
+    title: "Places Lived",
+    getUrl: '/api/vital-places-lived/info/all/'+$scope.user._id,
+    postUrl: '/api/vital-places-lived/info/'+$scope.user._id,
+    putUrl: '/api/vital-places-lived/info/:id',
+    deleteUrl: '/api/vital-places-lived/info/:id',
+    sections: [
+      {
+        title: "Residence",
+        fields: [
+          {
+            name: "type",
+            title: "Residence Type",
+            type: "string"
+          },
+          {
+            name: "street",
+            title: "Street Address",
+            type: "string"
+          },
+          {
+            name: "addedResidenceInfo",
+            type: "addedInfo"
+          },
+          {
+            name: "city",
+            title: "City",
+            type: "string"
+          },
+          {
+            name: "state",
+            title: "State",
+            type: "string"
+          },
+          {
+            name: "zipcode",
+            title: "Zip Code",
+            type: "number"
+          },
+          {
+            name: "country",
+            title: "Country",
+            type: "string"
           }
-        }
-        $ionicLoading.hide();
-      })
-      .catch( function(err){
-        alert("something went wrong please try again, or reload the page")
-        $ionicLoading.hide();
-      })
-
-    $scope.save = function (index) {
-      var pl = angular.copy($scope.placeslived[index]);
-      pl.startDate = hashToDate(pl.startDate);
-      pl.endDate = hashToDate(pl.endDate);
-      pl.addedResidenceInfo = addedInfoToArray(pl.addedResidenceInfo);
-      $ionicLoading.show();
-      if(pl._id) {
-        $http.put('/api/vital-places-lived/info/'+pl._id, pl)
-          .then(function() {
-            $ionicLoading.hide();
-          });
-      } else {
-        $http.post('/api/vital-places-lived/info/'+$scope.user._id, pl)
-          .then(function() {
-            $ionicLoading.hide();
-          });
+        ]
+      },
+      {
+        title: "Dates of Residency",
+        fields: [
+          {
+            name: "startDate",
+            title: "From",
+            type: "date"
+          },
+          {
+            name: "endDate",
+            title: "To",
+            type: "date"
+          }
+        ]
+      },
+      {
+        title: "Notes",
+        fields: [
+          {
+            title: "Notes",
+            name: "notes",
+            type: "textarea"
+          }
+        ]
       }
-
-    }
-
-    $scope.delete = function(index) {
-      var pl = $scope.placeslived[index];
-      $ionicLoading.show();
-      $http.delete('/api/vital-places-lived/info/'+pl._id)
-        .then(function() {
-          $scope.placeslived.splice(index)
-          $ionicLoading.hide();
-          if ($scope.placeslived.length == 0) {
-            $scope.addForm();
-          }
-        })
-    }
-
-    $scope.addForm = function () {
-      $scope.placeslived.push({
-        addedResidenceInfo: {},
-        startDate: {},
-        endDate: {}
-      })
-    }
-
-
+    ]
+  }
 
 }

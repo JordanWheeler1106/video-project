@@ -1,71 +1,107 @@
 app.controller('associationController', associationController);
 
 function associationController($scope, $location, $ionicModal, $rootScope, $http, $ionicLoading){
-    $scope.associations = []
-    $scope.association_list = ASSOCIATION_LIST;
-
-    $scope.user = JSON.parse(localStorage.getItem("user"));
-
-    $ionicLoading.show();
-    $http.get('/api/vital-associations/info/all/'+$scope.user._id)
-      .then( function(res){
-        if (res.data.AssociationEntries.length == 0) {
-          $scope.addForm();
-        } else {
-          for (var i = 0; i<res.data.AssociationEntries.length; i++) {
-            var e = res.data.AssociationEntries[i];
-            e.startDate = dateToHash(new Date(e.startDate));
-            e.endDate = dateToHash(new Date(e.endDate));
-            e.addedResponsibilitiesInfo = arrayToAddedInfo(e.addedResponsibilitiesInfo);
-            e.addedAddressInfo = arrayToAddedInfo(e.addedAddressInfo);
-            $scope.associations.push(e);
+  $scope.user = JSON.parse(localStorage.getItem("user"));
+  $scope.form = {
+    title: "Associations/Memberships",
+    getUrl: '/api/vital-associations/info/all/'+$scope.user._id,
+    postUrl: '/api/vital-associations/info/'+$scope.user._id,
+    putUrl: '/api/vital-associations/info/:id',
+    deleteUrl: '/api/vital-associations/info/:id',
+    sections: [
+      {
+        title: "",
+        fields: [
+          {
+            name: "type",
+            title: "School",
+            type: "type"
           }
-        }
-        $ionicLoading.hide();
-      })
-      .catch( function(err){
-        alert("something went wrong please try again, or reload the page")
-        $ionicLoading.hide();
-      })
-
-    $scope.save = function (index) {
-      var e = angular.copy($scope.associations[index]);
-      e.startDate = hashToDate(e.startDate);
-      e.endDate = hashToDate(e.endDate);
-      e.addedResponsibilitiesInfo = addedInfoToArray(e.addedResponsibilitiesInfo);
-      e.addedAddressInfo = addedInfoToArray(e.addedAddressInfo);
-      $ionicLoading.show();
-      if(e._id) {
-        $http.put('/api/vital-associations/info/'+e._id, e)
-          .then(function() {
-            $ionicLoading.hide();
-          });
-      } else {
-        $http.post('/api/vital-associations/info/'+$scope.user._id, e)
-          .then(function() {
-            $ionicLoading.hide();
-          });
+        ]
+      },
+      {
+        title: "Organization",
+        fields: [
+          {
+            name: "association",
+            title: "Name of Organization",
+            type: "string"
+          },
+          {
+            name: "description",
+            title: "Description of Organization and purpose",
+            type: "textarea"
+          }
+        ]
+      },
+      {
+        title: "Dates of Membership",
+        fields: [
+          {
+            name: "startDate",
+            title: "From",
+            type: "date"
+          },
+          {
+            name: "endDate",
+            title: "To",
+            type: "date"
+          }
+        ]
+      },
+      {
+        title: "Offices/Responsabilities",
+        fields: [
+          {
+            name: "addedResponsibilitiesInfo",
+            type: "addedInfo"
+          }
+        ]
+      },
+      {
+        title: "Notes",
+        fields: [
+          {
+            title: "Notes",
+            name: "notes",
+            type: "textarea"
+          }
+        ]
+      },
+      {
+        title: "Location",
+        fields: [
+          {
+            name: "street",
+            title: "Street Address",
+            type: "string"
+          },
+          {
+            name: "addedAddressInfo",
+            type: "addedInfo"
+          },
+          {
+            name: "city",
+            title: "City",
+            type: "string"
+          },
+          {
+            name: "state",
+            title: "State",
+            type: "string"
+          },
+          {
+            name: "zipcode",
+            title: "Zip Code",
+            type: "number"
+          },
+          {
+            name: "country",
+            title: "Country",
+            type: "string"
+          },
+        ]
       }
-
-    }
-
-    $scope.delete = function(index) {
-      var e = $scope.associations[index];
-      $ionicLoading.show();
-      $http.delete('/api/vital-associations/info/'+e._id)
-        .then(function() {
-          $scope.associations.splice(index)
-          $ionicLoading.hide();
-          if ($scope.associations.length == 0) {
-            $scope.addForm();
-          }
-        })
-    }
-
-    $scope.addForm = function () {
-      $scope.associations.push({
-        addedResponsibilitiesInfo: {},
-        addedAddressInfo: {}
-      })
-    }
+    ]
+  }
 }

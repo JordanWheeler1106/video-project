@@ -42,7 +42,18 @@ app.use('/api/vital-licences', require('./server/routes/vital-licences'));
 app.use('/api/vital-military', require('./server/routes/vital-military'));
 app.use('/api/vital-personal-info', require('./server/routes/vital-personal-info'));
 app.use('/api/vital-places-lived', require('./server/routes/vital-places-lived'));
-
+app.use('/api/medical-allergies', require('./server/routes/medical-information/medical-allergies'));
+app.use('/api/medical-conditions', require('./server/routes/medical-information/medical-conditions'));
+app.use('/api/medical-contact', require('./server/routes/medical-information/medical-contact'));
+app.use('/api/medical-disease', require('./server/routes/medical-information/medical-disease'));
+app.use('/api/medical-hospitalizations', require('./server/routes/medical-information/medical-hospitalizations'));
+app.use('/api/medical-insurance', require('./server/routes/medical-information/medical-insurance'));
+app.use('/api/medical-medication', require('./server/routes/medical-information/medical-medication'));
+app.use('/api/medical-procedures', require('./server/routes/medical-information/medical-procedures'));
+app.use('/api/medical-profile', require('./server/routes/medical-information/medical-profile'));
+app.use('/api/medical-providers', require('./server/routes/medical-information/medical-providers'));
+app.use('/api/medical-surgeries', require('./server/routes/medical-information/medical-surgeries'));
+app.use('/api/medical-vaccines', require('./server/routes/medical-information/medical-vaccines'));
 
 app.get('/*', function(req, res){
     res.render('index.html')

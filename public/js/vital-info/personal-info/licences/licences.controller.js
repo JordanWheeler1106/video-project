@@ -1,66 +1,88 @@
 app.controller('licenceController', licenceController);
 
 function licenceController($scope, $location, $ionicModal, $rootScope, $http, $ionicLoading){
-  $scope.licences = []
-  $scope.licence_list = LICENCE_LIST;
-
   $scope.user = JSON.parse(localStorage.getItem("user"));
-
-  $ionicLoading.show();
-  $http.get('/api/vital-licences/info/all/'+$scope.user._id)
-    .then( function(res){
-      if (res.data.LicenceEntries.length == 0) {
-        $scope.addForm();
-      } else {
-        for (var i = 0; i<res.data.LicenceEntries.length; i++) {
-          var e = res.data.LicenceEntries[i];
-          e.grantedDate = dateToHash(new Date(e.grantedDate));
-          e.addedAddressInfo = arrayToAddedInfo(e.addedAddressInfo);
-          $scope.licences.push(e);
-        }
+  $scope.form = {
+    title: "Licence/Certifications",
+    getUrl: '/api/vital-licences/info/all/'+$scope.user._id,
+    postUrl: '/api/vital-licences/info/'+$scope.user._id,
+    putUrl: '/api/vital-licences/info/:id',
+    deleteUrl: '/api/vital-licences/info/:id',
+    sections: [
+      {
+        title: "",
+        fields: [
+          {
+            name: "type",
+            title: "School",
+            type: "type"
+          }
+        ]
+      },
+      {
+        title: "Licence/Certification",
+        fields: [
+          {
+            name: "authority",
+            title: "Certifying Authority",
+            type: "string"
+          },
+          {
+            name: "grantedDate",
+            title: "Date Granted",
+            type: "date"
+          },
+          {
+            name: "term",
+            title: "Term",
+            type: "string"
+          },
+          {
+            name: "notes",
+            title: "Notes",
+            type: "textarea"
+          }
+        ]
+      },
+      {
+        title: "Location",
+        fields: [
+          {
+            name: "address",
+            title: "Address",
+            type: "string"
+          },
+          {
+            name: "addedAddressInfo",
+            type: "addedInfo"
+          },
+          {
+            name: "pobox",
+            title: "P.O. Box",
+            type: "string"
+          },
+          {
+            name: "city",
+            title: "City",
+            type: "string"
+          },
+          {
+            name: "state",
+            title: "State",
+            type: "string"
+          },
+          {
+            name: "zipcode",
+            title: "Zip Code",
+            type: "number"
+          },
+          {
+            name: "country",
+            title: "Country",
+            type: "string"
+          },
+        ]
       }
-      $ionicLoading.hide();
-    })
-    .catch( function(err){
-      alert("something went wrong please try again, or reload the page")
-      $ionicLoading.hide();
-    })
-
-  $scope.save = function (index) {
-    var e = angular.copy($scope.licences[index]);
-    e.grantedDate = hashToDate(e.grantedDate);
-    e.addedAddressInfo = addedInfoToArray(e.addedAddressInfo);
-    $ionicLoading.show();
-    if(e._id) {
-      $http.put('/api/vital-licences/info/'+e._id, e)
-        .then(function() {
-          $ionicLoading.hide();
-        });
-    } else {
-      $http.post('/api/vital-licences/info/'+$scope.user._id, e)
-        .then(function() {
-          $ionicLoading.hide();
-        });
-    }
-
-  }
-
-  $scope.delete = function(index) {
-    var e = $scope.licences[index];
-    $ionicLoading.show();
-    $http.delete('/api/vital-licences/info/'+e._id)
-      .then(function() {
-        $scope.licences.splice(index)
-        $ionicLoading.hide();
-        if ($scope.licences.length == 0) {
-          $scope.addForm();
-        }
-      })
-  }
-
-  $scope.addForm = function () {
-    $scope.licences.push({
-      addedAddressInfo: {}
-    })
+    ]
   }
 }

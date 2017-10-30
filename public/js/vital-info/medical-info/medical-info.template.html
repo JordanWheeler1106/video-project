@@ -1,63 +1,59 @@
 <div class="side-nav hide-on-sm">
-	<div class="list">
-		<div class="item item-divider">
-			Title
+	<div class="list side-menu">
+		<div class="item item-divider title">
+			Contents
 		</div>
-		<a class="item" ng-class="{'side-nav-clicked': heading == 'Form1'}" ng-click="headingChanged('Form1')">
-			Form1
-			<span class="item-note">12.12.17</span>
+		<a class="item" ng-class="{'side-nav-clicked': location == 'emergency-contacts'}" ui-sref = 'VitalInfo.MedicalInfo.EmergencyContacts'>
+			Emergency Contacts
 		</a>
-		<a class="item" ng-class="{'side-nav-clicked': heading == 'Form2'}" ng-click="headingChanged('Form2')">
-			Form2
-			<span class="item-note">12.12.17</span>
+		<a class="item" ng-class="{'side-nav-clicked': location == 'medical-profile'}" ui-sref = 'VitalInfo.MedicalInfo.MedicalProfile'>
+			Medical Profile
 		</a>
-		<a class="item" ng-class="{'side-nav-clicked': heading == 'Form3'}" ng-click="headingChanged('Form3')">
-			Form3
-			<span class="item-note">12.12.17</span>
+		<a class="item" ng-class="{'side-nav-clicked': location == 'medications'}" ui-sref = 'VitalInfo.MedicalInfo.Medications'>
+			Medications
 		</a>
-		<a class="item" ng-class="{'side-nav-clicked': heading == 'Form4'}" ng-click="headingChanged('Form4')">
-			Form4
-			<span class="item-note">12.12.17</span>
+		<a class="item" ng-class="{'side-nav-clicked': location == 'vaccines'}" ui-sref = 'VitalInfo.MedicalInfo.Vaccines'>
+			Vaccines/Immunizations <button class="blue-button float-right" ng-click="showList('vaccine')">LIST</button>
 		</a>
-		<a class="item" ng-class="{'side-nav-clicked': heading == 'Form5'}" ng-click="headingChanged('Form5')">
-			Form5
-			<span class="item-note">12.12.17</span>
+		<a class="item" ng-class="{'side-nav-clicked': location == 'allergies'}" ui-sref = 'VitalInfo.MedicalInfo.Allergies'>
+			Allergies <button class="blue-button float-right" ng-click="showList('allergy')">LIST</button>
 		</a>
-		<a class="item" ng-class="{'side-nav-clicked': heading == 'Form6'}" ng-click="headingChanged('Form6')">
-			Form6
-			<span class="item-note">12.12.17</span>
+		<a class="item" ng-class="{'side-nav-clicked': location == 'infectious-diseases'}" ui-sref = 'VitalInfo.MedicalInfo.InfectiousDiseases'>
+			Infectious Diseases <button class="blue-button float-right" ng-click="showList('infectious')">LIST</button>
 		</a>
-		<a class="item" ng-class="{'side-nav-clicked': heading == 'Form7'}" ng-click="headingChanged('Form7')">
-			Form7
-			<span class="item-note">12.12.17</span>
+		<a class="item" ng-class="{'side-nav-clicked': location == 'non-infectious-diseases'}" ui-sref = 'VitalInfo.MedicalInfo.NonInfectiousDiseases'>
+			Non-Infectious Diseases/Conditions <button class="blue-button float-right" ng-click="showList('noninfectious')">LIST</button>
 		</a>
-		<a class="item" ng-class="{'side-nav-clicked': heading == 'Form8'}" ng-click="headingChanged('Form8')">
-			Form8
-			<span class="item-note">12.12.17</span>
+		<a class="item" ng-class="{'side-nav-clicked': location == 'tests-and-procedures'}" ui-sref = 'VitalInfo.MedicalInfo.TestsAndProcedures'>
+			Tests and Procedures <button class="blue-button float-right" ng-click="showList('test')">LIST</button>
+		</a>
+		<a class="item" ng-class="{'side-nav-clicked': location == 'hospitalizations'}" ui-sref = 'VitalInfo.MedicalInfo.Hospitalizations'>
+			Hospitalizations
+		</a>
+		<a class="item" ng-class="{'side-nav-clicked': location == 'surgeries'}" ui-sref = 'VitalInfo.MedicalInfo.Surgeries'>
+			Surgeries
+		</a>
+		<a class="item" ng-class="{'side-nav-clicked': location == 'healthcare-providers'}" ui-sref = 'VitalInfo.MedicalInfo.HealthcareProviders'>
+			Healthcare Providers
+		</a>
+		<a class="item" ng-class="{'side-nav-clicked': location == 'medical-insurance'}" ui-sref = 'VitalInfo.MedicalInfo.MedicalInsurance'>
+			Medical Insurance <button class="blue-button float-right" ng-click="showList('medical')">LIST</button>
 		</a>
 	</div>
 </div>
 <div class="vital-info-address hide-on-md">
     <span ui-sref = "VitalInfo" class="first">Vital Info / </span>
-    <span class="other">Medical Info</span>
+    <span class="other">Personal Info</span>
 </div>
 <div class="hide-on-md">
-	<div class="list">
-		<a ng-click="modal.show()" class="item center-text">
-			{{heading}} 
-			<i class="icon ion-ios-arrow-down vertical-middle"></i>
-		</a>
-	</div>
+	<ui-view></ui-view>
 </div>
 <div class="vital-forms hide-on-sm">
-	<div>
-		<div class="tableLinks">
-			<span class="active">{{heading}}</span>
-		</div>
-	</div>
+	<ui-view></ui-view>
 </div>
-
-
+<!--
+	Modal for small screen
+-->
 <script id="templates/modal.html" type="text/ng-template">
 	<ion-modal-view>
 		<ion-header-bar class="bar bar-header bar-stable modal-header">
@@ -66,40 +62,29 @@
 		</ion-header-bar>
 		<ion-content>
 			<div class="list">
-				<div class="item item-divider">
-					Title
-				</div>
-				<a class="item" ng-class="{'side-nav-clicked': heading == 'Form1'}" ng-click="modalLinkClicked('Form1')">
-					<h2>Form1</h2>
-					<p>12.12.17</p>
+				<a class="item" ng-class="{'side-nav-clicked': location == 'personal-info'}" ui-sref = 'VitalInfo.PersonalInfo.PersonalInfo' ng-click="modalLinkClicked('Personal Information')">
+					<h2>Personal Information</h2>
 				</a>
-				<a class="item" ng-class="{'side-nav-clicked': heading == 'Form2'}" ng-click="modalLinkClicked('Form2')">
-					<h2>Form2</h2>
-					<p>12.12.17</p>
+				<a class="item" ng-class="{'side-nav-clicked': location == 'places-lived'}" ui-sref = 'VitalInfo.PersonalInfo.PlacesLived' ng-click="modalLinkClicked('Places Lived')">
+					<h2>Places Lived</h2>
 				</a>
-				<a class="item" ng-class="{'side-nav-clicked': heading == 'Form3'}" ng-click="modalLinkClicked('Form3')">
-					<h2>Form3</h2>
-					<p>12.12.17</p>
+				<a class="item" ng-class="{'side-nav-clicked': location == 'education'}" ui-sref = 'VitalInfo.PersonalInfo.Education' ng-click="modalLinkClicked('Education')">
+					<h2>Education</h2>
 				</a>
-				<a class="item" ng-class="{'side-nav-clicked': heading == 'Form4'}" ng-click="modalLinkClicked('Form4')">
-					<h2>Form4</h2>
-					<p>12.12.17</p>
+				<a class="item" ng-class="{'side-nav-clicked': location == 'employement'}" ui-sref = 'VitalInfo.PersonalInfo.Employement' ng-click="modalLinkClicked('Employement')">
+					<h2>Employement</h2>
 				</a>
-				<a class="item" ng-class="{'side-nav-clicked': heading == 'Form5'}" ng-click="modalLinkClicked('Form5')">
-					<h2>Form5</h2>
-					<p>12.12.17</p>
+				<a class="item" ng-class="{'side-nav-clicked': location == 'military'}" ui-sref = 'VitalInfo.PersonalInfo.Military' ng-click="modalLinkClicked('Military')">
+					<h2>Military</h2>
 				</a>
-				<a class="item" ng-class="{'side-nav-clicked': heading == 'Form6'}" ng-click="modalLinkClicked('Form6')">
-					<h2>Form6</h2>
-					<p>12.12.17</p>
+				<a class="item" ng-class="{'side-nav-clicked': location == 'associations'}" ui-sref = 'VitalInfo.PersonalInfo.Associations' ng-click="modalLinkClicked('Associations/Memberships')">
+					<h2>Associations/Memberships</h2>
 				</a>
-				<a class="item" ng-class="{'side-nav-clicked': heading == 'Form7'}" ng-click="modalLinkClicked('Form7')">
-					<h2>Form7</h2>
-					<p>12.12.17</p>
+				<a class="item" ng-class="{'side-nav-clicked': location == 'licences'}" ui-sref = 'VitalInfo.PersonalInfo.Licences' ng-click="modalLinkClicked('Licences/Certifications')">
+					<h2>Licences/Certifications</h2>
 				</a>
-				<a class="item" ng-class="{'side-nav-clicked': heading == 'Form8'}" ng-click="modalLinkClicked('Form8')">
-					<h2>Form8</h2>
-					<p>12.12.17</p>
+				<a class="item" ng-class="{'side-nav-clicked': location == 'awards'}" ui-sref = 'VitalInfo.PersonalInfo.Awards' ng-click="modalLinkClicked('Awards/Honours')">
+					<h2>Awards/Honours</h2>
 				</a>
 			</div>
 		</ion-content>

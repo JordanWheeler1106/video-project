@@ -71,16 +71,17 @@ router.post('/info/:userid', function(req,res) {
 
     vitalLicences.user = userId;
     vitalLicences.city = params.city;
-    vitalLicences.authority = params.authority,
-    vitalLicences.grantedDate = params.grantedDate,
-    vitalLicences.state = params.state,
-    vitalLicences.zipcode = params.zipcode, 
-    vitalLicences.country = params.country,
-    vitalLicences.type = params.type,
-    vitalLicences.address = params.address,
-    vitalLicences.addedAddressInfo = params.addedAddressInfo,
-    vitalLicences.pobox = params.pobox,
-    vitalLicences.notes = params.notes
+    vitalLicences.authority = params.authority;
+    vitalLicences.grantedDate = params.grantedDate;
+    vitalLicences.state = params.state;
+    vitalLicences.zipcode = params.zipcode;
+    vitalLicences.country = params.country;
+    vitalLicences.type = params.type;
+    vitalLicences.address = params.address;
+    vitalLicences.addedAddressInfo = params.addedAddressInfo;
+    vitalLicences.pobox = params.pobox;
+    vitalLicences.notes = params.notes;
+    vitalLicences.term = params.term;
 
     vitalLicences.save((err, vitalLicencesStored) =>{
         if(err){
@@ -89,7 +90,7 @@ router.post('/info/:userid', function(req,res) {
             if(!vitalLicencesStored){
                 res.status(404).send({message: 'The information couldn\'t be saved.'});                   
             } else {
-                res.status(200).send({LicencesEntry: vitalLicencesStored});
+                res.status(200).send(vitalLicencesStored);
             }
         }
     });
@@ -106,7 +107,7 @@ router.put('/info/:infoid', function(req, res){
             if(!licencesUpdated){
                 res.status(404).send({message: 'The information couldn\'t be updated.'});                   
             } else {
-                res.status(200).send({LicenceEdited: licencesUpdated});
+                res.status(200).send(licencesUpdated);
             }
         }
     });
@@ -123,7 +124,7 @@ router.delete('/info/:infoid', function(req, res){
             if(!licenceRemoved){
                 res.status(404).send({message: 'The information couldn\'t be deleted.'});                   
             } else {
-                res.status(200).send({LicenceRemoved: licenceRemoved});
+                res.status(200).send(licenceRemoved);
             }
         }
     });
@@ -139,7 +140,7 @@ router.get('/info/all/:userid', function(req, res){
             if(!infoObtained){
                 res.status(404).send({message: 'There are no entries.'});
             } else {
-                res.status(200).send({LicenceEntries: infoObtained}); 
+                res.status(200).send(infoObtained);
             }
         }
     });

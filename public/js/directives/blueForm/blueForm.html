@@ -1,0 +1,110 @@
+<div>
+  <div class="hide-on-sm blue-form">
+  	<div>
+  		<div class="tableLinks">
+  			<span class="active">{{form.title}}</span>
+  		</div>
+  	</div>
+  </div>
+  <div class="responsive-sm blue-form repeated-form" ng-repeat="element in elements track by $index" ng-init="parentIndex = $index">
+
+      <div ng-repeat="section in form.sections">
+
+    		<div ng-if="section.title">
+    			<div class="tableLinks subtitle">
+    	      <span class="active">{{section.title}}</span>
+    			</div>
+    		</div>
+
+        <div ng-repeat="field in section.fields">
+
+      		<div class="row" ng-if="field.type == 'type'">
+      			<div class="col col-20">
+              <span class="input-name">Type</span>
+      			</div>
+            <div class="col col-80">
+              <input type="text" ng-model="element['type']" class="input">
+            </div>
+          </div>
+
+      		<div class="row" ng-if="field.type == 'string'">
+      			<div class="col col-20">
+      				<span class="input-name">{{field.title}}</span>
+      			</div>
+            <div class="col col-80">
+              <input type="text" ng-model="element[field.name]" class="input">
+            </div>
+          </div>
+
+
+      		<div class="row" ng-if="field.type == 'number'">
+      			<div class="col col-20">
+      				<span class="input-name">{{field.title}}</span>
+      			</div>
+            <div class="col col-80">
+              <input type="number" ng-model="element[field.name]" class="input">
+            </div>
+          </div>
+
+
+      		<div class="row" ng-if="field.type == 'textarea'">
+      			<div class="col col-20">
+      				<span class="input-name">{{field.title}}</span>
+      			</div>
+            <div class="col col-80">
+              <textarea class="textarea" ng-model="element[field.name]" rows="5"></textarea>
+            </div>
+          </div>
+
+
+      		<div class="row date" ng-if="field.type == 'date'">
+      			<div class="col col-20">
+      				<span class="input-name">{{field.title}}</span>
+      			</div>
+            <div class="col col-80">
+              <input type="number" ng-model="element[field.name].day" class="input" min="1" max="31">
+      				<input type="number" ng-model="element[field.name].month" class="input" min="1" max="12">
+      				<input type="number" ng-model="element[field.name].year" class="input" min="1900">
+            </div>
+          </div>
+
+          <div class="row" ng-if="field.type == 'addedInfo'" ng-repeat="(title, value) in element[field.name] track by $index">
+      			<div class="col col-20">
+      				<span class="input-name">{{title}}</span>
+      			</div>
+            <div class="col col-80">
+              <input type="text" ng-model="element[field.name][title]" class="input"> <span ng-click="deleteAddedItem(parentIndex, field.name, title)" class="remove-button">x</span>
+            </div>
+          </div>
+
+
+      		<div class="row" ng-if="field.type == 'addedInfo'">
+      			<div class="col col-20"></div>
+            <div class="col col-80">
+      				<add-another label-text="Add Another" hash="element[field.name]"></add-another>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+
+  		<div class="row buttons">
+  		  <button class="blue-button" ng-click="save($index)">Save</button>
+  			<button class="blue-button" ng-click="delete($index)">Delete</button>
+  		</div>
+  </div>
+
+
+
+  <div class="row" ng-if="form.multipleForm !== false">
+  	<div class="col col-33">
+  	</div>
+  	<div class="col col-33 add-form-button">
+  		<button ng-click="addForm()" class="blue-button">Add Form</button>
+  	</div>
+  	<div class="col col-33">
+  	</div>
+  </div>
+</div>

@@ -14,7 +14,7 @@ var VitalPersonalInfo = require('./../models/vital-personal-info.model');
 router.get('/all/:id', function(req, res, next) {
     VitalPersonalInfo.find({user: req.params.id}).exec(function (err, personalinfos) {
         if (err) return next(err);
-        res.json(personalinfos);
+        res.json([personalinfos]);
     });
 });
 
@@ -43,7 +43,7 @@ router.post('/info/:userid', function(req,res) {
             if(!vitalPersonalInfoStored){
                 res.status(404).send({message: 'The information couldn\'t be saved.'});                   
             } else {
-                res.status(200).send({VitalInfo: vitalPersonalInfoStored});
+                res.status(200).send([vitalPersonalInfoStored]);
             }
         }
     });
@@ -60,7 +60,7 @@ router.put('/info/:infoid', function(req, res){
             if(!vitalUpdated){
                 res.status(404).send({message: 'The information couldn\'t be updated.'});                   
             } else {
-                res.status(200).send({VitalInfo: vitalUpdated});
+                res.status(200).send([vitalUpdated]);
             }
         }
     });
@@ -93,7 +93,7 @@ router.get('/info/all/:userid', function(req, res){
             if(!infoObtained){
                 res.status(404).send({message: 'There are no entries.'});
             } else {
-                res.status(200).send({PersonalInfoEntry: infoObtained[0]}); 
+                res.status(200).send([infoObtained[0]]);
             }
         }
     });

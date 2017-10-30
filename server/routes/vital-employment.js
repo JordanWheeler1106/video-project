@@ -95,7 +95,7 @@ router.post('/info/:userid', function(req,res) {
             if(!vitalEmploymentStored){
                 res.status(404).send({message: 'The information couldn\'t be saved.'});                   
             } else {
-                res.status(200).send({EmploymentEntry: vitalEmploymentStored});
+                res.status(200).send(vitalEmploymentStored);
             }
         }
     });
@@ -112,7 +112,7 @@ router.put('/info/:infoid', function(req, res){
             if(!employmentUpdated){
                 res.status(404).send({message: 'The information couldn\'t be updated.'});                   
             } else {
-                res.status(200).send({EmploymentEdited: employmentUpdated});
+                res.status(200).send(employmentUpdated);
             }
         }
     });
@@ -129,7 +129,7 @@ router.delete('/info/:infoid', function(req, res){
             if(!employmentRemoved){
                 res.status(404).send({message: 'The information couldn\'t be deleted.'});                   
             } else {
-                res.status(200).send({EmploymentRemoved: employmentRemoved});
+                res.status(200).send(employmentRemoved);
             }
         }
     });
@@ -145,7 +145,7 @@ router.get('/info/all/:userid', function(req, res){
             if(!infoObtained){
                 res.status(404).send({message: 'There are no entries.'});
             } else {
-                res.status(200).send({EmploymentEntries: infoObtained}); 
+                res.status(200).send(infoObtained);
             }
         }
     });

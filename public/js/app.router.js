@@ -260,5 +260,83 @@ app.config(function ($stateProvider) {
             templateUrl: '../js/vital-info/personal-info/awards/awards.template.html',
             controller: 'awardController',
             cache: false
-        });
+        })
+
+
+
+        .state('VitalInfo.MedicalInfo.EmergencyContacts', {
+            url: '/emergency-contacts',
+            templateUrl: '../js/vital-info/medical-info/emergency-contacts/emergency-contacts.template.html',
+            controller: 'emergencyContactsController',
+            cache: false
+        })
+        .state('VitalInfo.MedicalInfo.MedicalProfile', {
+            url: '/medical-profile',
+            templateUrl: '../js/vital-info/medical-info/medical-profile/medical-profile.template.html',
+            controller: 'medicalProfileController',
+            cache: false
+        })
+        .state('VitalInfo.MedicalInfo.Medications', {
+            url: '/medications',
+            templateUrl: '../js/vital-info/medical-info/medications/medications.template.html',
+            controller: 'medicationsController',
+            cache: false
+        })
+        .state('VitalInfo.MedicalInfo.Vaccines', {
+            url: '/vaccines',
+            templateUrl: '../js/vital-info/medical-info/vaccines/vaccines.template.html',
+            controller: 'vaccinesController',
+            cache: false
+        })
+        .state('VitalInfo.MedicalInfo.Allergies', {
+            url: '/allergies',
+            templateUrl: '../js/vital-info/medical-info/allergies/allergies.template.html',
+            controller: 'allergiesController',
+            cache: false
+        })
+        .state('VitalInfo.MedicalInfo.InfectiousDiseases', {
+            url: '/infectious-diseases',
+            templateUrl: '../js/vital-info/medical-info/infectious-diseases/infectious-diseases.template.html',
+            controller: 'infectiousDiseasesController',
+            cache: false
+        })
+        .state('VitalInfo.MedicalInfo.NonInfectiousDiseases', {
+            url: '/non-infectious-diseases',
+            templateUrl: '../js/vital-info/medical-info/non-infectious-diseases/non-infectious-diseases.template.html',
+            controller: 'nonInfectiousDiseasesController',
+            cache: false
+        })
+        .state('VitalInfo.MedicalInfo.TestsAndProcedures', {
+            url: '/tests-and-procedures',
+            templateUrl: '../js/vital-info/medical-info/tests-and-procedures/tests-and-procedures.template.html',
+            controller: 'testsAndProceduresController',
+            cache: false
+        })
+        .state('VitalInfo.MedicalInfo.Hospitalizations', {
+            url: '/hospitalizations',
+            templateUrl: '../js/vital-info/medical-info/hospitalizations/hospitalizations.template.html',
+            controller: 'hospitalizationsController',
+            cache: false
+        })
+        .state('VitalInfo.MedicalInfo.Surgeries', {
+            url: '/surgeries',
+            templateUrl: '../js/vital-info/medical-info/surgeries/surgeries.template.html',
+            controller: 'surgeriesController',
+            cache: false
+        })
+        .state('VitalInfo.MedicalInfo.HealthcareProviders', {
+            url: '/healthcare-providers',
+            templateUrl: '../js/vital-info/medical-info/healthcare-providers/healthcare-providers.template.html',
+            controller: 'healthcareProvidersController',
+            cache: false
+        })
+        .state('VitalInfo.MedicalInfo.MedicalInsurance', {
+            url: '/medical-insurance',
+            templateUrl: '../js/vital-info/medical-info/medical-insurance/medical-insurance.template.html',
+            controller: 'medicalInsuranceController',
+            cache: false
+        })
+
+
+        ;
 })

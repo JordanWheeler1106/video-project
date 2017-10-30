@@ -95,7 +95,7 @@ router.post('/info/:userid', function(req,res) {
             if(!vitalMilitaryStored){
                 res.status(404).send({message: 'The information couldn\'t be saved.'});                   
             } else {
-                res.status(200).send({MilitaryEntry: vitalMilitaryStored});
+                res.status(200).send(vitalMilitaryStored);
             }
         }
     });
@@ -112,7 +112,7 @@ router.put('/info/:infoid', function(req, res){
             if(!militaryUpdated){
                 res.status(404).send({message: 'The information couldn\'t be updated.'});                   
             } else {
-                res.status(200).send({MilitaryEdited: militaryUpdated});
+                res.status(200).send(militaryUpdated);
             }
         }
     });
@@ -129,7 +129,7 @@ router.delete('/info/:infoid', function(req, res){
             if(!militaryRemoved){
                 res.status(404).send({message: 'The information couldn\'t be deleted.'});                   
             } else {
-                res.status(200).send({MilitaryRemoved: militaryRemoved});
+                res.status(200).send(militaryRemoved);
             }
         }
     });
@@ -145,7 +145,7 @@ router.get('/info/all/:userid', function(req, res){
             if(!infoObtained){
                 res.status(404).send({message: 'There are no entries.'});
             } else {
-                res.status(200).send({MilitaryEntries: infoObtained}); 
+                res.status(200).send(infoObtained);
             }
         }
     });

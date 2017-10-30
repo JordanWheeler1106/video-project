@@ -85,7 +85,7 @@ router.post('/info/:userid', function(req,res) {
             if(!vitalAwardsStored){
                 res.status(404).send({message: 'The information couldn\'t be saved.'});                   
             } else {
-                res.status(200).send({AwardsEntry: vitalAwardsStored});
+                res.status(200).send(vitalAwardsStored);
             }
         }
     });
@@ -102,7 +102,7 @@ router.put('/info/:infoid', function(req, res){
             if(!awardsUpdated){
                 res.status(404).send({message: 'The information couldn\'t be updated.'});                   Í
             } else {
-                res.status(200).send({AwardsEdited: awardsUpdated});
+                res.status(200).send(awardsUpdated);
             }
         }
     });
@@ -119,7 +119,7 @@ router.delete('/info/:infoid', function(req, res){
             if(!awardsRemoved){
                 res.status(404).send({message: 'The information couldn\'t be deleted.'});                   
             } else {
-                res.status(200).send({AwardsRemoved: awardsRemoved});
+                res.status(200).send(awardsRemoved);
             }
         }
     });
@@ -135,7 +135,7 @@ router.get('/info/all/:userid', function(req, res){
             if(!infoObtained){
                 res.status(404).send({message: 'There are no entries.'});
             } else {
-                res.status(200).send({AwardsEntries: infoObtained}); 
+                res.status(200).send(infoObtained);
             }
         }
     });

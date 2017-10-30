@@ -90,7 +90,7 @@ router.post('/info/:userid', function(req,res) {
             if(!vitalPlacesLivedStored){
                 res.status(404).send({message: 'The information couldn\'t be saved.'});
             } else {
-                res.status(200).send({PlacesLivedEntry: vitalPlacesLivedStored});
+                res.status(200).send(vitalPlacesLivedStored);
             }
         }
     });
@@ -107,7 +107,7 @@ router.put('/info/:infoid', function(req, res){
             if(!placesUpdated){
                 res.status(404).send({message: 'The information couldn\'t be updated.'});
             } else {
-                res.status(200).send({PlacesLived: placesUpdated});
+                res.status(200).send(placesUpdated);
             }
         }
     });
@@ -124,7 +124,7 @@ router.delete('/info/:infoid', function(req, res){
             if(!placesRemoved){
                 res.status(404).send({message: 'The information couldn\'t be deleted.'});
             } else {
-                res.status(200).send({PlacesLivedRemoved: placesRemoved});
+                res.status(200).send(placesRemoved);
             }
         }
     });
@@ -140,7 +140,7 @@ router.get('/info/all/:userid', function(req, res){
             if(!infoObtained){
                 res.status(404).send({message: 'There are no entries.'});
             } else {
-                res.status(200).send({PlacesLived: infoObtained});
+                res.status(200).send(infoObtained);
             }
         }
     });

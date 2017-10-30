@@ -22,9 +22,11 @@ function addedInfoToArray(addedInfo) {
 function arrayToAddedInfo(array) {
   var result = {};
   var i = 0;
-  while (i<array.length) {
-    result[array[i]] = array[i+1]
-    i += 2;
+  if (array && array.length) {
+    while (i<array.length) {
+      result[array[i]] = array[i+1]
+      i += 2;
+    }
   }
   return result;
 }
