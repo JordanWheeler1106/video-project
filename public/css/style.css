@@ -3670,7 +3670,7 @@ em {
   	z-index: 2;
 }
 CANVAS {
-  background-color: gray;
+  /*background-color: gray;*/
   cursor: pointer;
   -webkit-user-select:none;
   -moz-user-select:none;
@@ -3896,4 +3896,14 @@ button.blue-button {
 .blue-form.repeated-form {
 	border-bottom: 2px solid #ccc;
 	padding: 20px 0;
+}
+
+.termCheckBox input[type="checkbox"]::before{
+	border-radius: 0px;
+}
+.termCheckBox {
+	display: flex;
+}
+.termCheckBox span {
+	padding: 13px 8px;
 }

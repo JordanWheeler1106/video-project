@@ -7,7 +7,7 @@
         <div class="linksNav">
           <a href="javascript:" class="full-information active">Life-In-Full</a>
           <a ui-sref="VitalInfo.PersonalInfo.PersonalInfo" class="full-information">Vital Information</a>
-          <a ui-sref="WindowLibrary" class="full-information">Window Library</a>
+          <!-- <a ui-sref="WindowLibrary" class="full-information">Window Library</a> -->
           <div class="list list-inset search-item">
             <label class="item item-input">
               <i class="fa fa-search placeholder-icon"></i>
@@ -55,6 +55,7 @@
           <li><a href="javascript:" ng-click="openFilterTemplatePopover($event)" style="color: #edad1d">Show All <i class="ion-chevron-down"></i></a></li>
           <li><a href="javascript:" class="toggleSphereView" ng-class="{'active': toggleView == 'sphere'}" ng-click="clickHomeView('sphere')">View as Sphere</a></li>
           <li><a href="javascript:" class="toggleListView" ng-class="{'active': toggleView == 'list'}" ng-click="clickHomeView('list')">View as List</a></li>
+          <li><a ui-sref="WindowLibrary">Window Library</a></li>
           <!-- <li class="upgradeBtn"><button type="button">Upgrade Now</button></li> -->
         </ul>
       </div>

@@ -3,8 +3,8 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'froala','mp.colorPicker'])
-// var app = angular.module('starter', ['ionic', 'froala'])
+var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.colorPicker'])
+// var app = angular.module('starter', ['ionic'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -181,38 +181,26 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'froala
                       $ionicLoading.hide();
                       if(res.data.user.role=='admin')
                         $state.go('admin.templates');
-                      else
-                        $state.go('home');
+                      else {
+                        if(res.data.user.status=='suspend')
+                          $state.go('account.passwordandbilling');
+                        else
+                          $state.go('home');
+                      }
                     })
                     .catch( function(err){
                       $ionicLoading.hide();
-                      if(res.data.user.role=='admin')
-                        $state.go('admin.templates');
-                      else
-                        $state.go('home');
                     })
-              // } else if($location.search()['inviteToken']) {
-              //   $http.post('/api/invites/accept',{inviteid:$location.search()['inviteToken'], email: res.data.user.email})
-              //       .then( function(invite){
-              //         $ionicLoading.hide();
-              //         if(res.data.user.role=='admin')
-              //           $state.go('admin.templates');
-              //         else
-              //           $state.go('home');
-              //       })
-              //       .catch( function(err){
-              //         $ionicLoading.hide();
-              //         if(res.data.user.role=='admin')
-              //           $state.go('admin.templates');
-              //         else
-              //           $state.go('home');
-              //       })
               } else {
                 $ionicLoading.hide();
                 if(res.data.user.role=='admin')
                   $state.go('admin.templates');
-                else
-                  $state.go('home');
+                else {
+                  if(res.data.user.status=='suspend')
+                    $state.go('account.passwordandbilling');
+                  else
+                    $state.go('home');
+                }
               }
             })
             .catch( function(err){
@@ -428,7 +416,10 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'froala
       }
 
       $scope.clickCancelPlan = function() {
+          if(!confirm("Are you sure you want to cancel your account?"))
+            return;
           $scope.user.cancelPlan = true;
+          $scope.user.status="suspend";
           $ionicLoading.show();
           if($scope.user.stripeSubscriptionId) {
             $http.post('/api/users/cancelPlan', {subscriptionId: $scope.user.stripeSubscriptionId})
@@ -464,19 +455,22 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'froala
         };
 
         $scope.savePlan = function() {
-          $ionicLoading.show();
           if($scope.user.stripePlanId) {
-            $scope.user.cancelPlan = false;
-            $http.post('/api/users/changePlan', {customerId: $scope.user.stripeCustomerId, planId: $scope.user.stripePlanId, subscriptionId: $scope.user.stripeSubscriptionId})
-                .then( function(res){
-                  popup.close();
-                  $scope.user.stripeSubscriptionId = res.data.id;
-                  $scope.updateUser();
-                  $scope.getCustomer();
-                })
-                .catch( function(err){
-                  console.log("err", err);
-                })
+              $ionicLoading.show();
+              $scope.user.cancelPlan = false;
+              $scope.user.status="active";
+              $http.post('/api/users/changePlan', {customerId: $scope.user.stripeCustomerId, planId: $scope.user.stripePlanId, subscriptionId: $scope.user.stripeSubscriptionId})
+                  .then( function(res){
+                    popup.close();
+                    $scope.user.stripeSubscriptionId = res.data.id;
+                    $scope.updateUser();
+                    $scope.getCustomer();
+                  })
+                  .catch( function(err){
+                    $ionicLoading.hide();
+                    alert("You have to add the payment source first!")
+                    console.log("err", err);
+                  })
           }
         }
       }
@@ -570,6 +564,15 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'froala
         };
 
       }
+
+      var checkUserStatus = $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
+        if(($scope.user.status=='suspend' && toState.url == "/") || $scope.user.status=='active') {
+          $state.go(toState.name);
+        } else {
+          event.preventDefault();
+        }
+      });
+      $scope.$on('$destroy', checkUserStatus)
 
       $scope.getAllPlan();
   })
@@ -1296,8 +1299,8 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'froala
                 headlines.push({id: $scope.currentFolders[i]._id, name: $scope.currentFolders[i].name, topic: $scope.currentFolders[i].topic, type:"folder", level: ($scope.currentFolders[i].strPath.split("/").length - 1)});
             for(var i = 0; i < $scope.currentNuggets.length; i++)
                 headlines.push({id: $scope.currentNuggets[i]._id, name: $scope.currentNuggets[i].name, type:"nugget"});
-
-            main();
+            if(headlines.length > 0)
+              main();
           })
           .catch( function(err){
           })
@@ -1482,7 +1485,7 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'froala
                         headlines.push({id: $scope.currentFolders[i]._id, name: $scope.currentFolders[i].name, topic: $scope.currentFolders[i].topic, type:"folder", level: ($scope.currentFolders[i].strPath.split("/").length - 1)});
                     for(var i = 0; i < $scope.currentNuggets.length; i++)
                         headlines.push({id: $scope.currentNuggets[i]._id, name: $scope.currentNuggets[i].name, type:"nugget"});
-                    if(sphereFlag)
+                    if(sphereFlag && headlines.length > 0)
                       initialize();
                     $ionicLoading.hide();
                   })
@@ -1508,7 +1511,7 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'froala
                         headlines.push({id: $scope.currentFolders[i]._id, name: $scope.currentFolders[i].name, topic: $scope.currentFolders[i].topic, type:"folder", level: ($scope.currentFolders[i].strPath.split("/").length - 1)});
                     for(var i = 0; i < $scope.currentNuggets.length; i++)
                         headlines.push({id: $scope.currentNuggets[i]._id, name: $scope.currentNuggets[i].name, type:"nugget"});
-                    if(sphereFlag)
+                    if(sphereFlag && headlines.length > 0)
                       initialize();
                     $ionicLoading.hide();
                   })
@@ -3970,19 +3973,18 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'froala
           .catch( function(err){
           })
     }
-    $scope.$on("$destroy", function() {
+    $scope.saveData = function() {
       for(var i = 0; i < g_ui.length; i++) {
         $scope.sphere[g_ui[i].name] = $("#"+g_ui[i].name).val() / 1000;
       }
-
+      $ionicLoading.show();
       $http.put('/api/spheres/'+$scope.sphere._id, $scope.sphere)
           .then( function(res){
-
+            $ionicLoading.hide();
           })
           .catch( function(err){
           })
-    });
-
+    }
     $scope.getSphere();
   })
   .controller('windowCtrl', function($scope, $ionicPopover, $ionicPopup, $ionicScrollDelegate, $state, $http, $ionicLoading, $rootScope, $timeout){

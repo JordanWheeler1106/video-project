@@ -194,8 +194,8 @@ router.post('/changeCard', function(req, res, next) {
           res.json(card);
         });
       }
-    );    
-  }    
+    );
+  }
 });
 
 router.post('/cancelPlan', function(req, res, next) {
@@ -247,12 +247,12 @@ router.post('/uploadPhoto', function(req, res) {
 			ContentType: 'image/jpg',
 			ACL: 'public-read-write'
 		}
-		
+
 		s3bucket.upload(params, function(err, result) {
 			if(err) {
 				res.send({result:false, error:'Photo uploading error', errorMessage: err});
 			} else {
-				res.send({result:true, url:result.Location});				
+				res.send({result:true, url:result.Location});
 			}
 		})
 });
@@ -305,11 +305,11 @@ router.post('/', function(req, res, next) {
             });
         }
       }
-    );    
+    );
 });
 
 router.post('/login', function(req, res, next) {
-    User.findOne({ email: req.body.email , status: 'active'}, function(err, user) {
+    User.findOne({ email: req.body.email}, function(err, user) {
         if (err) return next(err);
 
         if(user){
@@ -323,7 +323,7 @@ router.post('/login', function(req, res, next) {
                             res.json({token: token, user: user});
                         }
                     })
-                    
+
 
                 }
                 else res.status(403).send({message: 'The email or password ou have enter is incorrect.'})
