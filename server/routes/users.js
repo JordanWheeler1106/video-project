@@ -363,6 +363,18 @@ router.put('/:id', function(req, res, next) {
     });
 });
 
+/* UPDATE Users */
+router.post('/batch', function(req, res, next) {
+    var bulk = User.collection.initializeOrderedBulkOp();
+    for(var i = 0; i < req.body.users.length; i++) {
+      bulk.find( { 'email': req.body.users[i].email } ).update( { $set: { copiedTemplates: req.body.users[i].copiedTemplates } } )
+    }
+    bulk.execute(function (err, users) {
+        if (err) return next(err);
+        res.json(users);
+    });
+});
+
 /* DELETE User */
 router.delete('/:id', function(req, res, next) {
     User.findByIdAndRemove(req.params.id, req.body, function (err, user) {

@@ -26,7 +26,7 @@ router.get('/all/:id', function(req, res, next) {
 });
 
 router.post('/batch', function(req, res, next) {
-    Template.find({'userId':{'$in':req.body.userIds}, status: "approved"}).populate('userId').populate('tags').populate('folders').populate('nuggets').exec(function(err, templates) {
+    Template.find({'userId':{'$in':req.body.userIds}, 'status': {'$in':["approved","copiedtoall"]}}).populate('userId').populate('tags').populate('folders').populate('nuggets').exec(function(err, templates) {
       if (err) return next(err);
       res.json(templates);
     });

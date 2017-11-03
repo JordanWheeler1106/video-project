@@ -3464,6 +3464,7 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
     $scope.getTemplates = function() {
       $ionicLoading.show();
       $http.get('/api/templates/all/'+JSON.parse(localStorage.getItem('user'))._id).then(function(data){
+      // $http.get('/api/templates/all').then(function(data){
         $ionicLoading.hide();
         $scope.templates = data.data;
       }, function(err){
@@ -3519,14 +3520,149 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
       $ionicLoading.show();
       $http.put('/api/templates/'+ template._id, template)
           .then( function(res){
-            $ionicLoading.hide();
-            $scope.getTemplates();
+            // $scope.getTemplates();
+            if(template.status=="copiedtoall") {
+              var mongoObjectId = function () {
+                  var timestamp = (new Date().getTime() / 1000 | 0).toString(16);
+                  return timestamp + 'xxxxxxxxxxxxxxxx'.replace(/[x]/g, function() {
+                      return (Math.random() * 16 | 0).toString(16);
+                  }).toLowerCase();
+              };
+
+              var copyFolders = [];
+              var copyNuggets = [];
+              var copyPrompts = [];
+              var folderIds = [];
+              var templateFolders = template.folders.slice(0);
+              var templateNuggets = template.nuggets.slice(0);
+              for(var i = 0; i < templateFolders.length; i++)
+                folderIds.push(templateFolders[i]._id);
+              for(var i = 0; i < templateNuggets.length; i++)
+                folderIds.push(templateNuggets[i]._id);
+
+              $ionicLoading.show();
+              $http.post('/api/prompts/getAll', {ids: folderIds})
+                  .then(function(res){
+                    var prompts = res.data;
+                    var tempFolderIds = [];
+                    for(var i = 0; i< templateFolders.length; i++)
+                      tempFolderIds.push([templateFolders[i]._id, templateFolders[i].parentId]);
+
+                    for(var l = 0; l < $scope.users.length; l++) {
+                      if($scope.users[l].email == "admin@humanexp.com" || $scope.users[l].copiedTemplates.indexOf(template._id)>-1)
+                        continue;
+                      var folders = [];
+                      for(var i = 0; i< templateFolders.length; i++) {
+                        templateFolders[i]._id = tempFolderIds[i][0];
+                        templateFolders[i].parentId = tempFolderIds[i][1];
+                      }
+
+                      for(var i = 0; i < templateFolders.length; i++) {
+                        var folder = {
+                          createdAt: templateFolders[i].createdAt,
+                          name: templateFolders[i].name,
+                          parentId: templateFolders[i].parentId,
+                          purpose: templateFolders[i].purpose,
+                          strPath: templateFolders[i].strPath,
+                          updatedAt: templateFolders[i].updatedAt,
+                          userId: $scope.users[l]._id,
+                          _id: templateFolders[i]._id
+                        }
+                        var folderId = mongoObjectId();
+                        for(var j = i + 1; j < templateFolders.length; j++)
+                          if(templateFolders[j].parentId == folder._id)
+                            templateFolders[j].parentId = folderId;
+                        for(var j = 0; j < prompts.length; j++) {
+                          if(prompts[j].folder == folder._id) {
+                            copyPrompts.push({
+                              text: prompts[j].text,
+                              folder: folderId
+                            });
+                          }
+                        }
+                        for(var j = 0; j < templateNuggets.length; j++) {
+                          var nuggetId = mongoObjectId();
+                          if(templateNuggets[j].parentId == folder._id) {
+                            for(var k = 0; k < prompts.length; k++) {
+                              if(prompts[k].folder == templateNuggets[j]._id) {
+                                copyPrompts.push({
+                                  text: prompts[k].text,
+                                  folder: nuggetId
+                                });
+                              }
+                            }
+                            copyNuggets.push({
+                              _id: nuggetId,
+                              name: templateNuggets[j].name,
+                              author: $scope.users[l]._id,
+                              parentId: folderId,
+                              tags: templateNuggets[j].tags,
+                              content: templateNuggets[j].content
+                            })
+                          }
+                        }
+
+                        folder._id = folderId;
+                        folder.userId = $scope.users[l]._id;
+                        folders.push(folder);
+                      }
+
+                      folders[0].topic = template.topic;
+
+                      for(var i = 0; i < folders.length; i++)
+                        copyFolders.push(folders[i]);
+                      $scope.users[l].copiedTemplates.push(template._id);
+                    }
+
+                    $http.post('/api/folders/batch', {folders: copyFolders})
+                        .then(function(res) {
+                          $http.post('/api/nuggets/batch', {nuggets: copyNuggets})
+                              .then(function(res){
+                                $http.post('/api/prompts/batch', {prompts: copyPrompts})
+                                    .then(function(res){
+                                      $http.post('/api/users/batch', {users: $scope.users})
+                                        .then( function(res){
+                                          $ionicLoading.hide();
+                                        })
+                                        .catch( function(err){
+                                          console.log("err", err);
+                                        })
+                                    })
+                                    .catch( function(err){
+                                      $ionicLoading.hide();
+                                    })
+                              })
+                              .catch( function(err){
+                                $ionicLoading.hide();
+                              })
+                        })
+                        .catch( function(err){
+                          $ionicLoading.hide();
+                        })
+                  })
+                  .catch( function(err){
+                    $ionicLoading.hide();
+                  })
+            } else {
+              $ionicLoading.hide();
+            }
           })
           .catch( function(err){
             console.log("err", err);
           })
     }
 
+    $scope.getUsers = function(){
+      $http.get('/api/users').then(function(data){
+        $ionicLoading.hide();
+        $scope.users = data.data;
+      }, function(err){
+        $ionicLoading.hide();
+        alert('something went wrong please try again');
+      });
+    }
+
+    $scope.getUsers();
     $scope.getTemplates();
     $scope.getTags();
     $scope.getTopics();
@@ -4156,7 +4292,7 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
                 }
 
                 if(!flag) {
-                  if($scope.storeTemplates[i].userId._id == $scope.user._id)
+                  if($scope.storeTemplates[i].userId._id == $scope.user._id  || $scope.user.copiedTemplates.indexOf($scope.storeTemplates[i]._id) > -1)
                     activeOtherTemplates.push($scope.storeTemplates[i]);
                   else
                     activeConsideredTemplates.push($scope.storeTemplates[i]);
