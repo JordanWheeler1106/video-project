@@ -182,6 +182,9 @@ ImgTexture.prototype.uploadTexture = function() {
   var img = this.img;
   var msg = this.msg;
   g_ctx2d.clearRect(0, 0, 256, 256);
+  g_ctx2d.fillStyle="rgb(0,0,255)";
+  g_ctx2d.fillRect(0, 0, 256, 256);
+  if(!msg) return;
   if(msg.type == "admin") {
     var first_col = Math.floor(Math.random(255)*255);
     var sec_col = Math.floor(Math.random(255)*255);
@@ -698,6 +701,7 @@ function initialize() {
 
   // make a bunch of textures.
   // What to do if we run out of memory?
+
   g_textures = [];
   for (var ii = 0; ii < g_imagesDownGrid; ++ii) {
     var textures = [];
@@ -783,7 +787,7 @@ function initialize() {
     gl.colorMask(true, true, true, true);
     gl.depthMask(true);
     gl.clearDepth(1);
-    gl.clearColor(0,0,0,1);
+    gl.clearColor(1,1,1,1);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT | gl.STENCIL_BUFFER_BIT);
 
     gl.enable(gl.CULL_FACE);
@@ -861,9 +865,9 @@ function initialize() {
     }
 
     // Set the alpha to 255.
-    gl.colorMask(false, false, false, true);
-    gl.clearColor(0,0,0,1);
-    gl.clear(gl.COLOR_BUFFER_BIT);
+    // gl.colorMask(false, false, false, true);
+    gl.clearColor(1,1,1,1);
+    // gl.clear(gl.COLOR_BUFFER_BIT);
 
     // turn off logging after 1 frame.
     g_logGLCalls = false;

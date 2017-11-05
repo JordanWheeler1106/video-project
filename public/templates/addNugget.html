@@ -69,8 +69,8 @@
           </li> -->
           <li class="searchField"><a href="javascript:" class="linkNugget" ng-click="sidebar.view = 1; sidebar.search = false" ng-class="{'active': sidebar.view==1}">Prompts </a></li>
           <li class="searchField"><a href="javascript:" class="linkNugget" ng-click="sidebar.view = 2; sidebar.search = false" ng-class="{'active': sidebar.view==2}">Notes </a></li>
-          <li class="searchField"><a href="javascript:" class="linkNugget normalEditor" ng-click="sidebar.view = 3; sidebar.search = false" ng-class="{'active': sidebar.view==3}">Normal Editor </a></li>
-          <li class="searchField"><a href="javascript:" class="linkNugget advanceEditor" ng-click="sidebar.view = 5; sidebar.search = false" ng-class="{'active': sidebar.view==5}">Advance Editor </a></li>
+          <!-- <li class="searchField"><a href="javascript:" class="linkNugget normalEditor" ng-click="sidebar.view = 3; sidebar.search = false" ng-class="{'active': sidebar.view==3}">Normal Editor </a></li>
+          <li class="searchField"><a href="javascript:" class="linkNugget advanceEditor" ng-click="sidebar.view = 5; sidebar.search = false" ng-class="{'active': sidebar.view==5}">Advance Editor </a></li> -->
           <li class="searchField"><a href="javascript:" class="linkNugget voice2Text" ng-click="sidebar.view = 4; sidebar.search = false" ng-class="{'active': sidebar.view==4}">Voice2Text </a></li>
         </ul>
       </div>
@@ -140,16 +140,102 @@
   </div>
   <script>
     $(function(){
+      $.FroalaEditor.DefineIcon('MoreTools', {NAME: 'MT', template: 'text'});
+      $.FroalaEditor.RegisterCommand('MoreTools', {
+        title: 'More Tools',
+        focus: false,
+        undo: false,
+        refreshAfterCallback: false,
+        callback: function () {
+          $(".fr-toolbar").show();
+          $("[id^=strikeThrough-]").show();
+          $("[id^=subscript-]").show();
+          $("[id^=superscript-]").show();
+          $("[id^=inlineStyle-]").show();
+          $("[id^=dropdown-menu-inlineStyle-]").show();
+          $("[id^=paragraphStyle-]").show();
+          $("[id^=dropdown-menu-paragraphStyle-]").show();
+          $("[id^=paragraphFormat-]").show();
+          $("[id^=dropdown-menu-paragraphFormat-]").show();
+          $("[id^=align-]").show();
+          $("[id^=dropdown-menu-align-]").show();
+          $("[id^=formatOL-]").show();
+          $("[id^=formatUL-]").show();
+          $("[id^=outdent-]").show();
+          $("[id^=indent-]").show();
+          $("[id^=quote-]").show();
+          $("[id^=dropdown-menu-quote-]").show();
+          $("[id^=insertFile-]").show();
+          $("[id^=insertTable-]").show();
+          $(".fr-separator.fr-hs").show();
+          $("[id^=emoticons-]").show();
+          $("[id^=insertHR-]").show();
+          $("[id^=selectAll-]").show();
+          $("[id^=clearFormatting-]").show();
+          $("[id^=html-]").show();
+          $("[id^=undo-]").show();
+          $("[id^=redo-]").show();
+          $("[id^=NormalTools-]").show();
+          $("[id^=MoreTools-]").hide();
+          var separatorVs = $(".fr-separator.fr-vs");
+          $(separatorVs[2]).show();
+          $(separatorVs[3]).show();
+          $(separatorVs[4]).show();
+        }
+      });
+      $.FroalaEditor.DefineIcon('NormalTools', {NAME: 'NT', template: 'text'});
+      $.FroalaEditor.RegisterCommand('NormalTools', {
+        title: 'Normal Tools',
+        focus: false,
+        undo: false,
+        refreshAfterCallback: false,
+        callback: function () {
+          $(".fr-toolbar").show();
+          $("[id^=strikeThrough-]").hide();
+          $("[id^=subscript-]").hide();
+          $("[id^=superscript-]").hide();
+          $("[id^=inlineStyle-]").hide();
+          $("[id^=dropdown-menu-inlineStyle-]").hide();
+          $("[id^=paragraphStyle-]").hide();
+          $("[id^=dropdown-menu-paragraphStyle-]").hide();
+          $("[id^=paragraphFormat-]").hide();
+          $("[id^=dropdown-menu-paragraphFormat-]").hide();
+          $("[id^=align-]").hide();
+          $("[id^=dropdown-menu-align-]").hide();
+          $("[id^=formatOL-]").hide();
+          $("[id^=formatUL-]").hide();
+          $("[id^=outdent-]").hide();
+          $("[id^=indent-]").hide();
+          $("[id^=quote-]").hide();
+          $("[id^=dropdown-menu-quote-]").hide();
+          $("[id^=insertFile-]").hide();
+          $("[id^=insertTable-]").hide();
+          $(".fr-separator.fr-hs").hide();
+          $("[id^=emoticons-]").hide();
+          $("[id^=insertHR-]").hide();
+          $("[id^=selectAll-]").hide();
+          $("[id^=clearFormatting-]").hide();
+          $("[id^=html-]").hide();
+          $("[id^=undo-]").hide();
+          $("[id^=redo-]").hide();
+          $("[id^=NormalTools-]").hide();
+          $("[id^=MoreTools-]").show();
+          var separatorVs = $(".fr-separator.fr-vs");
+          $(separatorVs[2]).hide();
+          $(separatorVs[3]).hide();
+          $(separatorVs[4]).hide();
+        }
+      });
       $('#editor').froalaEditor({
         placeholderText: 'Start you nugget!',
-        toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo'],
-        toolbarButtonsXS: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo'],
-        toolbarButtonsSM: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo'],
-        toolbarButtonsMD: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo'],
-        toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo'],
+        toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo', '|', 'MoreTools', 'NormalTools'],
+        toolbarButtonsXS: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo', '|', 'MoreTools', 'NormalTools'],
+        toolbarButtonsSM: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo', '|', 'MoreTools', 'NormalTools'],
+        toolbarButtonsMD: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo', '|', 'MoreTools', 'NormalTools'],
+        toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo', '|', 'MoreTools', 'NormalTools'],
         videoDefaultAlign: 'left',
         imageDefaultAlign: 'left',
-        heightMin: 300
+        heightMin: 300,
       })
 
       setTimeout(function() {
@@ -180,6 +266,7 @@
         $("[id^=html-]").hide();
         $("[id^=undo-]").hide();
         $("[id^=redo-]").hide();
+        $("[id^=NormalTools-]").hide();
         var separatorVs = $(".fr-separator.fr-vs");
         $(separatorVs[2]).hide();
         $(separatorVs[3]).hide();
@@ -187,77 +274,7 @@
       }, 100);
 
       $(".voice2Text").click(function() {
-        $(".fr-toolbar").hide();
-      })
-
-      $(".normalEditor").click(function() {
-        $(".fr-toolbar").show();
-        $("[id^=strikeThrough-]").hide();
-        $("[id^=subscript-]").hide();
-        $("[id^=superscript-]").hide();
-        $("[id^=inlineStyle-]").hide();
-        $("[id^=dropdown-menu-inlineStyle-]").hide();
-        $("[id^=paragraphStyle-]").hide();
-        $("[id^=dropdown-menu-paragraphStyle-]").hide();
-        $("[id^=paragraphFormat-]").hide();
-        $("[id^=dropdown-menu-paragraphFormat-]").hide();
-        $("[id^=align-]").hide();
-        $("[id^=dropdown-menu-align-]").hide();
-        $("[id^=formatOL-]").hide();
-        $("[id^=formatUL-]").hide();
-        $("[id^=outdent-]").hide();
-        $("[id^=indent-]").hide();
-        $("[id^=quote-]").hide();
-        $("[id^=dropdown-menu-quote-]").hide();
-        $("[id^=insertFile-]").hide();
-        $("[id^=insertTable-]").hide();
-        $(".fr-separator.fr-hs").hide();
-        $("[id^=emoticons-]").hide();
-        $("[id^=insertHR-]").hide();
-        $("[id^=selectAll-]").hide();
-        $("[id^=clearFormatting-]").hide();
-        $("[id^=html-]").hide();
-        $("[id^=undo-]").hide();
-        $("[id^=redo-]").hide();
-        var separatorVs = $(".fr-separator.fr-vs");
-        $(separatorVs[2]).hide();
-        $(separatorVs[3]).hide();
-        $(separatorVs[4]).hide();
-      })
-
-      $(".advanceEditor").click(function() {
-        $(".fr-toolbar").show();
-        $("[id^=strikeThrough-]").show();
-        $("[id^=subscript-]").show();
-        $("[id^=superscript-]").show();
-        $("[id^=inlineStyle-]").show();
-        $("[id^=dropdown-menu-inlineStyle-]").show();
-        $("[id^=paragraphStyle-]").show();
-        $("[id^=dropdown-menu-paragraphStyle-]").show();
-        $("[id^=paragraphFormat-]").show();
-        $("[id^=dropdown-menu-paragraphFormat-]").show();
-        $("[id^=align-]").show();
-        $("[id^=dropdown-menu-align-]").show();
-        $("[id^=formatOL-]").show();
-        $("[id^=formatUL-]").show();
-        $("[id^=outdent-]").show();
-        $("[id^=indent-]").show();
-        $("[id^=quote-]").show();
-        $("[id^=dropdown-menu-quote-]").show();
-        $("[id^=insertFile-]").show();
-        $("[id^=insertTable-]").show();
-        $(".fr-separator.fr-hs").show();
-        $("[id^=emoticons-]").show();
-        $("[id^=insertHR-]").show();
-        $("[id^=selectAll-]").show();
-        $("[id^=clearFormatting-]").show();
-        $("[id^=html-]").show();
-        $("[id^=undo-]").show();
-        $("[id^=redo-]").show();
-        var separatorVs = $(".fr-separator.fr-vs");
-        $(separatorVs[2]).show();
-        $(separatorVs[3]).show();
-        $(separatorVs[4]).show();
+        // $(".fr-toolbar").hide();
       })
 
     });

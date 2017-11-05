@@ -4,7 +4,10 @@
   </div>
   <div id="viewContainer" style="width:100%;">
     <div class="tableLinks" compile="listPosition.strPath"></div><br>
-    <canvas id="canvas" width="1024" height="1024" style="width: 100%; height: 100%;"></canvas>
+    <div class="canvasWrapper">
+      <canvas id="canvas" width="1024" height="1024" style="width: 100%; height: 100%;"></canvas>
+      <i id="resizeIcon" class="fa fa-arrows-alt expand-icon" aria-hidden="true" ng-click="resizeCanvas();"></i>
+    </div>
   </div>
 </div>
     <!--- black shader -->
@@ -20,7 +23,7 @@
     precision mediump float;
     #endif
     void main() {
-      gl_FragColor = vec4(0,0,0,0);
+      gl_FragColor = vec4(1,1,1,1);
     }
   </script>
     <!--- imageSphere -->

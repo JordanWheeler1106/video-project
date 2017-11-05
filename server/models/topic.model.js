@@ -8,11 +8,7 @@ var Schema = mongoose.Schema;
 
 // create a schema
 var topicSchema = new Schema({
-    name: {
-        type: String,
-        required: true,
-        unique: true
-    },
+    name: String,
     userId: {
         type: Schema.Types.ObjectId,
         ref: 'User'

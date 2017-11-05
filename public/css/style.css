@@ -3907,3 +3907,35 @@ button.blue-button {
 .termCheckBox span {
 	padding: 13px 8px;
 }
+
+.canvasWrapper {
+	position: relative;
+}
+
+.canvasWrapper.fullscreen {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	min-height: 100vh;
+	z-index: 100;
+}
+
+.canvasWrapper i.expand-icon {
+	position: absolute;
+	right: 0px;
+	top: -60px;
+	font-size: 28px;
+	cursor: pointer;
+	padding: 20px;
+}
+
+.canvasWrapper i.collapse-icon {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	font-size: 28px;
+	cursor: pointer;
+	color: white;
+	padding: 20px;
+}

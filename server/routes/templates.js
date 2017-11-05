@@ -39,6 +39,13 @@ router.get('/store', function(req, res, next) {
     });
 });
 
+router.get('/approved', function(req, res, next) {
+    Template.find({status: "copiedtoall"}).populate('userId').populate('tags').populate('folders').populate('nuggets').populate('topic').exec(function (err, templates) {
+        if (err) return next(err);
+        res.json(templates);
+    });
+});
+
 /* GET SINGLE Nugget BY ID */
 router.get('/:id', function(req, res, next) {
     Template.findById(req.params.id, function (err, template) {

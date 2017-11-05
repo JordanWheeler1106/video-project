@@ -3,6 +3,13 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Prompt = require('./../models/prompt.model');
 
+router.get('/', function(req, res, next) {
+    Prompt.find(function (err, prompts) {
+        if (err) return next(err);
+        res.json(prompts);
+    });
+});
+
 router.post('/batch', function(req, res, next) {
     Prompt.insertMany(req.body.prompts, function(err, prompts) {
       if(err) return next(err);

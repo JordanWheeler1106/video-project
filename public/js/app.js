@@ -232,48 +232,168 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
     $scope.autoLogin = function(user) {
       $http.post('/api/users/login', user)
           .then( function(res){
-            $scope.loginSuccess = true;
-            localStorage.setItem("user", JSON.stringify(res.data.user));
-            localStorage.setItem("token", res.data.token);
-            if($location.search()['token']) {
-              $http.post('/api/shares/accept',{shareid:$location.search()['token']})
-                  .then( function(res){
-                    $ionicLoading.hide();
-                    $state.go('home');
-                  })
-                  .catch( function(err){
-                    $ionicLoading.hide();
-                    $state.go('home');
-                  })
-            } else if($location.search()['inviteToken']) {
-              $http.post('/api/invites/accept',{inviteid:$location.search()['inviteToken'], email: res.data.user.email})
-                  .then( function(res){
-                    $ionicLoading.hide();
-                    $state.go('home');
-                  })
-                  .catch( function(err){
-                    $ionicLoading.hide();
-                    $state.go('home');
-                  })
-            } else if($location.search()['inviteFrom']) {
-              var invite = {
-                email: res.data.user.email,
-                inviteFrom: $location.search()['inviteFrom'],
-                status: "accepted"
-              }
-              $http.post('/api/invites/saveInvite', invite)
-                  .then( function(res){
-                    $ionicLoading.hide();
-                    $state.go('home');
-                  })
-                  .catch( function(err){
-                    $ionicLoading.hide();
-                    $state.go('home');
-                  })
-            } else {
-              $ionicLoading.hide();
-              $state.go('home');
-            }
+            // $scope.loginSuccess = true;
+            $scope.user = res.data.user;
+            $scope.token = res.data.token;
+            $http.get('/api/templates/approved')
+                .then( function(res){
+                  $scope.templates = res.data;
+                  var mongoObjectId = function () {
+                      var timestamp = (new Date().getTime() / 1000 | 0).toString(16);
+                      return timestamp + 'xxxxxxxxxxxxxxxx'.replace(/[x]/g, function() {
+                          return (Math.random() * 16 | 0).toString(16);
+                      }).toLowerCase();
+                  };
+                  var copyFolders = [];
+                  var copyNuggets = [];
+                  var copyPrompts = [];
+                  var copyTopics = [];
+                  for(var l = 0; l < $scope.templates.length; l++) {
+                      var template = $scope.templates[l];
+                      var templateFolders = template.folders.slice(0);
+                      var templateNuggets = template.nuggets.slice(0);
+                      var folders = [];
+                      for(var i = 0; i < templateFolders.length; i++) {
+                        var folder = {
+                          createdAt: templateFolders[i].createdAt,
+                          name: templateFolders[i].name,
+                          parentId: templateFolders[i].parentId,
+                          purpose: templateFolders[i].purpose,
+                          strPath: templateFolders[i].strPath,
+                          updatedAt: templateFolders[i].updatedAt,
+                          userId: $scope.user._id,
+                          _id: templateFolders[i]._id
+                        }
+                        var folderId = mongoObjectId();
+                        for(var j = i + 1; j < templateFolders.length; j++)
+                          if(templateFolders[j].parentId == folder._id)
+                            templateFolders[j].parentId = folderId;
+                        for(var j = 0; j < $scope.prompts.length; j++) {
+                          if($scope.prompts[j].folder == folder._id) {
+                            copyPrompts.push({
+                              text: $scope.prompts[j].text,
+                              folder: folderId
+                            });
+                          }
+                        }
+                        for(var j = 0; j < templateNuggets.length; j++) {
+                          var nuggetId = mongoObjectId();
+                          if(templateNuggets[j].parentId == folder._id) {
+                            for(var k = 0; k < $scope.prompts.length; k++) {
+                              if($scope.prompts[k].folder == templateNuggets[j]._id) {
+                                copyPrompts.push({
+                                  text: $scope.prompts[k].text,
+                                  folder: nuggetId
+                                });
+                              }
+                            }
+                            copyNuggets.push({
+                              _id: nuggetId,
+                              name: templateNuggets[j].name,
+                              author: $scope.user._id,
+                              parentId: folderId,
+                              tags: templateNuggets[j].tags,
+                              content: templateNuggets[j].content
+                            })
+                          }
+                        }
+
+                        folder._id = folderId;
+                        folder.userId = $scope.user._id;
+                        folders.push(folder);
+                      }
+                      $scope.user.copiedTemplates.push(template._id);
+                      if($scope.templates[l].topic) {
+                        var topicId = mongoObjectId();
+                        copyTopics.push({
+                          _id: topicId,
+                          name: $scope.templates[l].topic.name,
+                          userId: $scope.user._id,
+                          color: $scope.templates[l].topic.color
+                        });
+                        folders[0].topic = topicId;
+                      }
+
+                      for(var i = 0; i < folders.length; i++)
+                        copyFolders.push(folders[i]);
+                  }
+                  $http.post('/api/folders/batch', {folders: copyFolders})
+                      .then(function(res) {
+                        $http.post('/api/nuggets/batch', {nuggets: copyNuggets})
+                            .then(function(res){
+                              $http.post('/api/prompts/batch', {prompts: copyPrompts})
+                                  .then(function(res){
+                                    $http.post('/api/topics/batch', {topics: copyTopics})
+                                        .then(function(res){
+                                          $http.put('/api/users/'+$scope.user._id, $scope.user)
+                                              .then( function(res){
+                                                  localStorage.setItem("user", JSON.stringify($scope.user));
+                                                  localStorage.setItem("token", $scope.token);
+                                                  if($location.search()['token']) {
+                                                    $http.post('/api/shares/accept',{shareid:$location.search()['token']})
+                                                        .then( function(res){
+                                                          $ionicLoading.hide();
+                                                          $state.go('home');
+                                                        })
+                                                        .catch( function(err){
+                                                          $ionicLoading.hide();
+                                                          $state.go('home');
+                                                        })
+                                                  } else if($location.search()['inviteToken']) {
+                                                    $http.post('/api/invites/accept',{inviteid:$location.search()['inviteToken'], email: $scope.user.email})
+                                                        .then( function(res){
+                                                          $ionicLoading.hide();
+                                                          $state.go('home');
+                                                        })
+                                                        .catch( function(err){
+                                                          $ionicLoading.hide();
+                                                          $state.go('home');
+                                                        })
+                                                  } else if($location.search()['inviteFrom']) {
+                                                    var invite = {
+                                                      email: res.data.user.email,
+                                                      inviteFrom: $location.search()['inviteFrom'],
+                                                      status: "accepted"
+                                                    }
+                                                    $http.post('/api/invites/saveInvite', invite)
+                                                        .then( function(res){
+                                                          $ionicLoading.hide();
+                                                          $state.go('home');
+                                                        })
+                                                        .catch( function(err){
+                                                          $ionicLoading.hide();
+                                                          $state.go('home');
+                                                        })
+                                                  } else {
+                                                    $ionicLoading.hide();
+                                                    $state.go('home');
+                                                  }
+                                              })
+                                              .catch( function(err){
+                                                console.log("err", err);
+                                              })
+                                        })
+                                        .catch( function(err){
+                                          console.log("err", err);
+                                        })
+                                  })
+                                  .catch( function(err){
+                                    $ionicLoading.hide();
+                                  })
+                            })
+                            .catch( function(err){
+                              $ionicLoading.hide();
+                            })
+                      })
+                      .catch( function(err){
+                        $ionicLoading.hide();
+                      })
+                })
+                .catch( function(err){
+                  alert("something went wrong please try again, or reload the page")
+                })
+
+
           })
           .catch( function(err){
             $scope.loginError = true;
@@ -307,6 +427,14 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
 
       }
     };
+
+    $http.get('/api/prompts')
+        .then(function(res) {
+          $scope.prompts = res.data;
+        })
+        .catch( function(err){
+          $ionicLoading.hide();
+        });
   })
   //forgot controller
   .controller('forgotCtrl', function($scope, $http, $state, $ionicLoading){
@@ -1299,11 +1427,21 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
                 headlines.push({id: $scope.currentFolders[i]._id, name: $scope.currentFolders[i].name, topic: $scope.currentFolders[i].topic, type:"folder", level: ($scope.currentFolders[i].strPath.split("/").length - 1)});
             for(var i = 0; i < $scope.currentNuggets.length; i++)
                 headlines.push({id: $scope.currentNuggets[i]._id, name: $scope.currentNuggets[i].name, type:"nugget"});
-            if(headlines.length > 0)
-              main();
+            main();
           })
           .catch( function(err){
           })
+    }
+
+    $scope.resizeCanvas = function() {
+      if($("#resizeIcon").hasClass("expand-icon")) {
+        $("#resizeIcon").removeClass("expand-icon").addClass("collapse-icon");
+        $(".canvasWrapper").addClass("fullscreen");
+        $(".canvasWrapper #canvas").css("max-height", $(window).height()+"px");
+      } else if($("#resizeIcon").hasClass("collapse-icon")) {
+        $("#resizeIcon").removeClass("collapse-icon").addClass("expand-icon");
+        $(".canvasWrapper").removeClass("fullscreen");
+      }
     }
 
     $scope.listPosition = {
@@ -1485,9 +1623,10 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
                         headlines.push({id: $scope.currentFolders[i]._id, name: $scope.currentFolders[i].name, topic: $scope.currentFolders[i].topic, type:"folder", level: ($scope.currentFolders[i].strPath.split("/").length - 1)});
                     for(var i = 0; i < $scope.currentNuggets.length; i++)
                         headlines.push({id: $scope.currentNuggets[i]._id, name: $scope.currentNuggets[i].name, type:"nugget"});
-                    if(sphereFlag && headlines.length > 0)
+                    if(sphereFlag)
                       initialize();
                     $ionicLoading.hide();
+                    $rootScope.$broadcast('scroll-top', {top: 1});
                   })
                   .catch( function(err){
                     alert("something went wrong please try again, or reload the page")
@@ -1511,7 +1650,7 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
                         headlines.push({id: $scope.currentFolders[i]._id, name: $scope.currentFolders[i].name, topic: $scope.currentFolders[i].topic, type:"folder", level: ($scope.currentFolders[i].strPath.split("/").length - 1)});
                     for(var i = 0; i < $scope.currentNuggets.length; i++)
                         headlines.push({id: $scope.currentNuggets[i]._id, name: $scope.currentNuggets[i].name, type:"nugget"});
-                    if(sphereFlag && headlines.length > 0)
+                    if(sphereFlag)
                       initialize();
                     $ionicLoading.hide();
                   })
@@ -3521,131 +3660,11 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
       $http.put('/api/templates/'+ template._id, template)
           .then( function(res){
             // $scope.getTemplates();
-            if(template.status=="copiedtoall") {
-              var mongoObjectId = function () {
-                  var timestamp = (new Date().getTime() / 1000 | 0).toString(16);
-                  return timestamp + 'xxxxxxxxxxxxxxxx'.replace(/[x]/g, function() {
-                      return (Math.random() * 16 | 0).toString(16);
-                  }).toLowerCase();
-              };
+            // if(template.status=="copiedtoall") {
 
-              var copyFolders = [];
-              var copyNuggets = [];
-              var copyPrompts = [];
-              var folderIds = [];
-              var templateFolders = template.folders.slice(0);
-              var templateNuggets = template.nuggets.slice(0);
-              for(var i = 0; i < templateFolders.length; i++)
-                folderIds.push(templateFolders[i]._id);
-              for(var i = 0; i < templateNuggets.length; i++)
-                folderIds.push(templateNuggets[i]._id);
-
-              $ionicLoading.show();
-              $http.post('/api/prompts/getAll', {ids: folderIds})
-                  .then(function(res){
-                    var prompts = res.data;
-                    var tempFolderIds = [];
-                    for(var i = 0; i< templateFolders.length; i++)
-                      tempFolderIds.push([templateFolders[i]._id, templateFolders[i].parentId]);
-
-                    for(var l = 0; l < $scope.users.length; l++) {
-                      if($scope.users[l].email == "admin@humanexp.com" || $scope.users[l].copiedTemplates.indexOf(template._id)>-1)
-                        continue;
-                      var folders = [];
-                      for(var i = 0; i< templateFolders.length; i++) {
-                        templateFolders[i]._id = tempFolderIds[i][0];
-                        templateFolders[i].parentId = tempFolderIds[i][1];
-                      }
-
-                      for(var i = 0; i < templateFolders.length; i++) {
-                        var folder = {
-                          createdAt: templateFolders[i].createdAt,
-                          name: templateFolders[i].name,
-                          parentId: templateFolders[i].parentId,
-                          purpose: templateFolders[i].purpose,
-                          strPath: templateFolders[i].strPath,
-                          updatedAt: templateFolders[i].updatedAt,
-                          userId: $scope.users[l]._id,
-                          _id: templateFolders[i]._id
-                        }
-                        var folderId = mongoObjectId();
-                        for(var j = i + 1; j < templateFolders.length; j++)
-                          if(templateFolders[j].parentId == folder._id)
-                            templateFolders[j].parentId = folderId;
-                        for(var j = 0; j < prompts.length; j++) {
-                          if(prompts[j].folder == folder._id) {
-                            copyPrompts.push({
-                              text: prompts[j].text,
-                              folder: folderId
-                            });
-                          }
-                        }
-                        for(var j = 0; j < templateNuggets.length; j++) {
-                          var nuggetId = mongoObjectId();
-                          if(templateNuggets[j].parentId == folder._id) {
-                            for(var k = 0; k < prompts.length; k++) {
-                              if(prompts[k].folder == templateNuggets[j]._id) {
-                                copyPrompts.push({
-                                  text: prompts[k].text,
-                                  folder: nuggetId
-                                });
-                              }
-                            }
-                            copyNuggets.push({
-                              _id: nuggetId,
-                              name: templateNuggets[j].name,
-                              author: $scope.users[l]._id,
-                              parentId: folderId,
-                              tags: templateNuggets[j].tags,
-                              content: templateNuggets[j].content
-                            })
-                          }
-                        }
-
-                        folder._id = folderId;
-                        folder.userId = $scope.users[l]._id;
-                        folders.push(folder);
-                      }
-
-                      folders[0].topic = template.topic;
-
-                      for(var i = 0; i < folders.length; i++)
-                        copyFolders.push(folders[i]);
-                      $scope.users[l].copiedTemplates.push(template._id);
-                    }
-
-                    $http.post('/api/folders/batch', {folders: copyFolders})
-                        .then(function(res) {
-                          $http.post('/api/nuggets/batch', {nuggets: copyNuggets})
-                              .then(function(res){
-                                $http.post('/api/prompts/batch', {prompts: copyPrompts})
-                                    .then(function(res){
-                                      $http.post('/api/users/batch', {users: $scope.users})
-                                        .then( function(res){
-                                          $ionicLoading.hide();
-                                        })
-                                        .catch( function(err){
-                                          console.log("err", err);
-                                        })
-                                    })
-                                    .catch( function(err){
-                                      $ionicLoading.hide();
-                                    })
-                              })
-                              .catch( function(err){
-                                $ionicLoading.hide();
-                              })
-                        })
-                        .catch( function(err){
-                          $ionicLoading.hide();
-                        })
-                  })
-                  .catch( function(err){
-                    $ionicLoading.hide();
-                  })
-            } else {
+            // } else {
               $ionicLoading.hide();
-            }
+            // }
           })
           .catch( function(err){
             console.log("err", err);
