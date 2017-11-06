@@ -44,6 +44,9 @@ var g = {
   imagePlaneConst:{}};
 
 var g_ui = [
+  { obj: 'globals',         name: 'backgroundRed',         value: 0, max:   1 },
+  { obj: 'globals',         name: 'backgroundGreen',         value: 0.5, max:   1 },
+  { obj: 'globals',         name: 'backgroundBlue',         value: 0.3, max:   1 },
   { obj: 'globals',         name: 'imageScale',         value: 0.42, max:   1 },
   { obj: 'globals',         name: 'imageWidth',         value: 1.0,  max:   5 },
   { obj: 'globals',         name: 'imageHeight',        value: 1.0,  max:   5 },
@@ -175,15 +178,15 @@ ImgTexture.prototype.load = function(imgUrl, msg) {
   }
   this.img = img;
   this.msg = msg;
-  img.src = "img/sphere/test.jpg";
+  img.src = imgUrl;
 };
 
 ImgTexture.prototype.uploadTexture = function() {
   var img = this.img;
   var msg = this.msg;
   g_ctx2d.clearRect(0, 0, 256, 256);
-  g_ctx2d.fillStyle="rgb(0,0,255)";
-  g_ctx2d.fillRect(0, 0, 256, 256);
+  // g_ctx2d.fillStyle="rgb(0,0,255)";
+  // g_ctx2d.fillRect(0, 0, 256, 256);
   if(!msg) return;
   if(msg.type == "admin") {
     var first_col = Math.floor(Math.random(255)*255);
@@ -787,8 +790,15 @@ function initialize() {
     gl.colorMask(true, true, true, true);
     gl.depthMask(true);
     gl.clearDepth(1);
-    gl.clearColor(1,1,1,1);
-    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT | gl.STENCIL_BUFFER_BIT);
+
+    ur = g.globals.backgroundRed;
+    ug = g.globals.backgroundGreen;
+    ub = g.globals.backgroundBlue;
+    gl.clearColor(ur,ug,ub,3);
+	  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT | gl.STENCIL_BUFFER_BIT);
+
+	  gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+    gl.enable(gl.BLEND);
 
     gl.enable(gl.CULL_FACE);
     gl.enable(gl.DEPTH_TEST);
@@ -866,7 +876,8 @@ function initialize() {
 
     // Set the alpha to 255.
     // gl.colorMask(false, false, false, true);
-    gl.clearColor(1,1,1,1);
+    // gl.clearColor(0,0,0.8,3);
+    // gl.clearColor(g.globals.backgroundRed/255,g.globals.backgroundGreen/255,g.globals.backgroundBlue/255,1);
     // gl.clear(gl.COLOR_BUFFER_BIT);
 
     // turn off logging after 1 frame.
@@ -911,7 +922,7 @@ function setupSlider($, elem, ui, obj) {
   inputTag.setAttribute('min', 0);
   inputTag.setAttribute('max', ui.max * 1000);
   inputTag.setAttribute('step', 5);
-  inputTag.setAttribute('value', ui.value * 1000);
+  inputTag.setAttribute('value', ui.value?ui.value*1000:0);
   // inputTag.setAttribute('data-rangeslider', null);
   inputTag.id = ui.name;
 

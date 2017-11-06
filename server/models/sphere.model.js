@@ -17,6 +17,9 @@ var sphereSchema = new Schema({
     selectionIntensity: String,
     bendRadius: String,
     bendAmount: String,
+    backgroundRed: String,
+    backgroundGreen: String,
+    backgroundBlue: String,
     createdAt: {
         type: Date,
         default: Date.now

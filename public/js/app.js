@@ -3158,6 +3158,7 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
                                 .then(function(res){
                                   $http.post('/api/nuggets/batch', {nuggets: $scope.template.nuggets})
                                       .then(function(res){
+                                        $scope.getTemplate();
                                         $ionicLoading.hide();
                                         // if(isBack) {
                                           $scope.template = {
