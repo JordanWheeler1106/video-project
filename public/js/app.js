@@ -2939,6 +2939,7 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
       })
   })
   .controller('adminTemplatesCtrl', function($rootScope, $scope, $ionicScrollDelegate, $ionicPopover, $ionicPopup, $state, $timeout, $http, $ionicLoading){
+    $scope.category="default";
     $scope.templateView = "list";
     $scope.sidebar = {showTags: false};
     $scope.levelPlaceHolder = ["Window Name", "Purpose Name", "Chapter Name", "Section Name", "Nugget (name only)"]
@@ -3148,6 +3149,7 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
           folders.push($scope.template.folders[i]._id);
         for(var i = 0; i < $scope.template.nuggets.length; i++)
           nuggets.push($scope.template.nuggets[i]._id);
+
         $http.put('/api/templates/'+$scope.template._id, $scope.template)
             .then( function(res){
               $http.post('/api/folders/batch/delete', {folders: folders})
@@ -3158,7 +3160,7 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
                                 .then(function(res){
                                   $http.post('/api/nuggets/batch', {nuggets: $scope.template.nuggets})
                                       .then(function(res){
-                                        $scope.getTemplate();
+                                        $scope.getTemplates();
                                         $ionicLoading.hide();
                                         // if(isBack) {
                                           $scope.template = {
@@ -3203,6 +3205,7 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
         for(var i = 0; i < $scope.template.nuggets.length; i++)
           // if($scope.template.linkedItems.indexOf($scope.template.nuggets[i]._id)<0)
             nuggets.push($scope.template.nuggets[i]);
+        $scope.template.category=$scope.category;
         $http.post('/api/templates/', $scope.template)
             .then(function(res){
               $http.post('/api/folders/batch', {folders: folders})
@@ -3573,7 +3576,8 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
         $scope.clickTemplateView('list');
         $rootScope.$broadcast('scroll-top', {top: 1});
     }
-    $scope.createTemplate = function() {
+    $scope.createTemplate = function(category) {
+      $scope.category = category;
       $scope.template = {
         tags: [],
         name: '',
