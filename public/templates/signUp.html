@@ -94,9 +94,9 @@
             <label class="checkbox">
               <input type="checkbox" name="terms" ng-model="user.terms" required>
             </label>
-            <span>Select to approve <a href="#" target="_blank">Terms</a> &amp; <a href="#" target="_blank">Privacy Policy</a></span>
+            <span>Select to approve <a href="pdf/terms.pdf" target="_blank">Terms</a> &amp; <a href="pdf/privacy.pdf" target="_blank">Privacy Policy</a></span>
           </div>
-          <div class="inputError" ng-show="personalForm.$submitted && personalForm.terms.$error.required"><i class="ion-alert-circled"></i> Please click Terms and Privacy Policy.</div>
+          <div class="inputError" ng-show="personalForm.$submitted && personalForm.terms.$error.required && !loginSuccess"><i class="ion-alert-circled"></i> Please click Terms and Privacy Policy.</div>
 
           <!--TODO: show signup success message -->
           <div class="inputSuccess" ng-show="signupSuccess"><i class="ion-android-checkbox"></i> Signup successfully</div>

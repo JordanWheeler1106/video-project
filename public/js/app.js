@@ -232,7 +232,7 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
     $scope.autoLogin = function(user) {
       $http.post('/api/users/login', user)
           .then( function(res){
-            // $scope.loginSuccess = true;
+            $scope.loginSuccess = true;
             $scope.user = res.data.user;
             $scope.token = res.data.token;
             $http.get('/api/templates/approved')

@@ -464,6 +464,10 @@ form .list .item {
 	overflow: auto;
 }
 
+.topic-item {
+	margin-bottom: 20px;
+}
+
 .topic-item .title-wrapper {
 	text-align:center;
 	padding: 10px;
@@ -710,6 +714,15 @@ form .list .item {
 	font-size: inherit;
   padding: 5px 20px;
   border: 1px solid #ccc;
+	cursor: normal;
+}
+
+.table td:nth-child(3) .level {
+	/*font-size: 14px;*/
+	/*color: #9b9da0;*/
+	font-size: inherit;
+  padding: 5px 20px;
+  border: none;
 }
 
 .table td {

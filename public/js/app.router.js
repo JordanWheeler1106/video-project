@@ -34,7 +34,7 @@ app.config(function ($stateProvider) {
             templateUrl: '../templates/newPassword.html',
             controller: 'newPasswordCtrl',
             cache: false
-        })
+        })        
         // .state('home', {
         //   url:'/home',
         //   templateUrl:'../templates/home.html',
@@ -177,7 +177,7 @@ app.config(function ($stateProvider) {
             url: '/window',
             templateUrl: '../templates/window.html',
             controller: 'windowCtrl',
-        })        
+        })
         .state('VitalInfo', {
             url: '/vital-info',
             templateUrl: '../js/vital-info/vital-info.template.html',
