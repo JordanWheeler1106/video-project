@@ -33,9 +33,15 @@ function personalInfoController($scope, $location, $ionicModal, $rootScope, Pers
       $scope.type = type;
       $ionicPopup.show({
          template: '<label ng-repeat="item in selectedList" style="width:100%; float:left;"><input type="checkbox" ng-model="checkedItems[type][item]" style="float:left;width: 21px;margin-top: 4px;">{{item}}</label>',
-         title: 'Filter',
+         title: 'List',
          scope: $scope,
          buttons: [
+           {
+             text: 'Cancel',
+             type: '',
+             onTap: function(e) {
+             }
+           },
            {
              text: '<b>Ok</b>',
              type: 'button-positive',

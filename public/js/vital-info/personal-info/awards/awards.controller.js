@@ -3,7 +3,7 @@ app.controller('awardController', awardController);
 function awardController($scope, $location, $ionicModal, $rootScope, $http, $ionicLoading){
   $scope.user = JSON.parse(localStorage.getItem("user"));
   $scope.form = {
-    title: "Licence/Certifications",
+    title: "Awards/Honours",
     getUrl: '/api/vital-awards/info/all/'+$scope.user._id,
     postUrl: '/api/vital-awards/info/'+$scope.user._id,
     putUrl: '/api/vital-awards/info/:id',
@@ -14,7 +14,7 @@ function awardController($scope, $location, $ionicModal, $rootScope, $http, $ion
         fields: [
           {
             name: "type",
-            title: "School",
+            title: "Type",
             type: "type"
           }
         ]

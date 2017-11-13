@@ -10,22 +10,12 @@ function infectiousDiseasesController($scope, $location, $ionicModal, $rootScope
     deleteUrl: '/api/medical-disease/info/:id',
     sections: [
       {
-        title: "",
-        fields: [
-          {
-            name: "type",
-            title: "School",
-            type: "type"
-          }
-        ]
-      },
-      {
         title: "Infectious Disease",
         fields: [
           {
             name: "name",
             title: "Name of Disease",
-            type: "string"
+            type: "type"
           },
           {
             name: "diseaseVariation",

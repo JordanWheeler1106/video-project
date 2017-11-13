@@ -10,22 +10,12 @@ function allergiesController($scope, $location, $ionicModal, $rootScope, $http, 
     deleteUrl: '/api/medical-allergies/info/:id',
     sections: [
       {
-        title: "",
-        fields: [
-          {
-            name: "type",
-            title: "School",
-            type: "type"
-          }
-        ]
-      },
-      {
         title: "Allergy",
         fields: [
           {
             name: "name",
             title: "Name of Allergy",
-            type: "string"
+            type: "type"
           },
           {
             name: "symptoms",

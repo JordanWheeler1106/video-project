@@ -85,7 +85,7 @@ router.post('/info/:userid', function(req,res) {
 
     vitalPlacesLived.save((err, vitalPlacesLivedStored) =>{
         if(err){
-            res.status(500).send({message: 'There has been an error.'});               
+            res.status(500).send({message: 'There has been an error.'});
         } else {
             if(!vitalPlacesLivedStored){
                 res.status(404).send({message: 'The information couldn\'t be saved.'});

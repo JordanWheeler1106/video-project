@@ -10,15 +10,6 @@ function vaccinesController($scope, $location, $ionicModal, $rootScope, $http, $
     deleteUrl: '/api/medical-vaccines/info/:id',
     sections: [
       {
-        title: "",
-        fields: [
-          {
-            name: "type",
-            type: "type"
-          }
-        ]
-      },
-      {
         title: "Medical Situation",
         fields: [
           {
@@ -27,9 +18,9 @@ function vaccinesController($scope, $location, $ionicModal, $rootScope, $http, $
             type: "string"
           },
           {
-            name: "name",
+            name: "type",
             title: "Name of Vaccine/Immunization",
-            type: "string"
+            type: "type"
           },
           {
             name: "notes",

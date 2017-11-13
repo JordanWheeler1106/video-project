@@ -17,13 +17,14 @@ var vitalLicencesSchema = new Schema({
     authority: String,
     grantedDate: Date,
     state: String,
-    zipcode: Number, 
+    zipcode: Number,
     country: String,
     type: String,
     address: String,
     addedAddressInfo: Array,
     pobox: String,
-    notes: String
+    notes: String,
+    term: String
 });
 
 

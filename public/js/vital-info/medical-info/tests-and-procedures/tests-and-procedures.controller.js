@@ -10,15 +10,6 @@ function testsAndProceduresController($scope, $location, $ionicModal, $rootScope
     deleteUrl: '/api/medical-procedures/info/:id',
     sections: [
       {
-        title: "",
-        fields: [
-          {
-            name: "type",
-            type: "type"
-          }
-        ]
-      },
-      {
         title: "Medical Situation",
         fields: [
           {
@@ -29,7 +20,7 @@ function testsAndProceduresController($scope, $location, $ionicModal, $rootScope
           {
             name: "nameDescription",
             title: "Name/Description of Test/Procedure",
-            type: "textarea"
+            type: "type"
           },
           {
             name: "date",

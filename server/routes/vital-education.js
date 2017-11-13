@@ -94,10 +94,10 @@ router.post('/info/:userid', function(req,res) {
     vitalEducation.notes = params.notes;
     vitalEducation.save((err, vitalEducationStored) =>{
         if(err){
-            res.status(500).send({message: 'There has been an error.'});               
+            res.status(500).send({message: 'There has been an error.'});
         } else {
             if(!vitalEducationStored){
-                res.status(404).send({message: 'The information couldn\'t be saved.'});                   
+                res.status(404).send({message: 'The information couldn\'t be saved.'});
             } else {
                 res.status(200).send(vitalEducationStored);
             }
@@ -111,10 +111,10 @@ router.put('/info/:infoid', function(req, res){
 
     VitalEducation.findByIdAndUpdate(infoId, update, (err, educationUpdated) =>{
         if(err){
-            res.status(500).send({message: 'There has been an error.'});               
+            res.status(500).send({message: 'There has been an error.'});
         } else {
             if(!educationUpdated){
-                res.status(404).send({message: 'The information couldn\'t be updated.'});                   
+                res.status(404).send({message: 'The information couldn\'t be updated.'});
             } else {
                 res.status(200).send({EducationUpdated: educationUpdated});
             }
@@ -128,10 +128,10 @@ router.delete('/info/:infoid', function(req, res){
 
     VitalEducation.findByIdAndRemove(infoId, update, (err, educationRemoved) =>{
         if(err){
-            res.status(500).send({message: 'There has been an error.'});               
+            res.status(500).send({message: 'There has been an error.'});
         } else {
             if(!educationRemoved){
-                res.status(404).send({message: 'The information couldn\'t be deleted.'});                   
+                res.status(404).send({message: 'The information couldn\'t be deleted.'});
             } else {
                 res.status(200).send({EducationRemoved: educationRemoved});
             }
@@ -141,10 +141,10 @@ router.delete('/info/:infoid', function(req, res){
 
 router.get('/info/all/:userid', function(req, res){
     var userId=req.params.userid;
-    var find=VitalEducation.find({user: userId});   
+    var find=VitalEducation.find({user: userId});
     find.exec((err, infoObtained)=>{
         if(err){
-            res.status(500).send({message: 'There has been an error.'}); 
+            res.status(500).send({message: 'There has been an error.'});
         } else {
             if(!infoObtained){
                 res.status(404).send({message: 'There are no entries.'});

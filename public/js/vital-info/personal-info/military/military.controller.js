@@ -23,6 +23,10 @@ function militaryController($scope, $location, $ionicModal, $rootScope, $http, $
             type: "string"
           },
           {
+            name: "addedAddressInfo",
+            type: "addedInfo"
+          },
+          {
             name: "city",
             title: "City",
             type: "string"

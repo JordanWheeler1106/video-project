@@ -22,7 +22,8 @@ var medicalSurgeriesSchema = new Schema({
     state: String,
     country: String,
     phone: String,
-    notes: String
+    notes: String,
+    surgery: String
 });
 
 

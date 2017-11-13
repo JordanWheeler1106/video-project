@@ -24,7 +24,7 @@ var vitalMilitarySchema = new Schema({
     street: String,
     city: String,
     state: String,
-    zipcode: Number, 
+    zipcode: Number,
     country: String,
     startDate: Date,
     endDate: Date,

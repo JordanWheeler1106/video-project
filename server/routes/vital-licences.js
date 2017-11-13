@@ -85,10 +85,10 @@ router.post('/info/:userid', function(req,res) {
 
     vitalLicences.save((err, vitalLicencesStored) =>{
         if(err){
-            res.status(500).send({message: 'There has been an error.'});               
+            res.status(500).send({message: 'There has been an error.'});
         } else {
             if(!vitalLicencesStored){
-                res.status(404).send({message: 'The information couldn\'t be saved.'});                   
+                res.status(404).send({message: 'The information couldn\'t be saved.'});
             } else {
                 res.status(200).send(vitalLicencesStored);
             }
@@ -102,10 +102,10 @@ router.put('/info/:infoid', function(req, res){
 
     VitalLicences.findByIdAndUpdate(infoId, update, (err, licencesUpdated) =>{
         if(err){
-            res.status(500).send({message: 'There has been an error.'});               
+            res.status(500).send({message: 'There has been an error.'});
         } else {
             if(!licencesUpdated){
-                res.status(404).send({message: 'The information couldn\'t be updated.'});                   
+                res.status(404).send({message: 'The information couldn\'t be updated.'});
             } else {
                 res.status(200).send(licencesUpdated);
             }
@@ -119,10 +119,10 @@ router.delete('/info/:infoid', function(req, res){
 
     VitalLicences.findByIdAndRemove(infoId, update, (err, licenceRemoved) =>{
         if(err){
-            res.status(500).send({message: 'There has been an error.'});               
+            res.status(500).send({message: 'There has been an error.'});
         } else {
             if(!licenceRemoved){
-                res.status(404).send({message: 'The information couldn\'t be deleted.'});                   
+                res.status(404).send({message: 'The information couldn\'t be deleted.'});
             } else {
                 res.status(200).send(licenceRemoved);
             }
@@ -132,10 +132,10 @@ router.delete('/info/:infoid', function(req, res){
 
 router.get('/info/all/:userid', function(req, res){
     var userId=req.params.userid;
-    var find=VitalLicences.find({user: userId});   
+    var find=VitalLicences.find({user: userId});
     find.exec((err, infoObtained)=>{
         if(err){
-            res.status(500).send({message: 'There has been an error.'}); 
+            res.status(500).send({message: 'There has been an error.'});
         } else {
             if(!infoObtained){
                 res.status(404).send({message: 'There are no entries.'});

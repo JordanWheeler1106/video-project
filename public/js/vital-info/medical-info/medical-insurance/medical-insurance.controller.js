@@ -10,21 +10,12 @@ function medicalInsuranceController($scope, $location, $ionicModal, $rootScope, 
     deleteUrl: '/api/medical-insurance/info/:id',
     sections: [
       {
-        title: "",
-        fields: [
-          {
-            name: "type",
-            type: "type"
-          }
-        ]
-      },
-      {
         title: "Coverage",
         fields: [
           {
             name: "coverageType",
             title: "Coverage Type (medical, dental, vision)",
-            type: "string"
+            type: "type"
           },
           {
             name: "coverageRole",
@@ -98,7 +89,7 @@ function medicalInsuranceController($scope, $location, $ionicModal, $rootScope, 
           {
             name: "companyNotes",
             title: "Notes",
-            type: "string"
+            type: "textarea"
           },
           {
             name: "phone",

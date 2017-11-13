@@ -14,7 +14,7 @@ function licenceController($scope, $location, $ionicModal, $rootScope, $http, $i
         fields: [
           {
             name: "type",
-            title: "School",
+            title: "Type",
             type: "type"
           }
         ]

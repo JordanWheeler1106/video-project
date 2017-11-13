@@ -3,7 +3,7 @@ app.controller('medicationsController', medicationsController);
 function medicationsController($scope, $location, $ionicModal, $rootScope, $http, $ionicLoading){
   $scope.user = JSON.parse(localStorage.getItem("user"));
   $scope.form = {
-    title: "Medication",
+    title: "Medications",
     getUrl: '/api/medical-medication/info/all/'+$scope.user._id,
     postUrl: '/api/medical-medication/info/'+$scope.user._id,
     putUrl: '/api/medical-medication/info/:id',

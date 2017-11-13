@@ -76,14 +76,14 @@ router.post('/info/:userid', function(req,res) {
     vitalAwards.date=params.date,
     vitalAwards.notes=params.notes,
     vitalAwards.type = params.type
-    
-    
+
+
     vitalAwards.save((err, vitalAwardsStored) =>{
         if(err){
-            res.status(500).send({message: 'There has been an error.'});               
+            res.status(500).send({message: 'There has been an error.'});
         } else {
             if(!vitalAwardsStored){
-                res.status(404).send({message: 'The information couldn\'t be saved.'});                   
+                res.status(404).send({message: 'The information couldn\'t be saved.'});
             } else {
                 res.status(200).send(vitalAwardsStored);
             }
@@ -97,7 +97,7 @@ router.put('/info/:infoid', function(req, res){
 
     VitalAwards.findByIdAndUpdate(infoId, update, (err, awardsUpdated) =>{
         if(err){
-            res.status(500).send({message: 'There has been an error.'});               
+            res.status(500).send({message: 'There has been an error.'});
         } else {
             if(!awardsUpdated){
                 res.status(404).send({message: 'The information couldn\'t be updated.'});                   Í
@@ -114,10 +114,10 @@ router.delete('/info/:infoid', function(req, res){
 
     VitalAwards.findByIdAndRemove(infoId, update, (err, awardsRemoved) =>{
         if(err){
-            res.status(500).send({message: 'There has been an error.'});               
+            res.status(500).send({message: 'There has been an error.'});
         } else {
             if(!awardsRemoved){
-                res.status(404).send({message: 'The information couldn\'t be deleted.'});                   
+                res.status(404).send({message: 'The information couldn\'t be deleted.'});
             } else {
                 res.status(200).send(awardsRemoved);
             }
@@ -127,10 +127,10 @@ router.delete('/info/:infoid', function(req, res){
 
 router.get('/info/all/:userid', function(req, res){
     var userId=req.params.userid;
-    var find=VitalAwards.find({user: userId});   
+    var find=VitalAwards.find({user: userId});
     find.exec((err, infoObtained)=>{
         if(err){
-            res.status(500).send({message: 'There has been an error.'}); 
+            res.status(500).send({message: 'There has been an error.'});
         } else {
             if(!infoObtained){
                 res.status(404).send({message: 'There are no entries.'});

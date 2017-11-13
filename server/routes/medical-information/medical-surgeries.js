@@ -20,6 +20,7 @@ router.post('/info/:userid', function(req,res) {
     medicalSurgeries.country=params.country;
     medicalSurgeries.phone=params.phone;
     medicalSurgeries.notes=params.notes;
+    medicalSurgeries.surgery=params.surgery;
 
     medicalSurgeries.save((err, medicalSurgeriesStored) =>{
         if(err){

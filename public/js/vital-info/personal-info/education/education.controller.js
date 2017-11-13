@@ -14,7 +14,7 @@ function educationController($scope, $location, $ionicModal, $rootScope, $http, 
           fields: [
             {
               name: "type",
-              title: "School",
+              title: "Type",
               type: "type"
             }
           ]

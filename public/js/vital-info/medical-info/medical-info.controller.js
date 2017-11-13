@@ -32,19 +32,20 @@ function medicalInfoController($scope, $location, $ionicModal, $rootScope, Perso
         test: {},
         medical: {}
     }
-    angular.forEach($scope.lists, function(v, i){
-      angular.forEach(v, function(item) {
-        $scope.checkedItems[i][item] = true;
-      })
-    })
     $scope.showList = function(type) {
       $scope.selectedList = $scope.lists[type]
       $scope.type = type;
       $ionicPopup.show({
          template: '<label ng-repeat="item in selectedList" style="width:100%; float:left;"><input type="checkbox" ng-model="checkedItems[type][item]" style="float:left;width: 21px;margin-top: 4px;">{{item}}</label>',
-         title: 'Filter',
+         title: 'List',
          scope: $scope,
          buttons: [
+           {
+             text: 'Cancel',
+             type: '',
+             onTap: function(e) {
+             }
+           },
            {
              text: '<b>Ok</b>',
              type: 'button-positive',

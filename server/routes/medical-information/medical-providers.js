@@ -40,6 +40,8 @@ router.post('/info/:userid', function(req,res) {
     medicalProviders.zipCodeTwo=params.zipCodeTwo;
     medicalProviders.countryTwo=params.countryTwo;
     medicalProviders.notesTwo=params.notesTwo;
+    medicalProviders.addressOne=params.addressOne;
+    medicalProviders.addressTwo=params.addressTwo;
 
     medicalProviders.save((err, medicalProvidersStored) =>{
         if(err){
@@ -98,7 +100,7 @@ router.get('/info/all/:userid', function(req, res){
             if(!infoObtained){
                 res.status(404).send({message: 'There are no entries.'});
             } else {
-                res.status(200).send(infoObtained); 
+                res.status(200).send(infoObtained);
             }
         }
     });

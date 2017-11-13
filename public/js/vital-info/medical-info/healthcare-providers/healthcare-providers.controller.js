@@ -116,6 +116,11 @@ function healthcareProvidersController($scope, $location, $ionicModal, $rootScop
             type: "addedInfo"
           },
           {
+            name: "addressOne",
+            title: "Street Address",
+            type: "string"
+          },
+          {
             name: "cityOne",
             title: "City",
             type: "string"
@@ -153,6 +158,11 @@ function healthcareProvidersController($scope, $location, $ionicModal, $rootScop
           {
             name: "addedOfficeInfoTwo",
             type: "addedInfo"
+          },
+          {
+            name: "addressTwo",
+            title: "Street Address",
+            type: "string"
           },
           {
             name: "cityTwo",

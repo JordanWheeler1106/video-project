@@ -13,6 +13,11 @@ function surgeriesController($scope, $location, $ionicModal, $rootScope, $http, 
         title: "Surgery",
         fields: [
           {
+            name: "surgery",
+            title: "Surgery",
+            type: "string"
+          },
+          {
             name: "surgeonName",
             title: "Name of Surgeon",
             type: "string"

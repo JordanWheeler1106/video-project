@@ -10,7 +10,7 @@ function hospitalizationsController($scope, $location, $ionicModal, $rootScope, 
     deleteUrl: '/api/medical-hospitalizations/info/:id',
     sections: [
       {
-        title: "Healthcare Provider",
+        title: "Hospitalization",
         fields: [
           {
             name: "reason",
