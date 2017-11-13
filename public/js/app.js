@@ -304,14 +304,23 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
                       }
                       $scope.user.copiedTemplates.push(template._id);
                       if($scope.templates[l].topic) {
-                        var topicId = mongoObjectId();
-                        copyTopics.push({
-                          _id: topicId,
-                          name: $scope.templates[l].topic.name,
-                          userId: $scope.user._id,
-                          color: $scope.templates[l].topic.color
-                        });
-                        folders[0].topic = topicId;
+                        var flag = false;
+                        for(var i = 0; i < copyTopics.length; i++)
+                          if(copyTopics[i].name == $scope.templates[l].topic.name) {
+                            flag = true; break;
+                          }
+                        if(flag) {
+                          folders[0].topic = copyTopics[i]._id;
+                        } else {
+                          var topicId = mongoObjectId();
+                          copyTopics.push({
+                            _id: topicId,
+                            name: $scope.templates[l].topic.name,
+                            userId: $scope.user._id,
+                            color: $scope.templates[l].topic.color
+                          });
+                          folders[0].topic = topicId;
+                        }
                       }
 
                       for(var i = 0; i < folders.length; i++)
@@ -1517,6 +1526,30 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
        }, 50);
     }
 
+    $("#homeView").scroll(function() {
+      var element = $('.follow-scroll'),
+          originalY = 200;
+      // Should probably be set in CSS; but here just for emphasis
+      element.css('position', 'relative');
+      var scrollTop = $(this).scrollTop();
+      // var obj = $(".scroll");
+      // var transformMatrix = obj.css("-webkit-transform") ||
+      //  obj.css("-moz-transform")    ||
+      //  obj.css("-ms-transform")     ||
+      //  obj.css("-o-transform")      ||
+      //  obj.css("transform");
+      // var matrix = transformMatrix.replace(/[^0-9\-.,]/g, '').split(',');
+      // var x = matrix[12] || matrix[4];//translate x
+      // var scrollTop = parseInt(matrix[13] || matrix[5]) * (-1);//translate y
+     //  console.log(scrollTop);
+     //  var scrollTop = $ionicScrollDelegate.getScrollPosition().top;
+      element.stop(false, false).animate({
+          top: scrollTop < originalY
+                  ? 0
+                  : scrollTop - originalY
+      }, 50);
+    });
+
     $scope.$on('scroll-top', function(event, args) {
       if(args.top == 0) {
         localStorage.setItem('scrollTop', $ionicScrollDelegate.getScrollPosition().top)
@@ -2147,6 +2180,35 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
       return true;
     }
 
+    $scope.deleteTemplate = function() {
+      if(confirm("Are you sure you want to delete?")) {
+        console.log($scope.template);
+        if($scope.template._id == "copied-template") {
+          $ionicLoading.show();
+          // template.status = "approvred";
+          $http.delete('/api/folders/'+$scope.template.folders[0]._id)
+              .then( function(res){
+                $ionicLoading.hide();
+                $scope.getUserFolders();
+                $scope.getUserNuggets();
+                $scope.toggleView = 'templateList';
+                $scope.template = {};
+                if($scope.template.templateId) {
+                  $http.delete('/api/templates/'+$scope.template.templateId)
+                      .then( function(res){
+                      })
+                      .catch( function(err){
+                        console.log("err", err);
+                      })
+                }
+              })
+              .catch( function(err){
+                console.log("err", err);
+              })
+        }
+      }
+    }
+
     $scope.saveTemplate = function() {
       // if(!$scope.template.name || !$scope.template.tags.length > 0 || $scope.template.price < 0 || !$scope.template.description) {
       //   $ionicLoading.show({ template: 'Template information is not enough. Please fill the blank field!', noBackdrop: true, duration: 1500 });
@@ -2694,6 +2756,12 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
         linkedItems: []
       };
 
+      for(var i = 0; i < $scope.myTemplates.length; i++)
+        if($scope.myTemplates[i].folders[0] && $scope.myTemplates[i].folders[0]._id == folder._id) {
+          $scope.template.templateId = $scope.myTemplates[i]._id;
+          break;
+        }
+
       $scope.toggleView = 'template';
 
     }
@@ -2945,6 +3013,7 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
     $scope.levelPlaceHolder = ["Window Name", "Purpose Name", "Chapter Name", "Section Name", "Nugget (name only)"]
     $scope.tags = [];
     $scope.topics = [];
+    $scope.topic = {};
     $scope.isSaved = false;
     $scope.prompts = [];
     $scope.prompt = {};
@@ -2961,6 +3030,8 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
       nuggets: [],
       linkedItems: []
     };
+
+    $scope.user = JSON.parse(localStorage.getItem("user"));
 
     if(localStorage.getItem('template'))
       $scope.template = JSON.parse(localStorage.getItem('template'));
@@ -2983,18 +3054,120 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
           })
     }
 
+    $scope.addTopic = function(e){
+      if($scope.topic.name && $scope.topic.color) {
+        $ionicLoading.show();
+        $scope.topic.userId = $scope.user._id;
+        if($scope.topic._id) {
+          delete $scope.topic.__v;
+          $http.put('/api/topics/'+$scope.topic._id, $scope.topic)
+              .then( function(res){
+                $scope.topic = {};
+                $scope.getTopics();
+                $ionicLoading.hide();
+              })
+              .catch( function(err){
+                $ionicLoading.hide();
+                alert("something went wrong please try again, or reload the page")
+              })
+        } else {
+          $http.post('/api/topics', $scope.topic)
+              .then( function(res){
+                $scope.topic = {};
+                $scope.getTopics();
+
+              })
+              .catch( function(err){
+                $ionicLoading.hide();
+                alert("something went wrong please try again, or reload the page")
+              })
+        }
+      }
+    }
     $scope.getTopics = function(){
-      $http.get('/api/topics/all/').then(function(data){
+      $http.get('/api/topics/all/'+$scope.user._id).then(function(data){
         $scope.topics = data.data;
         $scope.topics.sort(function(a, b) {
           if(a.name < b.name) return -1;
           if(a.name > b.name) return 1;
           return 0;
         });
+        $scope.getTemplates();
+        $ionicLoading.hide();
       })
       .catch(function(){
         alert("something went wrong please try again, or reload the page")
       })
+    }
+
+    $scope.clickChangeTopic = function() {
+      // $scope.user.cancelPlan = false;
+      var popup = $ionicPopup.show({
+        cssClass: 'invite-new-member-popup',
+        templateUrl: '../templates/topicPopup.html',
+        title: 'Select Topic',
+        scope: $scope
+      });
+
+      popup.then(function(res) {
+        console.log('Tapped!', res);
+      });
+
+      $scope.closeTopicPopup = function() {
+        popup.close();
+      };
+
+      $scope.selectTopic = function(topic) {
+        if(topic)
+          $scope.topic = topic;
+        else {
+          $scope.topic = {
+            color: "",
+            name: "",
+            new: true
+          }
+        }
+        popup.close();
+      }
+
+      $scope.removeTopic = function(id){
+        $ionicLoading.show();
+        $http.delete('/api/topics/'+id).then(function(data){
+          $ionicLoading.hide();
+          $scope.getTopics();
+        })
+        .catch(function(){
+          $ionicLoading.hide();
+          alert("something went wrong please try again, or reload the page")
+        })
+      }
+    }
+    $scope.cancelTopic = function() {
+      $scope.topic = {};
+    }
+
+    $scope.updateCategory = function(template) {
+      template.category = template.category=="default"?"considered":"default";
+      template.status = template.status=="pending"?"pending":template.status=="copiedtoall"?"approved":"copiedtoall"
+      $http.put('/api/templates/'+template._id, template)
+          .then( function(res){
+            // $scope.getTemplates();
+          })
+          .catch( function(err){
+            alert("something went wrong please try again.")
+          })
+    }
+    $scope.onDragend = function(category, template, event) {
+      // for(var i = 0; i < $scope.templates.length; i++) {
+      //   $scope.templates[i].topic = "59d7a064dcb959689657563d";
+      //   $http.put('/api/templates/'+$scope.templates[i]._id, $scope.templates[i])
+      //       .then( function(res){
+      //         // $scope.getTemplates();
+      //       })
+      //       .catch( function(err){
+      //         alert("something went wrong please try again.")
+      //       })
+      // }
     }
 
     $scope.chooseTag = function(tag) {
@@ -3686,6 +3859,30 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
       });
     }
 
+    $("#adminView").scroll(function() {
+      var element = $('.follow-scroll'),
+          originalY = 200;
+      // Should probably be set in CSS; but here just for emphasis
+      element.css('position', 'relative');
+      var scrollTop = $(this).scrollTop();
+      // var obj = $(".scroll");
+      // var transformMatrix = obj.css("-webkit-transform") ||
+      //  obj.css("-moz-transform")    ||
+      //  obj.css("-ms-transform")     ||
+      //  obj.css("-o-transform")      ||
+      //  obj.css("transform");
+      // var matrix = transformMatrix.replace(/[^0-9\-.,]/g, '').split(',');
+      // var x = matrix[12] || matrix[4];//translate x
+      // var scrollTop = parseInt(matrix[13] || matrix[5]) * (-1);//translate y
+     //  console.log(scrollTop);
+     //  var scrollTop = $ionicScrollDelegate.getScrollPosition().top;
+      element.stop(false, false).animate({
+          top: scrollTop < originalY
+                  ? 0
+                  : scrollTop - originalY
+      }, 50);
+    });
+
     $scope.getUsers();
     $scope.getTemplates();
     $scope.getTags();
@@ -4347,7 +4544,7 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
               }
             }
             $scope.activeTopicTemplates.push({topic: {name: "Unassigned", color: "#fff"}, templates: activeOtherTemplates});
-            $scope.activeTopicTemplates.push({topic: {name: "To Be Considered", color: "#fff"}, templates: activeConsideredTemplates});
+            $scope.activeTopicTemplates.push({topic: {name: "Windows for Consideration", color: "#fff"}, templates: activeConsideredTemplates});
             $scope.archiveTopicTemplates.push({topic: {name: "Unassigned", color: "#fff"}, templates: archiveOtherTemplates});
 
             $scope.filterTemplates();
@@ -4633,8 +4830,10 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
         if($scope.userFolders[i].name == template.name && $scope.userFolders[i].strPath.split("/").length-1==0) {
           folder = $scope.userFolders[i]; break;
         }
+
       $scope.template = {
         _id: "copied-template",
+        templateId: template._id,
         userId: $scope.user,
         name: folder.name,
         topic: folder.topic?folder.topic._id:"",
@@ -4661,6 +4860,33 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
       }
 
       return true;
+    }
+
+    $scope.deleteTemplate = function() {
+      if(confirm("Are you sure you want to delete?")) {
+        console.log($scope.template);
+        if($scope.template._id == "copied-template") {
+          $ionicLoading.show();
+          // template.status = "approvred";
+          $http.delete('/api/templates/'+$scope.template.templateId)
+              .then( function(res){
+                $http.delete('/api/folders/'+$scope.template.folders[0]._id)
+                    .then( function(res){
+                      $ionicLoading.hide();
+                      $scope.getUserFolders();
+                      $scope.getUserNuggets();
+                      $scope.toggleView = 'templateList';
+                      $scope.template = {};
+                    })
+                    .catch( function(err){
+                      console.log("err", err);
+                    })
+              })
+              .catch( function(err){
+                console.log("err", err);
+              })
+        }
+      }
     }
 
     $scope.saveTemplate = function() {

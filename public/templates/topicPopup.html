@@ -3,12 +3,12 @@
   <div class="listItemsArea">
     <div class="list">
       <div class="row topicItem">
-        <div class="col col-80" ng-click="selectTopic(null)">
+        <div class="col col-80" ng-click="selectTopic(null)" style="cursor:pointer;">
           <span><i class="ion-ios-plus-outline"></i>&nbsp;&nbsp;Add New Topic</span>
         </div>
         <div class="col col-20">&nbsp;</div>
       </div>
-      <div class="row topicItem" ng-repeat="topic in topics">
+      <div class="row topicItem" ng-repeat="topic in topics" style="cursor:pointer;">
         <div class="col col-80" ng-click="selectTopic(topic)">
           <span>{{topic.name}}</span>
         </div>

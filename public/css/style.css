@@ -3958,3 +3958,30 @@ button.blue-button {
 	max-height: 300px;
 	overflow: auto;
 }
+
+.template-list .title-wrapper {
+	font-size: 22px;
+  height: 30px;
+  border-bottom: 1px solid #aaa;
+}
+
+.template-list ul {
+	list-style: none;
+}
+.template-list .dragdroplistitem, .template-list .dragdroplist li {
+	padding: 0px;
+	border-left: none !important;
+	border-right: none !important;
+	border-top: none !important;
+	border-bottom: 1px solid #aaa !important;
+	margin: 0px;
+}
+.template-list .dragdroplist li i {
+	cursor: pointer;
+}
+.template-list .dragdroplist li label {
+	line-height: 45px;
+	font-size: 16px;
+	color: #387ef5;
+	cursor: pointer;
+}

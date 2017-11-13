@@ -1,5 +1,6 @@
 <ion-pane>
-  <ion-content on-scroll="getScrollPosition()" delegate-handle="adminScroll">
+  <!-- <ion-content on-scroll="getScrollPosition()" delegate-handle="adminScroll"> -->
+  <ion-content id="homeView" scroll="false" style="overflow: auto;">
     <div class="bar bar-header bar-stable headerNav">
       <div class="nav">
         <!--<h1 class="title navHeading">the logo</h1>-->
@@ -124,7 +125,7 @@
 
           </div>
 
-          <div class="window-outline">
+          <div class="window-outline" style="display:none;">
             <span class="closeIcon" ng-click="closeWindowOutline()"><i class="ion-android-close"></i></span>
             <table class="table adminTemplateList" style="margin-top:20px;">
               <tbody>
