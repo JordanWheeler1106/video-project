@@ -1,29 +1,26 @@
 <div class="contact-nav hide-on-sm">
+    <button class="button button-block button-positive" ng-click="openPopup($event)" style="margin-bottom: 25px;">
+        <i class="icon ion-android-add"></i> Add New Contact
+    </button>
     <ion-list>
         <div>
-            <ion-item class="" >
-                All Contacts(34)
-            </ion-item>
-            <ion-item class="" ng-click="toggleGroup()">
-                Recently Used
+            <ion-item class="" ng-click="selectRelationship('')">
+                All Contacts ({{contacts.length}})
             </ion-item>
             <ion-item ng-class="{active: isGroupShown}" ng-click="toggleGroup()">
-                <i class="icon" ng-class="isGroupShown ? 'ion-ios-arrow-up' : 'ion-ios-arrow-down'"></i> &nbsp; Groups
+                <i class="icon" ng-class="isGroupShown ? 'ion-ios-arrow-up' : 'ion-ios-arrow-down'"></i> &nbsp; Relationships
             </ion-item>
-            <ion-item class="item-accordion" ng-repeat="item in groups" ng-show="isGroupShown">
+            <ion-item class="item-accordion" ng-repeat="item in relationships" ng-show="isGroupShown" ng-click="selectRelationship(item)">
                 {{item}}
             </ion-item>
         </div>
     </ion-list>
-    <button class="button button-block button-positive" ng-click="openPopup($event)">
-        <i class="icon ion-android-add"></i> Add New Contact
-    </button>
 
 </div>
 <div class="vital-contacts row responsive-lg hide-on-sm" style="margin:0px auto;">
     <div>
         <div class="list search tag-search-wrapper">
-            <label class="item item-input">        
+            <label class="item item-input">
                 <input type="text" placeholder="Search" ng-model="search">
                 <i class="fa fa-search placeholder-icon"></i>
             </label>
@@ -31,11 +28,14 @@
         <div style="width: 100%;" class="leftBox">
             <table class="table report">
                 <tbody>
-                    <tr class="user-table" ng-repeat="contact in contacts | filter: search">
-                        <td>{{contact.name}}</td>
+                    <tr class="user-table" ng-repeat="contact in contacts | filter: search" ng-click="editContact(contact._id)" style="cursor: pointer" ng-if="!relationshipSelected || contact.relationship.indexOf(relationshipSelected) != -1">
+                        <td>{{contact.contactName}}</td>
                         <td>{{contact.group}}</td>
                         <td>{{contact.email}}</td>
-                        <td>{{contact.phone}}</td>
+                        <td>
+                          {{contact.phone}}<br>
+                          <span ng-repeat="v in contact.addedPhoneInfo track by $index" ng-show="$index % 2 == 0">{{contact.addedPhoneInfo[$index]}}: {{contact.addedPhoneInfo[$index+1]}}<br></span>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -52,7 +52,7 @@
             <ion-item class="center-text item-icon-left item-icon-right" ng-click="toggleList()" ng-class="{active: isListVisible}" >
                 <i  ng-click="openModal($event)" class = "icon ion-ios-plus-empty"></i>
                 <i class = "icon ion-ios-search-strong"></i>
-                All Contacts(34)&nbsp; 
+                All Contacts(34)&nbsp;
                 <!-- <i class="icon" ng-class="isListVisible ? 'ion-ios-arrow-up' : 'ion-ios-arrow-down'"></i> -->
             </ion-item>
             <ion-item ng-show="isListVisible" class="item-accordion" ng-click="toggleGroup()">

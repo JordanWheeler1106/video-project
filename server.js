@@ -54,6 +54,7 @@ app.use('/api/medical-profile', require('./server/routes/medical-information/med
 app.use('/api/medical-providers', require('./server/routes/medical-information/medical-providers'));
 app.use('/api/medical-surgeries', require('./server/routes/medical-information/medical-surgeries'));
 app.use('/api/medical-vaccines', require('./server/routes/medical-information/medical-vaccines'));
+app.use('/api/contact', require('./server/routes/contacts/contacts'));
 
 app.get('/*', function(req, res){
     res.render('index.html')

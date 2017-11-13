@@ -15,6 +15,7 @@ var vitalMilitarySchema = new Schema({
     unit: String,
     responsibilities: String,
     promotions: String,
+    addedAddressInfo: Array,
     addedRankInfo: Array,
     addedPromotionInfo: Array,
     addedCommendationsInfo: Array,

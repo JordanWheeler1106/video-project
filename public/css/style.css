@@ -2475,7 +2475,9 @@ form .list .item {
 	display: block;
 	margin: 40px auto 0;
 }
-
+.vital-info-address + div {
+	background-color: rgb(207,229,265);
+}
 .change-profile {
 	margin: 0 0 20px 0;
 	width: 100%;

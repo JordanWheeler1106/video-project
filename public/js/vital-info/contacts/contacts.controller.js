@@ -1,66 +1,33 @@
 app.controller('contactsController', personalInfoController);
 
-function personalInfoController($scope, $ionicModal, $ionicPopup, $state) {
+function personalInfoController($scope, $ionicModal, $ionicPopup, $state, $http) {
     $scope.contacts = [];
-    $scope.groups = ['Personal', 'Doctors', 'Professional'];
-    $scope.isGroupShown = false;
-    $scope.isListVisible = false;
+
     $scope.toggleGroup = function () {
         $scope.isGroupShown = !$scope.isGroupShown;
     };
-    $scope.toggleList = function(){
-        $scope.isListVisible = !$scope.isListVisible;
+
+    $scope.user = JSON.parse(localStorage.getItem("user"));
+    $scope.contacts = [];
+    $scope.relationshipSelected = '';
+
+    $scope.selectRelationship = function (selected) {
+      $scope.relationshipSelected = selected;
     }
-    $scope.contacts = [
-        {
-            name: 'John Doe',
-            group: 'family',
-            email: 'john@gmail.com',
-            phone: '1234567890'
-        },
-        {
-            name: 'Mark Doe',
-            group: 'family',
-            email: 'john@gmail.com',
-            phone: '1234567890'
-        },
-        {
-            name: 'John Doe',
-            group: 'family',
-            email: 'john@gmail.com',
-            phone: '1234567890'
-        },
-        {
-            name: 'John Doe',
-            group: 'family',
-            email: 'john@gmail.com',
-            phone: '1234567890'
-        },
-        {
-            name: 'John Doe',
-            group: 'family',
-            email: 'john@gmail.com',
-            phone: '1234567890'
-        },
-        {
-            name: 'John Doe',
-            group: 'family',
-            email: 'john@gmail.com',
-            phone: '1234567890'
-        },
-        {
-            name: 'John Doe',
-            group: 'family',
-            email: 'john@gmail.com',
-            phone: '1234567890'
-        },
-        {
-            name: 'John Doe',
-            group: 'family',
-            email: 'john@gmail.com',
-            phone: '1234567890'
-        }
-    ]
+    var getRelationships = function() {
+      $http.get('/api/contact/info/relationships/' + $scope.user._id).then(function(r) {
+        $scope.relationships = r.data.infoObtained;
+      })
+    }
+    getRelationships();
+    $http.get('/api/contact/info/all/' + $scope.user._id).then(function(r) {
+      $scope.contacts = r.data.infoObtained;
+    })
+
+    $scope.editContact = function(id) {
+      $state.go('VitalInfo.AddContact', {id: id})
+    }
+
     $ionicModal.fromTemplateUrl('add-contact-modal.html', {
         scope: $scope,
         animation: 'slide-in-up'

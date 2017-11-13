@@ -1,4 +1,5 @@
-app.controller('digitalLibController', personalInfoController);
+app.controller('digitalLibController', digitalLibController);
 
-function personalInfoController($scope) {
+function digitalLibController($scope) {
+    $scope.cose = 'coso'
 }
