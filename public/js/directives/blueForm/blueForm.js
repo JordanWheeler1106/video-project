@@ -6,36 +6,66 @@ app.directive('blueForm', function($http, $ionicLoading) {
       form: '='
     },
     link: function ($scope, element, attr) {
+
+      $scope.addForm = function (type) {
+        $scope.elements.push(buildEmptyObject(type))
+      }
+
       $scope.elements = [];
-      $ionicLoading.show();
-      $http.get($scope.form.getUrl)
-        .then( function(res){
-          if (res.data.length == 0 || (res.data.length == 1 && res.data[0] == null)) {
-            $scope.addForm();
-          } else {
-            for (var i = 0; i<res.data.length; i++) {
-              var e = res.data[i];
-              for (var section_index in $scope.form.sections) {
-                var section = $scope.form.sections[section_index];
-                for (var field_index in section.fields) {
-                  var field = section.fields[field_index];
-                  if (field.type == 'date') {
-                    e[field.name] = dateToHash(new Date(e[field.name]));
-                  } else if (field.type == 'addedInfo') {
-                    e[field.name] = arrayToAddedInfo(e[field.name]);
+      if (!$scope.form.isContact) {
+        $ionicLoading.show();
+        $http.get($scope.form.getUrl)
+          .then( function(res){
+            if (res.data.length == 0 || (res.data.length == 1 && res.data[0] == null)) {
+              $scope.addForm();
+            } else {
+              for (var i = 0; i<res.data.length; i++) {
+                var e = res.data[i];
+                for (var section_index in $scope.form.sections) {
+                  var section = $scope.form.sections[section_index];
+                  for (var field_index in section.fields) {
+                    var field = section.fields[field_index];
+                    if (field.type == 'date') {
+                      e[field.name] = dateToHash(new Date(e[field.name]));
+                    } else if (field.type == 'addedInfo') {
+                      e[field.name] = arrayToAddedInfo(e[field.name]);
+                    }
                   }
                 }
+                $scope.elements.push(e);
               }
-              $scope.elements.push(e);
             }
+            $ionicLoading.hide();
+          })
+          .catch( function(err){
+            alert("something went wrong please try again, or reload the page")
+            $ionicLoading.hide();
+          })
+      } else {
+        $http.get($scope.form.getUrl).then(function(r) {
+          if(r.data.infoObtained) {
+            e = r.data.infoObtained;
+            e.relationship = r.data.rel;
+            for (var section_index in $scope.form.sections) {
+              var section = $scope.form.sections[section_index];
+              for (var field_index in section.fields) {
+                var field = section.fields[field_index];
+                if (field.type == 'date') {
+                  e[field.name] = dateToHash(new Date(e[field.name]));
+                } else if (field.type == 'addedInfo') {
+                  e[field.name] = arrayToAddedInfo(e[field.name]);
+                }
+              }
+            }
+            $scope.elements.push(e);
+          } else {
+            $scope.addForm();
           }
-          $ionicLoading.hide();
-        })
-        .catch( function(err){
-          alert("something went wrong please try again, or reload the page")
-          $ionicLoading.hide();
-        })
+        }).catch(function(){
+          $scope.addForm();
+        });
 
+      }
       $scope.save = function (index) {
         var e = angular.copy($scope.elements[index]);
 
@@ -66,8 +96,6 @@ app.directive('blueForm', function($http, $ionicLoading) {
       }
 
       $scope.delete = function(index) {
-        console.log('delete', index);
-        console.log($scope.elements);
         var e = $scope.elements[index];
         $ionicLoading.show();
         if (e._id) {
@@ -88,7 +116,6 @@ app.directive('blueForm', function($http, $ionicLoading) {
           }
           $ionicLoading.hide();
         }
-        console.log($scope.elements);
       }
 
       $scope.deleteAddedItem = function (index, name, key) {
@@ -122,14 +149,14 @@ app.directive('blueForm', function($http, $ionicLoading) {
       }
 
       $scope.$on('listButtonClicked', function(e, types) {
+        var elements = angular.copy($scope.elements);
+        $scope.elements = [];
         angular.forEach(types, function(type) {
           $scope.addForm(type);
         })
+        $scope.elements = $scope.elements.concat(elements);
       })
 
-      $scope.addForm = function (type) {
-        $scope.elements.push(buildEmptyObject(type))
-      }
 
     }
   }
