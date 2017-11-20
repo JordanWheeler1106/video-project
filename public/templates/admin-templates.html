@@ -321,56 +321,74 @@
     </div>
   </div>
   <div class="leftBox" ng-show="templateView=='prompt'">
-    <div class="csv-download" ng-click="clickPromptBack();">
-      <a>
-        <i class="ion-ios-arrow-back"></i>
-        Back
-      </a>
-    </div>
-
-    <div class="row">
-      <div class="col col-75 firstRow">
-        <div class="promptleftBox">
-          <div class="table row">
-            <label class="folderInput item item-input">
-              <i class="icon placeholder-icon" ng-class="selectedFolder.type=='nugget'?'ion-4':'ion-'+selectedFolder.level"></i>
-              <input type="text" class="selected" placeholder="{{levelPlaceHolder[selectedFolder.level]}}" value ="{{selectedFolder.name}}">
-            </label>
+    <div class="row responsive-lg">
+      <div class="col firstRow" ng-show="promptView=='list'">
+        <div class="tableLinks">
+          <div class="row">
+            <div class="col-60">
+              <span class="active">Prompts</span>
+            </div>
+            <div class="col-40 item-add-wrapper">
+              <a ng-click="addPrompt($event)">
+                <i class="ion-ios-plus-outline"></i>
+                Add
+              </a>&nbsp;&nbsp;&nbsp;
+              <a ng-click="clickPromptBack();">
+                <i class="ion-ios-arrow-back"></i>
+                Back
+              </a>
+            </div>
           </div>
-          <div class="list tag-search-wrapper">
-            <label class="item item-input">
-              <input type="text" placeholder="Search" ng-model="promptSearch">
-              <i class="fa fa-search placeholder-icon"></i>
-            </label>
-          </div>
-          <div class="tableLinks">
-            <span class="active">Prompts</span>
-          </div>
-          <div class="quotes-list">
-            <div class="item" ng-repeat="prompt in prompts | filter: promptSearch">
-              {{prompt.text}}
-              <i class="ion-ios-close-outline" ng-click="removePrompt(prompt._id);"></i>
+        </div>
+        <div class="quotes-list">
+          <div class="item item-input" ng-repeat="prompt in prompts" style="height:auto;">
+            <div class="col-90">
+              <div ng-bind-html="prompt.validatedString"></div>
+            </div>
+            <div class="col-10">
+              <i class="fa fa-remove" ng-click="removePrompt(prompt._id);"></i>
+              <i class="fa fa-pencil" ng-click="editPrompt(prompt);"></i>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="col">
-        <div class="rightContent">
-          <div class="list">
-
-            <a class="item item-icon-left listFirst" ng-click="addprompt($event)">
-              <i class="ion-ios-plus-outline"></i>
-              Add New Prompt
-            </a>
-
-            <label class="item item-input">
-              <input type="text" placeholder="New Prompt" name="name" ng-model="prompt.name">
-            </label>
+      <div class="col firstRow" ng-show="promptView=='edit'">
+        <div>
+          <div class="row">
+            <div class="col-80">
+              <span class="active">&nbsp;</span>
+            </div>
+            <div class="col-20 item-add-wrapper">
+              <a ng-click="updatePrompt($event)">
+                Save
+              </a>&nbsp;&nbsp;&nbsp;
+              <a ng-click="cancelPrompt($event)">
+                Back
+              </a>
+            </div>
           </div>
+        </div>
+        <div class="quotes-list">
+          <div id="editor1"></div>
         </div>
       </div>
     </div>
+
+    <script>
+      $(function(){
+        $('#editor1').froalaEditor({
+          placeholderText: 'Start you nugget!',
+          toolbarButtonsXS: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color'],
+          toolbarButtonsSM: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color'],
+          toolbarButtonsMD: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color'],
+          toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color'],
+          videoDefaultAlign: 'left',
+          imageDefaultAlign: 'left',
+          heightMin: 100
+        })
+      });
+    </script>
   </div>
 
   <div class="leftBox" ng-show="templateView=='link'">
@@ -389,15 +407,6 @@
         <div class="row">
           <div class="col col-30">&nbsp;</div>
           <div class="col col-40" style="height: 58px;">&nbsp;
-            <!-- <label class="item item-input item-select item-light">
-              <div class = "input-label">
-                Select
-              </div>
-              <select ng-model="template.topic" disabled>
-                <option value="" disabled selected>Topic</option>
-                <option ng-repeat="topic in topics" value="{{topic._id}}">{{topic.name}}</option>
-              </select>
-            </label> -->
           </div>
           <div class="col col-30">&nbsp;</div>
         </div>
@@ -410,9 +419,6 @@
                 <input type="text" ng-class="{'selected': folder==selectedFolder, 'linked': template.linkedItems.indexOf(folder._id)>-1}" placeholder="{{levelPlaceHolder[folder.level]}}" ng-model="folder.name" readonly>
               </label>
             </td>
-            <!-- <td style="width:30px;">
-              <span ng-show="folder.level > 0" ng-click="linkWindow(folder);">L</span>
-            </td> -->
           </tr>
           </tbody>
         </table>
@@ -431,22 +437,10 @@
               </div>
               <select ng-model="linkTemplate" ng-options="item as item.name for item in templates | filter:skipValues" ng-change="selectLinkTemplate(linkTemplate);">
                 <option value="" disabled selected>Select Target Window</option>
-                <!-- <option ng-repeat="tmp in templates" value="{{tmp}}" ng-hide="template._id==tmp._id">{{tmp.name}}</option> -->
               </select>
             </label>
           </div>
           <div class="col col-20">&nbsp;</div>
-          <!-- <div class="col col-50">
-            <label class="item item-input item-select item-light">
-              <div class = "input-label">
-                Select
-              </div>
-              <select ng-model="linkTemplate.topic" disabled>
-                <option value="" disabled selected>Topic</option>
-                <option ng-repeat="topic in topics" value="{{topic._id}}">{{topic.name}}</option>
-              </select>
-            </label>
-          </div> -->
         </div>
         <table class="table adminTemplateList">
           <tbody>

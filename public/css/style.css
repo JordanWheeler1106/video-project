@@ -3810,13 +3810,15 @@ CANVAS {
 .side-menu .item.side-nav-clicked {
 	background: rgb(207,229,265);
 	color: #666 !important;
+	border-right:0;
 }
 .side-menu .item button.blue-button {
 	margin:0;
 	padding: 1px 7px;
 }
 .vital-forms {
-	background: rgb(242,249,250);
+	/* background-color: rgb(242,249,250); */
+	background-color: rgb(207,229,265);
 	color: #666;
 }
 
@@ -3837,7 +3839,7 @@ CANVAS {
 	margin-top: -13px;
 	display: block;
 	padding: 0 10px 0 1px;
-	background: rgb(242,249,250);
+	background: rgb(207,229,265);
 	float: left;
 }
 
@@ -3986,4 +3988,8 @@ button.blue-button {
 	font-size: 16px;
 	color: #387ef5;
 	cursor: pointer;
+}
+
+input[disabled], select[disabled], textarea[disabled], input[readonly]:not(.cloned-text-input), textarea[readonly]:not(.cloned-text-input), select[readonly] {
+	background: transparent;
 }

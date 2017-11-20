@@ -133,7 +133,6 @@
             </div>
           </div>
         </div>
-
       </div>
 
       <div class="col" ng-show="toggleView=='templateList' && view != 'archive'" style="padding-top:50px;">
@@ -146,7 +145,7 @@
         <div class="list" ng-show="topic.name || topic.new">
           <h4>Create Topic</h4>
           <label class="item item-input">
-            <input type="text" placeholder="Enter Topic" name="name" ng-model="topic.name">
+            <input type="text" placeholder="Enter Topic" name="name" ng-model="topic.name" ng-readonly="topic.name=='Unassigned'">
           </label>
           <br>
           <h4>Select Color</h4>

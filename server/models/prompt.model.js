@@ -3,9 +3,11 @@ var Schema = mongoose.Schema;
 
 // create a schema
 var promptSchema = new Schema({
-    text: {
-        type: String,
-        required: true
+    name: String,
+    string: String,
+    createdAt: {
+        type: Date,
+        default: Date.now
     },
     folder: {
         type: Schema.Types.ObjectId,

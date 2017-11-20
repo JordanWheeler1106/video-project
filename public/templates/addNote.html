@@ -1,5 +1,5 @@
 <ion-pane>
-  <ion-content>
+  <ion-content scroll="false" style="overflow: auto;">
     <div class="bar bar-header bar-stable headerNav">
       <div class="nav">
         <!--<h1 class="title navHeading">the logo</h1>-->
@@ -53,14 +53,89 @@
       <div class="home1-tabs">
         <ul>
           <li><a href="javascript:" ng-click="openFilterTemplatePopover($event)" style="color: #387ef5">Show All <i class="ion-chevron-down"></i></a></li>
-          <li><a ui-sref = "home({view: 'sphere'})" ng-class="{'active': toggleView == 'sphere'}" ng-click="toggleView = 'sphere'">View as Sphere</a></li>
-          <li><a ui-sref = "home({view: 'list'})" ng-class="{'active': toggleView == 'list'}" ng-click="toggleView = 'list'">View as List</a></li>
+          <li><a ui-sref = "home({view: 'sphere'})" ng-class="{'active': toggleView == 'sphere'}" ng-click="toggleView = 'sphere'">Sphere</a></li>
+          <li><a ui-sref = "home({view: 'list'})" ng-class="{'active': toggleView == 'list'}" ng-click="toggleView = 'list'">List View</a></li>
+          <li><a ui-sref="WindowLibrary">Window Library</a></li>
           <!-- <li class="upgradeBtn"><button type="button">Upgrade Now</button></li> -->
         </ul>
       </div>
     </div>
 
     <div class="row rowPadding responsive-lg">
+      <div class="col firstRow" ng-show="view=='list'">
+        <div class="quoteleftBox">
+          <div class="tableLinks">
+            <div class="row">
+              <div class="col-60">
+                <span class="active">Notes</span>
+              </div>
+              <div class="col-40 item-add-wrapper">
+                <a ng-click="addNote($event)">
+                  <i class="ion-ios-plus-outline"></i>
+                  Add
+                </a>&nbsp;&nbsp;&nbsp;
+                <a href="javascript:" ng-click="clickNoteBack();" ng-show="isBack" style="text-decoration:none;">
+                  <i class="ion-ios-arrow-back"></i>
+                  Back to Template
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="quotes-list">
+            <div class="item item-input" ng-repeat="note in notes" style="height:auto;">
+              <div class="col-90">
+                <div ng-bind-html="note.validatedString"></div>
+              </div>
+              <div class="col-10">
+                <i class="fa fa-remove" ng-click="removeNote(note);"></i>
+                <i class="fa fa-pencil" ng-click="editNote(note);"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col firstRow" ng-show="view=='edit'">
+        <div class="quoteleftBox">
+          <div>
+            <div class="row">
+              <div class="col-80">
+                <span class="active">&nbsp;</span>
+              </div>
+              <div class="col-20 item-add-wrapper">
+                <a ng-click="updateNote($event)">
+                  Save
+                </a>&nbsp;&nbsp;&nbsp;
+                <a ng-click="cancelNote($event)">
+                  Back
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="quotes-list">
+            <div id="editor"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      $(function(){
+        $('#editor').froalaEditor({
+          placeholderText: 'Start you nugget!',
+          toolbarButtonsXS: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color'],
+          toolbarButtonsSM: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color'],
+          toolbarButtonsMD: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color'],
+          toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color'],
+          videoDefaultAlign: 'left',
+          imageDefaultAlign: 'left',
+          heightMin: 100
+        })
+      });
+    </script>
+
+
+    <!-- <div class="row rowPadding responsive-lg">
       <div class="col col-75 firstRow">
         <div class="quoteleftBox">
           <div class="list tag-search-wrapper">
@@ -101,39 +176,6 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </ion-content>
 </ion-pane>
-
-
-<!--<div class="row rowPadding responsive-lg">
-  <div class="col col-75 firstRow">
-    <div class="quoteleftBox">
-      <div class="tableLinks">
-        <span class="active">Prompts</span>
-      </div>
-      <div class="quotes-list">
-        <div class="item" ng-repeat="prompt in prompts">
-          {{prompt.text}}
-          <i class="ion-ios-close-outline" ng-click="removePrompt(prompt._id);"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="col">
-    <div class="rightContent">
-      <div class="list">
-
-        <a class="item item-icon-left listFirst" ng-click="addprompt($event)">
-          <i class="ion-ios-plus-outline"></i>
-          Add New Prompt
-        </a>
-
-        <label class="item item-input">
-          <input type="text" placeholder="New Prompt" name="name" ng-model="prompt.name">
-        </label>
-      </div>
-    </div>
-  </div>
-</div>-->

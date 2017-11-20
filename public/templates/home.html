@@ -54,8 +54,8 @@
       <div class="home1-tabs">
         <ul>
           <li><a href="javascript:" ng-click="openFilterTemplatePopover($event)" style="color: #edad1d">Show All <i class="ion-chevron-down"></i></a></li>
-          <li><a href="javascript:" class="toggleSphereView" ng-class="{'active': toggleView == 'sphere'}" ng-click="clickHomeView('sphere')">View as Sphere</a></li>
-          <li><a href="javascript:" class="toggleListView" ng-class="{'active': toggleView == 'list'}" ng-click="clickHomeView('list')">View as List</a></li>
+          <li><a href="javascript:" class="toggleSphereView" ng-class="{'active': toggleView == 'sphere'}" ng-click="clickHomeView('sphere')">Sphere</a></li>
+          <li><a href="javascript:" class="toggleListView" ng-class="{'active': toggleView == 'list'}" ng-click="clickHomeView('list')">List View</a></li>
           <li><a ui-sref="WindowLibrary">Window Library</a></li>
           <!-- <li class="upgradeBtn"><button type="button">Upgrade Now</button></li> -->
         </ul>
@@ -73,6 +73,75 @@
         </div>
         <div ng-show="toggleView == 'template'">
           <div ng-include="'../../templates/template.html'"></div>
+        </div>
+        <div class="leftBox" ng-show="toggleView == 'link'">
+          <div class="csv-download" ng-click="clickPromptBack();">
+            <a>
+              <i class="ion-ios-arrow-back"></i>
+              Back
+            </a>
+          </div>
+
+          <div class="row listItemsArea">
+            <div class="col col-50 firstRow">
+              <div class="row">
+                <h4 style="text-align:center; width:100%;">{{template.folders[0].name}}</h4>
+              </div>
+              <div class="row">
+                <div class="col col-30">&nbsp;</div>
+                <div class="col col-40" style="height: 58px;">&nbsp;
+                </div>
+                <div class="col col-30">&nbsp;</div>
+              </div>
+              <table class="table adminTemplateList">
+                <tbody>
+                <tr ng-repeat="folder in template.folders">
+                  <td ng-class="'padding'+folder.level">
+                    <label class="folderInput item item-input">
+                      <i class="icon placeholder-icon" ng-class="folder.type=='nugget'?'ion-4':'ion-'+folder.level"></i>
+                      <input type="text" ng-class="{'selected': folder==selectedFolder, 'linked': template.linkedItems.indexOf(folder._id)>-1}" placeholder="{{levelPlaceHolder[folder.level]}}" ng-model="folder.name" readonly>
+                    </label>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="col col-50">
+              <div class="row">
+                <h4 style="text-align:center; width:100%;">{{linkTemplate.folders[0].name}}</h4>
+              </div>
+              <div class="row">
+                <div class="col col-20">&nbsp;</div>
+                <div class="col col-60">
+                  <label class="item item-input item-select item-light">
+                    <div class = "input-label">
+                      Select Window
+                    </div>
+                    <select ng-model="linkTemplate" ng-options="item as item.name for item in myTemplates | filter:skipValues" ng-change="selectLinkTemplate(linkTemplate);">
+                      <option value="" disabled selected>Select Target Window</option>
+                    </select>
+                  </label>
+                </div>
+                <div class="col col-20">&nbsp;</div>
+              </div>
+              <table class="table adminTemplateList">
+                <tbody>
+                <tr ng-repeat="folder in linkTemplate.folders">
+                  <td ng-class="'padding'+folder.level">
+                    <label class="folderInput item item-input">
+                      <i class="icon placeholder-icon" ng-class="folder.type=='nugget'?'ion-4':'ion-'+folder.level"></i>
+                      <input type="text" ng-class="{'selected': folder==selectedFolder}" placeholder="{{levelPlaceHolder[folder.level]}}" ng-model="folder.name" readonly>
+                    </label>
+                  </td>
+                  <td style="width:30px;">
+                    <span ng-show="folder.level > 0 && selectedFolder.type==folder.type && selectedFolder.level==folder.level" ng-click="linkWindow(folder);">L</span>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
 

@@ -62,7 +62,7 @@
             <td ng-class="'padding'+folder.level">
               <label class="folderInput item item-input" ng-click="chooseFolder(folder);">
                 <i class="icon placeholder-icon" ng-class="folder.type=='nugget'?'ion-4':'ion-'+folder.level"></i>
-                <input type="text" ng-class="{'selected': folder==selectedFolder}" placeholder="{{levelPlaceHolder[folder.level]}}" ng-model="folder.name">
+                <input type="text" ng-class="{'selected': folder==selectedFolder, 'linked': template.linkedItems.indexOf(folder._id)>-1}" placeholder="{{levelPlaceHolder[folder.level]}}" ng-model="folder.name">
               </label>
             </td>
             <td style="width:50px;" ng-show="!template.userId || user._id==template.userId._id">
@@ -77,6 +77,11 @@
             <td style="width:30px;" ng-show="!template.userId || user._id==template.userId._id">
               <!-- <span ng-click="openAddPrompt(folder);">Pr</span> -->
               <span ng-click="openAddNote(folder);">Nt</span>
+              <!-- <span ng-hide="folder.level==4 || folder.type=='nugget'" ng-click="openAddPrompt(folder);">Pr</span>
+              <span ng-show="folder.type=='nugget'" ng-click="openAddNugget(folder);">E</span> -->
+            </td>
+            <td style="width:30px;" ng-show="!template.userId || user._id==template.userId._id">
+              <span ng-show="folder.level > 0" ng-click="openLinkWindow(folder);">L</span>
               <!-- <span ng-hide="folder.level==4 || folder.type=='nugget'" ng-click="openAddPrompt(folder);">Pr</span>
               <span ng-show="folder.type=='nugget'" ng-click="openAddNugget(folder);">E</span> -->
             </td>

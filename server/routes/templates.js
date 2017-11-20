@@ -18,6 +18,13 @@ router.get('/all', function(req, res, next) {
     });
 });
 
+router.post('/all', function(req, res, next) {
+    Template.find({'_id':{'$in':req.body.ids}}).populate('userId').populate('tags').populate('folders').populate('nuggets').exec(function (err, templates) {
+        if (err) return next(err);
+        res.json(templates);
+    });
+});
+
 router.get('/all/:id', function(req, res, next) {
     Template.find({userId: req.params.id}).populate('userId').populate('tags').populate('folders').populate('nuggets').exec(function (err, templates) {
         if (err) return next(err);

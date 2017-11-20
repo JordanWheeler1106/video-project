@@ -16,6 +16,12 @@
           <i class="ion-ios-close-outline" ng-click="removeTopic(topic._id)"></i>
         </div>
       </div>
+      <div class="row topicItem">
+        <div class="col col-80" ng-click="selectTopic('unassigned')" style="cursor:pointer;">
+          <span>Unassigned</span>
+        </div>
+        <div class="col col-20">&nbsp;</div>
+      </div>
     </div>
     <div class="rightAreaButton">
       <button type="button" class="saveBtn" ng-click="closeTopicPopup()">Close</button>

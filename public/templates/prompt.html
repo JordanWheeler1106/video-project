@@ -3,7 +3,7 @@
   <ul class="list">
     <li class="item headingList">Prompts <i class="ion-close-round" ng-click="sidebar.view = 3"></i></li>
       <li ng-repeat = "prompt in prompts" class="item">
-        {{prompt.text}}
+        <div ng-bind-html="prompt.validatedString"></div>
       </li>
     </ul>
   </div>

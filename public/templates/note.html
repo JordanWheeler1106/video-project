@@ -3,7 +3,7 @@
   <ul class="list">
     <li class="item headingList">Notes <i class="ion-close-round" ng-click="sidebar.view = 3"></i></li>
       <li ng-repeat = "note in notes" class="item">
-        {{note.text}}
+        <div ng-bind-html="note.validatedString"></div>
       </li>
     </ul>
   </div>

@@ -53,6 +53,7 @@ var userSchema = new Schema({
     },
     archivedTemplates: [String],
     copiedTemplates: [String],
+    unassignedColor: String,
     stripeCustomerId: String,
     stripePlanId: String,
     stripeSubscriptionId: String,

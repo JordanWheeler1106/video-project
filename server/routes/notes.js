@@ -11,19 +11,8 @@ router.post('/batch', function(req, res, next) {
 });
 
 router.post('/', function(req, res){
-    var id = req.body.id;
-    var text = req.body.text;
-    if(!id || id == null){
-        return res.sendStatus(400);
-    }
-    var note = {
-        text: text,
-        folder: id
-    }
-    Note.create(note, function(err, note){
-        if(err){
-            return res.sendStatus(500);
-        }
+    Note.create(req.body, function(err, note){
+        if (err) return next(err);
         res.send(note);
     })
 });
@@ -34,14 +23,18 @@ router.get('/all/:id', function(req, res){
         return res.send([]);
     }
     Note.find({folder: id}, function(err, notes){
-        if(err){
-            return res.status(404).json({message: "not found"});
-        }
-        else{
-            res.send(notes);
-        }
+        if (err) return next(err);
+        res.send(notes);
     })
 })
+
+router.put('/:id', function(req, res, next) {
+    if(req.body._id) delete req.body._id;
+    Note.findByIdAndUpdate(req.params.id, req.body, {new : true}, function (err, note) {
+        if (err) return next(err);
+        res.json(note);
+    });
+});
 
 router.post('/getAll', function(req, res){
     var ids = req.body.ids;

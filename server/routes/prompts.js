@@ -18,21 +18,10 @@ router.post('/batch', function(req, res, next) {
 });
 
 router.post('/', function(req, res){
-    var id = req.body.id;
-    var text = req.body.text;
-    if(!id || id == null){
-        return res.sendStatus(400);
-    }
-    var prompt = {
-        text: text,
-        folder: id
-    }
-    Prompt.create(prompt, function(err, prompt){
-        if(err){
-            return res.sendStatus(500);
-        }
-        res.send(prompt);
-    })
+  Prompt.create(req.body, function(err, prompt){
+      if (err) return next(err);
+      res.send(prompt);
+  })
 });
 
 router.get('/all/:id', function(req, res){
@@ -61,6 +50,14 @@ router.post('/getAll', function(req, res){
         }
     })
 })
+
+router.put('/:id', function(req, res, next) {
+    if(req.body._id) delete req.body._id;
+    Prompt.findByIdAndUpdate(req.params.id, req.body, {new : true}, function (err, prompt) {
+        if (err) return next(err);
+        res.json(prompt);
+    });
+});
 
 router.delete('/:id', function(req, res){
     var id = req.params.id;
