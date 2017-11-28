@@ -15,6 +15,14 @@ var stripe = require('stripe')('sk_test_5OkzLmaV7pKtbBpokhXYO8mX');
 var path = require('path');
 var EmailTemplate = require('email-templates').EmailTemplate;
 
+var Recurly = require('node-recurly');
+var recurly = new Recurly({
+  API_KEY: '7128c6ed6461437abeb00909573756e5',
+	SUBDOMAIN:    'ththehumanexperience',
+	ENVIRONMENT:  'sandbox',
+	DEBUG: false
+});
+
 //TODO create auth middleware for checking authorizations.
 
 /* GET ALL UserS */
@@ -95,86 +103,127 @@ router.put('/changeStatus', function(req, res){
 })
 
 router.post('/getAllPlans', function(req, res, next) {
-    stripe.plans.list(
-      { limit: 10 },
-      function(err, plans) {
-        // asynchronously called
-        if (err) return next(err);
-        res.json(plans);
-      }
-    );
+    recurly.plans.list({}, function(err, plans) {
+      if (err) return next(err);
+      res.json(plans);
+    })
+    // stripe.plans.list(
+    //   { limit: 10 },
+    //   function(err, plans) {
+    //     // asynchronously called
+    //     if (err) return next(err);
+    //     res.json(plans);
+    //   }
+    // );
 });
 
 router.get('/deletePlan/:id', function(req, res, next) {
-    stripe.plans.del(
-      req.params.id,
-      function(err, confirmation) {
-        // asynchronously called
-        if (err) return next(err);
-        res.json({result: true});
-      }
-    );
+    recurly.plans.remove(req.params.id, function(err, confirm) {
+      if (err) return next(err);
+      res.json({result: true});
+    })
+    // stripe.plans.del(
+    //   req.params.id,
+    //   function(err, confirmation) {
+    //     // asynchronously called
+    //     if (err) return next(err);
+    //     res.json({result: true});
+    //   }
+    // );
 });
 
 router.put('/updatePlan', function(req, res, next) {
     var updatedPlan = {
-      name: req.body.name
+      plan_code: req.body.name
     }
-    stripe.plans.update(
-      req.body.id, updatedPlan,
-      function(err, confirmation) {
-        // asynchronously called
-        if (err) return next(err);
-        res.json({result: true});
-      }
-    );
+    recurly.plans.update(req.body.id, updatedPlan, function(err, confirm) {
+      if (err) return next(err);
+      res.json({result: true});
+    })
+    // stripe.plans.update(
+    //   req.body.id, updatedPlan,
+    //   function(err, confirmation) {
+    //     // asynchronously called
+    //     if (err) return next(err);
+    //     res.json({result: true});
+    //   }
+    // );
 });
 
 router.post('/addPlan', function(req, res, next) {
     var plan = {
-      amount: req.body.price * 100,
-      interval: "month",
+      unit_amount_in_cents: [{'USD': req.body.price * 100}],
+      plan_code: req.body.name,
       name: req.body.name,
-      currency: "usd",
-      id: req.body.name,
-      statement_descriptor: req.body.description
+      description: req.body.description
     }
-    stripe.plans.create(
-      plan,
-      function(err, plan) {
-        // asynchronously called
-        if (err) return next(err);
-        res.json({result: true});
-      }
-    );
+    recurly.plans.create(plan, function(err, confirm) {
+      if (err) return next(err);
+      res.json({result: true});
+    })
+    // stripe.plans.create(
+    //   plan,
+    //   function(err, plan) {
+    //     // asynchronously called
+    //     if (err) return next(err);
+    //     res.json({result: true});
+    //   }
+    // );
 });
 
 router.post('/getCustomer', function(req, res, next) {
-    stripe.customers.retrieve(
-      req.body.customerId,
-      function(err, customer) {
-        // asynchronously called
-        if (err) return next(err);
-        res.json(customer);
-      }
-    );
+    recurly.accounts.get(req.body.customerId, function(err, account) {
+      if (err) return next(err);
+      recurly.billingInfo.get(req.body.customerId, function(err, billingInfo) {
+        if (err) { billingInfo = { data: { billing_info: null }} }
+        recurly.subscriptions.listByAccount(req.body.customerId, {}, function(err, subscriptions) {
+          if (err) return next(err);
+          res.json({account: account.data.account, billingInfo: billingInfo.data.billing_info, subscriptions: subscriptions.data.subscriptions});
+        })
+      })
+    })
+    // stripe.customers.retrieve(
+    //   req.body.customerId,
+    //   function(err, customer) {
+    //     // asynchronously called
+    //     if (err) return next(err);
+    //     res.json(customer);
+    //   }
+    // );
 });
 
 router.post('/changeCard', function(req, res, next) {
   if(req.body.cardId==0) {
-    stripe.customers.createSource(req.body.customerId, {
-      source: {
-         object: 'card',
-         name: req.body.card.name,
-         exp_month: req.body.card.month,
-         exp_year: req.body.card.year,
-         number: req.body.card.number,
-         cvc: req.body.card.cvc
-      }
+    recurly.billingInfo.create(req.body.customerId, {
+      first_name: req.body.card.first_name,
+      last_name: req.body.card.last_name,
+      number: req.body.card.number,
+      month: req.body.card.month,
+      year: req.body.card.year,
+      address1: req.body.card.address,
+      city: req.body.card.state,
+      state: req.body.card.state,
+      country: req.body.card.country,
+      zip: req.body.card.zipcode,
+      verification_value: req.body.card.cvc
     }, function(err, card) {
+      console.log(JSON.stringify(err));
       if (err) return next(err);
       res.json(card);
-    });
+    })
+    // stripe.customers.createSource(req.body.customerId, {
+    //   source: {
+    //      object: 'card',
+    //      name: req.body.card.name,
+    //      exp_month: req.body.card.month,
+    //      exp_year: req.body.card.year,
+    //      number: req.body.card.number,
+    //      cvc: req.body.card.cvc
+    //   }
+    // }, function(err, card) {
+    //   if (err) return next(err);
+    //   res.json(card);
+    // });
   } else {
     stripe.customers.deleteCard(req.body.customerId, req.body.cardId,
       function(err, confirmation) {
@@ -199,36 +248,106 @@ router.post('/changeCard', function(req, res, next) {
 });
 
 router.post('/cancelPlan', function(req, res, next) {
-  stripe.subscriptions.del(
-    req.body.subscriptionId,
-    function(err, confirmation) {
-      // asynchronously called
-      if (err) return next(err);
-      res.json(confirmation);
-    }
-  );
+  recurly.subscriptions.cancel(req.body.subscriptionId, function(err, confirm) {
+    if (err) return next(err);
+    res.json(confirm);
+  })
+  // stripe.subscriptions.del(
+  //   req.body.subscriptionId,
+  //   function(err, confirmation) {
+  //     // asynchronously called
+  //     if (err) return next(err);
+  //     res.json(confirmation);
+  //   }
+  // );
 });
+
+router.post('/reactivatePlan', function(req, res, next) {
+  recurly.subscriptions.reactivate(req.body.subscriptionId, function(err, confirm) {
+    if (err) return next(err);
+    res.json(confirm);
+  })
+  // stripe.subscriptions.del(
+  //   req.body.subscriptionId,
+  //   function(err, confirmation) {
+  //     // asynchronously called
+  //     if (err) return next(err);
+  //     res.json(confirmation);
+  //   }
+  // );
+});
+
 
 router.post('/changePlan', function(req, res, next) {
     if(req.body.subscriptionId) {
-      stripe.subscriptions.update(
-        req.body.subscriptionId,
-        { plan: req.body.planId },
-        function(err, subscription) {
+      recurly.subscriptions.cancel(req.body.subscriptionId, function(err, confirm) {
+        if (err) return next(err);
+        recurly.subscriptions.create({
+          plan_code: req.body.planId,
+          account: {
+            account_code: req.body.customerId,
+            billing_info: {
+              first_name: req.body.billingInfo.first_name,
+              last_name: req.body.billingInfo.last_name,
+              number: req.body.billingInfo.number,
+              month: req.body.billingInfo.month,
+              year: req.body.billingInfo.year,
+              address1: req.body.billingInfo.address,
+              city: req.body.billingInfo.city,
+              state: req.body.billingInfo.state,
+              country: req.body.billingInfo.country,
+              zip: req.body.billingInfo.zipcode,
+              verification_value: req.body.billingInfo.cvc,
+            }
+          },
+          currency: 'USD'
+        }, function(err, subscription) {
           if (err) return next(err);
           res.json(subscription);
-        }
-      );
+        })
+      })
+      // stripe.subscriptions.update(
+      //   req.body.subscriptionId,
+      //   { plan: req.body.planId },
+      //   function(err, subscription) {
+      //     if (err) return next(err);
+      //     res.json(subscription);
+      //   }
+      // );
     } else {
-      stripe.subscriptions.create({
-        customer: req.body.customerId,
-        plan: req.body.planId
+      recurly.subscriptions.create({
+        plan_code: req.body.planId,
+        account: {
+          account_code: req.body.customerId,
+          billing_info: {
+            first_name: req.body.billingInfo.first_name,
+            last_name: req.body.billingInfo.last_name,
+            number: req.body.billingInfo.number,
+            month: req.body.billingInfo.month,
+            year: req.body.billingInfo.year,
+            address1: req.body.billingInfo.address,
+            city: req.body.billingInfo.city,
+            state: req.body.billingInfo.state,
+            country: req.body.billingInfo.country,
+            zip: req.body.billingInfo.zipcode,
+            verification_value: req.body.billingInfo.cvc,
+          }
+        },
+        currency: 'USD'
       }, function(err, subscription) {
-          // asynchronously called
-          if (err) return next(err);
-          res.json(subscription);
-        }
-      );
+        console.log(JSON.stringify(err));
+        if (err) return next(err);
+        res.json(subscription);
+      })
+      // stripe.subscriptions.create({
+      //   customer: req.body.customerId,
+      //   plan: req.body.planId
+      // }, function(err, subscription) {
+      //     // asynchronously called
+      //     if (err) return next(err);
+      //     res.json(subscription);
+      //   }
+      // );
     }
 })
 
@@ -260,52 +379,57 @@ router.post('/uploadPhoto', function(req, res) {
 /* SAVE User */
 router.post('/', function(req, res, next) {
     var newUser = new User(req.body);
-    stripe.customers.create(
-      { email: req.body.email },
-      function(err, customer) {
-        if(err)
-            return res.status(400).send({message: 'something went wrong.'});
-        else {
-            newUser.stripeCustomerId = customer.id;
-            newUser.save(function(err, user) {
-                if (err) {
-                    return res.status(400).send({message: 'something went wrong.'});
-                }
-                //generate token for next 10 hours.
-                var templatesDir = path.resolve(__dirname, '../../public/templates/email');
-                var template = new EmailTemplate(path.join(templatesDir, 'register'));
-                template.render({}, function(err, tmp) {
-                    if(err) {
-                      return console.error(err);
-                    }
-                    var ses = new aws.SES({apiVersion: '2010-12-01'});
+    recurly.accounts.create({
+      account_code: req.body.email,
+      email: req.body.email
+    }, function(err, customer) {
+      if(err)
+          return res.status(400).send({message: 'something went wrong.'});
+      else {
+          newUser.save(function(err, user) {
+              if (err) {
+                  return res.status(400).send({message: 'something went wrong.'});
+              }
+              //generate token for next 10 hours.
+              var templatesDir = path.resolve(__dirname, '../../public/templates/email');
+              var template = new EmailTemplate(path.join(templatesDir, 'register'));
+              template.render({}, function(err, tmp) {
+                  if(err) {
+                    return console.error(err);
+                  }
+                  var ses = new aws.SES({apiVersion: '2010-12-01'});
 
-                    // this sends the email
-                    // @todo - add HTML version
-                    ses.sendEmail( {
-                       Source: "The Human Experience <admin@thehumanexperience.info>",
-                       Destination: { ToAddresses: [user.email] },
-                       Message: {
-                           Subject: {
-                              Data: 'Welcome to The Human Experience'
-                           },
-                           Body: {
-                               Html: {
-                                   Data: tmp.html,
-                               }
-                            }
-                       }
-                    }
-                    , function(err, data) {
-                        if(err) throw err
-                        var token = jwt.sign({_id: user._id }, 'human_exp', { expiresIn: "10h" });
-                        res.json({token: token});
-                     });
-                });
-            });
-        }
+                  // this sends the email
+                  // @todo - add HTML version
+                  ses.sendEmail( {
+                     Source: "The Human Experience <admin@thehumanexperience.info>",
+                     Destination: { ToAddresses: [user.email] },
+                     Message: {
+                         Subject: {
+                            Data: 'Welcome to The Human Experience'
+                         },
+                         Body: {
+                             Html: {
+                                 Data: tmp.html,
+                             }
+                          }
+                     }
+                  }
+                  , function(err, data) {
+                      if(err) throw err
+                      var token = jwt.sign({_id: user._id }, 'human_exp', { expiresIn: "10h" });
+                      res.json({token: token});
+                   });
+              });
+          });
       }
-    );
+    })
+    // stripe.customers.create(
+    //   { email: req.body.email },
+    //   function(err, customer) {
+    //
+    //   }
+    // );
 });
 
 router.post('/login', function(req, res, next) {

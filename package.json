@@ -12,6 +12,7 @@
     "express": "~4.0.0",
     "jsonwebtoken": "^7.4.1",
     "mongoose": "^4.10.4",
+    "node-recurly": "git+https://github.com/cgerrior/node-recurly.git",
     "node-uuid": "^1.4.8",
     "nodemailer": "^4.0.1",
     "stripe": "^4.23.0"

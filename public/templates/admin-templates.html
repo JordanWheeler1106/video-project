@@ -340,8 +340,27 @@
             </div>
           </div>
         </div>
-        <div class="quotes-list">
-          <div class="item item-input" ng-repeat="prompt in prompts" style="height:auto;">
+        <ul class="quotes-list dragdroplist"
+            dnd-list="prompts" style="list-style:none;">
+            <li class="item item-input"
+                ng-repeat="prompt in prompts | orderBy: 'order'"
+                dnd-draggable="prompt"
+                dnd-moved="prompts.splice($index, 1)"
+                dnd-effect-allowed="move"
+                dnd-dragend="onDragend(prompt, $index, event)" style="height: auto; border-color: #ddd !important;">
+                <div class="col-90">
+                  <div ng-bind-html="prompt.validatedString"></div>
+                </div>
+                <div class="col-10">
+                  <i class="fa fa-remove" ng-click="removePrompt(prompt._id);"></i>
+                  <i class="fa fa-pencil" ng-click="editPrompt(prompt);"></i>
+                </div>
+            </li>
+        </ul>
+
+        <!-- <div class="quotes-list">
+
+          <div class="item item-input" ng-repeat="prompt in prompts | orderBy: 'order'" style="height:auto;">
             <div class="col-90">
               <div ng-bind-html="prompt.validatedString"></div>
             </div>
@@ -350,7 +369,7 @@
               <i class="fa fa-pencil" ng-click="editPrompt(prompt);"></i>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
 
       <div class="col firstRow" ng-show="promptView=='edit'">

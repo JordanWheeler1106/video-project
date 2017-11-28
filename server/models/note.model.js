@@ -5,6 +5,7 @@ var Schema = mongoose.Schema;
 var noteSchema = new Schema({
     name: String,
     string: String,
+    order: Number,
     createdAt: {
         type: Date,
         default: Date.now

@@ -17,6 +17,13 @@ router.post('/batch', function(req, res, next) {
     })
 });
 
+router.post('/batch/delete', function(req, res, next) {
+    Prompt.remove({'_id':{'$in':req.body.prompts}}, function(err, prompts) {
+      if (err) return next(err);
+      res.json(prompts);
+    });
+});
+
 router.post('/', function(req, res){
   Prompt.create(req.body, function(err, prompt){
       if (err) return next(err);

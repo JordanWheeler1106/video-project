@@ -1,7 +1,7 @@
 <ion-pane>
   <!-- <ion-content on-scroll="getScrollPosition()" delegate-handle="adminScroll"> -->
   <ion-content id="windowView" scroll="false" style="overflow: auto;">
-    <div class="bar bar-header bar-stable headerNav" style="position: relative; height: 99px; border: none;">
+    <div class="bar bar-header bar-stable headerNav">
       <div class="nav">
         <!--<h1 class="title navHeading">the logo</h1>-->
         <a ui-sref="home"><img src="img/logo.png" class="logo" alt=""/></a>
@@ -49,6 +49,15 @@
 
         <!--<h6>Share Your Story</h6>-->
         <!--<h5><a href="javascript:">Sign In or Sign Up</a></h5>-->
+      </div>
+      <div class="home1-tabs">
+        <ul>
+          <li><a href="javascript:" ng-click="openFilterTemplatePopover($event)" style="color: #edad1d">Show All <i class="ion-chevron-down"></i></a></li>
+          <li><a ui-sref = "home({view: 'sphere'})" ng-class="{'active': toggleView == 'sphere'}" ng-click="toggleView = 'sphere'">Sphere</a></li>
+          <li><a ui-sref = "home({view: 'list'})" ng-class="{'active': toggleView == 'list'}" ng-click="toggleView = 'list'">List View</a></li>
+          <li><a href="javascript:" class="active">Window Library</a></li>
+          <!-- <li class="upgradeBtn"><button type="button">Upgrade Now</button></li> -->
+        </ul>
       </div>
       <!--///////////////////////// Mobile Version Nav ///////////////////////////////////-->
     </div>

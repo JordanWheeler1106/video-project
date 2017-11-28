@@ -34,7 +34,7 @@ app.config(function ($stateProvider) {
             templateUrl: '../templates/newPassword.html',
             controller: 'newPasswordCtrl',
             cache: false
-        })        
+        })
         // .state('home', {
         //   url:'/home',
         //   templateUrl:'../templates/home.html',
@@ -166,17 +166,20 @@ app.config(function ($stateProvider) {
         .state('admin.stats', {
             url: '/stats',
             templateUrl: '../templates/admin-stats.html',
-            controller: 'adminStatsCtrl'
+            controller: 'adminStatsCtrl',
+            cache: false
         })
         .state('admin.sphere', {
             url: '/sphere',
             templateUrl: '../templates/admin-sphere.html',
-            controller: 'adminSphereCtrl'
+            controller: 'adminSphereCtrl',
+            cache: false
         })
         .state('WindowLibrary', {
             url: '/window',
             templateUrl: '../templates/window.html',
             controller: 'windowCtrl',
+            cache: false
         })
         .state('VitalInfo', {
             url: '/vital-info',

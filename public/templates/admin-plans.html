@@ -12,8 +12,8 @@
         </thead>
         <tbody>
           <tr ng-repeat="plan in plans track by $index">
-            <td>{{plan.name}}</td>
-            <td>${{plan.amount / 100}}</td>
+            <td style="text-transform: capitalize;">{{plan.plan_code}}</td>
+            <td>${{plan.unit_amount_in_cents.USD._ / 100}}</td>
             <td>({{plan.users}})</td>
             <td><i class="ion-ios-gear-outline settingIcon" ng-click="openSettingPopover($event, $index)"></i></td>
           </tr>
@@ -22,15 +22,15 @@
     </div>
   </div>
 
-  <div class="col">    
+  <div class="col">
     <div class="rightContent">
       <div class="list">
-        
+
         <a class="item item-icon-left listFirst" ng-click="addPlan($event)">
           <i class="ion-ios-plus-outline"></i>
           Add Plan
         </a>
-        
+
         <div class="row">
           <div class="col col-60">
             <label class="item item-input">

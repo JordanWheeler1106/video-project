@@ -520,7 +520,8 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
         $ionicLoading.show();
         $http.post('/api/users/getAllPlans', {})
             .then( function(plans){
-              $scope.plans = plans.data.data;
+              // $scope.plans = plans.data.data;
+              $scope.plans = plans.data.data.plans.plan;
               $scope.getCustomer();
               $scope.getCharges();
             })
@@ -534,9 +535,23 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
       }
 
       $scope.getCustomer = function() {
-        $http.post('/api/users/getCustomer', {customerId: $scope.user.stripeCustomerId})
+        $http.post('/api/users/getCustomer', {customerId: $scope.user.email})
             .then( function(customer){
               $scope.customer = customer.data;
+              if($scope.customer.subscriptions.subscription && $scope.customer.subscriptions.subscription instanceof Array) {
+                for(var i = 0; i < $scope.customer.subscriptions.subscription.length; i++)
+                  if($scope.customer.subscriptions.subscription[i].state == "active")
+                    break;
+                $scope.customer.subscription = $scope.customer.subscriptions.subscription[i];
+              } else {
+                $scope.customer.subscription = $scope.customer.subscriptions.subscription;
+              }
+              for(var i = 0; i < $scope.plans.length; i++)
+                if($scope.plans[i].plan_code == $scope.customer.subscription.plan.plan_code) {
+                  $scope.customer.plan = $scope.plans[i];
+                  break;
+                }
+              console.log($scope.customer);
               $ionicLoading.hide();
             })
             .catch( function(err){
@@ -561,11 +576,11 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
           $scope.user.cancelPlan = true;
           $scope.user.status="suspend";
           $ionicLoading.show();
-          if($scope.user.stripeSubscriptionId) {
-            $http.post('/api/users/cancelPlan', {subscriptionId: $scope.user.stripeSubscriptionId})
+          if($scope.user.recurlySubscriptionId) {
+            $http.post('/api/users/cancelPlan', {subscriptionId: $scope.user.recurlySubscriptionId})
                 .then( function(res){
-                  $scope.user.stripePlanId = "";
-                  $scope.user.stripeSubscriptionId = "";
+                  $scope.user.recurlyPlanId = "";
+                  $scope.user.recurlySubscriptionId = "";
                   $scope.updateUser();
                 })
                 .catch( function(err){
@@ -595,33 +610,90 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
         };
 
         $scope.savePlan = function() {
-          if($scope.user.stripePlanId) {
+          if($scope.user.recurlyPlanId) {
               $ionicLoading.show();
               $scope.user.cancelPlan = false;
               $scope.user.status="active";
-              $http.post('/api/users/changePlan', {customerId: $scope.user.stripeCustomerId, planId: $scope.user.stripePlanId, subscriptionId: $scope.user.stripeSubscriptionId})
-                  .then( function(res){
-                    popup.close();
-                    $scope.user.stripeSubscriptionId = res.data.id;
-                    $scope.updateUser();
-                    $scope.getCustomer();
-                  })
-                  .catch( function(err){
-                    $ionicLoading.hide();
-                    alert("You have to add the payment source first!")
-                    console.log("err", err);
-                  })
+              if($scope.customer.subscriptions.subscription && $scope.customer.subscriptions.subscription instanceof Array) {
+                var flag = false;
+                for(var i = 0; i < $scope.customer.subscriptions.subscription.length; i++)
+                  if($scope.customer.subscriptions.subscription[i].plan.plan_code == $scope.user.recurlyPlanId) {
+                    flag = true;
+                    break;
+                  }
+                if(flag) {
+                  if($scope.user.recurlySubscriptionId) {
+                    $http.post('/api/users/cancelPlan', {subscriptionId: $scope.user.recurlySubscriptionId})
+                        .then( function(res){
+                          $http.post('/api/users/reactivatePlan', {subscriptionId: $scope.customer.subscriptions.subscription[i].uuid})
+                              .then( function(res){
+                                popup.close();
+                                $scope.user.recurlySubscriptionId = res.data.data.subscription.uuid;
+                                $scope.updateUser();
+                                $scope.getCustomer();
+                              })
+                              .catch( function(err){
+                                $ionicLoading.hide();
+                                alert("You have to add the payment source first!")
+                                console.log("err", err);
+                              })
+                        })
+                        .catch( function(err){
+                          console.log("err", err);
+                        })
+                  } else {
+                    $http.post('/api/users/reactivatePlan', {subscriptionId: $scope.customer.subscriptions.subscription[i].uuid})
+                        .then( function(res){
+                          popup.close();
+                          $scope.user.recurlySubscriptionId = res.data.data.subscription.uuid;
+                          $scope.updateUser();
+                          $scope.getCustomer();
+                        })
+                        .catch( function(err){
+                          $ionicLoading.hide();
+                          alert("You have to add the payment source first!")
+                          console.log("err", err);
+                        })
+                  }
+                } else {
+                  $http.post('/api/users/changePlan', {customerId: $scope.user.email, billingInfo: $scope.user.billingInfo, planId: $scope.user.recurlyPlanId, subscriptionId: $scope.user.recurlySubscriptionId})
+                      .then( function(res){
+                        popup.close();
+                        $scope.user.recurlySubscriptionId = res.data.data.subscription.uuid;
+                        $scope.updateUser();
+                        $scope.getCustomer();
+                      })
+                      .catch( function(err){
+                        $ionicLoading.hide();
+                        alert("You have to add the payment source first!")
+                        console.log("err", err);
+                      })
+                }
+              } else {
+                $http.post('/api/users/changePlan', {customerId: $scope.user.email, billingInfo: $scope.user.billingInfo, planId: $scope.user.recurlyPlanId, subscriptionId: $scope.user.recurlySubscriptionId})
+                    .then( function(res){
+                      popup.close();
+                      $scope.user.recurlySubscriptionId = res.data.data.subscription.uuid;
+                      $scope.updateUser();
+                      $scope.getCustomer();
+                    })
+                    .catch( function(err){
+                      $ionicLoading.hide();
+                      alert("You have to add the payment source first!")
+                      console.log("err", err);
+                    })
+              }
           }
         }
       }
 
       $scope.clickChangeCard = function() {
-        var title= $scope.customer.sources.data.length>0?'Change Card':'Add Card'
+        // var title= $scope.customer.sources.data.length>0?'Change Card':'Add Card'
         $scope.card = {};
         var popup = $ionicPopup.show({
           cssClass: 'invite-new-member-popup',
           templateUrl: '../templates/changeCardPopup.html',
-          title: title,
+          title: 'Add Card',
           scope: $scope
         });
 
@@ -634,15 +706,20 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
         };
 
         $scope.saveCard = function(form) {
-          if(form.$valid && $scope.card.number && $scope.card.cvc && $scope.card.name && $scope.card.month && $scope.card.year){
+          if(form.$valid && $scope.card.number && $scope.card.first_name && $scope.card.cvc &&
+            $scope.card.last_name && $scope.card.month && $scope.card.year && $scope.card.address &&
+            $scope.card.city && $scope.card.state && $scope.card.country && $scope.card.zipcode){
             //hit api with login data.
 
             $ionicLoading.show();
-            var cardId = $scope.customer.sources.data.length>0 ? $scope.customer.sources.data[0].id: 0
-            $http.post('/api/users/changeCard/', {customerId: $scope.user.stripeCustomerId, cardId: cardId, card: $scope.card})
+            // var cardId = $scope.customer.sources.data.length>0 ? $scope.customer.sources.data[0].id: 0
+            var cardId = 0;
+            $http.post('/api/users/changeCard/', {customerId: $scope.user.email, cardId: cardId, card: $scope.card})
                 .then(function(res){
                   popup.close();
                   $scope.getCustomer();
+                  $scope.user.billingInfo = $scope.card;
+                  $scope.updateUser();
                   $ionicLoading.hide();
                 })
                 .catch( function(err){
@@ -2916,11 +2993,12 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
     $scope.showWindowOutline = function($event, folder) {
       if($scope.listPosition.folderPath.length > 1)
         folder = $scope.listPosition.folderPath[1];
+
       $scope.template = {
         _id: "copied-template",
         userId: $scope.user,
         name: folder.name,
-        topic: folder.topic,
+        topic: folder.topic._id,
         description: '',
         folders: $scope.getWindowOutline(folder),
         nuggets: [],
@@ -3027,11 +3105,11 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
     $scope.getAllPlan = function() {
       $http.post('/api/users/getAllPlans', {})
           .then( function(plans){
-            $scope.plans = plans.data.data;
+            $scope.plans = plans.data.data.plans.plan;
             for(var i = 0; i < $scope.plans.length; i++) {
               var count = 0;
               for(var j = 0; j < $scope.users.length; j++) {
-                if($scope.plans[i].id == $scope.users[j].stripePlanId)
+                if($scope.plans[i].plan_code == $scope.users[j].recurlyPlanId)
                   count++;
               }
               $scope.plans[i].users = count;
@@ -3062,7 +3140,7 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
     $scope.deletePlan = function(index) {
       $scope.settingPopover.hide();
       $ionicLoading.show();
-      $http.get('/api/users/deletePlan/'+ $scope.plans[index].id)
+      $http.get('/api/users/deletePlan/'+ $scope.plans[index].plan_code)
           .then( function(res, err){
             $scope.getAllPlan();
             $scope.plan = {};
@@ -3076,7 +3154,7 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
     $scope.editPlan = function(index) {
       $scope.settingPopover.hide();
       $scope.plan = {
-        name: $scope.plans[index].name
+        name: $scope.plans[index].plan_code
       };
       var updatePlan = $ionicPopup.show({
        template: `<input type="text" placeholder="Plan Name" ng-model="plan.name">`,
@@ -3093,7 +3171,7 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
                e.preventDefault();
              } else {
                $ionicLoading.show();
-               $scope.plan.id = $scope.plans[index].id;
+               $scope.plan.id = $scope.plans[index].plan_code;
                $http.put('/api/users/updatePlan/', $scope.plan)
                    .then( function(res){
                      $scope.getAllPlan();
@@ -3795,13 +3873,36 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
     }
 
     $scope.addPrompt = function() {
-      $scope.prompt = {name:"", validatedString:"", string:""};
+      $scope.prompt = {name:"", validatedString:"", string:"", order: $scope.prompts.length + 1};
       $('div#editor1').froalaEditor('html.set', $scope.prompt.name);
       $scope.promptView = 'edit';
     }
 
     $scope.cancelPrompt = function() {
       $scope.promptView = 'list';
+    }
+
+    $scope.onDragend = function(prompt, $index, event) {
+      var prompts = [];
+      for(var i = 0; i < $scope.prompts.length; i++) {
+          $scope.prompts[i].validatedString = $sce.trustAsHtml($scope.prompts[i].name);
+          $scope.prompts[i].order = i + 1;
+          prompts.push($scope.prompts[i]._id);
+      }
+      $ionicLoading.show();
+      $http.post('/api/prompts/batch/delete', {prompts: prompts})
+          .then(function(res){
+            $http.post('/api/prompts/batch', {prompts: $scope.prompts})
+                .then(function(res){
+                  $ionicLoading.hide();
+                })
+                .catch( function(err){
+                  $ionicLoading.hide();
+                })
+          })
+          .catch( function(err){
+            $ionicLoading.hide();
+          })
     }
 
     $scope.getPrompts = function(){
@@ -4404,7 +4505,7 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
     $scope.getAllPlan = function() {
       $http.post('/api/users/getAllPlans', {})
           .then( function(plans){
-            $scope.plans = plans.data.data;
+            $scope.plans = plans.data.data.plans.plan;
             $scope.generateReport();
             $ionicLoading.hide();
           })

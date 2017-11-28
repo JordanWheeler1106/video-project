@@ -2,9 +2,9 @@
 <ion-scroll zooming="true" direction="y" style="height: 300px">
   <div class="listItemsArea">
     <div class="list">
-      <ion-radio ng-repeat="plan in plans" ng-value="plan.id" ng-model="user.stripePlanId">
-        <span>{{plan.name}}</span>
-        <span>${{plan.amount / 100}}/{{plan.interval}}</span>
+      <ion-radio ng-repeat="plan in plans" ng-value="plan.plan_code" ng-model="user.recurlyPlanId">
+        <span style="text-transform: capitalize;">{{plan.plan_code}}</span>
+        <span>${{plan.unit_amount_in_cents.USD._ / 100}}/{{plan.plan_interval_unit}}</span>
       </ion-radio>
 
       <!-- <a class="item item-icon-left item-icon-right" href="javascript:">
