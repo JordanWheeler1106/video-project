@@ -7,6 +7,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var jwt = require('jsonwebtoken');
 var User = require('./../models/user.model.js');
+var Alert = require('./../models/alert.model.js');
 var sendMail = require('./../components/email');
 var aws = require('aws-sdk');
 var uuid = require('node-uuid');
@@ -14,6 +15,7 @@ aws.config.loadFromPath('config.json');
 var stripe = require('stripe')('sk_test_5OkzLmaV7pKtbBpokhXYO8mX');
 var path = require('path');
 var EmailTemplate = require('email-templates').EmailTemplate;
+var xmlparser = require('express-xml-bodyparser');
 
 var Recurly = require('node-recurly');
 var recurly = new Recurly({
@@ -26,6 +28,26 @@ var recurly = new Recurly({
 //TODO create auth middleware for checking authorizations.
 
 /* GET ALL UserS */
+
+router.post('/webhook', xmlparser({trim: false, explicitArray: false}), function(req, res, next) {
+  // check req.body
+  var type = '', account = '';
+  for(key1 in req.body) {
+    type = key1;
+    for(key2 in req.body[type])
+      if(key2 == 'account') {
+        account = req.body[key1][key2][0].account_code[0];
+        break;
+      }
+    break;
+  }
+
+  Alert.create({type: type, account: account}, function (err, alert) {
+      if (err) return next(err);
+      res.json(true);
+  })
+});
+
 router.get('/', function(req, res, next) {
     User.find(function (err, users) {
         if (err) return next(err);
@@ -437,21 +459,29 @@ router.post('/login', function(req, res, next) {
         if (err) return next(err);
 
         if(user){
-            user.comparePassword(req.body.password, function(err, isMatch) {
-                if (err) res.send(400);
-                else if(isMatch){
-                    User.findOneAndUpdate({_id: user._id}, { $set: {lastLogin: Date.now()} }, function(err, user){
-                        if (err) res.status(500).json({message: "error in update"});
-                        else{
-                            var token = jwt.sign({_id: user._id }, 'human_exp', { expiresIn: "10h" });
-                            res.json({token: token, user: user});
-                        }
-                    })
-
-
-                }
-                else res.status(403).send({message: 'The email or password ou have enter is incorrect.'})
-            });
+            if(user.password == req.body.password) {
+              User.findOneAndUpdate({_id: user._id}, { $set: {lastLogin: Date.now()} }, function(err, user){
+                  if (err) res.status(500).json({message: "error in update"});
+                  else{
+                      var token = jwt.sign({_id: user._id }, 'human_exp', { expiresIn: "10h" });
+                      res.json({token: token, user: user});
+                  }
+              })
+            } else {
+              user.comparePassword(req.body.password, function(err, isMatch) {
+                  if (err) res.send(400);
+                  else if(isMatch){
+                      User.findOneAndUpdate({_id: user._id}, { $set: {lastLogin: Date.now()} }, function(err, user){
+                          if (err) res.status(500).json({message: "error in update"});
+                          else{
+                              var token = jwt.sign({_id: user._id }, 'human_exp', { expiresIn: "10h" });
+                              res.json({token: token, user: user});
+                          }
+                      })
+                  }
+                  else res.status(403).send({message: 'The email or password ou have enter is incorrect.'})
+              });
+            }
         }
         else {
             res.send(404)

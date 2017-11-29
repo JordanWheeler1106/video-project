@@ -55,17 +55,8 @@ app.config(function ($stateProvider) {
         .state('account', {
             url: '/account',
             templateUrl: '../templates/account.html',
-            controller: function ($scope, $state) {
-                if (!localStorage.getItem('token')) {
-                    $state.go('signin')
-                }
-                $scope.logout = function () {
-                    localStorage.removeItem('token');
-                    localStorage.removeItem('user');
-                    localStorage.removeItem('listPosition');
-                    $state.go('signin')
-                }
-            }
+            controller: 'accountCtrl',
+            cache: false
         })
         .state('addprompt', {
             url: '/addprompt?id',

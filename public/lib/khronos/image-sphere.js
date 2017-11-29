@@ -502,6 +502,7 @@ function computeSelection(si, mousePosition, mouseGridPosition) {
 
   var sx = -1;
   var sy = -1;
+
   if (selection) {
     sy = -selection.y + 0.5 - g_scrollY;
     sy = tdl.math.modClamp(Math.floor(sy), g_imagesDownGrid);
@@ -866,6 +867,7 @@ function initialize() {
                  (si.gridYOff + yy + si.yOff) * -si.unit.height,
                  0]));
         fast.matrix4.mul(worldViewProjection, world, g_viewProjection);
+
         colorMult[0] = 1 + ((sel.x == texColIndex && sel.y == texRowIndex) ? g.globals.selectionIntensity : 0);
         colorMult[1] = 1;
         colorMult[2] = 1;

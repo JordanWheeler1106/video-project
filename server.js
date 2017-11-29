@@ -4,7 +4,8 @@
 
 var express = require('express');
 var app = express();
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
+var xmlparser = require('express-xml-bodyparser');
 var mongoose = require('mongoose');
 
 //mongoose.connect('mongodb://localhost/human-experience')
@@ -20,8 +21,10 @@ mongoose.connect('mongodb://admin:root@ds151163.mlab.com:51163/thehumexpdevelop'
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({limit: '10mb', extended: false }));
 app.use(bodyParser.json({limit: '10mb'}));
+app.use(xmlparser());
 
 //REST Api.
+app.use('/api/alerts', require('./server/routes/alerts'));
 app.use('/api/users', require('./server/routes/users'));
 app.use('/api/nuggets', require('./server/routes/nuggets'));
 app.use('/api/folders', require('./server/routes/folders'));

@@ -358,18 +358,6 @@
             </li>
         </ul>
 
-        <!-- <div class="quotes-list">
-
-          <div class="item item-input" ng-repeat="prompt in prompts | orderBy: 'order'" style="height:auto;">
-            <div class="col-90">
-              <div ng-bind-html="prompt.validatedString"></div>
-            </div>
-            <div class="col-10">
-              <i class="fa fa-remove" ng-click="removePrompt(prompt._id);"></i>
-              <i class="fa fa-pencil" ng-click="editPrompt(prompt);"></i>
-            </div>
-          </div>
-        </div> -->
       </div>
 
       <div class="col firstRow" ng-show="promptView=='edit'">
@@ -419,30 +407,6 @@
     </div>
 
     <div class="row listItemsArea">
-      <div class="col col-50 firstRow">
-        <div class="row">
-          <h4 style="text-align:center; width:100%;">{{template.folders[0].name}}</h4>
-        </div>
-        <div class="row">
-          <div class="col col-30">&nbsp;</div>
-          <div class="col col-40" style="height: 58px;">&nbsp;
-          </div>
-          <div class="col col-30">&nbsp;</div>
-        </div>
-        <table class="table adminTemplateList">
-          <tbody>
-          <tr ng-repeat="folder in template.folders">
-            <td ng-class="'padding'+folder.level">
-              <label class="folderInput item item-input">
-                <i class="icon placeholder-icon" ng-class="folder.type=='nugget'?'ion-4':'ion-'+folder.level"></i>
-                <input type="text" ng-class="{'selected': folder==selectedFolder, 'linked': template.linkedItems.indexOf(folder._id)>-1}" placeholder="{{levelPlaceHolder[folder.level]}}" ng-model="folder.name" readonly>
-              </label>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-
       <div class="col col-50">
         <div class="row">
           <h4 style="text-align:center; width:100%;">{{linkTemplate.folders[0].name}}</h4>
@@ -472,6 +436,30 @@
             </td>
             <td style="width:30px;">
               <span ng-show="folder.level > 0 && selectedFolder.type==folder.type && selectedFolder.level==folder.level" ng-click="linkWindow(folder);">L</span>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="col col-50 firstRow">
+        <div class="row">
+          <h4 style="text-align:center; width:100%;">{{template.folders[0].name}}</h4>
+        </div>
+        <div class="row">
+          <div class="col col-30">&nbsp;</div>
+          <div class="col col-40" style="height: 58px;">&nbsp;
+          </div>
+          <div class="col col-30">&nbsp;</div>
+        </div>
+        <table class="table adminTemplateList">
+          <tbody>
+          <tr ng-repeat="folder in template.folders">
+            <td ng-class="'padding'+folder.level">
+              <label class="folderInput item item-input">
+                <i class="icon placeholder-icon" ng-class="folder.type=='nugget'?'ion-4':'ion-'+folder.level"></i>
+                <input type="text" ng-class="{'selected': folder==selectedFolder, 'linked': template.linkedItems.indexOf(folder._id)>-1}" placeholder="{{levelPlaceHolder[folder.level]}}" ng-model="folder.name" readonly>
+              </label>
             </td>
           </tr>
           </tbody>

@@ -3654,6 +3654,19 @@ em {
 	z-index: 10;
 }
 
+.alert-popup {
+	top: 70px;
+	right: -300px;
+	position: absolute;
+	box-shadow: 0 0 4px 0 #cccccc;
+	background-color: white;
+	overflow: auto;
+	z-index: 10;
+	height:150px;
+	width:300px;
+}
+
+.alert-popup .closeIcon,
 .window-outline .closeIcon {
 	position: absolute;
 	right: 10px;
@@ -3992,4 +4005,49 @@ button.blue-button {
 
 input[disabled], select[disabled], textarea[disabled], input[readonly]:not(.cloned-text-input), textarea[readonly]:not(.cloned-text-input), select[readonly] {
 	background: transparent;
+}
+
+.noChild {
+	color: red !important;
+}
+
+.listViewTable th {
+	text-align:left;
+	font-size: 20px;
+	border-bottom: 1px solid #626342;
+}
+
+.listViewTable .tableLinks {
+	border: none;
+	padding-bottom: 15px;
+	width: auto;
+}
+
+.listViewTable .tableLinks span {
+	padding: 0px;
+}
+
+.listViewTable i {
+	cursor: pointer;
+}
+
+.listViewTable td span.linkBtn {
+	text-align: center;
+	padding: 2px 5px;
+	border: 1px solid #267abe;
+	cursor: pointer;
+	color: #267abe;
+	font-size: 12px;
+}
+.alertList td {
+	padding:5px 10px;
+	border-bottom: 1px solid #ccc;
+}
+.alertList td i {
+	font-size: 14px;
+	color: red;
+}
+.alertList td span {
+	font-size: 14px;
+	padding: 5px 10px;
 }

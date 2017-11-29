@@ -1,37 +1,82 @@
+<br>
+<div class="list tag-search-wrapper">
+  <label class="item item-input search-item">
+    <input type="text" placeholder="Search" ng-model="searchItem">
+    <i class="fa fa-search placeholder-icon"></i>
+  </label>
+</div>
+
 <div class="leftBox">
-  <div class="tableLinks" compile="listPosition.strPath">
-  </div>
-  <table class="table">
+  <table class="table listViewTable">
+    <thead>
+      <tr>
+        <th colspan="4">
+          <div>
+            <div class="tableLinks" compile="listPosition.strPath">
+            </div>
+            &nbsp;<i class="nameSort fa fa-caret-down" ng-click="listSort('name')"></i>
+          </div>
+        </th>
+        <th>Topic&nbsp; <i class="topicSort fa fa-caret-down" ng-click="listSort('topic')"></i></th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
     <tbody>
-    <tr ng-repeat="folder in currentFolders">
+    <tr ng-repeat="folder in currentFolders | filter: searchItem">
       <!-- <td>
         <label class="checkbox">
          <input type="checkbox" ng-click="toggleSelection(folder, 'folder')" ng-checked="checkTemplateItem(folder, 'folder') > -1">
         </label>
       </td> -->
-      <td ng-click="clickFolder($event, folder)" style="cursor:pointer;"><i class="fa fa-folder-o" style="font-size: 20px"></i></td>
+      <!-- <td ng-click="clickFolder($event, folder)" style="cursor:pointer;">&nbsp;</td> -->
+      <!-- <i class="fa fa-folder-o" style="font-size: 20px"></i> -->
       <td ng-click="clickFolder($event, folder)" style="cursor:pointer;">{{folder.name}}</td>
-      <td ng-click="showWindow($event, folder)"><label class="level">({{level[folder.strPath.split("/").length - 1]}})</label></td>
+      <td ng-click="showWindow($event, folder)"><label class="level" ng-class="{'noChild': hasNoChild(folder)}">({{level[folder.strPath.split("/").length - 1]}})</label></td>
+      <td><span ng-show="hasNoChild(folder)"><i class="fa fa-long-arrow-right"></i></span></td>
       <td ng-click="showWindowOutline($event, folder)"><label class="level" style="cursor:pointer;">Outline</label></td>
-      <td>Last worked on {{folder.updatedAt | date: 'MM/dd/yyyy'}}</td>
+      <!-- <td>Last worked on {{folder.updatedAt | date: 'MM/dd/yyyy'}}</td> -->
+      <td>{{folder.topic?folder.topic.name:"Other"}}</td>
+      <td style="width:30px;">
+        <span class="linkBtn" ng-click="openAddPromptFromList(folder);" ng-show="hasPrompt(folder);">Pr</span>
+        <!-- <span ng-hide="folder.level==4 || folder.type=='nugget'" ng-click="openAddPrompt(folder);">Pr</span>
+        <span ng-show="folder.type=='nugget'" ng-click="openAddNugget(folder);">E</span> -->
+      </td>
+      <td style="width:30px;">
+        <span class="linkBtn" ng-click="openAddNoteFromList(folder);" ng-show="hasNote(folder);">Nt</span>
+        <!-- <span ng-hide="folder.level==4 || folder.type=='nugget'" ng-click="openAddPrompt(folder);">Pr</span>
+        <span ng-show="folder.type=='nugget'" ng-click="openAddNugget(folder);">E</span> -->
+      </td>
 
       <!-- <td>
         <i class="ion-ios-gear-outline settingIcon" ng-click="openSettingPopover($event, )"></i>
         <i class="ion-ios-close-outline" ng-click="deleteFolderNugget($index, 'folder')"></i>
       </td> -->
     </tr>
-    <tr ng-repeat="nugget in currentNuggets">
+    <tr ng-repeat="nugget in currentNuggets | filter: searchItem">
       <!-- <td>
         <label class="checkbox">
          <input type="checkbox" ng-click="toggleSelection(nugget, 'nugget')" ng-checked="checkTemplateItem(nugget, 'nugget') > -1">
         </label>
       </td> -->
-      <td ng-click="clickNugget($event, nugget)" style="cursor:pointer;"><i class="fa fa-file-text-o" style="font-size: 20px"></i></td>
+      <!-- <td ng-click="clickNugget($event, nugget)" style="cursor:pointer;">&nbsp;</td> -->
+      <!-- <i class="fa fa-file-text-o" style="font-size: 20px"></i> -->
       <td ng-click="clickNugget($event, nugget)" style="cursor:pointer;">{{nugget.name}}</td>
       <td></td>
       <td></td>
+      <td></td>
       <!-- <td>Last worked on {{nugget.updatedAt.split("T")[0]}}</td> -->
-      <td>Last worked on {{nugget.updatedAt | date: 'MM/dd/yyyy'}}</td>
+      <!-- <td>Last worked on {{nugget.updatedAt | date: 'MM/dd/yyyy'}}</td> -->
+      <td></td>
+      <td style="width:30px;">
+        <span class="linkBtn" ng-click="openAddPromptFromList(folder);" ng-show="hasPrompt(nugget);">Pr</span>
+        <!-- <span ng-hide="folder.level==4 || folder.type=='nugget'" ng-click="openAddPrompt(folder);">Pr</span>
+        <span ng-show="folder.type=='nugget'" ng-click="openAddNugget(folder);">E</span> -->
+      </td>
+      <td style="width:30px;">
+        <span class="linkBtn" ng-click="openAddNoteFromList(folder);" ng-show="hasNote(nugget);">Nt</span>
+        <!-- <span ng-hide="folder.level==4 || folder.type=='nugget'" ng-click="openAddPrompt(folder);">Pr</span>
+        <span ng-show="folder.type=='nugget'" ng-click="openAddNugget(folder);">E</span> -->
+      </td>
       <!-- <td>
         <i class="ion-ios-gear-outline settingIcon" ng-click="openSettingPopover($event, $index, 'nugget')"></i>
         <i class="ion-ios-close-outline" ng-click="deleteFolderNugget($index, 'nugget')"></i>

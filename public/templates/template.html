@@ -11,7 +11,13 @@
       <div class="row">
         <div class="col col-30">&nbsp;</div>
         <div class="col col-40">
-          <label class="item item-input item-select item-light">
+          <label class="item item-input template-tag" ng-click="clickChangeTopic()">
+            <ion-select class="template-tag-selection">
+              <ion-option ng-show="!topic.name">Select Topic</ion-option>
+              <ion-option ng-show="topic.name">{{topic.name}}</ion-option>
+            </ion-select>
+          </label>
+          <!-- <label class="item item-input item-select item-light">
             <div class = "input-label">
               Select
             </div>
@@ -19,7 +25,7 @@
               <option value="" disabled selected>Topic</option>
               <option ng-repeat="topic in topics" value="{{topic._id}}">{{topic.name}}</option>
             </select>
-          </label>
+          </label> -->
         </div>
         <div class="col col-30">&nbsp;</div>
       </div>
@@ -74,6 +80,12 @@
             <td style="width:50px;">
               <i ng-hide="folder.parentId=='root' || template.folders.indexOf(folder) >= template.folders.length - 1" class="ion-arrow-down-c" ng-click="moveDownFolder(folder);"></i>
             </td> -->
+            <td style="width:30px;" ng-show="!template.userId || user._id==template.userId._id">
+              <!-- <span ng-click="openAddPrompt(folder);">Pr</span> -->
+              <span ng-click="openAddPrompt(folder);">Pr</span>
+              <!-- <span ng-hide="folder.level==4 || folder.type=='nugget'" ng-click="openAddPrompt(folder);">Pr</span>
+              <span ng-show="folder.type=='nugget'" ng-click="openAddNugget(folder);">E</span> -->
+            </td>
             <td style="width:30px;" ng-show="!template.userId || user._id==template.userId._id">
               <!-- <span ng-click="openAddPrompt(folder);">Pr</span> -->
               <span ng-click="openAddNote(folder);">Nt</span>

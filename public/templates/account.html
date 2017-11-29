@@ -16,7 +16,7 @@
           </div>
           <!-- <a href="javascript:" class="my-account-link">Upgrade Now</a> -->
           <a href="https://the-human-experience.helpshift.com/a/the/" target="_blank" class="my-account-link myaccount">Help</a>
-          <a ui-sref="account.profile" class="my-account-link myaccount">My Account</a>
+          <a ui-sref="account.profile" class="my-account-link myaccount" style="color:#EDAD1C;">My Account</a>&nbsp;<i class="active fa fa-exclamation-triangle" ng-show="alerts.length > 0" ng-click="showAlertPopup();" style="cursor:pointer;"></i>
           <a ng-click="logout()" class="my-account-link logout">Logout</a>
         </div>
         <button type="button" ng-show="!toggleMenu" class="menuBtn" ng-click="toggleMenu = true">Menu</button>
@@ -53,5 +53,17 @@
       </div>
     </div>
     <ui-view></ui-view>
+    <div class="alert-popup">
+      <span class="closeIcon" ng-click="closeAlertPopup()"><i class="ion-android-close"></i></span>
+      <table class="table alertList" style="margin-top:20px;">
+        <tbody>
+        <tr ng-repeat="alert in alerts">
+          <td>
+            <span>{{humanize(alert.type)}}&nbsp;&nbsp;&nbsp;<i class="fa fa-trash-o" ng-click="removeAlert(alert);"></i></span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </ion-content>
 </ion-pane>

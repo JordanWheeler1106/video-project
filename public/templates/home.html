@@ -12,12 +12,12 @@
           <div class="list list-inset search-item">
             <label class="item item-input">
               <i class="fa fa-search placeholder-icon"></i>
-              <input type="text" placeholder="Search" ng-model="filter.search" ng-keypress="($event.which===13) && searchNuggets()">
+              <input type="text" placeholder="Search" ng-model="filter.search" ng-keypress="($event.which===13) && searchNuggets()" style="color:white;">
             </label>
           </div>
           <!-- <a href="javascript:" class="my-account-link">Upgrade Now</a> -->
           <a href="https://the-human-experience.helpshift.com/a/the/" target="_blank" class="my-account-link myaccount">Help</a>
-          <a ui-sref="account.profile" class="my-account-link myaccount">My Account</a>
+          <a ui-sref="account.profile" class="my-account-link myaccount">My Account</a>&nbsp;<i class="active fa fa-exclamation-triangle" ng-show="alerts.length > 0" ng-click="showAlertPopup();" style="cursor:pointer;"></i>
           <a ng-click="logout()" class="my-account-link logout">Logout</a>
           <!-- <button class="button button-positive" ng-click="logout()">Logout</button> -->
           <!--<h6>Share Your Story</h6>-->
@@ -36,7 +36,7 @@
         <a ui-sref="VitalInfo" class="full-information vital">Vital Information</a>
         <a ui-sref="Window" class="full-information vital">Window Library</a>
         <a href="https://the-human-experience.helpshift.com/a/the/" target="_blank" class="full-information vital">Help</a>
-        <a ui-sref="account.profile" class="full-information vital">My Account</a>
+        <a ui-sref="account.profile" class="full-information vital">My Account&nbsp;<i class="fa fa-exclamation-triangle"></i></a>
         <div class="list list-inset">
           <label class="item item-input">
             <i class="icon ion-search placeholder-icon"></i>
@@ -149,14 +149,10 @@
         <div class="rightContent">
           <div class="list">
             <a class="item item-icon-right header" ng-click="showButtons=!showButtons" ng-init="showButtons=false">
-              <!-- <i ng-class="showButtons?'ion-minus':'ion-plus'"></i> -->
-              <!-- <span class="firstName">{{user.lastLogin?"":"Welcome back, " + user.firstName + "."}}</span> -->
               <span class="firstName"></span>
             </a>
           </div>
           <div class="list">
-             <!-- ng-show="showButtons" -->
-
             <a class="item item-icon-left listFirst" ng-click="clickNugget($event)">
               <i class="ion-ios-plus-outline"></i>
               Start a new nugget
@@ -166,19 +162,7 @@
               <i class="ion-ios-plus-outline"></i>
               Create a Window
             </a>
-
-            <!-- <a class="item item-icon-left listFirst toggleTemplateView" ng-click="clickHomeView('template')">
-              <i class="ion-ios-plus-outline"></i>
-              Create a Template
-            </a> -->
-
-            <!-- <a class="item item-icon-left listFirst" ng-click="">
-              <i class="ion-ios-plus-outline"></i>
-              Upload a nugget
-            </a> -->
-
           </div>
-
           <div class="list">
             <a class="item item-icon-right header" ng-click="showRecent=!showRecent" ng-init="showRecent=false">
               <i ng-class="showRecent?'ion-minus':'ion-plus'"></i>
@@ -193,18 +177,29 @@
               [{{nugget.name}}]
             </a>
 
+          </div> <br>
+
+          <div class="list" ng-show="toggleView == 'template'" style="padding:10px 15px;">
+            <span class="firstName">Create Topic</span><br>
+            <label class="item item-input">
+              <input type="text" placeholder="Enter Topic" name="name" ng-model="topic.name" ng-readonly="topic.name=='Unassigned'">
+            </label><br>
+            <span class="firstName" style="border:none;">Select Color</span>
+            <color-picker ng-model="topic.color"></color-picker>
+            <div class="row">
+              <div class="template-button-wrapper">
+                <!-- <button type="button" class="cancel-btn" ng-click="cancelTopic()">Cancel</button> -->
+                <button type="button" class="save-btn" ng-click="addTopic()">Submit</button>
+              </div>
+            </div>
           </div>
+
 
           <div class="window-outline" style="display:none;">
             <span class="closeIcon" ng-click="closeWindowOutline()"><i class="ion-android-close"></i></span>
             <table class="table adminTemplateList" style="margin-top:20px;">
               <tbody>
               <tr ng-repeat="folder in selectedFolderOutline">
-                <!-- <td style="width:50px;">
-                  <label class="checkbox">
-                    <input type="checkbox" ng-click="chooseFolder(folder);" ng-checked="selectedFolder==folder">
-                  </label>
-                </td> -->
                 <td ng-class="'padding'+folder.level">
                   <label class="folderInput item item-input">
                     <i class="icon placeholder-icon" ng-class="folder.type=='nugget'?'ion-4':'ion-'+folder.level"></i>
@@ -216,37 +211,20 @@
             </table>
           </div>
 
-          <!-- <div class="list">
-            <a class="item item-icon-right header">
-              <i ng-class="showMyTemplate?'ion-minus':'ion-plus'" ng-click="showMyTemplate=!showMyTemplate" ng-init="showMyTemplate=false"></i>
-              <span class="firstName">My Template</span>
-            </a>
-          </div>
-
-          <div class="list" ng-show="showMyTemplate">
-            <a class="item item-icon-right" ng-repeat="tmp in myTemplates" style="cursor:pointer;">
-              <span ng-click="clickTemplate(tmp)">{{tmp.name}}</span>
-              <i ng-show="tmp.status=='pending'" title="Template is pending" class="fa fa-pencil-square-o" style="font-size: 20px" ng-click="clickSubmitTemplate(tmp)"></i>
-              <i ng-show="tmp.status=='submit'" title="Waiting for approval" class="fa fa-clock-o" style="font-size: 20px"></i>
-              <i ng-show="tmp.status=='approved'" class="fa fa-thumbs-o-up" style="font-size: 20px"></i>
-            </a>
-          </div> -->
-
-          <!-- <div class="list">
-            <a class="item item-icon-right header" ng-click="showTemplateStore=!showTemplateStore" ng-init="showTemplateStore=false">
-              <i ng-class="showTemplateStore?'ion-minus':'ion-plus'"></i>
-              <span class="firstName">Window Library</span>
-            </a>
-          </div>
-
-          <div class="list" ng-show="showTemplateStore">
-            <a class="item item-icon-right" ng-repeat="tmp in storeTemplates" style="cursor:pointer;">
-              <span ng-click="clickTemplate(tmp)">{{tmp.name}}</span>
-              <i class="fa fa-plus-square-o" style="font-size: 20px" ng-click="clickAddTemplate(tmp)"></i>
-            </a>
-          </div> -->
         </div>
       </div>
+    </div>
+    <div class="alert-popup">
+      <span class="closeIcon" ng-click="closeAlertPopup()"><i class="ion-android-close"></i></span>
+      <table class="table alertList" style="margin-top:20px;">
+        <tbody>
+        <tr ng-repeat="alert in alerts">
+          <td>
+            <span>{{humanize(alert.type)}}&nbsp;&nbsp;&nbsp;<i class="fa fa-trash-o" ng-click="removeAlert(alert);"></i></span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
     </div>
   </ion-content>
 </ion-pane>
