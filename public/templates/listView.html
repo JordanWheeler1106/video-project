@@ -63,7 +63,9 @@
       <td ng-click="clickNugget($event, nugget)" style="cursor:pointer;">{{nugget.name}}</td>
       <td></td>
       <td></td>
-      <td></td>
+      <td>
+        <i ng-show="nugget.voice" class="fa fa-play-circle" ng-click="playAudio(nugget);"></i>
+      </td>
       <!-- <td>Last worked on {{nugget.updatedAt.split("T")[0]}}</td> -->
       <!-- <td>Last worked on {{nugget.updatedAt | date: 'MM/dd/yyyy'}}</td> -->
       <td></td>

@@ -1266,6 +1266,13 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
     $scope.notesFolderIds = [];
     $scope.notesFolderIds.push($scope.currentFolderId);
 
+    $scope.audioContext = new AudioContext();
+    $scope.audioInput = null,
+    $scope.realAudioInput = null,
+    $scope.inputPoint = null,
+    $scope.audioRecorder = null;
+    $scope.blobAudio = null;
+
     if(!localStorage.getItem('token')){
       $state.go('signin')
     }
@@ -1283,6 +1290,7 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
                 // Nothing
                 var voice =`<p>`+$scope.voiceText+`</p>`;
                 $('div#editor').froalaEditor('html.set', $('div#editor').froalaEditor('html.get')+voice);
+
             }else{
                 $scope.voiceText = text;
             }
@@ -1299,6 +1307,7 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
               debug: false, // Show messages in the console
               listen: true
           }).then(() => {
+              $scope.initAudio();
               console.log("Artyom has been succesfully initialized");
           }).catch((err) => {
               console.error("Artyom couldn't be initialized: ", err);
@@ -1306,6 +1315,7 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
         } else {
             if($scope.artyom) {
               $scope.artyom.fatality().then(() => {
+                  $scope.toggleRecording(true);
                   $scope.artyom = null;
                   console.log("Artyom succesfully stopped");
               });
@@ -1313,8 +1323,90 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
         }
       }
     });
+
+    $scope.doneEncoding = function(blob) {
+      $scope.blobAudio = blob;
+    }
+
+    $scope.gotBuffers = function(buffers) {
+        // console.log(buffers);
+        // $http.post('/api/users/uploadWav', buffers)
+        //     .then( function(res){
+        //       $ionicLoading.hide();
+        //       console.log(res);
+        //     })
+        //     .catch( function(err){
+        //       console.log("err", err);
+        //     })
+        $scope.audioRecorder.exportWAV($scope.doneEncoding);
+    }
+
+    $scope.toggleRecording = function(flag) {
+        if (!$scope.audioRecorder)
+            return;
+        if (flag) {
+            // stop recording
+            $scope.audioRecorder.stop();
+            $scope.audioRecorder.getBuffers($scope.gotBuffers);
+        } else {
+            // start recording
+            $scope.audioRecorder.clear();
+            $scope.audioRecorder.record();
+        }
+    }
+
+    $scope.gotStream = function(stream) {
+      $scope.inputPoint = $scope.audioContext.createGain();
+
+      // Create an AudioNode from the stream.
+      $scope.realAudioInput = $scope.audioContext.createMediaStreamSource(stream);
+      $scope.audioInput = $scope.realAudioInput;
+      $scope.audioInput.connect($scope.inputPoint);
+
+  //    audioInput = convertToMono( input );
+
+      analyserNode = $scope.audioContext.createAnalyser();
+      analyserNode.fftSize = 2048;
+      $scope.inputPoint.connect(analyserNode);
+
+      $scope.audioRecorder = new Recorder($scope.inputPoint);
+
+      zeroGain = $scope.audioContext.createGain();
+      zeroGain.gain.value = 0.0;
+      $scope.inputPoint.connect(zeroGain);
+      zeroGain.connect($scope.audioContext.destination);
+      $scope.toggleRecording(false);
+    }
+
+    $scope.initAudio = function() {
+      if (!navigator.getUserMedia)
+          navigator.getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+      if (!navigator.cancelAnimationFrame)
+          navigator.cancelAnimationFrame = navigator.webkitCancelAnimationFrame || navigator.mozCancelAnimationFrame;
+      if (!navigator.requestAnimationFrame)
+          navigator.requestAnimationFrame = navigator.webkitRequestAnimationFrame || navigator.mozRequestAnimationFrame;
+
+      navigator.getUserMedia(
+          {
+              "audio": {
+                  "mandatory": {
+                      "googEchoCancellation": "false",
+                      "googAutoGainControl": "false",
+                      "googNoiseSuppression": "false",
+                      "googHighpassFilter": "false"
+                  },
+                  "optional": []
+              },
+          }, $scope.gotStream, function(e) {
+              alert('Error getting audio');
+              console.log(e);
+          });
+    }
+
+
     $scope.filter ={red: false};
     $scope.nugget ={name: '', content: '', tags: [], parentId: $scope.currentFolderId};
+
     if(localStorage.getItem('selectedNugget')) {
       $scope.nugget = JSON.parse(localStorage.getItem('selectedNugget'));
       $scope.promptsFolderIds.push($scope.nugget._id);
@@ -1396,6 +1488,7 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
     });
     //popups.
     $scope.saveAndPublishPopup = function() {
+      $scope.toggleRecording(true);
       var myPopup = $ionicPopup.show({
         cssClass: 'savePublishPopup',
         templateUrl: '../templates/saveAndPublishPopup.html',
@@ -1466,8 +1559,7 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
             $http.put('/api/nuggets/'+$scope.nugget._id, $scope.nugget)
                 .then( function(res){
                   localStorage.removeItem('selectedNugget');
-                  $ionicLoading.hide();
-                  $state.go('home')
+                  $scope.saveAudio($scope.nugget, false);
                 })
                 .catch( function(err){
                   alert("something went wrong please try again.")
@@ -1477,8 +1569,7 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
             $http.post('/api/nuggets/', $scope.nugget)
                 .then( function(res){
                   localStorage.removeItem('selectedNugget');
-                  $ionicLoading.hide();
-                  $state.go('home')
+                  $scope.saveAudio(res.data, true);
                 })
                 .catch( function(err){
                   alert("something went wrong please try again.")
@@ -1488,9 +1579,62 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
         else{
           $state.go('signin')
         }
-
       };
     };
+
+    $scope.saveAudio = function(nugget, isNew) {
+      if($scope.blobAudio) {
+        AWS.config.update({ accessKeyId: 'AKIAJ7F6MIL3CLFPVMAQ', secretAccessKey: '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' });
+        AWS.config.region = 'us-east-1';
+        var s3 = new AWS.S3();
+        var params = {
+          Bucket: 'human-users',
+          Key: nugget._id + '.wav',
+          Body: $scope.blobAudio,
+          ContentType: 'audio/wav',
+          ACL: "public-read-write"
+        };
+        var uploader = s3.upload(params, {}, function (err, data) {
+          if (err) {
+            console.log('error: ' + err.message);
+          }
+          else {
+            console.log(data);
+            console.log('upload done');
+            var audioNugget = {
+              name: nugget.name + '-audio',
+              content: nugget.content,
+              author: nugget.author,
+              parentId: nugget.parentId,
+              voice: data.Location
+            }
+            if(isNew) {
+              $http.post('/api/nuggets/', audioNugget)
+                  .then( function(res){
+                    $ionicLoading.hide();
+                    $state.go('home')
+                  })
+                  .catch( function(err){
+                    alert("something went wrong please try again.")
+                  })
+            } else {
+                    $ionicLoading.hide();
+                    $state.go('home')
+              // $http.put('/api/nuggets/'+audioNugget._id, audioNugget)
+              //     .then( function(res){
+
+              //     })
+              //     .catch( function(err){
+              //       alert("something went wrong please try again.")
+              //     })
+            }
+          }
+        });
+      } else {
+        $ionicLoading.hide();
+        $state.go('home')
+      }
+    }
 
     $scope.showInitialImageUploadPopup = function() {
       var myPopup = $ionicPopup.show({
@@ -1557,6 +1701,13 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
 
     $scope.$on("$destroy", function() {
       console.log('destroy');
+      if($scope.artyom) {
+        $scope.artyom.fatality().then(() => {
+            // $scope.toggleRecording(true);
+            $scope.artyom = null;
+            console.log("Artyom succesfully stopped");
+        });
+      }
     });
 
 
@@ -1639,11 +1790,12 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
 
     $scope.getAlerts();
   })
-  .controller('homeCtrl', function($scope, $ionicPopover, $ionicPopup, $state, $http, $timeout, $ionicScrollDelegate, $ionicLoading, $stateParams, $rootScope){
+  .controller('homeCtrl', function($scope, $ionicPopover, $ionicPopup, $state, $http, $timeout, $ionicScrollDelegate, $ionicLoading, $stateParams, $rootScope, $sce){
     $scope.levelPlaceHolder = ["Window Name", "Purpose Name", "Chapter Name", "Section Name", "Nugget (name only)"]
     $scope.level = ["Window", "Purpose", "Chapter", "Section"]
     $scope.selectedFolder = {level: 0};
     $scope.toggleMenu = false;
+    $scope.selectedAudioNugget = null;
     $scope.currentFolders = [];
     $scope.userNuggets = [];
     $scope.currentNuggets = [];
@@ -1832,6 +1984,26 @@ var app = angular.module('starter', ['ionic', 'ngTagsInput', 'dndLists', 'mp.col
         frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1);
       }
       return frags.join(' ');
+    }
+
+    $scope.playAudio = function(nugget) {
+      $scope.selectedAudioNugget = nugget;
+      $scope.selectedAudioNugget.voiceUrl = $sce.trustAsResourceUrl($scope.selectedAudioNugget.voice);
+      // console.log($scope.selectedAudioNugget.voice);
+      var popup = $ionicPopup.show({
+        cssClass: 'invite-new-member-popup',
+        templateUrl: '../templates/playAudioPopup.html',
+        title: nugget.name,
+        scope: $scope
+      });
+
+      popup.then(function(res) {
+        console.log('Tapped!', res);
+      });
+
+      $scope.closePlayAudioPopup = function() {
+        popup.close();
+      };
     }
 
     $scope.getAlerts = function() {

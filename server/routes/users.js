@@ -373,6 +373,31 @@ router.post('/changePlan', function(req, res, next) {
     }
 })
 
+router.post('/uploadWav', function(req, res) {
+		var s3bucket = new aws.S3({
+			accessKeyId: "AKIAJ7F6MIL3CLFPVMAQ",
+    	secretAccessKey: "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",
+			region: 'us-east-1'
+		});
+    console.log(req.body);
+    var buf = new Buffer(req.body);
+
+		var params = {
+			Key: uuid.v1()+'.wav',
+			Body: buf,
+			Bucket: 'human-users',
+			ContentType: 'audio/wav',
+			ACL: 'public-read-write'
+		}
+		s3bucket.upload(params, function(err, result) {
+			if(err) {
+				res.send({result:false, error:'Wav uploading error', errorMessage: err});
+			} else {
+				res.send({result:true, url:result.Location});
+			}
+		})
+});
+
 router.post('/uploadPhoto', function(req, res) {
 		var s3bucket = new aws.S3({
 			accessKeyId: "AKIAJ7F6MIL3CLFPVMAQ",

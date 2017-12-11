@@ -27,7 +27,7 @@ var nuggetSchema = new Schema({
     },
     images: [String],
     videos: [String],
-    voice: [String],
+    voice: String,
     createdAt: {
         type: Date,
         default: Date.now

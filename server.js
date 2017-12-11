@@ -19,8 +19,8 @@ mongoose.connect('mongodb://admin:root@ds151163.mlab.com:51163/thehumexpdevelop'
 
 //serve static files.
 app.use(express.static(__dirname + '/public'));
-app.use(bodyParser.urlencoded({limit: '10mb', extended: false }));
-app.use(bodyParser.json({limit: '10mb'}));
+app.use(bodyParser.urlencoded({limit: '100mb', extended: false }));
+app.use(bodyParser.json({limit: '100mb'}));
 app.use(xmlparser());
 
 //REST Api.
