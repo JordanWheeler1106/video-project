@@ -11,7 +11,7 @@
     "email-templates": "^3.0.8",
     "express": "~4.0.0",
     "jsonwebtoken": "^7.4.1",
-    "mongoose": "^4.10.4",
+    "mongoose": "^5.8.1",
     "node-recurly": "git+https://github.com/cgerrior/node-recurly.git",
     "node-uuid": "^1.4.8",
     "nodemailer": "^4.0.1",
