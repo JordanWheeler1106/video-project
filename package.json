@@ -9,7 +9,7 @@
     "body-parser": "^1.17.2",
     "ejs": "~3.0.1",
     "email-templates": "^3.0.8",
-    "express": "~4.0.0",
+    "express": "~4.17.1",
     "jsonwebtoken": "^7.4.1",
     "mongoose": "^5.8.1",
     "node-recurly": "git+https://github.com/cgerrior/node-recurly.git",
