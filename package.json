@@ -5,7 +5,7 @@
   "main": "server.js",
   "dependencies": {
     "aws-sdk": "^2.75.0",
-    "bcrypt": "^1.0.2",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.17.2",
     "ejs": "~3.0.1",
     "email-templates": "^3.0.8",
